@@ -6,6 +6,7 @@ RUN apk -U upgrade \
 WORKDIR /app
 
 COPY server/package.json server/package-lock.json server/requirements.txt ./
+COPY server/setup-python.js ./
 
 RUN npm install npm --global \
   && npm install --omit=dev
@@ -30,7 +31,8 @@ RUN apk -U upgrade \
 USER node
 WORKDIR /app
 
-COPY --chown=node:node server .
+COPY --chown=node:node server ./
+COPY --from=server-dependencies --chown=node:node /app/setup-python.js ./
 
 RUN python3 -m venv .venv \
   && .venv/bin/pip install -r requirements.txt --no-cache-dir \

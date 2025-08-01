@@ -14,4 +14,4 @@ Este é um build personalizado do Planka criado localmente.
 3. Deploy com docker-compose
 
 ## Build Date
-2025-08-01 22:20:11
+2025-08-01 22:39:54
