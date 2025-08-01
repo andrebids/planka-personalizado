@@ -1,0 +1,150 @@
+[
+  {
+    "id": 1,
+    "data_hora": "2025-08-01 11:52:50",
+    "tipo": "Build Completo",
+    "status": "✅ Sucesso",
+    "duracao": "0 min 28 seg",
+    "detalhes": "Cliente + Servidor + Dependências",
+    "logs": [
+      "🚀 Iniciando build completo do Planka...",
+      "✅ Ambiente configurado",
+      "✅ Código fonte validado",
+      "✅ Dependências instaladas",
+      "✅ Build do cliente concluído",
+      "✅ Build do servidor concluído",
+      "🎉 Build completo concluído com sucesso!",
+      "📊 Resumo do Build:\n\nenvironment_check: ✅ Sucesso\nclient_build: ✅ Sucesso\nserver_build: ✅ Sucesso\ndocker_build: ⏳ Não executado\ndocker_test: ⏳ Não executado\n"
+    ]
+  },
+  {
+    "id": 2,
+    "data_hora": "2025-08-01 12:53:01",
+    "tipo": "Envio GitHub",
+    "status": "❌ Erro",
+    "duracao": "0 min 9 seg",
+    "detalhes": "Erro Git: To https://github.com/andrebids/planka-personalizado.git\n ! [remote rejected]   main -> main (refusing to allow a Personal Access Token to create or update workflow `.github/workflows/build-and-publish-release-package.yml` without `workflow` scope)\nerror: failed to push some refs to 'https://github.com/andrebids/planka-personalizado.git'\n",
+    "logs": [
+      "📤 Iniciando envio do código fonte para GitHub...",
+      "✅ Repositório já existe!",
+      "📁 Arquivo .dockerignore criado",
+      "📝 README personalizado criado",
+      "✅ Repositório Git já configurado corretamente",
+      "📦 Adicionando arquivos ao Git...",
+      "💾 Fazendo commit...",
+      "🚀 Enviando para GitHub...",
+      "❌ Erro no Git: To https://github.com/andrebids/planka-personalizado.git\n ! [remote rejected]   main -> main (refusing to allow a Personal Access Token to create or update workflow `.github/workflows/build-and-publish-release-package.yml` without `workflow` scope)\nerror: failed to push some refs to 'https://github.com/andrebids/planka-personalizado.git'\n"
+    ]
+  },
+  {
+    "id": 3,
+    "data_hora": "2025-08-01 12:54:23",
+    "tipo": "Envio GitHub",
+    "status": "✅ Sucesso",
+    "duracao": "0 min 9 seg",
+    "detalhes": "Repositório: andrebids/planka-personalizado",
+    "logs": [
+      "📤 Iniciando envio do código fonte para GitHub...",
+      "✅ Repositório já existe!",
+      "📁 Arquivo .dockerignore criado",
+      "📝 README personalizado criado",
+      "🔄 Atualizando remote origin para https://github.com/andrebids/planka-personalizado.git",
+      "📦 Adicionando arquivos ao Git...",
+      "💾 Fazendo commit...",
+      "🚀 Enviando para GitHub...",
+      "✅ Código fonte enviado para GitHub com sucesso!",
+      "🔗 Repositório: https://github.com/andrebids/planka-personalizado",
+      "🎯 Próximo passo: Conectar ao servidor e fazer build Docker"
+    ]
+  },
+  {
+    "id": 4,
+    "data_hora": "2025-08-01 16:00:30",
+    "tipo": "Build Completo",
+    "status": "❌ Erro",
+    "duracao": "0 min 11 seg",
+    "detalhes": "Falha em uma ou mais etapas",
+    "logs": [
+      "🚀 Iniciando build completo do Planka...",
+      "✅ Ambiente configurado",
+      "✅ Código fonte validado",
+      "❌ Falha na instalação de dependências",
+      "✅ Build do cliente concluído",
+      "✅ Build do servidor concluído",
+      "❌ Build completo falhou"
+    ]
+  },
+  {
+    "id": 5,
+    "data_hora": "2025-08-01 20:10:20",
+    "tipo": "Build Completo",
+    "status": "✅ Sucesso",
+    "duracao": "0 min 26 seg",
+    "detalhes": "Cliente + Servidor + Dependências",
+    "logs": [
+      "🚀 Iniciando build completo do Planka...",
+      "✅ Ambiente configurado",
+      "✅ Código fonte validado",
+      "✅ Dependências instaladas",
+      "✅ Build do cliente concluído",
+      "✅ Build do servidor concluído",
+      "🎉 Build completo concluído com sucesso!",
+      "📊 Resumo do Build:\n\nenvironment_check: ✅ Sucesso\nclient_build: ✅ Sucesso\nserver_build: ✅ Sucesso\ndocker_build: ⏳ Não executado\ndocker_test: ⏳ Não executado\n"
+    ]
+  },
+  {
+    "id": 6,
+    "data_hora": "2025-08-01 21:47:40",
+    "tipo": "Build Completo",
+    "status": "✅ Sucesso",
+    "duracao": "0 min 33 seg",
+    "detalhes": "Cliente + Servidor + Dependências",
+    "logs": [
+      "🚀 Iniciando build completo do Planka...",
+      "✅ Ambiente configurado",
+      "✅ Código fonte validado",
+      "✅ Dependências instaladas",
+      "✅ Build do cliente concluído",
+      "✅ Build do servidor concluído",
+      "🎉 Build completo concluído com sucesso!",
+      "📊 Resumo do Build:\n\nenvironment_check: ✅ Sucesso\nclient_build: ✅ Sucesso\nserver_build: ✅ Sucesso\ndocker_build: ⏳ Não executado\ndocker_test: ⏳ Não executado\n"
+    ]
+  },
+  {
+    "id": 7,
+    "data_hora": "2025-08-01 21:56:07",
+    "tipo": "Build Completo",
+    "status": "✅ Sucesso",
+    "duracao": "0 min 38 seg",
+    "detalhes": "Cliente + Servidor + Dependências",
+    "logs": [
+      "🚀 Iniciando build completo do Planka...",
+      "✅ Ambiente configurado",
+      "✅ Código fonte validado",
+      "✅ Dependências instaladas",
+      "✅ Build do cliente concluído",
+      "✅ Build do servidor concluído",
+      "🎉 Build completo concluído com sucesso!",
+      "📊 Resumo do Build:\n\nenvironment_check: ✅ Sucesso\nclient_build: ✅ Sucesso\nserver_build: ✅ Sucesso\ndocker_build: ⏳ Não executado\ndocker_test: ⏳ Não executado\n"
+    ]
+  },
+  {
+    "id": 8,
+    "data_hora": "2025-08-01 21:56:27",
+    "tipo": "Envio GitHub",
+    "status": "❌ Erro",
+    "duracao": "0 min 3 seg",
+    "detalhes": "Erro Git: remote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       â€”â€” GitHub Personal Access Token â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”        \nremote:        locations:        \nremote:          - commit: 777d4cbab4e4902631e17d2a32266db9fb012ceb        \nremote:            path: builds_history.json:51        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/andrebids/planka-personalizado/security/secret-scanning/unblock-secret/30hYXzFqvbCUctBgbzbXX7DbzPM        \nremote:             \nremote:             \nremote:       â€”â€” GitHub Personal Access Token â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”        \nremote:        locations:        \nremote:          - commit: 777d4cbab4e4902631e17d2a32266db9fb012ceb        \nremote:            path: builds_history.json:51        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/andrebids/planka-personalizado/security/secret-scanning/unblock-secret/30hYXtaQuE50mkQEsBSkOzNOUs7        \nremote:             \nremote: \nremote: \nTo https://github.com/andrebids/planka-personalizado.git\n ! [remote rejected]   main -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/andrebids/planka-personalizado.git'\n",
+    "logs": [
+      "📤 Iniciando envio do código fonte para GitHub...",
+      "✅ Repositório já existe!",
+      "📁 Arquivo .dockerignore criado",
+      "📝 README personalizado criado",
+      "✅ Repositório Git já configurado corretamente",
+      "📦 Adicionando arquivos ao Git...",
+      "💾 Fazendo commit...",
+      "🚀 Enviando para GitHub...",
+      "❌ Erro no Git: remote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       â€”â€” GitHub Personal Access Token â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”        \nremote:        locations:        \nremote:          - commit: 777d4cbab4e4902631e17d2a32266db9fb012ceb        \nremote:            path: builds_history.json:51        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/andrebids/planka-personalizado/security/secret-scanning/unblock-secret/30hYXzFqvbCUctBgbzbXX7DbzPM        \nremote:             \nremote:             \nremote:       â€”â€” GitHub Personal Access Token â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”        \nremote:        locations:        \nremote:          - commit: 777d4cbab4e4902631e17d2a32266db9fb012ceb        \nremote:            path: builds_history.json:51        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/andrebids/planka-personalizado/security/secret-scanning/unblock-secret/30hYXtaQuE50mkQEsBSkOzNOUs7        \nremote:             \nremote: \nremote: \nTo https://github.com/andrebids/planka-personalizado.git\n ! [remote rejected]   main -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/andrebids/planka-personalizado.git'\n"
+    ]
+  }
+]
