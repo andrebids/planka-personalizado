@@ -173,7 +173,7 @@ const Content = React.memo(() => {
             <Header
               as="h1"
               textAlign="center"
-              content="Blachere Boardsv2"
+              content="Blachere Boards"
               className={styles.formTitle}
             />
             <div className={styles.formWrapper}>
