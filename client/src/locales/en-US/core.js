@@ -15,7 +15,7 @@ export default {
 
   translation: {
     common: {
-      aboutPlanka: 'About PLANKA',
+      aboutPlanka: 'About Bids',
       account: 'Account',
       actions: 'Actions',
       activateUser_title: 'Activate User',

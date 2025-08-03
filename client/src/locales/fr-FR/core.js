@@ -20,7 +20,7 @@ export default {
 
   translation: {
     common: {
-      aboutPlanka: 'À propos de PLANKA',
+      aboutPlanka: 'À propos de Bids',
       account: 'Compte',
       actions: 'Actions',
       addAttachment_title: 'Ajouter une pièce jointe',

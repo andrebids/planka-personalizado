@@ -20,7 +20,7 @@ export default {
 
   translation: {
     common: {
-      aboutPlanka: 'Acerca de PLANKA',
+      aboutPlanka: 'Acerca de Bids',
       account: 'Cuenta',
       actions: 'Acciones',
       activateUser_title: 'Activar usuario',
