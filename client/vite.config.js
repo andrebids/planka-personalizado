@@ -24,6 +24,11 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    host: '0.0.0.0',
+    watch: {
+      usePolling: true,
+      interval: 1000,
+    },
   },
   build: {
     target: browserslistToEsbuild(['>0.2%', 'not dead', 'not op_mini all']),

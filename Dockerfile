@@ -36,7 +36,10 @@ COPY --from=server-dependencies --chown=node:node /app/setup-python.js ./
 
 RUN python3 -m venv .venv \
   && .venv/bin/pip install -r requirements.txt --no-cache-dir \
-  && mv .env.sample .env \
+  && mv env.sample .env \
+  && ls -la \
+  && chmod +x start.sh \
+  && ls -la start.sh \
   && npm config set update-notifier false
 
 COPY --from=server-dependencies --chown=node:node /app/node_modules node_modules
@@ -58,4 +61,4 @@ EXPOSE 1337
 HEALTHCHECK --interval=10s --timeout=2s --start-period=15s \
   CMD node ./healthcheck.js
 
-CMD ["./start.sh"]
+CMD ["bash", "-c", "export NODE_ENV=production && node db/init.js && exec node app.js --prod"]
