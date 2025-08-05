@@ -37,6 +37,11 @@ module.exports = {
       values.username = values.username.toLowerCase();
     }
 
+    // Definir linguagem padrão para novos utilizadores se não for especificada
+    if (!values.language) {
+      values.language = 'pt-PT'; // Linguagem padrão para novos utilizadores
+    }
+
     let user;
     try {
       user = await User.qm.createOne({

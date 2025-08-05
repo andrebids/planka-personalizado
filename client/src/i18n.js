@@ -20,7 +20,7 @@ import { i18n as markdownEditorI18n } from '@gravity-ui/markdown-editor/_/i18n/i
 
 import { embeddedLocales, languages } from './locales';
 
-const FALLBACK_LANGUAGE = 'en-US';
+const FALLBACK_LANGUAGE = 'pt-PT';
 
 i18n.dateFns = {
   locales: {},
@@ -159,7 +159,9 @@ i18n.detectLanguage = () => {
   localStorage.removeItem(languageDetector.options.lookupLocalStorage);
   const detectedLanguages = languageDetector.detect();
 
-  i18n.language = languageUtils.getBestMatchFromCodes(detectedLanguages);
+  // Priorizar pt-PT se estiver disponível, caso contrário usar a detecção normal
+  const preferredLanguages = ['pt-PT', ...detectedLanguages];
+  i18n.language = languageUtils.getBestMatchFromCodes(preferredLanguages);
   i18n.languages = languageUtils.toResolveHierarchy(i18n.language);
 
   i18n.resolvedLanguage = undefined;
