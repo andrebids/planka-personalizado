@@ -126,7 +126,7 @@
   }
 
   .wrapper {
-    border-radius: 4px;
+    border-radius: 7px;
     overflow: hidden;
     position: relative;
 
@@ -188,6 +188,7 @@
 
     .title {
       font-size: 22px;
+      font-weight: 600;
       line-clamp: 2;
       -webkit-line-clamp: 2;
       margin: 0 20px 14px 20px;
