@@ -51,10 +51,14 @@
   .logo {
     color: #fff;
     flex: 0 0 auto;
-    letter-spacing: 3.5px;
+    letter-spacing: 1px;
     line-height: 50px;
     padding: 0 16px;
-    text-transform: uppercase;
+    font-weight: 600;
+    font-family: sans-serif;
+    text-align: left;
+    display: flex;
+    align-items: center;
 
     &:before {
       background: none;
@@ -103,7 +107,6 @@
   }
 
   .wrapper {
-    background: rgba(0, 0, 0, 0.24);
     display: flex;
     flex: 0 0 auto;
   }
