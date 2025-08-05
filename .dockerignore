@@ -18,7 +18,11 @@ __pycache__/
 *.pyd
 .Python
 env/
-# Removido venv/ e .venv/ para permitir acesso no Dockerfile
+# Ambientes virtuais Python
+venv/
+.venv/
+**/venv/
+**/.venv/
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
