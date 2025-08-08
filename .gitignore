@@ -20,3 +20,5 @@ backups/planka_backup_20250802_190505.sql
 .env
 .env.local
 .env.production
+start-planka.bat
+build-docker.bat

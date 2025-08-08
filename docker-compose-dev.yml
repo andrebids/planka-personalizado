@@ -12,7 +12,7 @@ services:
     ports:
       - 1337:1337
     environment:
-      - BASE_URL=http://localhost:1337
+      - BASE_URL=http://localhost:3001
       - DATABASE_URL=postgresql://postgres@postgres/planka
       - SECRET_KEY=notsecretkey
 
@@ -99,7 +99,7 @@ services:
     volumes:
       - ./client:/app
     ports:
-      - 3000:3000
+      - 3001:3000
 
   postgres:
     image: postgres:16-alpine

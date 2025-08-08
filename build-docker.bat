@@ -25,7 +25,7 @@ if errorlevel 0 (
     echo 🎯 Para executar o Planka:
     echo    docker-compose up -d
     echo.
-    echo 🌐 Acesse: http://localhost:3000
+    echo 🌐 Acesse: http://localhost:3001
     echo 👤 Admin: admin@example.com / admin123
 ) else (
     echo ❌ Erro no build. Verifique os logs acima.
