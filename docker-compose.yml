@@ -17,9 +17,22 @@ services:
       - BASE_URL=http://localhost:3000
       - DATABASE_URL=postgresql://postgres@postgres/planka
       - SECRET_KEY=notsecretkey
+      - ADMIN_EMAIL=admin@example.com
+      - ADMIN_PASSWORD=admin123
     depends_on:
       postgres:
         condition: service_healthy
+    command: >
+      sh -c "
+        echo 'Aguardando PostgreSQL...' &&
+        sleep 10 &&
+        echo 'Inicializando base de dados...' &&
+        npm run db:init &&
+        echo 'Criando utilizador admin...' &&
+        echo 'admin@example.com' | npm run db:create-admin-user &&
+        echo 'Iniciando Planka...' &&
+        npm run start:prod
+      "
 
   postgres:
     image: postgres:15-alpine
