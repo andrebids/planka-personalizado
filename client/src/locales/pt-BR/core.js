@@ -22,7 +22,7 @@ export default {
     common: {
       aboutPlanka: 'Sobre o Bids',
       account: 'Conta',
-      actions: 'Ações',
+      actions: 'Histórico de Ações',
       addAttachment_title: 'Adicionar Anexo',
       addManager_title: 'Adicionar Gerente',
       addMember_title: 'Adicionar Membro',

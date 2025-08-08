@@ -14,4 +14,15 @@ export default [
   'antique-blue',
   'dark-granite',
   'turquoise-sea',
+  // Novas cores inspiradas em Hogwarts e brasões
+  'gryffindor-red',
+  'slytherin-green',
+  'hufflepuff-gold',
+  'ravenclaw-blue',
+  'hogwarts-purple',
+  'golden-snitch',
+  'magical-silver',
+  'dark-wizard',
+  'phoenix-orange',
+  'unicorn-white',
 ];

@@ -153,6 +153,127 @@
     }
   }
 
+  // Novos botões de adicionar card inspirados em Hogwarts e brasões
+  .addCardButtonGryffindorRed {
+    background: #740001 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #8b0000 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonSlytherinGreen {
+    background: #1a472a !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #2d5a3d !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonHufflepuffGold {
+    background: #ecb939 !important;
+    color: #17394d !important;
+    fill: #17394d !important;
+
+    &:hover {
+      background: #d4af37 !important;
+      color: #17394d !important;
+      fill: #17394d !important;
+    }
+  }
+
+  .addCardButtonRavenclawBlue {
+    background: #0e1a40 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #1a2b5a !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonHogwartsPurple {
+    background: #5d4e75 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #6b5b83 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonGoldenSnitch {
+    background: #d4af37 !important;
+    color: #17394d !important;
+    fill: #17394d !important;
+
+    &:hover {
+      background: #b8941f !important;
+      color: #17394d !important;
+      fill: #17394d !important;
+    }
+  }
+
+  .addCardButtonMagicalSilver {
+    background: #c0c0c0 !important;
+    color: #17394d !important;
+    fill: #17394d !important;
+
+    &:hover {
+      background: #a8a8a8 !important;
+      color: #17394d !important;
+      fill: #17394d !important;
+    }
+  }
+
+  .addCardButtonDarkWizard {
+    background: #2d2d2d !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #404040 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonPhoenixOrange {
+    background: #ff6b35 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #e55a2b !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonUnicornWhite {
+    background: #f8f8ff !important;
+    color: #17394d !important;
+    fill: #17394d !important;
+
+    &:hover {
+      background: #e6e6fa !important;
+      color: #17394d !important;
+      fill: #17394d !important;
+    }
+  }
+
   .addCardButtonDragOver {
     background: #f0f8ff;
     border: 2px dashed #0079bf;
@@ -389,13 +510,60 @@
     background: #00858a !important;
   }
 
+  // Novas cores de colunas inspiradas em Hogwarts e brasões
+  .outerWrapperGryffindorRed {
+    background: #740001 !important;
+  }
+
+  .outerWrapperSlytherinGreen {
+    background: #1a472a !important;
+  }
+
+  .outerWrapperHufflepuffGold {
+    background: #ecb939 !important;
+  }
+
+  .outerWrapperRavenclawBlue {
+    background: #0e1a40 !important;
+  }
+
+  .outerWrapperHogwartsPurple {
+    background: #5d4e75 !important;
+  }
+
+  .outerWrapperGoldenSnitch {
+    background: #d4af37 !important;
+  }
+
+  .outerWrapperMagicalSilver {
+    background: #c0c0c0 !important;
+  }
+
+  .outerWrapperDarkWizard {
+    background: #2d2d2d !important;
+  }
+
+  .outerWrapperPhoenixOrange {
+    background: #ff6b35 !important;
+  }
+
+  .outerWrapperUnicornWhite {
+    background: #f8f8ff !important;
+  }
+
   // Ajustes de contraste para texto em colunas coloridas
   .outerWrapperBerryRed .headerName,
   .outerWrapperPumpkinOrange .headerName,
   .outerWrapperLagoonBlue .headerName,
   .outerWrapperPinkTulip .headerName,
   .outerWrapperOrangePeel .headerName,
-  .outerWrapperTurquoiseSea .headerName {
+  .outerWrapperTurquoiseSea .headerName,
+  .outerWrapperGryffindorRed .headerName,
+  .outerWrapperSlytherinGreen .headerName,
+  .outerWrapperRavenclawBlue .headerName,
+  .outerWrapperHogwartsPurple .headerName,
+  .outerWrapperDarkWizard .headerName,
+  .outerWrapperPhoenixOrange .headerName {
     color: #ffffff !important;
   }
 
@@ -403,7 +571,11 @@
   .outerWrapperLightMud .headerName,
   .outerWrapperBrightMoss .headerName,
   .outerWrapperAntiqueBlue .headerName,
-  .outerWrapperDarkGranite .headerName {
+  .outerWrapperDarkGranite .headerName,
+  .outerWrapperHufflepuffGold .headerName,
+  .outerWrapperGoldenSnitch .headerName,
+  .outerWrapperMagicalSilver .headerName,
+  .outerWrapperUnicornWhite .headerName {
     color: #17394d !important;
   }
 
@@ -413,7 +585,13 @@
   .outerWrapperLagoonBlue .headerButton,
   .outerWrapperPinkTulip .headerButton,
   .outerWrapperOrangePeel .headerButton,
-  .outerWrapperTurquoiseSea .headerButton {
+  .outerWrapperTurquoiseSea .headerButton,
+  .outerWrapperGryffindorRed .headerButton,
+  .outerWrapperSlytherinGreen .headerButton,
+  .outerWrapperRavenclawBlue .headerButton,
+  .outerWrapperHogwartsPurple .headerButton,
+  .outerWrapperDarkWizard .headerButton,
+  .outerWrapperPhoenixOrange .headerButton {
     color: #ffffff !important;
     
     &:hover {
@@ -428,7 +606,13 @@
   .outerWrapperLagoonBlue .headerIcon,
   .outerWrapperPinkTulip .headerIcon,
   .outerWrapperOrangePeel .headerIcon,
-  .outerWrapperTurquoiseSea .headerIcon {
+  .outerWrapperTurquoiseSea .headerIcon,
+  .outerWrapperGryffindorRed .headerIcon,
+  .outerWrapperSlytherinGreen .headerIcon,
+  .outerWrapperRavenclawBlue .headerIcon,
+  .outerWrapperHogwartsPurple .headerIcon,
+  .outerWrapperDarkWizard .headerIcon,
+  .outerWrapperPhoenixOrange .headerIcon {
     color: #ffffff !important;
   }
 }
