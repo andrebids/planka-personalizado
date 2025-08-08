@@ -214,6 +214,7 @@ const List = React.memo(({ id, index }) => {
             ref={wrapperRef}
             className={classNames(
               styles.outerWrapper,
+              list.color && styles[`outerWrapper${upperFirst(camelCase(list.color))}`],
               isFavoritesActive && styles.outerWrapperWithFavorites,
             )}
             onTransitionEnd={handleWrapperTransitionEnd}
@@ -229,15 +230,6 @@ const List = React.memo(({ id, index }) => {
                 <EditName listId={id} onClose={handleEditNameClose} />
               ) : (
                 <div className={styles.headerName}>
-                  {list.color && (
-                    <Icon
-                      name="circle"
-                      className={classNames(
-                        styles.headerNameColor,
-                        globalStyles[`color${upperFirst(camelCase(list.color))}`],
-                      )}
-                    />
-                  )}
                   {list.name}
                 </div>
               )}
@@ -276,6 +268,7 @@ const List = React.memo(({ id, index }) => {
                 disabled={!list.isPersisted || isProcessing}
                 className={classNames(
                   styles.addCardButton,
+                  list.color && styles[`addCardButton${upperFirst(camelCase(list.color))}`],
                   isDragOver && styles.addCardButtonDragOver,
                   isProcessing && styles.addCardButtonProcessing,
                 )}

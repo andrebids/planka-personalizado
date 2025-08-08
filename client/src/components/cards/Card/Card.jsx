@@ -91,14 +91,7 @@ const Card = React.memo(({ id, isInline }) => {
     }
   }
 
-  const colorLineNode = list.color && (
-    <div
-      className={classNames(
-        styles.colorLine,
-        globalStyles[`background${upperFirst(camelCase(list.color))}`],
-      )}
-    />
-  );
+
 
   return (
     <div
@@ -116,7 +109,6 @@ const Card = React.memo(({ id, isInline }) => {
             onClick={handleClick}
           >
             <Content cardId={id} />
-            {colorLineNode}
           </div>
           {canUseActions && (
             <ActionsPopup cardId={id} onNameEdit={handleNameEdit}>
@@ -134,7 +126,6 @@ const Card = React.memo(({ id, isInline }) => {
           )}
         >
           <Content cardId={id} />
-          {colorLineNode}
         </span>
       )}
     </div>

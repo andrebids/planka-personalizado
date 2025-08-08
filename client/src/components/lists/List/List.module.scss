@@ -32,6 +32,127 @@
     }
   }
 
+  // Classes de cor para o botão de adicionar card
+  .addCardButtonBerryRed {
+    background: #e83855 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #d63384 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonPumpkinOrange {
+    background: #ed9223 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #ea580c !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonLagoonBlue {
+    background: #109dc0 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #0891b2 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonPinkTulip {
+    background: #e34f7c !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #db2777 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonLightMud {
+    background: #c7a57a !important;
+    color: #17394d !important;
+    fill: #17394d !important;
+
+    &:hover {
+      background: #b45309 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonOrangePeel {
+    background: #de692f !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #dc2626 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonBrightMoss {
+    background: #96b352 !important;
+    color: #17394d !important;
+    fill: #17394d !important;
+
+    &:hover {
+      background: #65a30d !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonAntiqueBlue {
+    background: #6c99bb !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #2563eb !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonDarkGranite {
+    background: #8b8680 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #6b7280 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .addCardButtonTurquoiseSea {
+    background: #00858a !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+
+    &:hover {
+      background: #0d9488 !important;
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
   .addCardButtonDragOver {
     background: #f0f8ff;
     border: 2px dashed #0079bf;
@@ -216,6 +337,7 @@
     flex-direction: column;
     max-height: calc(100vh - 198px);
     overflow: hidden;
+    transition: background-color 0.3s ease;
   }
 
   .outerWrapperTransitioning {
@@ -224,5 +346,89 @@
 
   .outerWrapperWithFavorites {
     max-height: calc(100vh - 288px);
+  }
+
+  // Classes de cor para colunas
+  .outerWrapperBerryRed {
+    background: #e83855 !important;
+  }
+
+  .outerWrapperPumpkinOrange {
+    background: #ed9223 !important;
+  }
+
+  .outerWrapperLagoonBlue {
+    background: #109dc0 !important;
+  }
+
+  .outerWrapperPinkTulip {
+    background: #e34f7c !important;
+  }
+
+  .outerWrapperLightMud {
+    background: #c7a57a !important;
+  }
+
+  .outerWrapperOrangePeel {
+    background: #de692f !important;
+  }
+
+  .outerWrapperBrightMoss {
+    background: #96b352 !important;
+  }
+
+  .outerWrapperAntiqueBlue {
+    background: #6c99bb !important;
+  }
+
+  .outerWrapperDarkGranite {
+    background: #8b8680 !important;
+  }
+
+  .outerWrapperTurquoiseSea {
+    background: #00858a !important;
+  }
+
+  // Ajustes de contraste para texto em colunas coloridas
+  .outerWrapperBerryRed .headerName,
+  .outerWrapperPumpkinOrange .headerName,
+  .outerWrapperLagoonBlue .headerName,
+  .outerWrapperPinkTulip .headerName,
+  .outerWrapperOrangePeel .headerName,
+  .outerWrapperTurquoiseSea .headerName {
+    color: #ffffff !important;
+  }
+
+  // Ajustes para colunas claras
+  .outerWrapperLightMud .headerName,
+  .outerWrapperBrightMoss .headerName,
+  .outerWrapperAntiqueBlue .headerName,
+  .outerWrapperDarkGranite .headerName {
+    color: #17394d !important;
+  }
+
+  // Ajustes de botões para colunas coloridas
+  .outerWrapperBerryRed .headerButton,
+  .outerWrapperPumpkinOrange .headerButton,
+  .outerWrapperLagoonBlue .headerButton,
+  .outerWrapperPinkTulip .headerButton,
+  .outerWrapperOrangePeel .headerButton,
+  .outerWrapperTurquoiseSea .headerButton {
+    color: #ffffff !important;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #ffffff !important;
+    }
+  }
+
+  // Ajustes de ícones para colunas coloridas
+  .outerWrapperBerryRed .headerIcon,
+  .outerWrapperPumpkinOrange .headerIcon,
+  .outerWrapperLagoonBlue .headerIcon,
+  .outerWrapperPinkTulip .headerIcon,
+  .outerWrapperOrangePeel .headerIcon,
+  .outerWrapperTurquoiseSea .headerIcon {
+    color: #ffffff !important;
   }
 }
