@@ -17,8 +17,8 @@ services:
       - BASE_URL=http://localhost:3000
       - DATABASE_URL=postgresql://postgres@postgres/planka
       - SECRET_KEY=notsecretkey
-      - ADMIN_EMAIL=admin@example.com
-      - ADMIN_PASSWORD=admin123
+      - DEFAULT_ADMIN_EMAIL=admin@example.com
+      - DEFAULT_ADMIN_PASSWORD=admin123
     depends_on:
       postgres:
         condition: service_healthy
@@ -28,8 +28,6 @@ services:
         sleep 10 &&
         echo 'Inicializando base de dados...' &&
         npm run db:init &&
-        echo 'Verificando utilizador admin...' &&
-        (echo 'admin@example.com' | npm run db:create-admin-user || echo 'Admin já existe ou erro ignorado') &&
         echo 'Iniciando Planka...' &&
         npm run start:prod
       "
