@@ -28,8 +28,8 @@ services:
         sleep 10 &&
         echo 'Inicializando base de dados...' &&
         npm run db:init &&
-        echo 'Criando utilizador admin...' &&
-        echo 'admin@example.com' | npm run db:create-admin-user &&
+        echo 'Verificando utilizador admin...' &&
+        (echo 'admin@example.com' | npm run db:create-admin-user || echo 'Admin já existe ou erro ignorado') &&
         echo 'Iniciando Planka...' &&
         npm run start:prod
       "
