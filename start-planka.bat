@@ -23,7 +23,7 @@ if errorlevel 0 (
     echo ✅ Planka iniciado com sucesso!
     echo.
     echo 🌐 Acesse: http://localhost:3001
-    echo 👤 Admin: admin@example.com / admin123
+    echo s
     echo.
     echo 📊 Para ver os logs:
     echo    docker-compose -f docker-compose-local.yml logs -f
