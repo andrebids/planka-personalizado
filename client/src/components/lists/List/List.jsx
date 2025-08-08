@@ -26,7 +26,7 @@ import DraggableCard from '../../cards/DraggableCard';
 import AddCard from '../../cards/AddCard';
 import ArchiveCardsStep from '../../cards/ArchiveCardsStep';
 import PlusMathIcon from '../../../assets/images/plus-math-icon.svg?react';
-import { processImageFiles } from '../../../utils/file-helpers';
+import { processSupportedFiles } from '../../../utils/file-helpers';
 
 import styles from './List.module.scss';
 import globalStyles from '../../../styles.module.scss';
@@ -124,27 +124,32 @@ const List = React.memo(({ id, index }) => {
     const files = Array.from(event.dataTransfer.files);
     if (files.length === 0) return;
 
-    const processedFiles = processImageFiles(files);
+    const processedFiles = processSupportedFiles(files);
     if (processedFiles.length === 0) return;
 
     console.log('Processando arquivos:', processedFiles);
 
     setIsProcessing(true);
 
-          try {
-        // Usar a nova saga para criar cards com anexos
-        processedFiles.forEach((fileData) => {
-          const cardData = {
-            name: fileData.name,
-            type: 'story', // Adicionar tipo padrão
-          };
-          console.log('Criando card com anexo:', cardData);
-          dispatch(entryActions.createCardWithAttachment(id, cardData, fileData.file));
-        });
-      } catch (error) {
-        console.error('Erro ao processar imagens:', error);
+    try {
+      // Usar a nova saga para criar cards com anexos
+      processedFiles.forEach((fileData) => {
+        const cardData = {
+          name: fileData.name,
+          type: 'story', // Adicionar tipo padrão
+        };
+        console.log('Criando card com anexo:', cardData);
+        console.log('📄 Tipo de arquivo:', fileData.isImage ? 'Imagem (capa)' : 'Anexo');
+        console.log('📄 Arquivo:', fileData.file);
+        console.log('📄 Nome do arquivo:', fileData.file ? fileData.file.name : 'undefined');
+        console.log('📄 Tamanho do arquivo:', fileData.file ? fileData.file.size : 'undefined');
+        dispatch(entryActions.createCardWithAttachment(id, cardData, fileData.file));
+      });
+    } catch (error) {
+      console.error('Erro ao processar arquivos:', error);
       } finally {
         setIsProcessing(false);
+        console.log('✅ Processamento finalizado');
       }
     }, [id, dispatch]);
 
@@ -282,23 +287,23 @@ const List = React.memo(({ id, index }) => {
                 <PlusMathIcon className={styles.addCardButtonIcon} />
                 <span className={styles.addCardButtonText}>
                   {isDragOver
-                    ? t('common.dropImagesHere')
+                    ? t('common.dropFilesHere')
                     : isProcessing
-                    ? t('common.processingImages')
+                    ? t('common.processingFiles')
                     : cardIds.length > 0
                     ? t('action.addAnotherCard')
                     : t('action.addCard')}
                 </span>
                 {isDragOver && (
                   <div className={styles.dragOverlay}>
-                    <Icon name="image" size="large" />
-                    <span>{t('common.dropImagesHere')}</span>
+                    <Icon name="upload" size="large" />
+                    <span>{t('common.dropFilesHere')}</span>
                   </div>
                 )}
                 {isProcessing && (
                   <div className={styles.processingOverlay}>
                     <Icon name="spinner" loading size="large" />
-                    <span>{t('common.processingImages')}</span>
+                    <span>{t('common.processingFiles')}</span>
                   </div>
                 )}
               </button>

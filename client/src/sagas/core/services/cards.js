@@ -179,8 +179,10 @@ export function* createCardInFirstFiniteList(data, autoOpen) {
 
 export function* createCardWithAttachment(listId, cardData, attachmentFile) {
   console.log('🚀 Saga createCardWithAttachment iniciada');
+  console.log('📋 ListId:', listId);
   console.log('📋 Dados do card:', cardData);
   console.log('📎 Arquivo:', attachmentFile);
+  console.log('📎 Nome do arquivo:', attachmentFile ? attachmentFile.name : 'undefined');
   
   const localId = yield call(createLocalId);
   const list = yield select(selectors.selectListById, listId);
@@ -199,6 +201,10 @@ export function* createCardWithAttachment(listId, cardData, attachmentFile) {
   }
 
   console.log('🎴 Criando card no servidor...');
+  console.log('🎴 Local ID:', localId);
+  console.log('🎴 Board ID:', list.boardId);
+  console.log('🎴 Creator User ID:', currentUserMembership.userId);
+  
   // Criar o card primeiro
   yield put(
     actions.createCard(
@@ -216,26 +222,37 @@ export function* createCardWithAttachment(listId, cardData, attachmentFile) {
   let card;
   try {
     // Criar o card no servidor
+    console.log('🎴 Chamando API createCard...');
     ({ item: card } = yield call(request, api.createCard, listId, nextCardData));
     console.log('✅ Card criado com sucesso:', card);
   } catch (error) {
     console.error('❌ Erro ao criar card:', error);
+    console.error('❌ Detalhes do erro:', error.message);
     yield put(actions.createCard.failure(localId, error));
     return;
   }
 
   yield put(actions.createCard.success(localId, card));
+  console.log('✅ Card criado e action de sucesso disparada');
 
   // Agora criar o anexo
   console.log('📎 Criando anexo...');
+  console.log('📎 Card ID:', card.id);
+  console.log('📎 AttachmentTypes.FILE:', AttachmentTypes.FILE);
+  
   try {
     const attachmentData = {
       name: attachmentFile.name,
       type: AttachmentTypes.FILE,
     };
+    
+    console.log('📎 Dados do anexo:', attachmentData);
 
     const requestId = yield call(createLocalId);
+    console.log('📎 Request ID:', requestId);
+    
     let attachment;
+    console.log('📎 Chamando API createAttachmentWithFile...');
     ({ item: attachment } = yield call(
       request,
       api.createAttachmentWithFile,
@@ -248,8 +265,12 @@ export function* createCardWithAttachment(listId, cardData, attachmentFile) {
     console.log('✅ Anexo criado com sucesso:', attachment);
   } catch (error) {
     console.error('❌ Erro ao criar anexo:', error);
+    console.error('❌ Detalhes do erro:', error.message);
+    console.error('❌ Stack trace:', error.stack);
     // Não fazer rollback do card, apenas logar o erro
   }
+  
+  console.log('✅ Saga createCardWithAttachment finalizada');
 }
 
 export function* handleCardCreate(card) {

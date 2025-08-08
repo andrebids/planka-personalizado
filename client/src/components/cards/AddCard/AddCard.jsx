@@ -17,7 +17,7 @@ import selectors from '../../../selectors';
 import { useClosable, useForm, useNestedRef } from '../../../hooks';
 import { isModifierKeyPressed } from '../../../utils/event-helpers';
 import { CardTypeIcons } from '../../../constants/Icons';
-import { processImageFiles } from '../../../utils/file-helpers';
+import { processSupportedFiles } from '../../../utils/file-helpers';
 import SelectCardTypeStep from '../SelectCardTypeStep';
 
 import styles from './AddCard.module.scss';
@@ -54,6 +54,7 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachm
       const cleanData = {
         ...data,
         name: data.name.trim(),
+        type: defaultType, // Sempre usar o tipo padrão do board para consistência
       };
 
       if (!cleanData.name) {
@@ -147,11 +148,11 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachm
     e.preventDefault();
     setIsDragOver(false);
     
-    console.log('🖼️ Drag & Drop ativado!');
+    console.log('📁 Drag & Drop ativado!');
     const files = Array.from(e.dataTransfer.files);
     console.log('📁 Arquivos arrastados:', files);
     
-    const processedFiles = processImageFiles(files);
+    const processedFiles = processSupportedFiles(files);
     console.log('✅ Arquivos processados:', processedFiles);
     
     if (processedFiles.length === 0) {
@@ -166,10 +167,14 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachm
         const cardName = data.name.trim() || fileData.name;
         const cardData = {
           name: cardName,
-          type: data.type,
+          type: defaultType, // Sempre usar o tipo padrão do board para consistência
         };
         
         console.log('🎴 Criando card:', cardData);
+        console.log('📄 Tipo de arquivo:', fileData.isImage ? 'Imagem (capa)' : 'Anexo');
+        console.log('📄 Arquivo:', fileData.file);
+        console.log('📄 Nome do arquivo:', fileData.file ? fileData.file.name : 'undefined');
+        console.log('📄 Tamanho do arquivo:', fileData.file ? fileData.file.size : 'undefined');
         
         // Usar a action createCardWithAttachment para criar card com anexo
         if (onCreateWithAttachment) {
@@ -181,11 +186,12 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachm
         }
       }
     } catch (error) {
-      console.error('❌ Erro ao processar imagens:', error);
+      console.error('❌ Erro ao processar arquivos:', error);
     } finally {
       setIsProcessing(false);
+      console.log('✅ Processamento finalizado');
     }
-  }, [data.name, data.type, onCreate, onCreateWithAttachment]);
+  }, [data.name, defaultType, onCreate, onCreateWithAttachment]);
 
   useEffect(() => {
     if (isOpened) {
@@ -232,7 +238,7 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachm
           as={TextareaAutosize}
           name="name"
           value={data.name}
-          placeholder={isDragOver ? t('common.dropImagesHere') : t('common.enterCardTitle')}
+          placeholder={isDragOver ? t('common.dropFilesHere') : t('common.enterCardTitle')}
           maxLength={1024}
           minRows={3}
           spellCheck={false}
@@ -243,14 +249,14 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachm
         />
         {isDragOver && (
           <div className={styles.dragOverlay}>
-            <Icon name="image" size="large" />
-            <span>{t('common.dropImagesHere')}</span>
+            <Icon name="upload" size="large" />
+            <span>{t('common.dropFilesHere')}</span>
           </div>
         )}
         {isProcessing && (
           <div className={styles.processingOverlay}>
             <Icon name="spinner" loading size="large" />
-            <span>{t('common.processingImages')}</span>
+            <span>{t('common.processingFiles')}</span>
           </div>
         )}
       </div>
