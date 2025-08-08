@@ -172,6 +172,8 @@ export default {
       email: 'E-mail',
       emptyTrash_title: 'Esvaziar Lixo',
       enterCardTitle: 'Digite o título do cartão...',
+      dropImagesHere: 'Largue as imagens aqui...',
+      processingImages: 'A processar imagens...',
       enterDescription: 'Digite a descrição...',
       enterFilename: 'Digite o nome do ficheiro',
       enterListTitle: 'Digite o título da lista...',

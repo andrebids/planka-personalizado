@@ -22,6 +22,11 @@
     width: 100%;
   }
 
+  .fieldProcessing {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .fieldWrapper {
     background: #fff;
     border-radius: 3px;
@@ -29,6 +34,19 @@
     margin-bottom: 8px;
     min-height: 20px;
     padding: 6px 8px 2px;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .fieldWrapperDragOver {
+    background: #f0f8ff;
+    border: 2px dashed #0079bf;
+    box-shadow: 0 2px 8px rgba(0, 121, 191, 0.3);
+  }
+
+  .fieldWrapperProcessing {
+    background: #f8f9fa;
+    opacity: 0.7;
   }
 
   .selectTypeButton {
@@ -56,5 +74,45 @@
 
   .wrapperClosed {
     display: none;
+  }
+
+  .dragOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 121, 191, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    z-index: 10;
+
+    span {
+      margin-top: 8px;
+      color: #0079bf;
+    }
+  }
+
+  .processingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    z-index: 10;
+
+    span {
+      margin-top: 8px;
+      color: #6b808c;
+    }
   }
 }

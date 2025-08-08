@@ -14,7 +14,7 @@ import api from '../../../api';
 import { createLocalId } from '../../../utils/local-id';
 import { isListArchiveOrTrash, isListFinite } from '../../../utils/record-helpers';
 import ActionTypes from '../../../constants/ActionTypes';
-import { BoardViews, ListTypes } from '../../../constants/Enums';
+import { BoardViews, ListTypes, AttachmentTypes } from '../../../constants/Enums';
 
 // eslint-disable-next-line no-underscore-dangle
 const _preloadImage = (url) =>
@@ -175,6 +175,81 @@ export function* createCardInFirstFiniteList(data, autoOpen) {
   const firstFiniteListId = yield select(selectors.selectFirstFiniteListId);
 
   yield call(createCard, firstFiniteListId, data, autoOpen);
+}
+
+export function* createCardWithAttachment(listId, cardData, attachmentFile) {
+  console.log('🚀 Saga createCardWithAttachment iniciada');
+  console.log('📋 Dados do card:', cardData);
+  console.log('📎 Arquivo:', attachmentFile);
+  
+  const localId = yield call(createLocalId);
+  const list = yield select(selectors.selectListById, listId);
+
+  const currentUserMembership = yield select(
+    selectors.selectCurrentUserMembershipByBoardId,
+    list.boardId,
+  );
+
+  const nextCardData = {
+    ...cardData,
+  };
+
+  if (isListFinite(list)) {
+    nextCardData.position = yield select(selectors.selectNextCardPosition, listId);
+  }
+
+  console.log('🎴 Criando card no servidor...');
+  // Criar o card primeiro
+  yield put(
+    actions.createCard(
+      {
+        ...nextCardData,
+        listId,
+        id: localId,
+        boardId: list.boardId,
+        creatorUserId: currentUserMembership.userId,
+      },
+      false, // Não abrir automaticamente
+    ),
+  );
+
+  let card;
+  try {
+    // Criar o card no servidor
+    ({ item: card } = yield call(request, api.createCard, listId, nextCardData));
+    console.log('✅ Card criado com sucesso:', card);
+  } catch (error) {
+    console.error('❌ Erro ao criar card:', error);
+    yield put(actions.createCard.failure(localId, error));
+    return;
+  }
+
+  yield put(actions.createCard.success(localId, card));
+
+  // Agora criar o anexo
+  console.log('📎 Criando anexo...');
+  try {
+    const attachmentData = {
+      name: attachmentFile.name,
+      type: AttachmentTypes.FILE,
+    };
+
+    const requestId = yield call(createLocalId);
+    let attachment;
+    ({ item: attachment } = yield call(
+      request,
+      api.createAttachmentWithFile,
+      card.id,
+      { ...attachmentData, file: attachmentFile },
+      requestId,
+    ));
+
+    // O anexo será processado automaticamente pelo sistema de eventos
+    console.log('✅ Anexo criado com sucesso:', attachment);
+  } catch (error) {
+    console.error('❌ Erro ao criar anexo:', error);
+    // Não fazer rollback do card, apenas logar o erro
+  }
 }
 
 export function* handleCardCreate(card) {
@@ -582,6 +657,7 @@ export default {
   createCardInCurrentList,
   handleCardCreate,
   createCardInFirstFiniteList,
+  createCardWithAttachment,
   updateCard,
   updateCurrentCard,
   handleCardUpdate,

@@ -155,7 +155,7 @@ Após iniciar com sucesso:
    ```bash
    # Alterar porta no docker-compose-local.yml
    ports:
-     - 3001:1337  # Mudar de 3000 para 3001
+     - 3000:1337  # Porta padrão
    ```
 
 2. **Erro de permissão no Windows:**

@@ -22,11 +22,67 @@
     padding: 8px;
     text-align: left;
     width: 100%;
+    position: relative;
+    transition: all 0.2s ease;
 
     &:hover {
       background: #c3cbd0;
       color: #17394d;
       fill: #17394d;
+    }
+  }
+
+  .addCardButtonDragOver {
+    background: #f0f8ff;
+    border: 2px dashed #0079bf;
+    box-shadow: 0 2px 8px rgba(0, 121, 191, 0.3);
+    color: #0079bf;
+    fill: #0079bf;
+  }
+
+  .addCardButtonProcessing {
+    background: #f8f9fa;
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .dragOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 121, 191, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    z-index: 10;
+
+    span {
+      margin-top: 8px;
+      color: #0079bf;
+    }
+  }
+
+  .processingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    z-index: 10;
+
+    span {
+      margin-top: 8px;
+      color: #6b808c;
     }
   }
 

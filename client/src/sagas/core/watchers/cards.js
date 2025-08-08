@@ -26,6 +26,9 @@ export default function* cardsWatchers() {
       EntryActionTypes.CARD_IN_FIRST_FINITE_LIST_CREATE,
       ({ payload: { data, autoOpen } }) => services.createCardInFirstFiniteList(data, autoOpen),
     ),
+    takeEvery(EntryActionTypes.CARD_WITH_ATTACHMENT_CREATE, ({ payload: { listId, cardData, attachmentFile } }) =>
+      services.createCardWithAttachment(listId, cardData, attachmentFile),
+    ),
     takeEvery(EntryActionTypes.CARD_CREATE_HANDLE, ({ payload: { card } }) =>
       services.handleCardCreate(card),
     ),

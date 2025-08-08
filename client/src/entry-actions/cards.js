@@ -174,6 +174,15 @@ const handleCardDelete = (card) => ({
   },
 });
 
+const createCardWithAttachment = (listId, cardData, attachmentFile) => ({
+  type: EntryActionTypes.CARD_WITH_ATTACHMENT_CREATE,
+  payload: {
+    listId,
+    cardData,
+    attachmentFile,
+  },
+});
+
 export default {
   fetchCardsInCurrentList,
   handleCardsUpdate,
@@ -198,4 +207,5 @@ export default {
   deleteCard,
   deleteCurrentCard,
   handleCardDelete,
+  createCardWithAttachment,
 };

@@ -29,6 +29,33 @@ export default defineConfig({
       usePolling: true,
       interval: 1000,
     },
+    proxy: {
+      '/attachments': {
+        target: 'http://planka-personalizado-planka-server-1:1337',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/background-images': {
+        target: 'http://planka-personalizado-planka-server-1:1337',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/user-avatars': {
+        target: 'http://planka-personalizado-planka-server-1:1337',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/favicons': {
+        target: 'http://planka-personalizado-planka-server-1:1337',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/preloaded-favicons': {
+        target: 'http://planka-personalizado-planka-server-1:1337',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   build: {
     target: browserslistToEsbuild(['>0.2%', 'not dead', 'not op_mini all']),

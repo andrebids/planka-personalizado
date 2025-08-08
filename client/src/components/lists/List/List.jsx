@@ -26,6 +26,7 @@ import DraggableCard from '../../cards/DraggableCard';
 import AddCard from '../../cards/AddCard';
 import ArchiveCardsStep from '../../cards/ArchiveCardsStep';
 import PlusMathIcon from '../../../assets/images/plus-math-icon.svg?react';
+import { processImageFiles } from '../../../utils/file-helpers';
 
 import styles from './List.module.scss';
 import globalStyles from '../../../styles.module.scss';
@@ -60,6 +61,8 @@ const List = React.memo(({ id, index }) => {
   const [t] = useTranslation();
   const [isEditNameOpened, setIsEditNameOpened] = useState(false);
   const [isAddCardOpened, setIsAddCardOpened] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const wrapperRef = useRef(null);
   const cardsWrapperRef = useRef(null);
@@ -67,6 +70,13 @@ const List = React.memo(({ id, index }) => {
   const handleCardCreate = useCallback(
     (data, autoOpen) => {
       dispatch(entryActions.createCard(id, data, autoOpen));
+    },
+    [id, dispatch],
+  );
+
+  const handleCardCreateWithAttachment = useCallback(
+    (cardData, attachmentFile) => {
+      dispatch(entryActions.createCardWithAttachment(id, cardData, attachmentFile));
     },
     [id, dispatch],
   );
@@ -96,6 +106,47 @@ const List = React.memo(({ id, index }) => {
   const handleEditNameClose = useCallback(() => {
     setIsEditNameOpened(false);
   }, []);
+
+  const handleDragOver = useCallback((event) => {
+    event.preventDefault();
+    setIsDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((event) => {
+    event.preventDefault();
+    setIsDragOver(false);
+  }, []);
+
+  const handleDrop = useCallback((event) => {
+    event.preventDefault();
+    setIsDragOver(false);
+
+    const files = Array.from(event.dataTransfer.files);
+    if (files.length === 0) return;
+
+    const processedFiles = processImageFiles(files);
+    if (processedFiles.length === 0) return;
+
+    console.log('Processando arquivos:', processedFiles);
+
+    setIsProcessing(true);
+
+          try {
+        // Usar a nova saga para criar cards com anexos
+        processedFiles.forEach((fileData) => {
+          const cardData = {
+            name: fileData.name,
+            type: 'story', // Adicionar tipo padrão
+          };
+          console.log('Criando card com anexo:', cardData);
+          dispatch(entryActions.createCardWithAttachment(id, cardData, fileData.file));
+        });
+      } catch (error) {
+        console.error('Erro ao processar imagens:', error);
+      } finally {
+        setIsProcessing(false);
+      }
+    }, [id, dispatch]);
 
   const handleWrapperTransitionEnd = useTransitioning(
     wrapperRef,
@@ -131,6 +182,7 @@ const List = React.memo(({ id, index }) => {
                 isOpened={isAddCardOpened}
                 className={styles.addCard}
                 onCreate={handleCardCreate}
+                onCreateWithAttachment={handleCardCreateWithAttachment}
                 onClose={handleAddCardClose}
               />
             )}
@@ -216,14 +268,39 @@ const List = React.memo(({ id, index }) => {
             {!isAddCardOpened && canAddCard && (
               <button
                 type="button"
-                disabled={!list.isPersisted}
-                className={styles.addCardButton}
+                disabled={!list.isPersisted || isProcessing}
+                className={classNames(
+                  styles.addCardButton,
+                  isDragOver && styles.addCardButtonDragOver,
+                  isProcessing && styles.addCardButtonProcessing,
+                )}
                 onClick={handleAddCardClick}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
               >
                 <PlusMathIcon className={styles.addCardButtonIcon} />
                 <span className={styles.addCardButtonText}>
-                  {cardIds.length > 0 ? t('action.addAnotherCard') : t('action.addCard')}
+                  {isDragOver
+                    ? t('common.dropImagesHere')
+                    : isProcessing
+                    ? t('common.processingImages')
+                    : cardIds.length > 0
+                    ? t('action.addAnotherCard')
+                    : t('action.addCard')}
                 </span>
+                {isDragOver && (
+                  <div className={styles.dragOverlay}>
+                    <Icon name="image" size="large" />
+                    <span>{t('common.dropImagesHere')}</span>
+                  </div>
+                )}
+                {isProcessing && (
+                  <div className={styles.processingOverlay}>
+                    <Icon name="spinner" loading size="large" />
+                    <span>{t('common.processingImages')}</span>
+                  </div>
+                )}
               </button>
             )}
           </div>

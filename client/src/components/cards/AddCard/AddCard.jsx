@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import selectors from '../../../selectors';
 import { useClosable, useForm, useNestedRef } from '../../../hooks';
 import { isModifierKeyPressed } from '../../../utils/event-helpers';
 import { CardTypeIcons } from '../../../constants/Icons';
+import { processImageFiles } from '../../../utils/file-helpers';
 import SelectCardTypeStep from '../SelectCardTypeStep';
 
 import styles from './AddCard.module.scss';
@@ -25,7 +26,7 @@ const DEFAULT_DATA = {
   name: '',
 };
 
-const AddCard = React.memo(({ isOpened, className, onCreate, onClose }) => {
+const AddCard = React.memo(({ isOpened, className, onCreate, onCreateWithAttachment, onClose }) => {
   const { defaultCardType: defaultType, limitCardTypesToDefaultOne: limitTypesToDefaultOne } =
     useSelector(selectors.selectCurrentBoard);
 
@@ -39,6 +40,10 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onClose }) => {
 
   const [focusNameFieldState, focusNameField] = useToggle();
   const [isClosableActiveRef, activateClosable, deactivateClosable] = useClosable();
+
+  // Estados para drag & drop
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [nameFieldRef, handleNameFieldRef] = useNestedRef();
   const [submitButtonRef, handleSubmitButtonRef] = useNestedRef();
@@ -127,6 +132,61 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onClose }) => {
     handleClickAwayCancel,
   );
 
+  // Handlers para drag & drop
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  }, []);
+
+  const handleDrop = useCallback(async (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    
+    console.log('🖼️ Drag & Drop ativado!');
+    const files = Array.from(e.dataTransfer.files);
+    console.log('📁 Arquivos arrastados:', files);
+    
+    const processedFiles = processImageFiles(files);
+    console.log('✅ Arquivos processados:', processedFiles);
+    
+    if (processedFiles.length === 0) {
+      console.log('❌ Nenhum arquivo válido encontrado');
+      return;
+    }
+    
+    setIsProcessing(true);
+    
+    try {
+      for (const fileData of processedFiles) {
+        const cardName = data.name.trim() || fileData.name;
+        const cardData = {
+          name: cardName,
+          type: data.type,
+        };
+        
+        console.log('🎴 Criando card:', cardData);
+        
+        // Usar a action createCardWithAttachment para criar card com anexo
+        if (onCreateWithAttachment) {
+          console.log('📎 Usando createCardWithAttachment');
+          onCreateWithAttachment(cardData, fileData.file);
+        } else {
+          console.log('📝 Usando createCard normal');
+          onCreate(cardData, false);
+        }
+      }
+    } catch (error) {
+      console.error('❌ Erro ao processar imagens:', error);
+    } finally {
+      setIsProcessing(false);
+    }
+  }, [data.name, data.type, onCreate, onCreateWithAttachment]);
+
   useEffect(() => {
     if (isOpened) {
       nameFieldRef.current.focus();
@@ -156,36 +216,59 @@ const AddCard = React.memo(({ isOpened, className, onCreate, onClose }) => {
       className={classNames(className, !isOpened && styles.wrapperClosed)}
       onSubmit={handleSubmit}
     >
-      <div className={styles.fieldWrapper}>
+      <div 
+        className={classNames(
+          styles.fieldWrapper,
+          isDragOver && styles.fieldWrapperDragOver,
+          isProcessing && styles.fieldWrapperProcessing
+        )}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
         <TextArea
-          {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
+          {...clickAwayProps}
           ref={handleNameFieldRef}
           as={TextareaAutosize}
           name="name"
           value={data.name}
-          placeholder={t('common.enterCardTitle')}
+          placeholder={isDragOver ? t('common.dropImagesHere') : t('common.enterCardTitle')}
           maxLength={1024}
           minRows={3}
           spellCheck={false}
-          className={styles.field}
+          className={classNames(styles.field, isProcessing && styles.fieldProcessing)}
           onKeyDown={handleFieldKeyDown}
           onChange={handleFieldChange}
+          disabled={isProcessing}
         />
+        {isDragOver && (
+          <div className={styles.dragOverlay}>
+            <Icon name="image" size="large" />
+            <span>{t('common.dropImagesHere')}</span>
+          </div>
+        )}
+        {isProcessing && (
+          <div className={styles.processingOverlay}>
+            <Icon name="spinner" loading size="large" />
+            <span>{t('common.processingImages')}</span>
+          </div>
+        )}
       </div>
       <div className={styles.controls}>
         <Button
-          {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
+          {...clickAwayProps}
           positive
           ref={handleSubmitButtonRef}
           content={t('action.addCard')}
           className={styles.button}
+          disabled={isProcessing}
         />
         <SelectCardTypePopup defaultValue={data.type} onSelect={handleTypeSelect}>
           <Button
-            {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
+            {...clickAwayProps}
             ref={handleSelectTypeButtonRef}
             type="button"
-            disabled={limitTypesToDefaultOne}
+            disabled={limitTypesToDefaultOne || isProcessing}
             className={classNames(styles.button, styles.selectTypeButton)}
           >
             <Icon name={CardTypeIcons[data.type]} className={styles.selectTypeButtonIcon} />
@@ -201,6 +284,7 @@ AddCard.propTypes = {
   isOpened: PropTypes.bool,
   className: PropTypes.string,
   onCreate: PropTypes.func.isRequired,
+  onCreateWithAttachment: PropTypes.func,
   onClose: PropTypes.func.isRequired,
 };
 

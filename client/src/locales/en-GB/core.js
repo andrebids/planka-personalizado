@@ -178,6 +178,8 @@ export default {
       email: 'E-mail',
       emptyTrash_title: 'Empty Trash',
       enterCardTitle: 'Enter card title...',
+      dropImagesHere: 'Drop images here...',
+      processingImages: 'Processing images...',
       enterDescription: 'Enter description...',
       enterFilename: 'Enter filename',
       enterListTitle: 'Enter list title...',

@@ -22,7 +22,7 @@ docker-compose -f docker-compose-local.yml up -d
 if errorlevel 0 (
     echo ✅ Planka iniciado com sucesso!
     echo.
-    echo 🌐 Acesse: http://localhost:3001
+    echo 🌐 Acesse: http://localhost:3000
     echo s
     echo.
     echo 📊 Para ver os logs:
