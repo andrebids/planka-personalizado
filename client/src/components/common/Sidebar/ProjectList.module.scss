@@ -61,3 +61,30 @@
     font-size: 13px;
   }
 }
+
+.moreProjects {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.moreButton {
+  background: rgba(74, 85, 104, 0.3);
+  color: rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(113, 128, 150, 0.3);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  
+  &:hover {
+    background: rgba(74, 85, 104, 0.5);
+    color: rgba(226, 232, 240, 1);
+    border-color: rgba(113, 128, 150, 0.5);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}

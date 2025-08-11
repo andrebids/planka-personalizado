@@ -11,7 +11,7 @@ import { selectCurrentUserId } from './users';
 export const selectSidebarState = (state) => state.sidebar;
 export const selectIsSidebarExpanded = (state) => selectSidebarState(state).isExpanded;
 
-// Selector para projetos do sidebar com informações de notificações
+// Selector para projetos do sidebar com informações de notificações (otimizado)
 export const selectSidebarProjects = createSelector(
   orm,
   (state) => selectCurrentUserId(state),
@@ -30,48 +30,71 @@ export const selectSidebarProjects = createSelector(
       return [];
     }
 
-    // Obter todos os projetos do utilizador
+    // Obter projetos do utilizador (limitado para performance)
     const projectModels = userModel.getProjectsModelArray();
     
-    // Obter notificações não lidas do utilizador
-    const unreadNotifications = userModel.getUnreadNotificationsQuerySet().toRefArray();
+    // Obter notificações não lidas do utilizador (limitado para performance)
+    const unreadNotifications = userModel.getUnreadNotificationsQuerySet()
+      .toRefArray()
+      .slice(0, 100); // Limitar a 100 notificações para performance
     
-    // Criar mapa de notificações por projeto
+    // Criar mapa de notificações por projeto (otimizado)
     const notificationsByProject = {};
+    const processedProjects = new Set();
+    
     unreadNotifications.forEach((notification) => {
-      // Verificar se a notificação está relacionada com um projeto
-      // Pode ser através de boardId, cardId, ou projectId direto
       let projectId = null;
       
       if (notification.projectId) {
         projectId = notification.projectId;
       } else if (notification.boardId) {
-        // Tentar encontrar o projeto através do board
         const boardModel = Board.withId(notification.boardId);
         if (boardModel) {
           projectId = boardModel.projectId;
         }
       }
       
-      if (projectId) {
-        if (!notificationsByProject[projectId]) {
-          notificationsByProject[projectId] = 0;
+      if (projectId && !processedProjects.has(projectId)) {
+        // Contar notificações apenas para projetos que o usuário tem acesso
+        const hasProjectAccess = projectModels.some(pm => pm.id === projectId);
+        if (hasProjectAccess) {
+          notificationsByProject[projectId] = (notificationsByProject[projectId] || 0) + 1;
+          processedProjects.add(projectId);
         }
-        notificationsByProject[projectId]++;
       }
     });
 
-    // Retornar projetos com informações de notificações
-    return projectModels.map((projectModel) => {
-      const project = projectModel.ref;
-      const notificationCount = notificationsByProject[project.id] || 0;
-      
-      return {
-        id: project.id,
-        name: project.name,
-        hasNotifications: notificationCount > 0,
-        notificationCount,
-      };
-    });
+    // Retornar projetos com informações de notificações (limitado a 50 projetos para performance)
+    return projectModels
+      .slice(0, 50)
+      .map((projectModel) => {
+        const project = projectModel.ref;
+        const notificationCount = notificationsByProject[project.id] || 0;
+        
+        return {
+          id: project.id,
+          name: project.name,
+          hasNotifications: notificationCount > 0,
+          notificationCount: notificationCount > 99 ? '99+' : notificationCount,
+        };
+      });
+  },
+);
+
+// Selector para total de projetos (para mostrar indicador de "mais projetos")
+export const selectTotalProjectsCount = createSelector(
+  orm,
+  (state) => selectCurrentUserId(state),
+  ({ User }, userId) => {
+    if (!userId) {
+      return 0;
+    }
+
+    const userModel = User.withId(userId);
+    if (!userModel || !userModel.getProjectsModelArray) {
+      return 0;
+    }
+
+    return userModel.getProjectsModelArray().length;
   },
 );

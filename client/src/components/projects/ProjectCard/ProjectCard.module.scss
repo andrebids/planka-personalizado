@@ -88,6 +88,13 @@
     transition: background 0.3s ease;
   }
 
+  .notificationsWrapper {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10;
+  }
+
   .title {
     bottom: 0;
     display: -webkit-box;

@@ -17,6 +17,7 @@ import entryActions from '../../../entry-actions';
 import Paths from '../../../constants/Paths';
 import { ProjectBackgroundTypes } from '../../../constants/Enums';
 import UserAvatar from '../../users/UserAvatar';
+import NotificationIndicator from './NotificationIndicator';
 
 import styles from './ProjectCard.module.scss';
 import globalStyles from '../../../styles.module.scss';
@@ -110,7 +111,9 @@ const ProjectCard = React.memo(
             }}
           />
           {notificationsTotal > 0 && (
-            <span className={styles.notifications}>{notificationsTotal}</span>
+            <div className={styles.notificationsWrapper}>
+              <NotificationIndicator count={notificationsTotal} />
+            </div>
           )}
           <div
             className={classNames(styles.information, withSidebar && styles.informationWithSidebar)}
