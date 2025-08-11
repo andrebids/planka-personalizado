@@ -48,7 +48,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 4px; // Menor espaço vertical entre itens, para parecerem ocupar mais a barra
   min-height: 50px; // Para droppable area
 }
 

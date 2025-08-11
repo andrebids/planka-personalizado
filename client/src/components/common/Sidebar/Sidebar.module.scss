@@ -1,6 +1,6 @@
 // Variáveis para responsividade
-$sidebar-width-desktop: 240px; // Reduzido de 280px
-$sidebar-width-tablet: 200px;  // Reduzido de 240px
+$sidebar-width-desktop: 240px; // Revertido para largura original
+$sidebar-width-tablet: 200px;  // Revertido para largura original
 $sidebar-width-mobile: 100vw;
 
 .wrapper {
@@ -47,7 +47,7 @@ $sidebar-width-mobile: 100vw;
 }
 
 .content {
-  padding: 16px;
+  padding: 12px; // Reduzido para liberar mais área útil horizontal
   height: 100%;
   overflow-y: auto;
   color: #e2e8f0;

@@ -1,41 +1,42 @@
 .wrapper {
   display: flex;
   align-items: center;
-  padding: 4px 6px; // Reduzido de 6px 8px para 4px 6px
-  border-radius: 6px; // Reduzido de 8px para 6px
+  padding: 8px 8px; // Aumentado levemente a altura do botão
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  background: rgba(45, 55, 72, 0.05);
+  transition: all 0.25s ease;
+  background: rgba(45, 55, 72, 0.08);
   backdrop-filter: blur(10px);
+  width: 100%;
   
   &:hover {
-    background: rgba(45, 55, 72, 0.15);
-    transform: translateY(-2px);
+    background: rgba(45, 55, 72, 0.18);
+    transform: translateY(-1px);
     box-shadow: 
-      0 8px 25px rgba(0, 0, 0, 0.15),
-      0 2px 8px rgba(0, 0, 0, 0.1);
+      0 6px 18px rgba(0, 0, 0, 0.14),
+      0 2px 6px rgba(0, 0, 0, 0.08);
   }
   
   &:focus {
     outline: none;
-    background: rgba(49, 130, 206, 0.1);
+    background: rgba(49, 130, 206, 0.12);
     box-shadow: 
-      0 0 0 2px rgba(49, 130, 206, 0.3),
-      0 8px 25px rgba(0, 0, 0, 0.15);
+      0 0 0 2px rgba(49, 130, 206, 0.28),
+      0 6px 18px rgba(0, 0, 0, 0.14);
   }
   
   &:active {
-    transform: translateY(-1px);
-    background: rgba(74, 85, 104, 0.2);
+    transform: translateY(0);
+    background: rgba(74, 85, 104, 0.22);
   }
 }
 
 .content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start; // Alinha itens para usar mais largura
   width: 100%;
-  gap: 8px; // Reduzido de 10px para 8px
+  gap: 6px; // Reduzido para dar mais espaço ao texto
 }
 
 .draggable {
@@ -47,15 +48,15 @@
 }
 
 .dragHandle {
-  color: rgba(255, 255, 255, 0.4);
-  margin-right: 4px;
-  opacity: 0.6;
+  color: rgba(255, 255, 255, 0.45);
+  margin-right: 2px;
+  opacity: 0.7;
   transition: opacity 0.2s ease;
   cursor: grab;
   
   &:hover {
     opacity: 1;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
   }
   
   &:active {
@@ -69,17 +70,17 @@
 }
 
 .projectThumbnail {
-  width: 48px; // Retangular: largura maior
-  height: 32px; // Retangular: altura menor
-  border-radius: 4px; // Reduzido de 6px para 4px para retângulo
+  width: 52px; // Leve aumento para melhorar a leitura visual
+  height: 32px;
+  border-radius: 6px;
   background: #555;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   
   &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.04);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
   }
 }
 
@@ -91,7 +92,7 @@
 }
 
 .name {
-  font-size: 14px;
+  font-size: 14px; // Reduzido para evitar truncar nomes longos
   color: #ffffff;
   font-weight: 600;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
