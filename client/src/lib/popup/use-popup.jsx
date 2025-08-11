@@ -77,6 +77,8 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
         onClick: handleTriggerClick,
       });
 
+      const variantName = variantClass || 'glass';
+
       return (
         <SemanticUIPopup
           basic
@@ -96,7 +98,7 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
               },
             },
           ]}
-          className={variantClass ? `${styles.wrapper} ${styles[variantClass] || ''}` : styles.wrapper}
+          className={`${styles.wrapper} ${styles[variantName] || ''}`}
           onOpen={handleOpen}
           onClose={handleClose}
           onUnmount={onClose}

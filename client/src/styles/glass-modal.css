@@ -9,12 +9,16 @@
 .ui.modal.glass > .content,
 .ui.basic.modal.glass > .content {
   position: relative;
-  border-radius: 20px;
+  border-radius: 16px; /* consistente com notificações */
   isolation: isolate;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: visible; /* permitir dropdowns saírem do container */
+  color: #e6edf3; /* garantir contraste do texto */
+  background: rgba(14, 17, 23, 0.75) !important; /* remove branco padrão */
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .ui.modal.glass > .content::before,
@@ -23,9 +27,9 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 20px;
-  box-shadow: inset 0 0 20px -5px rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: none;
+  background: radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.08), transparent 60%);
   pointer-events: none;
 }
 
@@ -34,7 +38,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: -1; /* ficar atrás do conteúdo para não lavar texto */
   border-radius: 28px;
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -48,4 +52,90 @@
   background: transparent;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: #e6edf3;
+}
+
+/* Botão fechar estilo vidro */
+.ui.modal.glass > i.close.icon {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  padding: 4px !important;
+  background: transparent;
+  color: #d7e7ff;
+  cursor: pointer;
+}
+
+.ui.modal.glass > i.close.icon:hover {
+  background: rgba(59, 130, 246, 0.12);
+  color: #ffffff;
+}
+
+/* Texto interno (labels/checks) com contraste melhor */
+.ui.modal.glass label,
+.ui.modal.glass .ui.checkbox label,
+.ui.modal.glass .ui.toggle.checkbox label {
+  color: rgba(230, 237, 243, 0.9) !important;
+}
+
+/* Inputs e dropdowns mais claros sobre vidro */
+.ui.modal.glass .ui.input input,
+.ui.modal.glass input[type='text'],
+.ui.modal.glass .ui.dropdown > .text,
+.ui.modal.glass .ui.selection.dropdown {
+  color: #0f172a; /* texto escuro em campos claros */
+}
+
+.ui.modal.glass .ui.selection.dropdown,
+.ui.modal.glass .ui.input > input {
+  background: #f8fafc !important;
+  border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+/* Dropdown de idioma: garantir sobreposição acima do conteúdo do modal */
+.ui.modal.glass .ui.selection.dropdown .menu {
+  z-index: 4000 !important;
+}
+
+/* Tabs apontadas (ativo e normal) */
+.ui.modal.glass .ui.pointing.secondary.menu .item {
+  color: rgba(230, 237, 243, 0.9);
+}
+
+.ui.modal.glass .ui.pointing.secondary.menu .active.item {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.ui.modal.glass .ui.segment,
+.ui.modal.glass .ui.segment.active,
+.ui.modal.glass .ui.segment.active.tab {
+  background: transparent !important; /* tira placas brancas internas */
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Tabs e texto internos (UserSettingsModal) */
+.ui.modal.glass .ui.menu .item,
+.ui.modal.glass .ui.menu .item.active,
+.ui.modal.glass .ui.menu .item:hover {
+  color: #e6edf3;
+}
+
+.ui.modal.glass .ui.menu .item.active {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Títulos internos (ex.: Idioma) dentro do modal vidro */
+.ui.modal.glass .ui.header,
+.ui.basic.modal.glass .ui.header {
+  color: #e6edf3 !important;
+  font-weight: 700 !important;
+}
+
+/* Labels de campos (Nome, Telefone, Organização) */
+.ui.modal.glass .ui.form .field > label,
+.ui.modal.glass .field > label {
+  color: rgba(230, 237, 243, 0.9) !important;
 }

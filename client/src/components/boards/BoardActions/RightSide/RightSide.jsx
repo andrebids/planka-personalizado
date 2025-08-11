@@ -28,7 +28,7 @@ const RightSide = React.memo(() => {
     [dispatch],
   );
 
-  const ActionsPopup = usePopup(ActionsStep);
+  const ActionsPopup = usePopup(ActionsStep, { variantClass: 'glass' });
 
   const views = [BoardViews.GRID, BoardViews.LIST];
   if (board.context === BoardContexts.BOARD) {

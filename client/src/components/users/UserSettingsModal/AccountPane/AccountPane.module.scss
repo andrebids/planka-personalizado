@@ -4,6 +4,13 @@
  */
 
 :global(#app) {
+  .wrapper {
+    border: none;
+    box-shadow: none;
+    background: transparent !important;
+    color: rgba(230, 237, 243, 0.92);
+  }
+
   .action {
     border: none;
     border-radius: 0.28571429rem;
@@ -15,13 +22,13 @@
     width: 100%;
 
     &:hover {
-      background: #e9e9e9;
+      background: rgba(30, 58, 138, 0.18);
     }
   }
 
   .actionButton {
     background: transparent;
-    color: #6b808c;
+    color: #e6edf3;
     font-weight: normal;
     height: 36px;
     line-height: 24px;
@@ -29,10 +36,5 @@
     text-align: left;
     text-decoration: underline;
     width: 100%;
-  }
-
-  .wrapper {
-    border: none;
-    box-shadow: none;
   }
 }

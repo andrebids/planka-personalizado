@@ -100,11 +100,6 @@ const Header = React.memo(() => {
 
   return (
     <div className={styles.wrapper}>
-      {!project && (
-        <Link to={Paths.ROOT} className={classNames(styles.logo, styles.title)}>
-          Blachere Boards
-        </Link>
-      )}
       <Menu inverted size="large" className={styles.menu}>
         {!project && (
           <Menu.Menu position="left">
@@ -112,7 +107,29 @@ const Header = React.memo(() => {
               className={classNames(styles.item, styles.itemHoverable)}
               onClick={handleToggleSidebarClick}
             >
-              <Icon fitted name="bars" />
+              <div
+                className={classNames(styles.hamburger, isSidebarExpanded && styles.open)}
+                aria-label={isSidebarExpanded ? 'Fechar menu' : 'Abrir menu'}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleToggleSidebarClick();
+                  }
+                }}
+              >
+                <span className={styles.bar} />
+                <span className={styles.bar} />
+                <span className={styles.bar} />
+              </div>
+            </Menu.Item>
+            <Menu.Item
+              as={Link}
+              to={Paths.ROOT}
+              className={classNames(styles.item, styles.title, styles.logo)}
+            >
+              Blachere Boards
             </Menu.Item>
           </Menu.Menu>
         )}
@@ -122,7 +139,22 @@ const Header = React.memo(() => {
             className={classNames(styles.item, styles.itemHoverable)}
             onClick={handleToggleSidebarClick}
           >
-            <Icon fitted name="bars" />
+            <div
+              className={classNames(styles.hamburger, isSidebarExpanded && styles.open)}
+              aria-label={isSidebarExpanded ? 'Fechar menu' : 'Abrir menu'}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleToggleSidebarClick();
+                }
+              }}
+            >
+              <span className={styles.bar} />
+              <span className={styles.bar} />
+              <span className={styles.bar} />
+            </div>
           </Menu.Item>
           <Menu.Item
             as={Link}

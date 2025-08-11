@@ -42,7 +42,7 @@ const RightSide = React.memo(() => {
     dispatch(entryActions.toggleHiddenProjects(!isHiddenVisible));
   }, [isHiddenVisible, dispatch]);
 
-  const SelectOrderPopup = usePopup(SelectOrderStep);
+  const SelectOrderPopup = usePopup(SelectOrderStep, { variantClass: 'glass' });
 
   return (
     <>

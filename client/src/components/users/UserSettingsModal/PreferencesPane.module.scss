@@ -16,5 +16,13 @@
   .wrapper {
     border: none;
     box-shadow: none;
+    background: transparent !important;
+    color: rgba(230, 237, 243, 0.9);
+  }
+
+  /* aumentar contraste do label dos toggles */
+  .ui.toggle.checkbox label,
+  .ui.checkbox label {
+    color: rgba(230, 237, 243, 0.9) !important;
   }
 }
