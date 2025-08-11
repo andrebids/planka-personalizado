@@ -130,6 +130,7 @@ const ActionsStep = React.memo(({ boardMembershipId, title, onBack, onClose }) =
         content={t('action.showCardsWithThisUser')}
         icon="filter"
         size="tiny"
+        className={styles.filterButton}
         onClick={handleFilterClick}
       />
       {(isCurrentUser || canEdit) && (

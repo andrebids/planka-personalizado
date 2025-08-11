@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import ProjectItem from './ProjectItem';
-import ProjectOrderControls from './ProjectOrderControls';
 import {
   selectSidebarFavoriteProjectsOrdered,
   selectSidebarOtherProjectsOrdered,
@@ -125,10 +124,7 @@ const ProjectList = React.memo(() => {
           </>
         )}
 
-        <div className={styles.titleRow}>
-          <h3 className={styles.title}>MEUS PROJETOS</h3>
-          <ProjectOrderControls />
-        </div>
+        <h3 className={styles.title}>MEUS PROJETOS</h3>
 
         <Droppable droppableId="projects">
           {(provided) => (

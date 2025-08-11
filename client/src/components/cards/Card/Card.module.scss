@@ -46,21 +46,62 @@
   }
 
   .wrapper {
-    background: #2d3748;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    /* Liquid Glass base */
     position: relative;
-    border: 1px solid #4a5568;
-    transition: all 0.2s ease;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 8px; /* menos arredondado para combinar com a UI da imagem */
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%),
+      rgba(24, 28, 36, 0.5);
+    border: none; /* remover borda externa para evitar efeito de duas bordas */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+      background 0.2s ease;
+
+    /* Inner depth and subtle tint */
+    &:before {
+      content: '';
+      position: absolute;
+      inset: 0; /* único traço claro visível */
+      z-index: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+    }
+
+    /* Optional distortion/shine layer */
+    &:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      /* Slight organic ripples */
+      filter: url('#glass-distortion');
+      opacity: 0.12;
+      background: linear-gradient(130deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 45%);
+      mix-blend-mode: screen; /* brilho bem discreto */
+    }
 
     &:hover {
-      background: #374151;
-      border-color: #6b7280;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transform: translateY(-1px);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%),
+        rgba(24, 28, 36, 0.52);
+      /* reforçar apenas o traço interno no hover */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transform: none;
 
       .actionsButton {
         opacity: 1;
+      }
+      
+      &:before {
+        border-color: rgba(255, 255, 255, 0.22);
       }
     }
   }
@@ -70,7 +111,13 @@
 
     &:after {
       animation: slide 4s infinite 2s;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(59, 130, 246, 0.3) 99%, rgba(59, 130, 246, 0) 100%);
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.22) 50%,
+        rgba(59, 130, 246, 0.35) 99%,
+        rgba(59, 130, 246, 0) 100%
+      );
       content: '';
       height: 100%;
       position: absolute;

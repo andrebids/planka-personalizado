@@ -7,16 +7,20 @@
   .clearButton {
     background: transparent;
     box-shadow: none;
-    color: #6b808c;
+    color: #cfe3ff;
     font-weight: normal;
     margin-top: 8px;
     padding: 6px 11px;
     text-align: left;
     text-decoration: underline;
-    transition: background 0.3s ease;
+    transition: none;
 
     &:hover {
-      background: #e9e9e9;
+      background: rgba(30, 58, 138, 0.18);
+      color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(96, 165, 250, 0.18) inset;
     }
   }
 
@@ -26,6 +30,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
+    color: #e6edf3; /* garantir contraste do texto */
 
     @supports (-moz-appearance: none) {
       scrollbar-color: rgba(0, 0, 0, 0.32) transparent;

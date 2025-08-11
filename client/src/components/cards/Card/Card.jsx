@@ -67,7 +67,7 @@ const Card = React.memo(({ id, isInline }) => {
     setIsEditNameOpened(false);
   }, []);
 
-  const ActionsPopup = usePopup(ActionsStep);
+  const ActionsPopup = usePopup(ActionsStep, { variantClass: 'notifications' });
 
   if (isEditNameOpened) {
     return <EditName cardId={id} onClose={handleEditNameClose} />;

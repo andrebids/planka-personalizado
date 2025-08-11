@@ -25,6 +25,12 @@ const ProjectOrderControls = React.memo(() => {
     dispatch(resetFavoritesOrder());
   };
 
+  // Mostrar controles apenas quando houver ordenação personalizada a ser resetada
+  const hasAnyCustomOrder = (customOrder && customOrder.length > 0) || (customFavOrder && customFavOrder.length > 0);
+  if (!hasAnyCustomOrder) {
+    return null;
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.controls}>

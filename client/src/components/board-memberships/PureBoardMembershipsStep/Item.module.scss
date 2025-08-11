@@ -8,15 +8,20 @@
     display: block;
     margin: 0;
     overflow: hidden;
-    padding: 4px;
+    padding: 4px 6px;
+    color: #e6edf3;
+
+    &:hover {
+      background: rgba(30, 58, 138, 0.18);
+      color: #eaf2ff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(96, 165, 250, 0.18) inset;
+    }
   }
 
   .menuItemActive {
     background: transparent;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.05);
-    }
   }
 
   .menuItemText {
@@ -27,7 +32,7 @@
 
   .menuItemTextActive:before {
     bottom: 2px;
-    color: #798d99;
+    color: #cfe3ff;
     content: "Г";
     font-size: 18px;
     font-weight: normal;

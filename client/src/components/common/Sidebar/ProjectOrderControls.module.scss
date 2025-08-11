@@ -9,21 +9,22 @@
 }
 
 .resetButton {
-  background: none;
-  border: none;
-  color: #6c757d;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cfe3ff;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 6px 8px;
+  border-radius: 10px;
   transition: all 0.2s ease;
   
   &:hover {
-    background-color: #f8f9fa;
-    color: #495057;
+    background: rgba(59, 130, 246, 0.24);
+    color: #ffffff;
+    box-shadow: 0 0 0 1px rgba(207, 227, 255, 0.35) inset;
   }
   
   &:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(207, 227, 255, 0.35);
   }
 }
