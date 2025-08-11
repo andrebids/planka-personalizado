@@ -14,6 +14,7 @@ import {
 } from 'react-datepicker';
 import timeAgoDefaultLocale from 'javascript-time-ago/locale/en';
 import TimeAgo from 'javascript-time-ago';
+import ptPTLocale from 'javascript-time-ago/locale/pt-PT';
 import { configure as configureMarkdownEditor } from '@gravity-ui/markdown-editor';
 // eslint-disable-next-line import/no-unresolved
 import { i18n as markdownEditorI18n } from '@gravity-ui/markdown-editor/_/i18n/i18n';
@@ -52,6 +53,9 @@ i18n.dateFns = {
 i18n.timeAgo = {
   init() {
     TimeAgo.addDefaultLocale(timeAgoDefaultLocale);
+    // Adicionar o locale pt-PT explicitamente
+    console.log('Registando locale pt-PT no i18n:', ptPTLocale);
+    TimeAgo.addLocale(ptPTLocale);
   },
   addLocale(_, locale) {
     TimeAgo.addLocale(locale);
@@ -132,6 +136,22 @@ i18n
 
 i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
   if (language === FALLBACK_LANGUAGE) {
+    console.log('Carregando locale padrão pt-PT');
+    // Carregar o locale pt-PT mesmo sendo o padrão
+    const { default: locale } = await import(`./locales/${language}/core.js`);
+    
+    Object.keys(locale).forEach((namespace) => {
+      switch (namespace) {
+        case 'dateFns':
+        case 'timeAgo':
+        case 'markdownEditor':
+          console.log(`Registando ${namespace} para ${language}:`, locale[namespace]);
+          i18n[namespace].addLocale(language, locale[namespace]);
+          break;
+        default:
+          i18n.addResourceBundle(language, namespace, locale[namespace], true, true);
+      }
+    });
     return;
   }
 
@@ -142,8 +162,8 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
       case 'dateFns':
       case 'timeAgo':
       case 'markdownEditor':
+        console.log(`Registando ${namespace} para ${language}:`, locale[namespace]);
         i18n[namespace].addLocale(language, locale[namespace]);
-
         break;
       default:
         i18n.addResourceBundle(language, namespace, locale[namespace], true, true);
