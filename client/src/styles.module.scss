@@ -14,6 +14,15 @@
       height: auto;
     }
 
+    // Fix para z-index dos modais - garantir que apareçam por cima da barra de pesquisa
+    .ui.modal {
+      z-index: 10002 !important;
+    }
+    
+    .ui.dimmer {
+      z-index: 10001 !important;
+    }
+
     .mentions-input {
       &__highlighter {
         line-height: 1.4;

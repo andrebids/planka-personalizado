@@ -26,12 +26,6 @@ const UserSettingsModal = React.memo(() => {
 
   const panes = [
     {
-      menuItem: t('common.account', {
-        context: 'title',
-      }),
-      render: () => <AccountPane />,
-    },
-    {
       menuItem: t('common.preferences', {
         context: 'title',
       }),
@@ -43,10 +37,22 @@ const UserSettingsModal = React.memo(() => {
       }),
       render: () => <NotificationsPane />,
     },
+    {
+      menuItem: t('common.account', {
+        context: 'title',
+      }),
+      render: () => <AccountPane />,
+    },
   ];
 
   return (
-    <ClosableModal open closeIcon size="small" centered={false} onClose={handleClose}>
+    <ClosableModal 
+      open 
+      closeIcon 
+      size="small" 
+      centered={false} 
+      onClose={handleClose}
+    >
       <ClosableModal.Content>
         <Tab
           menu={{

@@ -6,6 +6,7 @@
 :global(#app) {
   .filter {
     margin-right: 10px;
+    z-index: 1; // Z-index baixo para não sobrepor modais
   }
 
   .filterButton {
@@ -62,6 +63,7 @@
     margin: 0 12px;
     transition: width 0.2s ease;
     width: 280px;
+    z-index: 1; // Z-index baixo para não sobrepor modais
 
     @media only screen and (width < 768px) {
       width: 220px;
@@ -76,6 +78,7 @@
     color: #fff;
     height: 24px;
     width: 220px;
+    z-index: 1; // Z-index baixo para não sobrepor modais
 
     input {
       background: rgba(0, 0, 0, 0.24);
