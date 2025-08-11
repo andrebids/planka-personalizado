@@ -22,21 +22,21 @@
   }
 
   .importButton {
-    background: transparent;
-    box-shadow: none;
-    color: #6b808c;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    color: #e6edf3;
     font-weight: normal;
     margin-left: auto;
     margin-right: 0;
     overflow: hidden;
     text-align: left;
-    text-decoration: underline;
+    text-decoration: none;
     text-overflow: ellipsis;
     transition: none;
 
     &:hover {
-      background: rgba(9, 30, 66, 0.08);
-      color: #092d42;
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
     }
   }
 
@@ -45,7 +45,7 @@
   }
 
   .text {
-    color: #444444;
+    color: #e6edf3; /* rótulo 'Título' claro no tema vidro */
     font-size: 12px;
     font-weight: bold;
     padding-bottom: 6px;
