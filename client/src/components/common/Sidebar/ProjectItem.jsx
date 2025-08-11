@@ -55,6 +55,7 @@ const ProjectItem = React.memo(({ project }) => {
     <div
       className={classNames(styles.wrapper, {
         [styles.hasNotifications]: project.hasNotifications,
+        [styles.draggable]: true, // Indicar que é arrastável
       })}
       onClick={handleClick}
       role="button"
@@ -62,6 +63,9 @@ const ProjectItem = React.memo(({ project }) => {
       title={project.name} // Tooltip com nome completo
     >
       <div className={styles.content}>
+        <div className={styles.dragHandle}>
+          <i className="fas fa-grip-vertical" />
+        </div>
         <div className={styles.thumbnailContainer}>
           <div
             className={classNames(

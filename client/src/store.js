@@ -10,9 +10,10 @@ import { createRouterMiddleware } from './lib/redux-router';
 import rootReducer from './reducers';
 import rootSaga from './sagas';
 import history from './history';
+import { projectOrderMiddleware } from './middleware/projectOrderMiddleware';
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware, createRouterMiddleware(history)];
+const middlewares = [sagaMiddleware, createRouterMiddleware(history), projectOrderMiddleware];
 
 let compose = reduxCompose;
 if (import.meta.env.DEV) {

@@ -38,6 +38,31 @@
   gap: 8px; // Reduzido de 10px para 8px
 }
 
+.draggable {
+  cursor: grab;
+  
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.dragHandle {
+  color: rgba(255, 255, 255, 0.4);
+  margin-right: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  cursor: grab;
+  
+  &:hover {
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  &:active {
+    cursor: grabbing;
+  }
+}
+
 .thumbnailContainer {
   position: relative;
   flex-shrink: 0;

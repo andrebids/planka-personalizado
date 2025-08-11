@@ -10,12 +10,14 @@ import { selectCurrentUserId } from './users';
 
 export const selectSidebarState = (state) => state.sidebar;
 export const selectIsSidebarExpanded = (state) => selectSidebarState(state).isExpanded;
+export const selectProjectsOrder = (state) => selectSidebarState(state).projectsOrder;
 
 // Selector para projetos do sidebar com informações de notificações (otimizado)
 export const selectSidebarProjects = createSelector(
   orm,
   (state) => selectCurrentUserId(state),
-  ({ User, Board }, userId) => {
+  (state) => selectProjectsOrder(state),
+  ({ User, Board }, userId, customOrder) => {
     if (!userId) {
       return [];
     }
@@ -65,7 +67,7 @@ export const selectSidebarProjects = createSelector(
     });
 
     // Retornar projetos com informações de notificações e background (limitado a 50 projetos para performance)
-    return projectModels
+    const projectsWithData = projectModels
       .slice(0, 50)
       .map((projectModel) => {
         const project = projectModel.ref;
@@ -82,6 +84,23 @@ export const selectSidebarProjects = createSelector(
           backgroundImageId: project.backgroundImageId,
         };
       });
+
+    // Aplicar ordenação personalizada se existir
+    if (customOrder && customOrder.length > 0) {
+      const orderMap = {};
+      customOrder.forEach((projectId, index) => {
+        orderMap[projectId] = index;
+      });
+      
+      return projectsWithData.sort((a, b) => {
+        const orderA = orderMap[a.id] !== undefined ? orderMap[a.id] : 999;
+        const orderB = orderMap[b.id] !== undefined ? orderMap[b.id] : 999;
+        return orderA - orderB;
+      });
+    }
+    
+    // Ordenação alfabética padrão
+    return projectsWithData.sort((a, b) => a.name.localeCompare(b.name));
   },
 );
 
