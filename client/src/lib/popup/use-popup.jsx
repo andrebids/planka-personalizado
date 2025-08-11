@@ -10,7 +10,7 @@ import { Button, Popup as SemanticUIPopup } from 'semantic-ui-react';
 
 import styles from './Popup.module.css';
 
-export default (Step, { position, onOpen, onClose } = {}) => {
+export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
   return useMemo(() => {
     const Popup = React.memo(({ children, ...stepProps }) => {
       const [isOpened, setIsOpened] = useState(false);
@@ -96,7 +96,7 @@ export default (Step, { position, onOpen, onClose } = {}) => {
               },
             },
           ]}
-          className={styles.wrapper}
+          className={variantClass ? `${styles.wrapper} ${styles[variantClass] || ''}` : styles.wrapper}
           onOpen={handleOpen}
           onClose={handleClose}
           onUnmount={onClose}

@@ -6,6 +6,7 @@
 import ActionTypes from '../constants/ActionTypes';
 
 const STORAGE_KEY = 'planka_projects_order';
+const FAVORITES_STORAGE_KEY = 'planka_favorites_order';
 
 export const projectOrderMiddleware = (store) => (next) => (action) => {
   const result = next(action);
@@ -24,6 +25,20 @@ export const projectOrderMiddleware = (store) => (next) => (action) => {
         localStorage.removeItem(STORAGE_KEY);
       } catch (error) {
         console.warn('Erro ao remover ordenação:', error);
+      }
+      break;
+    case ActionTypes.FAVORITES_ORDER_SAVE:
+      try {
+        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(action.payload.order));
+      } catch (error) {
+        console.warn('Erro ao salvar ordenação de favoritos:', error);
+      }
+      break;
+    case ActionTypes.FAVORITES_ORDER_RESET:
+      try {
+        localStorage.removeItem(FAVORITES_STORAGE_KEY);
+      } catch (error) {
+        console.warn('Erro ao remover ordenação de favoritos:', error);
       }
       break;
       

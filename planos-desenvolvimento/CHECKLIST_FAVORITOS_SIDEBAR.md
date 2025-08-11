@@ -18,15 +18,15 @@
 - [x] Identificar arquivos a modificar
 
 ### ⏳ Implementação
-- [ ] Modificar `ProjectItem.jsx` para adicionar botão de favorito (mesma lógica do `ProjectCard`)
-- [ ] Adicionar `handleFavoriteClick` com `stopPropagation`
-- [ ] Reutilizar `entryActions.updateProject(id, { isFavorite: !project.isFavorite })`
-- [ ] Atualizar `ProjectItem.module.scss` com estilos do botão (estrela cheia/vazia + hover)
-- [ ] Atualizar `sidebarSelectors.js` para expor `selectSidebarFavoriteProjects` e `selectSidebarOtherProjects` (filtrar `project.isHidden`)
-- [ ] Modificar `ProjectList.jsx` para renderizar duas seções: FAVORITOS e MEUS PROJETOS (não duplicar o componente `Favorites` do topo)
-- [ ] Implementar lógica de separação baseada em `project.isFavorite` (alinhado ao selector `selectFavoriteProjectIdsForCurrentUser`)
-- [ ] Adicionar separador visual entre seções
-- [ ] Acessibilidade básica do botão: `tabIndex=0`, `aria-pressed`, `title`; suportar `Enter`/`Espaço` no `onKeyDown`
+- [x] Modificar `ProjectItem.jsx` para adicionar botão de favorito (mesma lógica do `ProjectCard`)
+- [x] Adicionar `handleFavoriteClick` com `stopPropagation`
+- [x] Reutilizar `entryActions.updateProject(id, { isFavorite: !project.isFavorite })`
+- [x] Atualizar `ProjectItem.module.scss` com estilos do botão (estrela cheia/vazia + hover)
+- [x] Atualizar `sidebarSelectors.js` para expor `selectSidebarFavoriteProjects` e `selectSidebarOtherProjects` (filtrar `project.isHidden`)
+- [x] Modificar `ProjectList.jsx` para renderizar duas seções: FAVORITOS e MEUS PROJETOS (não duplicar o componente `Favorites` do topo)
+- [x] Implementar lógica de separação baseada em `project.isFavorite` (alinhado ao selector `selectFavoriteProjectIdsForCurrentUser`)
+- [x] Adicionar separador visual entre seções
+- [x] Acessibilidade básica do botão: `tabIndex=0`, `aria-pressed`, `title`; suportar `Enter`/`Espaço` no `onKeyDown`
 
 ### ⏳ Testes
 - [ ] Teste de clique no botão de favorito
@@ -46,14 +46,14 @@
 - [ ] Planejar integração com Redux
 
 ### ⏳ Implementação
-- [ ] Criar `FavoriteProjectList.jsx`
-- [ ] Implementar drag and drop independente para favoritos (Droppable separado)
-- [ ] Criar selectors `selectSidebarFavoriteProjectsOrdered` e `selectSidebarOtherProjectsOrdered`
-- [ ] Criar actions `FAVORITES_ORDER_SAVE`, `FAVORITES_ORDER_LOAD` e `FAVORITES_ORDER_RESET` em `ActionTypes.js`
-- [ ] Atualizar `sidebarActions.js` com `saveFavoritesOrder`, `loadFavoritesOrder`, `resetFavoritesOrder`
-- [ ] Atualizar `sidebarReducer.js` com novo estado `favoritesOrder`
-- [ ] Integrar com `ProjectList.jsx` (dois Droppables: favoritos e não-favoritos)
-- [ ] Implementar lógica de ordenação: usar `favoritesOrder` para favoritos e `projectsOrder` para os demais
+- [x] Criar `FavoriteProjectList.jsx`
+- [x] Implementar drag and drop independente para favoritos (Droppable separado)
+- [x] Criar selectors `selectSidebarFavoriteProjectsOrdered` e `selectSidebarOtherProjectsOrdered`
+- [x] Criar actions `FAVORITES_ORDER_SAVE`, `FAVORITES_ORDER_LOAD` e `FAVORITES_ORDER_RESET` em `ActionTypes.js`
+- [x] Atualizar `sidebarActions.js` com `saveFavoritesOrder`, `loadFavoritesOrder`, `resetFavoritesOrder`
+- [x] Atualizar `sidebarReducer.js` com novo estado `favoritesOrder`
+- [x] Integrar com `ProjectList.jsx` (dois Droppables: favoritos e não-favoritos)
+- [x] Implementar lógica de ordenação: usar `favoritesOrder` para favoritos e `projectsOrder` para os demais
 
 ### ⏳ Testes
 - [ ] Teste de drag and drop de favoritos
@@ -71,13 +71,14 @@
 - [ ] Planejar sincronização
 
 ### ⏳ Implementação
-- [ ] Implementar `saveFavoritesOrderToStorage` com chave `planka_favorites_order`
-- [ ] Implementar `loadFavoritesOrderFromStorage` com chave `planka_favorites_order`
-- [ ] (Opcional) Criar `sidebarMiddleware.js` para persistir automaticamente `projectsOrder` e `favoritesOrder`
-- [ ] Conectar middleware (se criado) com Redux
-- [ ] Implementar carregamento inicial em `ProjectList.jsx` e `FavoriteProjectList.jsx`
-- [ ] Implementar salvamento automático
-- [ ] Tratar erros de localStorage
+- [x] Implementar `saveFavoritesOrderToStorage` com chave `planka_favorites_order`
+- [x] Implementar `loadFavoritesOrderFromStorage` com chave `planka_favorites_order`
+- [x] (Opcional) Criar `sidebarMiddleware.js` para persistir automaticamente `projectsOrder` e `favoritesOrder`
+- [x] Conectar middleware (se criado) com Redux
+- [x] Implementar carregamento inicial em `ProjectList.jsx` e `FavoriteProjectList.jsx`
+- [x] Implementar salvamento automático
+- [x] Tratar erros de localStorage
+- [x] Persistir automaticamente via `projectOrderMiddleware` (projects + favorites)
 
 ### ⏳ Testes
 - [ ] Teste de persistência entre sessões
@@ -95,20 +96,20 @@
 - [ ] Considerar responsividade
 
 ### ⏳ Implementação
-- [ ] Adicionar separador visual em `ProjectList.module.scss`
-- [ ] Implementar título "FAVORITOS"
-- [ ] Melhorar estilos do botão de favorito
-- [ ] Adicionar transições suaves
-- [ ] Implementar responsividade
-- [ ] Adicionar tooltips informativos
-- [ ] Melhorar acessibilidade
-- [ ] Posicionar a estrela à direita do nome do projeto (usar `margin-left: auto` no container)
-- [ ] Exibição: favorito sempre visível; não favorito só aparece no hover do item
-- [ ] Tamanhos: botão 28–32px (36px em mobile), ícone 18px
-- [ ] Cores: favorito #F6C85C; hover com `rgba(0,0,0,0.12)`; ícone branco 80% quando não favorito
-- [ ] Animações: transições de opacidade/transform 0.2–0.25s; leve `scale(1.05)` no hover
-- [ ] Acessibilidade visual: foco visível (outline/box-shadow), `aria-pressed` correto
-- [ ] Consistência com `ProjectCard.module.scss` (`favoriteButton`, `favoriteButtonAppearable`, `favoriteButtonIcon`)
+- [x] Adicionar separador visual em `ProjectList.module.scss`
+- [x] Implementar título "FAVORITOS"
+- [x] Melhorar estilos do botão de favorito
+- [x] Adicionar transições suaves
+- [x] Implementar responsividade
+- [x] Adicionar tooltips informativos
+- [x] Melhorar acessibilidade
+- [x] Posicionar a estrela à direita do nome do projeto (usar `margin-left: auto` no container)
+- [x] Exibição: favorito sempre visível; não favorito só aparece no hover do item
+- [x] Tamanhos: botão 28–32px (36px em mobile), ícone 18px
+- [x] Cores: favorito #F6C85C; hover com `rgba(0,0,0,0.12)`; ícone branco 80% quando não favorito
+- [x] Animações: transições de opacidade/transform 0.2–0.25s; leve `scale(1.05)` no hover
+- [x] Acessibilidade visual: foco visível (outline/box-shadow), `aria-pressed` correto
+- [x] Consistência com `ProjectCard.module.scss` (`favoriteButton`, `favoriteButtonAppearable`, `favoriteButtonIcon`)
 
 ### ⏳ Testes
 - [ ] Teste de aparência visual
@@ -132,11 +133,11 @@
 - [ ] Definir critérios de validação
 
 ### ⏳ Implementação
-- [ ] Integrar com `selectFavoriteProjectIdsForCurrentUser` (fonte única da verdade para favoritos)
-- [ ] Garantir que o `Favorites` (barra superior) continue inalterado e sincronizado
-- [ ] Não duplicar estado: não criar flags locais alternativas a `project.isFavorite`
-- [ ] Otimizar performance
-- [ ] Implementar memoização
+- [x] Integrar com `selectFavoriteProjectIdsForCurrentUser` (fonte única da verdade para favoritos)
+- [x] Garantir que o `Favorites` (barra superior) continue inalterado e sincronizado
+- [x] Não duplicar estado: não criar flags locais alternativas a `project.isFavorite`
+- [x] Otimizar performance
+- [x] Implementar memoização
 - [ ] Adicionar logging para debug
 
 ### ⏳ Testes

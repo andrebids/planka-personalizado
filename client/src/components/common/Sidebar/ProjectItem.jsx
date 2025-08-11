@@ -120,6 +120,7 @@ const ProjectItem = React.memo(({ project }) => {
           className={classNames(
             styles.favoriteButton,
             !project.isFavorite && styles.favoriteButtonAppearable,
+            project.isFavorite && styles.favoriteActive,
           )}
           onClick={handleFavoriteClick}
           onKeyDown={handleFavoriteKeyDown}

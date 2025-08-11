@@ -9,17 +9,27 @@ $sidebar-width-mobile: 100vw;
   left: 0;
   width: $sidebar-width-desktop;
   height: 100vh;
-  background: rgba(32, 41, 54, 0.6); // Mais transparente para efeito mais fosco
-  backdrop-filter: blur(30px); // Blur mais intenso
-  -webkit-backdrop-filter: blur(30px); // Suporte para Safari
+  background: rgba(14, 17, 23, 0.35); // igual ao popup de notificações
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 1000;
-  transform: translateX(-100%); // Oculto por padrão
+  transform: translateX(-100%);
   transition: transform 0.3s ease;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1); // Sombra interna sutil
-  // Removidas as bordas arredondadas
-  
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  isolation: isolate;
+  overflow: hidden;
+
+  // Camada de realce interno (sutil)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: none; // sem brilho interno para não parecer segunda borda
+    background: transparent;
+    pointer-events: none;
+  }
+
   // Estado expandido (será controlado por classe)
   &.expanded {
     transform: translateX(0);

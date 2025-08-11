@@ -18,3 +18,17 @@ export const loadProjectsOrder = (order) => ({
 export const resetProjectsOrder = () => ({
   type: ActionTypes.PROJECTS_ORDER_RESET,
 });
+
+export const saveFavoritesOrder = (order) => ({
+  type: ActionTypes.FAVORITES_ORDER_SAVE,
+  payload: { order },
+});
+
+export const loadFavoritesOrder = (order) => ({
+  type: ActionTypes.FAVORITES_ORDER_LOAD,
+  payload: { order },
+});
+
+export const resetFavoritesOrder = () => ({
+  type: ActionTypes.FAVORITES_ORDER_RESET,
+});

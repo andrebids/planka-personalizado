@@ -8,6 +8,7 @@ import ActionTypes from '../constants/ActionTypes';
 const initialState = {
   isExpanded: false,
   projectsOrder: null, // null = ordenação padrão, array = ordenação personalizada
+  favoritesOrder: null, // null = ordenação padrão, array = ordenação personalizada
 };
 
 // eslint-disable-next-line default-param-last
@@ -37,6 +38,21 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         projectsOrder: null,
+      };
+    case ActionTypes.FAVORITES_ORDER_SAVE:
+      return {
+        ...state,
+        favoritesOrder: payload.order,
+      };
+    case ActionTypes.FAVORITES_ORDER_LOAD:
+      return {
+        ...state,
+        favoritesOrder: payload.order,
+      };
+    case ActionTypes.FAVORITES_ORDER_RESET:
+      return {
+        ...state,
+        favoritesOrder: null,
       };
     default:
       return state;

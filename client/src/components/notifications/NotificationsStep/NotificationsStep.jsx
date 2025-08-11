@@ -28,31 +28,32 @@ const NotificationsStep = React.memo(({ onClose }) => {
 
   return (
     <>
-      <Popup.Header>
-        {t('common.notifications', {
-          context: 'title',
-        })}
-      </Popup.Header>
       <Popup.Content>
-        {notificationIds.length > 0 ? (
-          <>
-            <div className={styles.items}>
-              {notificationIds.map((notificationId) => (
-                <Item key={notificationId} id={notificationId} onClose={onClose} />
-              ))}
+        <div className={styles.container}>
+          <div className={styles.headerRow}>
+            <div className={styles.title}>
+              {t('common.notifications', {
+                context: 'title',
+              })}
             </div>
             {notificationIds.length > 1 && (
-              <Button
-                fluid
-                content={t('action.dismissAll')}
-                className={styles.deleteAllButton}
-                onClick={handleDeleteAllClick}
-              />
+              <button type="button" className={styles.headerAction} onClick={handleDeleteAllClick}>
+                {t('action.dismissAll')}
+              </button>
             )}
-          </>
-        ) : (
-          t('common.noUnreadNotifications')
-        )}
+          </div>
+          {notificationIds.length > 0 ? (
+            <>
+              <div className={styles.items}>
+                {notificationIds.map((notificationId) => (
+                  <Item key={notificationId} id={notificationId} onClose={onClose} />
+                ))}
+              </div>
+            </>
+          ) : (
+            t('common.noUnreadNotifications')
+          )}
+        </div>
       </Popup.Content>
     </>
   );

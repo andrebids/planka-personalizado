@@ -95,8 +95,8 @@ const Header = React.memo(() => {
     dispatch(entryActions.toggleSidebar());
   }, [dispatch]);
 
-  const NotificationsPopup = usePopup(NotificationsStep, POPUP_PROPS);
-  const UserPopup = usePopup(UserStep, POPUP_PROPS);
+  const NotificationsPopup = usePopup(NotificationsStep, { ...POPUP_PROPS, variantClass: 'notifications' });
+  const UserPopup = usePopup(UserStep, { ...POPUP_PROPS, variantClass: 'user' });
 
   return (
     <div className={styles.wrapper}>

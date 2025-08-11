@@ -3,7 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector as createOrmSelector } from 'redux-orm';
+import { createSelector as createReselectSelector } from 'reselect';
 
 import orm from '../orm';
 import { selectCurrentUserId } from './users';
@@ -11,9 +12,10 @@ import { selectCurrentUserId } from './users';
 export const selectSidebarState = (state) => state.sidebar;
 export const selectIsSidebarExpanded = (state) => selectSidebarState(state).isExpanded;
 export const selectProjectsOrder = (state) => selectSidebarState(state).projectsOrder;
+export const selectFavoritesOrder = (state) => selectSidebarState(state).favoritesOrder;
 
 // Selector para projetos do sidebar com informações de notificações (otimizado)
-export const selectSidebarProjects = createSelector(
+export const selectSidebarProjects = createOrmSelector(
   orm,
   (state) => selectCurrentUserId(state),
   (state) => selectProjectsOrder(state),
@@ -109,19 +111,58 @@ export const selectSidebarProjects = createSelector(
 );
 
 // Lista apenas de favoritos (já filtrados e ordenados)
-export const selectSidebarFavoriteProjects = createSelector(
+export const selectSidebarFavoriteProjects = createReselectSelector(
   selectSidebarProjects,
   (projects) => projects.filter((p) => p.isFavorite),
 );
 
 // Lista de não favoritos (já filtrados e ordenados)
-export const selectSidebarOtherProjects = createSelector(
+export const selectSidebarOtherProjects = createReselectSelector(
   selectSidebarProjects,
   (projects) => projects.filter((p) => !p.isFavorite),
 );
 
+// Ordenados conforme orders salvos
+export const selectSidebarFavoriteProjectsOrdered = createReselectSelector(
+  selectSidebarFavoriteProjects,
+  (state) => selectFavoritesOrder(state),
+  (favorites, order) => {
+    if (!order || order.length === 0) {
+      return favorites;
+    }
+    var map = {};
+    for (var i = 0; i < order.length; i += 1) {
+      map[order[i]] = i;
+    }
+    return favorites.slice().sort(function(a, b) {
+      var ia = map[a.id] !== undefined ? map[a.id] : 999;
+      var ib = map[b.id] !== undefined ? map[b.id] : 999;
+      return ia - ib;
+    });
+  },
+);
+
+export const selectSidebarOtherProjectsOrdered = createReselectSelector(
+  selectSidebarOtherProjects,
+  (state) => selectProjectsOrder(state),
+  (others, order) => {
+    if (!order || order.length === 0) {
+      return others;
+    }
+    var map = {};
+    for (var i = 0; i < order.length; i += 1) {
+      map[order[i]] = i;
+    }
+    return others.slice().sort(function(a, b) {
+      var ia = map[a.id] !== undefined ? map[a.id] : 999;
+      var ib = map[b.id] !== undefined ? map[b.id] : 999;
+      return ia - ib;
+    });
+  },
+);
+
 // Selector para total de projetos (para mostrar indicador de "mais projetos")
-export const selectTotalProjectsCount = createSelector(
+export const selectTotalProjectsCount = createOrmSelector(
   orm,
   (state) => selectCurrentUserId(state),
   ({ User }, userId) => {

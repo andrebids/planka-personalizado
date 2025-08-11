@@ -1,0 +1,53 @@
+:root {
+  --glass-bg-rgb: 14, 17, 23;
+  --glass-bg-strong-rgb: 20, 25, 34;
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+  --glass-blur: 16px;
+  --text-primary: #e6edf3;
+  --text-secondary: rgba(230, 237, 243, 0.75);
+  --accent: #3b82f6;
+}
+
+/* Utilitários base para superfícies vidro */
+.glass-panel {
+  background: rgba(var(--glass-bg-rgb), 0.75);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  color: var(--text-secondary);
+}
+
+.glass-card {
+  background: rgba(var(--glass-bg-strong-rgb), 0.8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.35);
+}
+
+.glass-header {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--glass-bg-rgb), 0.95) 0%,
+    rgba(var(--glass-bg-rgb), 0.85) 100%
+  );
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.glass-ghost-button {
+  background: rgba(30, 58, 138, 0.18);
+  color: #93c5fd;
+  border-radius: 10px;
+}
+
+.glass-scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(59, 130, 246, 0.45),
+    rgba(29, 78, 216, 0.45)
+  );
+}

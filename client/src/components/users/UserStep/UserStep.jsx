@@ -54,9 +54,11 @@ const UserStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t('common.userActions', {
-          context: 'title',
-        })}
+        <span className={styles.headerTitle}>
+          {t('common.userActions', {
+            context: 'title',
+          })}
+        </span>
       </Popup.Header>
       <Popup.Content>
         <Menu secondary vertical className={styles.menu}>

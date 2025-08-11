@@ -7,17 +7,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { resetProjectsOrder } from '../../../actions/sidebarActions';
-import { selectProjectsOrder } from '../../../selectors/sidebarSelectors';
+import { resetProjectsOrder, resetFavoritesOrder } from '../../../actions/sidebarActions';
+import { selectProjectsOrder, selectFavoritesOrder } from '../../../selectors/sidebarSelectors';
 
 import styles from './ProjectOrderControls.module.scss';
 
 const ProjectOrderControls = React.memo(() => {
   const dispatch = useDispatch();
   const customOrder = useSelector(selectProjectsOrder);
+  const customFavOrder = useSelector(selectFavoritesOrder);
 
   const handleResetOrder = () => {
     dispatch(resetProjectsOrder());
+  };
+
+  const handleResetFavoritesOrder = () => {
+    dispatch(resetFavoritesOrder());
   };
 
   return (
@@ -30,6 +35,14 @@ const ProjectOrderControls = React.memo(() => {
           title="Restaurar ordenação padrão"
         >
           <i className="fas fa-sort-alpha-down" />
+        </button>
+        <button
+          className={styles.resetButton}
+          onClick={handleResetFavoritesOrder}
+          type="button"
+          title="Restaurar ordenação dos favoritos"
+        >
+          <i className="fas fa-star" />
         </button>
       </div>
     </div>

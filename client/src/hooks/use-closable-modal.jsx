@@ -41,10 +41,12 @@ export default (initialClosableValue) => {
         [closeIcon, onClose],
       );
 
+      const mergedClassName = props.className ? props.className + ' glass' : 'glass';
+
       return (
         <ClosableContext.Provider value={closableContextValue}>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Modal open {...props} closeIcon={closeIcon} onClose={handleClose} />
+          <Modal open {...props} className={mergedClassName} closeIcon={closeIcon} onClose={handleClose} />
         </ClosableContext.Provider>
       );
     });
