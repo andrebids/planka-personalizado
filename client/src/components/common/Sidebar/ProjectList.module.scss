@@ -1,0 +1,63 @@
+.wrapper {
+  width: 100%;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff; // Texto mais claro para contrastar com o fundo transparente
+  margin: 0 0 24px 0;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); // Sombra sutil no texto
+  position: relative;
+  
+  // Efeito liquid glass sutil no título
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+  }
+}
+
+.notificationBadge {
+  background: #e74c3c;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  line-height: 1;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: rgba(113, 128, 150, 0.8); // Cor mais suave para o fundo transparente
+  
+  p {
+    margin: 0;
+    font-size: 13px;
+  }
+}

@@ -70,4 +70,21 @@
   .wrapperWithFavorites {
     margin-top: 206px;
   }
+
+  // Adicionar padding-left quando sidebar estiver expandido
+  .sidebarExpanded {
+    padding-left: 240px;
+    transition: padding-left 0.3s ease;
+    
+    // Responsividade - Tablet (768px - 1024px)
+    @media (max-width: 1024px) {
+      padding-left: 200px;
+    }
+    
+    // Responsividade - Mobile (< 768px)
+    @media (max-width: 767px) {
+      // Em mobile, não há padding - o sidebar sobrepõe
+      padding-left: 0;
+    }
+  }
 }

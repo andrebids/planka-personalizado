@@ -11,6 +11,7 @@ import { Icon, Loader } from 'semantic-ui-react';
 import { useTransitioning } from '../../../lib/hooks';
 
 import selectors from '../../../selectors';
+import { selectIsSidebarExpanded } from '../../../selectors/sidebarSelectors';
 import { BoardViews } from '../../../constants/Enums';
 import Home from '../Home';
 import Board from '../../boards/Board';
@@ -22,6 +23,7 @@ const Static = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const isFetching = useSelector(selectors.selectIsContentFetching);
   const isFavoritesActive = useSelector(selectors.selectIsFavoritesActiveForCurrentUser);
+  const isSidebarExpanded = useSelector(selectIsSidebarExpanded);
 
   const [t] = useTranslation();
 
@@ -115,7 +117,9 @@ const Static = React.memo(() => {
   return (
     <div
       ref={wrapperRef}
-      className={classNames(styles.wrapper, ...wrapperClassNames)}
+      className={classNames(styles.wrapper, ...wrapperClassNames, {
+        [styles.sidebarExpanded]: isSidebarExpanded,
+      })}
       onTransitionEnd={handleTransitionEnd}
     >
       {contentNode}

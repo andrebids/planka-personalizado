@@ -12,6 +12,7 @@ import { usePopup } from '../../../lib/popup';
 
 import selectors from '../../../selectors';
 import entryActions from '../../../entry-actions';
+import { selectIsSidebarExpanded } from '../../../selectors/sidebarSelectors';
 import Paths from '../../../constants/Paths';
 import { BoardMembershipRoles, BoardViews, UserRoles } from '../../../constants/Enums';
 import UserAvatar from '../../users/UserAvatar';
@@ -31,6 +32,7 @@ const Header = React.memo(() => {
   const notificationIds = useSelector(selectors.selectNotificationIdsForCurrentUser);
   const isFavoritesEnabled = useSelector(selectors.selectIsFavoritesEnabled);
   const isEditModeEnabled = useSelector(selectors.selectIsEditModeEnabled);
+  const isSidebarExpanded = useSelector(selectIsSidebarExpanded);
 
   const withFavoritesToggler = useSelector(
     // TODO: use selector instead?
@@ -89,6 +91,10 @@ const Header = React.memo(() => {
     dispatch(entryActions.openProjectSettingsModal());
   }, [canEditProject, dispatch]);
 
+  const handleToggleSidebarClick = useCallback(() => {
+    dispatch(entryActions.toggleSidebar());
+  }, [dispatch]);
+
   const NotificationsPopup = usePopup(NotificationsStep, POPUP_PROPS);
   const UserPopup = usePopup(UserStep, POPUP_PROPS);
 
@@ -100,24 +106,40 @@ const Header = React.memo(() => {
         </Link>
       )}
       <Menu inverted size="large" className={styles.menu}>
-        {project && (
+        {!project && (
           <Menu.Menu position="left">
             <Menu.Item
-              as={Link}
-              to={Paths.ROOT}
               className={classNames(styles.item, styles.itemHoverable)}
+              onClick={handleToggleSidebarClick}
             >
-              <Icon fitted name="arrow left" />
-            </Menu.Item>
-            <Menu.Item className={classNames(styles.item, styles.title)}>
-              {project.name}
-              {canEditProject && (
-                <Button className={styles.editButton} onClick={handleProjectSettingsClick}>
-                  <Icon fitted name="pencil" size="small" />
-                </Button>
-              )}
+              <Icon fitted name="bars" />
             </Menu.Item>
           </Menu.Menu>
+        )}
+        {project && (
+                  <Menu.Menu position="left">
+          <Menu.Item
+            className={classNames(styles.item, styles.itemHoverable)}
+            onClick={handleToggleSidebarClick}
+          >
+            <Icon fitted name="bars" />
+          </Menu.Item>
+          <Menu.Item
+            as={Link}
+            to={Paths.ROOT}
+            className={classNames(styles.item, styles.itemHoverable)}
+          >
+            <Icon fitted name="arrow left" />
+          </Menu.Item>
+          <Menu.Item className={classNames(styles.item, styles.title)}>
+            {project.name}
+            {canEditProject && (
+              <Button className={styles.editButton} onClick={handleProjectSettingsClick}>
+                <Icon fitted name="pencil" size="small" />
+              </Button>
+            )}
+          </Menu.Item>
+        </Menu.Menu>
         )}
         <Menu.Menu position="right">
           {withFavoritesToggler && (
