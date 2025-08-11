@@ -64,7 +64,7 @@ export const selectSidebarProjects = createSelector(
       }
     });
 
-    // Retornar projetos com informações de notificações (limitado a 50 projetos para performance)
+    // Retornar projetos com informações de notificações e background (limitado a 50 projetos para performance)
     return projectModels
       .slice(0, 50)
       .map((projectModel) => {
@@ -76,6 +76,10 @@ export const selectSidebarProjects = createSelector(
           name: project.name,
           hasNotifications: notificationCount > 0,
           notificationCount: notificationCount > 99 ? '99+' : notificationCount,
+          // Adicionar informações de background
+          backgroundType: project.backgroundType,
+          backgroundGradient: project.backgroundGradient,
+          backgroundImageId: project.backgroundImageId,
         };
       });
   },

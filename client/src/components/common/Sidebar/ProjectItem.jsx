@@ -3,18 +3,39 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
 import NotificationIndicator from './NotificationIndicator';
 import entryActions from '../../../entry-actions';
+import { ProjectBackgroundTypes } from '../../../constants/Enums';
+import selectors from '../../../selectors';
+import globalStyles from '../../../styles.module.scss';
 import styles from './ProjectItem.module.scss';
 
 const ProjectItem = React.memo(({ project }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const selectBackgroundImageById = useMemo(() => selectors.makeSelectBackgroundImageById(), []);
+
+  const backgroundImageUrl = useSelector((state) => {
+    if (!project.backgroundType || project.backgroundType !== ProjectBackgroundTypes.IMAGE) {
+      return null;
+    }
+
+    const backgroundImage = selectBackgroundImageById(state, project.backgroundImageId);
+
+    if (!backgroundImage) {
+      return null;
+    }
+
+    return backgroundImage.thumbnailUrls.outside360;
+  });
 
   const handleClick = () => {
     // Fechar sidebar em mobile
@@ -38,8 +59,19 @@ const ProjectItem = React.memo(({ project }) => {
       onClick={handleClick}
       role="button"
       tabIndex={0}
+      title={project.name} // Tooltip com nome completo
     >
       <div className={styles.content}>
+        <div
+          className={classNames(
+            styles.projectThumbnail,
+            project.backgroundType === ProjectBackgroundTypes.GRADIENT &&
+              globalStyles[`background${upperFirst(camelCase(project.backgroundGradient))}`],
+          )}
+          style={{
+            background: backgroundImageUrl && `url("${backgroundImageUrl}") center / cover`,
+          }}
+        />
         <span className={styles.name}>{project.name}</span>
         {project.hasNotifications && (
           <NotificationIndicator count={project.notificationCount} />
@@ -55,6 +87,9 @@ ProjectItem.propTypes = {
     name: PropTypes.string.isRequired,
     hasNotifications: PropTypes.bool,
     notificationCount: PropTypes.number,
+    backgroundType: PropTypes.string,
+    backgroundGradient: PropTypes.string,
+    backgroundImageId: PropTypes.string,
   }).isRequired,
 };
 

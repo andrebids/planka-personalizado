@@ -1,15 +1,15 @@
 .wrapper {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  border-radius: 12px; // Bordas mais arredondadas
+  padding: 6px 8px; // Reduzido de 10px 12px para 6px 8px
+  border-radius: 8px; // Reduzido de 12px para 8px
   cursor: pointer;
-  transition: all 0.3s ease; // Transição mais suave
-  background: rgba(45, 55, 72, 0.05); // Fundo muito sutil
-  backdrop-filter: blur(10px); // Blur sutil
+  transition: all 0.3s ease;
+  background: rgba(45, 55, 72, 0.05);
+  backdrop-filter: blur(10px);
   
   &:hover {
-    background: rgba(45, 55, 72, 0.15); // Hover mais sutil
+    background: rgba(45, 55, 72, 0.15);
     transform: translateY(-2px);
     box-shadow: 
       0 8px 25px rgba(0, 0, 0, 0.15),
@@ -35,18 +35,40 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  gap: 10px; // Reduzido de 12px para 10px
+}
+
+.projectThumbnail {
+  width: 32px; // Aumentado de 24px para 32px
+  height: 32px; // Aumentado de 24px para 32px
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: #555;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .name {
-  font-size: 15px; // Aumentada de 13px para 15px
-  color: #ffffff; // Texto mais claro
-  font-weight: 600; // Aumentada de 500 para 600
+  font-size: 14px; // Reduzido de 15px para 14px para compensar o thumbnail maior
+  color: #ffffff;
+  font-weight: 600;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  letter-spacing: 0.2px; // Melhor espaçamento entre letras
+  letter-spacing: 0.2px;
+  flex: 1;
+  min-width: 0; // Permite que o texto seja cortado
+  overflow: hidden; // Esconde texto que excede
+  text-overflow: ellipsis; // Adiciona "..." quando o texto é cortado
+  white-space: nowrap; // Impede quebra de linha
 }
 
 .hasNotifications {
-  background: rgba(74, 222, 128, 0.08); // Fundo verde muito sutil
+  background: rgba(74, 222, 128, 0.08);
   
   &:hover {
     background: rgba(74, 222, 128, 0.12);
@@ -54,6 +76,6 @@
   
   .name {
     color: #ffffff;
-    font-weight: 700; // Mais grossura para itens com notificações
+    font-weight: 700;
   }
 }
