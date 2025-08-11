@@ -15,13 +15,18 @@ export const selectIsSidebarExpanded = (state) => selectSidebarState(state).isEx
 export const selectSidebarProjects = createSelector(
   orm,
   (state) => selectCurrentUserId(state),
-  ({ User }, userId) => {
+  ({ User, Board }, userId) => {
     if (!userId) {
       return [];
     }
 
     const userModel = User.withId(userId);
     if (!userModel) {
+      return [];
+    }
+
+    // Verificar se o modelo do usuário tem os métodos necessários
+    if (!userModel.getProjectsModelArray || !userModel.getUnreadNotificationsQuerySet) {
       return [];
     }
 
@@ -42,7 +47,7 @@ export const selectSidebarProjects = createSelector(
         projectId = notification.projectId;
       } else if (notification.boardId) {
         // Tentar encontrar o projeto através do board
-        const boardModel = userModel.orm.Board.withId(notification.boardId);
+        const boardModel = Board.withId(notification.boardId);
         if (boardModel) {
           projectId = boardModel.projectId;
         }

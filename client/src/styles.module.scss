@@ -23,6 +23,59 @@
       z-index: 10001 !important;
     }
 
+    // Fix para modais aninhados (como criação de utilizador) - z-index ainda mais alto
+    .ui.modal .ui.modal {
+      z-index: 10003 !important;
+    }
+    
+    .ui.modal .ui.dimmer {
+      z-index: 10002 !important;
+    }
+
+    // Fix para popups dentro de modais (como criação de utilizador)
+    .ui.modal .ui.popup {
+      z-index: 10004 !important;
+    }
+    
+    .ui.modal .ui.popup .ui.popup {
+      z-index: 10005 !important;
+    }
+
+    // Fix específico para popups de criação de utilizador - z-index muito alto
+    .ui.modal .ui.popup.visible {
+      z-index: 10006 !important;
+    }
+    
+    // Fix para todos os popups visíveis dentro de modais
+    .ui.modal .ui.popup.visible,
+    .ui.modal .ui.popup.animating {
+      z-index: 10006 !important;
+    }
+    
+    // Fix para dropdowns e autocomplete dentro de modais
+    .ui.modal .ui.dropdown .menu,
+    .ui.modal .ui.dropdown .menu.visible {
+      z-index: 10006 !important;
+    }
+
+    // Fix AGGRESSIVO para garantir que popups apareçam por cima - sobrescreve tudo
+    .ui.popup {
+      z-index: 10006 !important;
+    }
+    
+    .ui.popup.visible {
+      z-index: 10007 !important;
+    }
+    
+    .ui.popup.animating {
+      z-index: 10007 !important;
+    }
+    
+    // Fix para qualquer elemento dentro de um modal que seja um popup
+    .ui.modal *[class*="popup"] {
+      z-index: 10007 !important;
+    }
+
     .mentions-input {
       &__highlighter {
         line-height: 1.4;
