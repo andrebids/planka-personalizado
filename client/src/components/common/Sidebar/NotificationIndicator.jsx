@@ -8,19 +8,20 @@ import PropTypes from 'prop-types';
 
 import styles from './NotificationIndicator.module.scss';
 
-const NotificationIndicator = React.memo(({ count = 1 }) => {
+/**
+ * Componente de notificação azul para o sidebar - apenas uma bola pequena
+ */
+const NotificationIndicator = React.memo(() => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.dot} />
-      {count > 1 && (
-        <span className={styles.count}>{count}</span>
-      )}
+      <div className={styles.badge}>
+        <div className={styles.badgeContent}>
+          <div className={styles.pulseRing} />
+          <div className={styles.glowEffect} />
+        </div>
+      </div>
     </div>
   );
 });
-
-NotificationIndicator.propTypes = {
-  count: PropTypes.number,
-};
 
 export default NotificationIndicator;

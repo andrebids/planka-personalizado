@@ -62,20 +62,24 @@ const ProjectItem = React.memo(({ project }) => {
       title={project.name} // Tooltip com nome completo
     >
       <div className={styles.content}>
-        <div
-          className={classNames(
-            styles.projectThumbnail,
-            project.backgroundType === ProjectBackgroundTypes.GRADIENT &&
-              globalStyles[`background${upperFirst(camelCase(project.backgroundGradient))}`],
+        <div className={styles.thumbnailContainer}>
+          <div
+            className={classNames(
+              styles.projectThumbnail,
+              project.backgroundType === ProjectBackgroundTypes.GRADIENT &&
+                globalStyles[`background${upperFirst(camelCase(project.backgroundGradient))}`],
+            )}
+            style={{
+              background: backgroundImageUrl && `url("${backgroundImageUrl}") center / cover`,
+            }}
+          />
+          {project.hasNotifications && (
+            <div className={styles.notificationOverlay}>
+              <NotificationIndicator />
+            </div>
           )}
-          style={{
-            background: backgroundImageUrl && `url("${backgroundImageUrl}") center / cover`,
-          }}
-        />
+        </div>
         <span className={styles.name}>{project.name}</span>
-        {project.hasNotifications && (
-          <NotificationIndicator count={project.notificationCount} />
-        )}
       </div>
     </div>
   );
