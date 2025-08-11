@@ -3,11 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import { Icon } from 'semantic-ui-react';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import NotificationIndicator from './NotificationIndicator';
@@ -51,6 +52,35 @@ const ProjectItem = React.memo(({ project }) => {
     navigate(`/projects/${project.id}`);
   };
 
+  const handleFavoriteClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      dispatch(
+        entryActions.updateProject(project.id, {
+          isFavorite: !project.isFavorite,
+        }),
+      );
+    },
+    [dispatch, project],
+  );
+
+  const handleFavoriteKeyDown = useCallback(
+    (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopPropagation();
+        dispatch(
+          entryActions.updateProject(project.id, {
+            isFavorite: !project.isFavorite,
+          }),
+        );
+      }
+    },
+    [dispatch, project],
+  );
+
   return (
     <div
       className={classNames(styles.wrapper, {
@@ -84,6 +114,24 @@ const ProjectItem = React.memo(({ project }) => {
           )}
         </div>
         <span className={styles.name}>{project.name}</span>
+
+        <button
+          type="button"
+          className={classNames(
+            styles.favoriteButton,
+            !project.isFavorite && styles.favoriteButtonAppearable,
+          )}
+          onClick={handleFavoriteClick}
+          onKeyDown={handleFavoriteKeyDown}
+          aria-pressed={!!project.isFavorite}
+          title={project.isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+        >
+          <Icon
+            fitted
+            name={project.isFavorite ? 'star' : 'star outline'}
+            className={classNames(styles.icon, styles.favoriteButtonIcon)}
+          />
+        </button>
       </div>
     </div>
   );

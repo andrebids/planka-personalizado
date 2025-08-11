@@ -76,6 +76,8 @@ export const selectSidebarProjects = createSelector(
         return {
           id: project.id,
           name: project.name,
+          isFavorite: !!project.isFavorite,
+          isHidden: !!project.isHidden,
           hasNotifications: notificationCount > 0,
           notificationCount: notificationCount > 99 ? '99+' : notificationCount,
           // Adicionar informações de background
@@ -99,9 +101,23 @@ export const selectSidebarProjects = createSelector(
       });
     }
     
-    // Ordenação alfabética padrão
-    return projectsWithData.sort((a, b) => a.name.localeCompare(b.name));
+    // Filtrar projetos ocultos e ordenar alfabeticamente por padrão
+    return projectsWithData
+      .filter((p) => !p.isHidden)
+      .sort((a, b) => a.name.localeCompare(b.name));
   },
+);
+
+// Lista apenas de favoritos (já filtrados e ordenados)
+export const selectSidebarFavoriteProjects = createSelector(
+  selectSidebarProjects,
+  (projects) => projects.filter((p) => p.isFavorite),
+);
+
+// Lista de não favoritos (já filtrados e ordenados)
+export const selectSidebarOtherProjects = createSelector(
+  selectSidebarProjects,
+  (projects) => projects.filter((p) => !p.isFavorite),
 );
 
 // Selector para total de projetos (para mostrar indicador de "mais projetos")

@@ -104,6 +104,43 @@
   white-space: nowrap;
 }
 
+.favoriteButton {
+  background: none;
+  border: 0;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.12);
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(246, 200, 92, 0.35);
+  }
+}
+
+.favoriteButtonAppearable {
+  opacity: 0;
+}
+
+.icon.favoriteButtonIcon {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.wrapper:hover .favoriteButtonAppearable {
+  opacity: 1;
+}
+
 .hasNotifications {
   background: rgba(49, 130, 206, 0.08);
   
