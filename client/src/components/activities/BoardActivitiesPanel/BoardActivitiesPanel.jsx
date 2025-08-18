@@ -18,10 +18,10 @@ import styles from './BoardActivitiesPanel.module.scss';
 
 const BoardActivitiesPanel = React.memo(() => {
   const isExpanded = useSelector(selectIsTimelinePanelExpanded);
-  const activityIds = useSelector(selectors.selectActivityIdsForCurrentBoard);
-  const { isActivitiesFetching, isAllActivitiesFetched } = useSelector(
-    selectors.selectCurrentBoard,
-  );
+  const activityIds = useSelector(selectors.selectActivityIdsForCurrentBoard) || [];
+  const currentBoard = useSelector(selectors.selectCurrentBoard);
+  const isActivitiesFetching = currentBoard ? currentBoard.isActivitiesFetching : false;
+  const isAllActivitiesFetched = currentBoard ? currentBoard.isAllActivitiesFetched : true;
 
   const panelRef = useRef(null);
   const [t] = useTranslation();

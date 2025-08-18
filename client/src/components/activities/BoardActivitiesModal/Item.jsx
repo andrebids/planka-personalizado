@@ -3,21 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Comment, Image } from 'semantic-ui-react';
+import { Comment } from 'semantic-ui-react';
+import { Gallery, Item as GalleryItem } from 'react-photoswipe-gallery';
 
 import selectors from '../../../selectors';
 import Paths from '../../../constants/Paths';
 import { StaticUserIds } from '../../../constants/StaticUsers';
 import { ActivityTypes, AttachmentTypes } from '../../../constants/Enums';
 import { canPreviewFile } from '../../../utils/fileTypeUtils';
+import { ClosableContext } from '../../../contexts';
 import TimeAgo from '../../common/TimeAgo';
 import UserAvatar from '../../users/UserAvatar';
-import FilePreviewModal from '../FilePreviewModal';
 
 import styles from './Item.module.scss';
 
@@ -32,8 +33,18 @@ const Item = React.memo(({ id }) => {
   const card = useSelector((state) => selectCardById(state, activity.cardId));
   const attachments = useSelector((state) => selectAttachmentsForCard(state, activity.cardId));
 
-  const [previewFile, setPreviewFile] = useState(null);
   const [t] = useTranslation();
+  const [activateClosable, deactivateClosable] = useContext(ClosableContext);
+
+  const handleBeforeGalleryOpen = useCallback(
+    (gallery) => {
+      activateClosable();
+      gallery.on('destroy', () => {
+        deactivateClosable();
+      });
+    },
+    [activateClosable, deactivateClosable],
+  );
 
   const userName =
     user.id === StaticUserIds.DELETED
@@ -55,10 +66,6 @@ const Item = React.memo(({ id }) => {
 
   // Mostrar apenas a primeira imagem (agora ocupa largura completa)
   const thumbnailAttachments = imageAttachments.slice(0, 1);
-
-  const handleThumbnailClick = (attachment) => {
-    setPreviewFile(attachment);
-  };
 
   let contentNode;
   switch (activity.type) {
@@ -146,77 +153,52 @@ const Item = React.memo(({ id }) => {
 
       break;
     case ActivityTypes.REMOVE_MEMBER_FROM_CARD:
-      contentNode =
-        user.id === activity.data.user.id ? (
-          <Trans
-            i18nKey="common.userLeftCard"
-            values={{
-              user: userName,
-              card: cardName,
-            }}
-          >
-            <span className={styles.author}>{userName}</span>
-            {' left '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
-          </Trans>
-        ) : (
-          <Trans
-            i18nKey="common.userRemovedUserFromCard"
-            values={{
-              actorUser: userName,
-              removedUser: activity.data.user.name,
-              card: cardName,
-            }}
-          >
-            <span className={styles.author}>{userName}</span>
-            {' removed '}
-            {activity.data.user.name}
-            {' from '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
-          </Trans>
-        );
-
-      break;
-    case ActivityTypes.COMPLETE_TASK:
       contentNode = (
         <Trans
-          i18nKey="common.userCompletedTaskOnCard"
+          i18nKey="common.userRemovedUserFromCard"
           values={{
-            user: userName,
-            task: activity.data.task.name,
+            actorUser: userName,
+            removedUser: activity.data.user.name,
             card: cardName,
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' completed '}
-          {activity.data.task.name}
-          {' on '}
+          {' removed '}
+          {activity.data.user.name}
+          {' from '}
           <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
         </Trans>
       );
 
       break;
-    case ActivityTypes.UNCOMPLETE_TASK:
+    case ActivityTypes.CREATE_ATTACHMENT:
       contentNode = (
         <Trans
-          i18nKey="common.userMarkedTaskIncompleteOnCard"
+          i18nKey="common.userAddedAttachmentToCard"
           values={{
             user: userName,
-            task: activity.data.task.name,
             card: cardName,
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' marked '}
-          {activity.data.task.name}
-          {' incomplete on '}
+          {' added attachment to '}
           <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
         </Trans>
       );
 
       break;
     default:
-      contentNode = null;
+      contentNode = (
+        <Trans
+          i18nKey="common.activityLogMessage"
+          values={{
+            user: userName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+        </Trans>
+      );
   }
 
   return (
@@ -229,17 +211,39 @@ const Item = React.memo(({ id }) => {
           <div>{contentNode}</div>
           {thumbnailAttachments.length > 0 && (
             <div className={styles.thumbnails}>
-              {thumbnailAttachments.map((attachment) => (
-                <Image
-                  key={attachment.id}
-                  src={attachment.data.thumbnailUrls.outside360}
-                  size="mini"
-                  rounded
-                  className={styles.thumbnail}
-                  alt={attachment.name}
-                  onClick={() => handleThumbnailClick(attachment)}
-                />
-              ))}
+              <Gallery
+                withCaption
+                withDownloadButton
+                options={{
+                  wheelToZoom: true,
+                  showHideAnimationType: 'none',
+                  closeTitle: '',
+                  zoomTitle: '',
+                  arrowPrevTitle: '',
+                  arrowNextTitle: '',
+                  errorMsg: '',
+                }}
+                onBeforeOpen={handleBeforeGalleryOpen}
+             >
+                {thumbnailAttachments.map((attachment) => (
+                  <GalleryItem
+                    key={attachment.id}
+                    {...attachment.data.image} // eslint-disable-line react/jsx-props-no-spreading
+                    original={attachment.data.url}
+                    caption={attachment.name}
+                  >
+                    {({ ref, open }) => (
+                      <img
+                        ref={ref}
+                        src={attachment.data.thumbnailUrls.outside720 || attachment.data.thumbnailUrls.outside360}
+                        alt={attachment.name}
+                        className={styles.thumbnail}
+                        onClick={open}
+                      />
+                    )}
+                  </GalleryItem>
+                ))}
+              </Gallery>
             </div>
           )}
           <span className={styles.date}>
@@ -247,13 +251,6 @@ const Item = React.memo(({ id }) => {
           </span>
         </div>
       </Comment>
-
-      {/* Modal de preview de ficheiros */}
-      <FilePreviewModal 
-        file={previewFile} 
-        isOpen={!!previewFile} 
-        onClose={() => setPreviewFile(null)} 
-      />
     </>
   );
 });

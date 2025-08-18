@@ -542,6 +542,7 @@ export default {
       userAddedUserToCard: '<0>{{actorUser}}</0> adicionou {{addedUser}} a <4>{{card}}</4>',
       userAddedUserToThisCard: '<0>{{actorUser}}</0> adicionou {{addedUser}} a este cartão',
       userAddedYouToCard: '<0>{{user}}</0> adicionou-o a <2>{{card}}</2>',
+      userAddedAttachmentToCard: '<0>{{user}}</0> adicionou anexo a <2>{{card}}</2>',
       userCompletedTaskOnCard: '<0>{{user}}</0> completou {{task}} em <4>{{card}}</4>',
       userCompletedTaskOnThisCard: '<0>{{user}}</0> completou {{task}} neste cartão',
       userJoinedCard: '<0>{{user}}</0> juntou-se a <2>{{card}}</2>',
