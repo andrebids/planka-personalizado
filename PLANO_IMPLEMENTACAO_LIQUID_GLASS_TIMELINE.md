@@ -556,6 +556,13 @@ export default GlassDistortion;
 4. 🔄 Integrar com sistema de anexos existente
 5. 🔄 Implementar lazy loading para performance
 
+### **FASE 7: Otimização de Texto e Contraste (1-2 horas)**
+1. 🔄 Implementar sistema de contraste dinâmico
+2. 🔄 Adicionar text-shadow para legibilidade
+3. 🔄 Criar fallbacks para navegadores sem backdrop-filter
+4. 🔄 Otimizar cores para diferentes fundos
+5. 🔄 Testar acessibilidade e contraste
+
 ---
 
 ## 🧪 TESTES NECESSÁRIOS (ATUALIZADOS)
@@ -595,6 +602,13 @@ export default GlassDistortion;
 - [ ] Validar integração com sistema glass existente
 - [ ] Confirmar que não há conflitos com outros modais/popups
 
+### **Testes de Contraste e Legibilidade (NOVOS)**
+- [ ] Verificar contraste de texto em diferentes fundos
+- [ ] Testar text-shadow em navegadores modernos
+- [ ] Validar fallbacks para navegadores legados
+- [ ] Confirmar acessibilidade (WCAG 2.1 AA)
+- [ ] Testar em diferentes resoluções e tamanhos de fonte
+
 ---
 
 ## 📊 CRONOGRAMA DETALHADO (ATUALIZADO)
@@ -607,7 +621,8 @@ export default GlassDistortion;
 | 4 | 1-2h | Responsividade/Fallbacks | ✅ Concluído |
 | 5 | 1h | Resolução de Conflitos CSS | ✅ Concluído |
 | 6 | 3-4h | Preview de Ficheiros | 🔄 Próximo |
-| **Total** | **10-14h** | **Implementação Completa** | **🔄 Em Progresso** |
+| 7 | 1-2h | Otimização de Texto e Contraste | ⏳ Pendente |
+| **Total** | **11-16h** | **Implementação Completa** | **🔄 Em Progresso** |
 
 ---
 
@@ -796,3 +811,206 @@ const handleThumbnailClick = (attachment) => {
 ---
 
 **📝 NOTA:** Este documento foi corrigido para resolver problemas críticos de z-index, aproveitar o sistema glass existente e evitar duplicação de código. Cada alteração deve ser testada incrementalmente para garantir funcionamento correto em todas as etapas.
+
+---
+
+## 🎨 ESTRATÉGIA DE CONTRASTE E LEGIBILIDADE DE TEXTO
+
+### **Problema Identificado:**
+Com fundos glass transparentes, os textos podem ficar ilegíveis dependendo do conteúdo por trás.
+
+### **Solução Implementada:**
+
+#### **1. Sistema de Contraste Dinâmico (ESTILO iOS 26)**
+```scss
+// Variáveis CSS para contraste - ESTILO iOS 26
+:root {
+  --text-shadow-ios: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --text-shadow-ios-strong: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --text-white-opaque: #ffffff;
+  --text-white-secondary: rgba(255, 255, 255, 0.9);
+  --text-white-tertiary: rgba(255, 255, 255, 0.7);
+}
+
+// Classes para diferentes tipos de texto - ESTILO iOS 26
+.text-primary-glass {
+  color: var(--text-white-opaque) !important; // Branco opaco como iOS 26
+  text-shadow: var(--text-shadow-ios) !important; // Sombra sutil
+  font-weight: 500 !important;
+  background: none !important; // Sem background - apenas texto
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.text-secondary-glass {
+  color: var(--text-white-secondary) !important; // Branco ligeiramente transparente
+  text-shadow: var(--text-shadow-ios) !important;
+  font-weight: 400 !important;
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.text-tertiary-glass {
+  color: var(--text-white-tertiary) !important; // Branco mais transparente
+  text-shadow: var(--text-shadow-ios) !important;
+  font-weight: 400 !important;
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.text-link-glass {
+  color: var(--text-white-opaque) !important; // Links brancos opacos
+  text-shadow: var(--text-shadow-ios) !important;
+  font-weight: 500 !important;
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(255, 255, 255, 0.3) !important;
+  
+  &:hover {
+    color: var(--text-white-opaque) !important;
+    text-shadow: var(--text-shadow-ios-strong) !important;
+    text-decoration-color: rgba(255, 255, 255, 0.6) !important;
+  }
+}
+
+// Títulos grandes como na imagem
+.text-title-glass {
+  color: var(--text-white-opaque) !important;
+  text-shadow: var(--text-shadow-ios-strong) !important;
+  font-weight: 600 !important;
+  font-size: 1.2em !important;
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+```
+
+#### **2. Aplicação nos Componentes (ESTILO iOS 26)**
+```scss
+// BoardActivitiesPanel.module.scss
+.title {
+  @extend .text-title-glass; // Título grande como na imagem
+  font-size: 20px !important;
+  margin-bottom: 16px !important;
+}
+
+.content {
+  // Texto principal das atividades - ESTILO iOS 26
+  .author {
+    @extend .text-primary-glass; // Nome do utilizador branco opaco
+  }
+  
+  a {
+    @extend .text-link-glass; // Links brancos com underline sutil
+  }
+  
+  .date {
+    @extend .text-tertiary-glass; // Data mais transparente
+  }
+  
+  // Texto geral das atividades
+  color: var(--text-white-secondary) !important;
+  text-shadow: var(--text-shadow-ios) !important;
+  line-height: 1.4 !important;
+}
+
+// Item.module.scss - ESTILO iOS 26
+:global(#app) {
+  .author {
+    @extend .text-primary-glass; // Nome branco opaco
+  }
+  
+  .content {
+    // Sem fundo - apenas texto sobre glass
+    background: none !important;
+    padding: 12px 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    color: var(--text-white-secondary) !important;
+    text-shadow: var(--text-shadow-ios) !important;
+  }
+  
+  .date {
+    @extend .text-tertiary-glass; // Data mais transparente
+  }
+  
+  // Links nos comentários
+  a {
+    @extend .text-link-glass;
+  }
+}
+```
+
+#### **3. Fallbacks para Navegadores Legados (ESTILO iOS 26)**
+```scss
+// Fallback para navegadores sem backdrop-filter
+@supports not (backdrop-filter: blur(2px)) {
+  .text-primary-glass {
+    background: rgba(0, 0, 0, 0.3) !important; // Fundo sutil para legibilidade
+    color: #ffffff !important;
+    text-shadow: none !important;
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+  }
+  
+  .text-secondary-glass {
+    background: rgba(0, 0, 0, 0.2) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: none !important;
+    padding: 1px 3px !important;
+    border-radius: 3px !important;
+  }
+  
+  .text-tertiary-glass {
+    background: rgba(0, 0, 0, 0.15) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-shadow: none !important;
+    padding: 1px 2px !important;
+    border-radius: 2px !important;
+  }
+  
+  .text-link-glass {
+    background: rgba(0, 0, 0, 0.25) !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+    text-decoration: underline !important;
+  }
+  
+  .text-title-glass {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+  }
+}
+```
+
+#### **4. Detecção Automática de Contraste**
+```javascript
+// utils/contrastUtils.js
+export const getContrastRatio = (background, foreground) => {
+  // Implementar algoritmo WCAG para calcular contraste
+  // Retornar 'light' ou 'dark' para aplicar estilo apropriado
+};
+
+export const applyContrastClass = (element, backgroundElement) => {
+  const contrast = getContrastRatio(backgroundElement, element);
+  element.classList.add(`text-${contrast}-glass`);
+};
+```
+
+### **Benefícios da Estratégia (ESTILO iOS 26):**
+- ✅ **Visual iOS 26:** Textos brancos opacos como na imagem
+- ✅ **Legibilidade Perfeita:** Text-shadow sutil mas eficaz
+- ✅ **Acessibilidade:** Conformidade com WCAG 2.1 AA
+- ✅ **Estética Glass:** Semi-transparência apenas no fundo
+- ✅ **Performance:** CSS puro, sem JavaScript necessário
+- ✅ **Compatibilidade:** Fallbacks inteligentes para navegadores legados
+- ✅ **Consistência:** Usa variáveis CSS existentes

@@ -3,19 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Comment } from 'semantic-ui-react';
+import { Comment, Image } from 'semantic-ui-react';
 
 import selectors from '../../../selectors';
 import Paths from '../../../constants/Paths';
 import { StaticUserIds } from '../../../constants/StaticUsers';
-import { ActivityTypes } from '../../../constants/Enums';
+import { ActivityTypes, AttachmentTypes } from '../../../constants/Enums';
+import { canPreviewFile } from '../../../utils/fileTypeUtils';
 import TimeAgo from '../../common/TimeAgo';
 import UserAvatar from '../../users/UserAvatar';
+import FilePreviewModal from '../FilePreviewModal';
 
 import styles from './Item.module.scss';
 
@@ -23,11 +25,14 @@ const Item = React.memo(({ id }) => {
   const selectActivityById = useMemo(() => selectors.makeSelectActivityById(), []);
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
+  const selectAttachmentsForCard = useMemo(() => selectors.makeSelectAttachmentsForCard(), []);
 
   const activity = useSelector((state) => selectActivityById(state, id));
   const user = useSelector((state) => selectUserById(state, activity.userId));
   const card = useSelector((state) => selectCardById(state, activity.cardId));
+  const attachments = useSelector((state) => selectAttachmentsForCard(state, activity.cardId));
 
+  const [previewFile, setPreviewFile] = useState(null);
   const [t] = useTranslation();
 
   const userName =
@@ -38,6 +43,22 @@ const Item = React.memo(({ id }) => {
       : user.name;
 
   const cardName = card ? card.name : activity.data.card.name;
+
+  // Filtrar anexos de imagem para mostrar thumbnails
+  const imageAttachments = (attachments || []).filter(
+    (attachment) =>
+      attachment.type === AttachmentTypes.FILE &&
+      attachment.data.image &&
+      attachment.data.thumbnailUrls &&
+      canPreviewFile(attachment)
+  );
+
+  // Mostrar apenas a primeira imagem (agora ocupa largura completa)
+  const thumbnailAttachments = imageAttachments.slice(0, 1);
+
+  const handleThumbnailClick = (attachment) => {
+    setPreviewFile(attachment);
+  };
 
   let contentNode;
   switch (activity.type) {
@@ -199,17 +220,41 @@ const Item = React.memo(({ id }) => {
   }
 
   return (
-    <Comment>
-      <span className={styles.user}>
-        <UserAvatar id={activity.userId} />
-      </span>
-      <div className={styles.content}>
-        <div>{contentNode}</div>
-        <span className={styles.date}>
-          <TimeAgo date={activity.createdAt} />
+    <>
+      <Comment>
+        <span className={styles.user}>
+          <UserAvatar id={activity.userId} />
         </span>
-      </div>
-    </Comment>
+        <div className={styles.content}>
+          <div>{contentNode}</div>
+          {thumbnailAttachments.length > 0 && (
+            <div className={styles.thumbnails}>
+              {thumbnailAttachments.map((attachment) => (
+                <Image
+                  key={attachment.id}
+                  src={attachment.data.thumbnailUrls.outside360}
+                  size="mini"
+                  rounded
+                  className={styles.thumbnail}
+                  alt={attachment.name}
+                  onClick={() => handleThumbnailClick(attachment)}
+                />
+              ))}
+            </div>
+          )}
+          <span className={styles.date}>
+            <TimeAgo date={activity.createdAt} />
+          </span>
+        </div>
+      </Comment>
+
+      {/* Modal de preview de ficheiros */}
+      <FilePreviewModal 
+        file={previewFile} 
+        isOpen={!!previewFile} 
+        onClose={() => setPreviewFile(null)} 
+      />
+    </>
   );
 });
 

@@ -368,6 +368,25 @@ export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
   },
 );
 
+export const makeSelectAttachmentsForCard = () =>
+  createSelector(
+    orm,
+    (_, id) => id,
+    ({ Card }, id) => {
+      if (!id) {
+        return [];
+      }
+
+      const cardModel = Card.withId(id);
+
+      if (!cardModel) {
+        return [];
+      }
+
+      return cardModel.getAttachmentsQuerySet().toRefArray();
+    },
+  );
+
 export const selectAttachmentsForCurrentCard = createSelector(
   orm,
   (state) => selectPath(state).cardId,
@@ -474,6 +493,7 @@ export default {
   makeSelectShownOnFrontOfCardTaskListIdsByCardId,
   selectShownOnFrontOfCardTaskListIdsByCardId,
   makeSelectAttachmentsTotalByCardId,
+  makeSelectAttachmentsForCard,
   makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId,
   selectShownOnFrontOfCardCustomFieldValueIdsByCardId,
   selectAttachmentsTotalByCardId,
