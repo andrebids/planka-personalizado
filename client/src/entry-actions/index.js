@@ -28,6 +28,7 @@ import activities from './activities';
 import notifications from './notifications';
 import notificationServices from './notification-services';
 import sidebar from './sidebar';
+import timelinePanel from './timeline-panel';
 
 export default {
   ...socket,
@@ -55,4 +56,5 @@ export default {
   ...notifications,
   ...notificationServices,
   ...sidebar,
+  ...timelinePanel,
 };

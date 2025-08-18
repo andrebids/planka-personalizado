@@ -13,6 +13,7 @@ import { useWindowWidth } from '../../../lib/hooks';
 import { Masonry } from '../../../lib/custom-ui';
 
 import selectors from '../../../selectors';
+import { selectIsTimelinePanelExpanded } from '../../../selectors/timelinePanelSelectors';
 import { BoardMembershipRoles } from '../../../constants/Enums';
 import Card from '../../cards/Card';
 import AddCard from '../../cards/AddCard';
@@ -22,6 +23,7 @@ import styles from './GridView.module.scss';
 
 const GridView = React.memo(
   ({ cardIds, isCardsFetching, isAllCardsFetched, onCardsFetch, onCardCreate }) => {
+    const isTimelinePanelExpanded = useSelector(selectIsTimelinePanelExpanded);
     const canAddCard = useSelector((state) => {
       const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
       return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
@@ -51,7 +53,9 @@ const GridView = React.memo(
     const columns = Math.floor(windowWidth / 300); // TODO: move to constant?
 
     return (
-      <div className={styles.wrapper}>
+      <div className={`${styles.wrapper} ${
+        isTimelinePanelExpanded ? styles.timelinePanelExpanded : styles.timelinePanelCollapsed
+      }`}>
         <Masonry columns={columns} spacing={20}>
           {canAddCard &&
             (onCardCreate && isAddCardOpened ? (

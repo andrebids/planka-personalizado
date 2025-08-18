@@ -11,6 +11,7 @@ import { useDidUpdate } from '../../../../lib/hooks';
 import { closePopup } from '../../../../lib/popup';
 
 import selectors from '../../../../selectors';
+import { selectIsTimelinePanelExpanded } from '../../../../selectors/timelinePanelSelectors';
 import entryActions from '../../../../entry-actions';
 import parseDndId from '../../../../utils/parse-dnd-id';
 import DroppableTypes from '../../../../constants/DroppableTypes';
@@ -24,6 +25,7 @@ import globalStyles from '../../../../styles.module.scss';
 
 const KanbanContent = React.memo(() => {
   const listIds = useSelector(selectors.selectFiniteListIdsForCurrentBoard);
+  const isTimelinePanelExpanded = useSelector(selectIsTimelinePanelExpanded);
 
   const canAddList = useSelector((state) => {
     const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
@@ -150,7 +152,13 @@ const KanbanContent = React.memo(() => {
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div ref={wrapperRef} className={styles.wrapper} onMouseDown={handleMouseDown}>
+    <div 
+      ref={wrapperRef} 
+      className={`${styles.wrapper} ${
+        isTimelinePanelExpanded ? styles.timelinePanelExpanded : styles.timelinePanelCollapsed
+      }`} 
+      onMouseDown={handleMouseDown}
+    >
       <div>
         <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <Droppable droppableId="board" type={DroppableTypes.LIST} direction="horizontal">

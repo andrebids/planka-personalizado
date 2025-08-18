@@ -13,6 +13,7 @@ import auth from './auth';
 import core from './core';
 import ui from './ui';
 import sidebar from './sidebarReducer';
+import timelinePanel from './timelinePanelReducer';
 
 export default combineReducers({
   router,
@@ -23,4 +24,5 @@ export default combineReducers({
   core,
   ui,
   sidebar,
+  timelinePanel,
 });

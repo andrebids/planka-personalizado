@@ -1,25 +1,28 @@
 ## Objetivo
 
-- **Criar um menu lateral direito (ocultável)** no ecrã de quadro com o tema "liquid glass" já aplicado no projeto.
-- **Botão de abrir/fechar** próximo do botão de ações do quadro (na área `BoardActions > RightSide`).
-- **Conteúdo do menu**: timeline de acontecimentos (atividades) do projeto/quadro, reutilizando a lógica/markup do modal atual de histórico de ações.
+- **Criar um painel lateral direito sempre visível** no ecrã de quadro com o tema "liquid glass" já aplicado no projeto.
+- **Botão de expandir/recolher** próximo do botão de ações do quadro (na área `BoardActions > RightSide`).
+- **Conteúdo do painel**: timeline de acontecimentos (atividades) do projeto/quadro, reutilizando a lógica/markup do modal atual de histórico de ações.
+- **Layout responsivo**: o conteúdo da board deve ajustar-se automaticamente quando o painel está expandido/recolhido (como a sidebar esquerda).
 - **Após conclusão**: remover o modal de histórico para evitar duplicação.
 
 ## Requisitos funcionais e UX
 
 - **Localização do botão**: ao lado do botão que abre o menu de ações do quadro (`RightSide.jsx`), com ícone de histórico (ex.: `history`).
-- **Comportamento do painel**: desliza da direita; fecha ao clicar no botão novamente, ao clicar fora (backdrop) e com tecla `Esc`.
+- **Comportamento do painel**: sempre visível à direita, com largura reduzida (colapsado) e expandido; alterna entre estados ao clicar no botão.
+- **Layout responsivo**: o conteúdo da board deve redimensionar-se automaticamente para dar espaço ao painel (como a sidebar esquerda).
 - **Tema "liquid glass"**: usar classes existentes (`glass-panel`, `glass-perfect-card`) e estilos compatíveis; sem alterar a paleta.
 - **Conteúdo**: lista infinita das atividades do quadro, como no modal `BoardActivitiesModal` (mesma renderização dos itens e `useInView`).
-- **Acessibilidade**: foco inicial no cabeçalho do painel; `Esc` fecha; elementos com `aria-label` e `role` apropriados.
+- **Interação**: permitir visualizar e interagir com cards/quadro enquanto o painel está visível.
+- **Acessibilidade**: elementos com `aria-label` e `role` apropriados.
 
 ## Arquitetura da solução
 
-- **Estado (Redux)**: adicionar um slice simples para o painel de timeline (ex.: `timelinePanelReducer`) com `isOpen: boolean`.
-- **Ações/Entry-Actions**: ações para `toggle` e `setOpen` do painel.
-- **Seletores**: seletor para `isTimelinePanelOpen`.
-- **Componente do painel**: `BoardActivitiesPanel` (drawer à direita), importado no layout fixo (`Fixed.jsx`) para ficar sobre o conteúdo do quadro.
-- **Integração**: botão extra em `RightSide.jsx` para abrir/fechar o painel.
+- **Estado (Redux)**: adicionar um slice simples para o painel de timeline (ex.: `timelinePanelReducer`) com `isExpanded: boolean`.
+- **Ações/Entry-Actions**: ações para `toggle` e `setExpanded` do painel.
+- **Seletores**: seletor para `isTimelinePanelExpanded`.
+- **Componente do painel**: `BoardActivitiesPanel` (sidebar à direita), importado no layout fixo (`Fixed.jsx`) para ficar integrado com o conteúdo do quadro.
+- **Integração**: botão extra em `RightSide.jsx` para expandir/recolher o painel.
 - **Reutilização de conteúdo**: reaproveitar `components/activities/BoardActivitiesModal/Item.jsx` para renderizar cada atividade.
 
 ## Ficheiros a criar

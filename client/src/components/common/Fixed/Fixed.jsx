@@ -14,6 +14,7 @@ import Favorites from '../Favorites';
 import HomeActions from '../HomeActions';
 import Project from '../../projects/Project';
 import BoardActions from '../../boards/BoardActions';
+import BoardActivitiesPanel from '../../activities/BoardActivitiesPanel';
 import Sidebar from '../Sidebar/Sidebar';
 
 import styles from './Fixed.module.scss';
@@ -33,6 +34,7 @@ const Fixed = React.memo(() => {
       {projectId === undefined && <HomeActions />}
       {projectId && <Project />}
       {board && !board.isFetching && <BoardActions />}
+      <BoardActivitiesPanel />
     </div>
   );
 });

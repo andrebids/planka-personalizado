@@ -55,5 +55,29 @@
 
   .wrapper {
     padding: 0 12px 0 20px;
+    transition: padding-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Quando o painel de timeline está expandido, adicionar padding à direita
+    &.timelinePanelExpanded {
+      padding-right: 320px;
+    }
+
+    // Quando o painel de timeline está colapsado, sem padding extra
+    &.timelinePanelCollapsed {
+      padding-right: 12px;
+    }
+  }
+
+  // Responsividade para mobile
+  @media (max-width: 768px) {
+    .wrapper {
+      &.timelinePanelExpanded {
+        padding-right: 280px;
+      }
+
+      &.timelinePanelCollapsed {
+        padding-right: 12px;
+      }
+    }
   }
 }

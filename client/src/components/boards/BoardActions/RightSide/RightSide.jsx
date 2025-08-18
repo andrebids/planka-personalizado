@@ -9,6 +9,7 @@ import { Icon } from 'semantic-ui-react';
 import { usePopup } from '../../../../lib/popup';
 
 import selectors from '../../../../selectors';
+import { selectIsTimelinePanelExpanded } from '../../../../selectors/timelinePanelSelectors';
 import entryActions from '../../../../entry-actions';
 import { BoardContexts, BoardViews } from '../../../../constants/Enums';
 import { BoardContextIcons, BoardViewIcons } from '../../../../constants/Icons';
@@ -18,6 +19,7 @@ import styles from './RightSide.module.scss';
 
 const RightSide = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
+  const isTimelinePanelExpanded = useSelector(selectIsTimelinePanelExpanded);
 
   const dispatch = useDispatch();
 
@@ -27,6 +29,10 @@ const RightSide = React.memo(() => {
     },
     [dispatch],
   );
+
+  const handleTimelineClick = useCallback(() => {
+    dispatch(entryActions.toggleTimelinePanel());
+  }, [dispatch]);
 
   const ActionsPopup = usePopup(ActionsStep, { variantClass: 'glass' });
 
@@ -52,6 +58,16 @@ const RightSide = React.memo(() => {
             </button>
           ))}
         </div>
+      </div>
+      <div className={styles.action}>
+        <button 
+          type="button" 
+          className={styles.button}
+          onClick={handleTimelineClick}
+          aria-label="Abrir histórico de atividades"
+        >
+          <Icon fitted name="history" />
+        </button>
       </div>
       <div className={styles.action}>
         <ActionsPopup>
