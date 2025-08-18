@@ -6,16 +6,23 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'semantic-ui-react';
+import { useInView } from 'react-intersection-observer';
+import { Comment, Icon, Loader } from 'semantic-ui-react';
 
 import selectors from '../../../selectors';
 import { selectIsTimelinePanelExpanded } from '../../../selectors/timelinePanelSelectors';
 import entryActions from '../../../entry-actions';
+import Item from '../BoardActivitiesModal/Item';
 
 import styles from './BoardActivitiesPanel.module.scss';
 
 const BoardActivitiesPanel = React.memo(() => {
   const isExpanded = useSelector(selectIsTimelinePanelExpanded);
+  const activityIds = useSelector(selectors.selectActivityIdsForCurrentBoard);
+  const { isActivitiesFetching, isAllActivitiesFetched } = useSelector(
+    selectors.selectCurrentBoard,
+  );
+
   const panelRef = useRef(null);
   const [t] = useTranslation();
 
@@ -24,6 +31,15 @@ const BoardActivitiesPanel = React.memo(() => {
   const handleToggle = useCallback(() => {
     dispatch(entryActions.toggleTimelinePanel());
   }, [dispatch]);
+
+  const [inViewRef] = useInView({
+    threshold: 1,
+    onChange: (inView) => {
+      if (inView) {
+        dispatch(entryActions.fetchActivitiesInCurrentBoard());
+      }
+    },
+  });
 
   return (
     <div
@@ -50,10 +66,23 @@ const BoardActivitiesPanel = React.memo(() => {
       {/* Content */}
       {isExpanded && (
         <div className={styles.content}>
-          <div className={styles.placeholder}>
-            <Icon name="clock outline" size="large" />
-            <p>{t('common.loading')}</p>
+          <div className={styles.itemsWrapper}>
+            <Comment.Group className={styles.items}>
+              {activityIds.map((activityId) => (
+                <Item key={activityId} id={activityId} />
+              ))}
+            </Comment.Group>
           </div>
+          {isActivitiesFetching && (
+            <div className={styles.loaderWrapper}>
+              <Loader active inverted inline="centered" size="small" />
+            </div>
+          )}
+          {!isActivitiesFetching && !isAllActivitiesFetched && (
+            <div className={styles.loaderWrapper}>
+              <div ref={inViewRef} />
+            </div>
+          )}
         </div>
       )}
     </div>

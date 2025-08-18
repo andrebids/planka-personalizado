@@ -5,15 +5,16 @@
 
 :global(#app) {
   .author {
-    color: #17394d;
+    color: #ffffff;
     font-weight: bold;
   }
 
   .content {
-    border-bottom: 1px solid #092d4221;
+    border-bottom: none !important;
+    border: none !important;
     display: inline-block;
     line-height: 20px;
-    padding-bottom: 14px;
+    padding-bottom: 8px;
     vertical-align: top;
     width: calc(100% - 40px);
     word-wrap: break-word;
@@ -28,5 +29,25 @@
     display: inline-block;
     padding: 4px 8px 0 0;
     vertical-align: top;
+  }
+
+  // Remover bordas do componente Comment do Semantic UI
+  .comment {
+    border-bottom: none !important;
+    border: none !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .comment .content {
+    border-bottom: none !important;
+    border: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  .comment .text {
+    border-bottom: none !important;
+    border: none !important;
+    padding-bottom: 0 !important;
   }
 }
