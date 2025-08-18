@@ -549,6 +549,13 @@ export default GlassDistortion;
 3. ✅ Testar sobrescrita de estilos globais
 4. ✅ Validar que borders são aplicadas corretamente
 
+### **FASE 6: Preview de Ficheiros (3-4 horas)**
+1. 🔄 Implementar sistema de preview de imagens
+2. 🔄 Adicionar suporte para PDFs e documentos
+3. 🔄 Criar modal de preview com glass effect
+4. 🔄 Integrar com sistema de anexos existente
+5. 🔄 Implementar lazy loading para performance
+
 ---
 
 ## 🧪 TESTES NECESSÁRIOS (ATUALIZADOS)
@@ -594,12 +601,13 @@ export default GlassDistortion;
 
 | Fase | Duração | Tarefas | Status |
 |------|---------|---------|--------|
-| 1 | 2-3h | Base Glass Structure (z-index corrigido) | ⏳ Pendente |
-| 2 | 1h | Integração com Sistema Glass Existente | ⏳ Pendente |
-| 3 | 2-3h | Elementos Interativos | ⏳ Pendente |
-| 4 | 1-2h | Responsividade/Fallbacks | ⏳ Pendente |
-| 5 | 1h | Resolução de Conflitos CSS | ⏳ Pendente |
-| **Total** | **7-10h** | **Implementação Completa** | **⏳ Pendente** |
+| 1 | 2-3h | Base Glass Structure (z-index corrigido) | ✅ Concluído |
+| 2 | 1h | Integração com Sistema Glass Existente | ✅ Concluído |
+| 3 | 2-3h | Elementos Interativos | ✅ Concluído |
+| 4 | 1-2h | Responsividade/Fallbacks | ✅ Concluído |
+| 5 | 1h | Resolução de Conflitos CSS | ✅ Concluído |
+| 6 | 3-4h | Preview de Ficheiros | 🔄 Próximo |
+| **Total** | **10-14h** | **Implementação Completa** | **🔄 Em Progresso** |
 
 ---
 
@@ -615,6 +623,142 @@ export default GlassDistortion;
 ### **Compatibilidade:**
 - **Navegadores Modernos:** Efeito liquid glass completo
 - **Navegadores Legados:** Fallback com glass effect básico
+
+---
+
+## 📁 IMPLEMENTAÇÃO PREVIEW DE FICHEIROS
+
+### **Objetivo:**
+Adicionar funcionalidade de preview de imagens, PDFs e outros tipos de ficheiros no painel de timeline, mantendo a consistência visual com o tema glass.
+
+### **Tipos de Ficheiros Suportados:**
+- **Imagens:** JPG, PNG, GIF, WebP, SVG
+- **Documentos:** PDF, DOC, DOCX, TXT
+- **Outros:** ZIP, RAR (apenas lista de ficheiros)
+
+### **Arquivos a Criar/Modificar:**
+
+#### **1. Componente de Preview Modal**
+**Localização:** `client/src/components/activities/FilePreviewModal/`
+
+**Estrutura:**
+```
+FilePreviewModal/
+├── FilePreviewModal.jsx
+├── FilePreviewModal.module.scss
+├── ImagePreview.jsx
+├── PdfPreview.jsx
+├── DocumentPreview.jsx
+└── index.js
+```
+
+#### **2. Integração com Item.jsx**
+**Modificações em:** `client/src/components/activities/BoardActivitiesModal/Item.jsx`
+
+**Funcionalidades:**
+- Detectar anexos de imagem/documento
+- Mostrar thumbnails clicáveis
+- Abrir modal de preview ao clicar
+- Suporte para múltiplos anexos
+
+#### **3. Sistema de Detecção de Tipos**
+**Localização:** `client/src/utils/fileTypeUtils.js`
+
+**Funcionalidades:**
+- Detectar tipo de ficheiro por extensão
+- Validar se é previewável
+- Retornar componente apropriado
+
+### **Implementação Segura:**
+
+#### **A. Isolamento de Estilos**
+- Usar CSS Modules para evitar conflitos
+- Prefixar classes com `file-preview-*`
+- Manter z-index controlado (10009)
+
+#### **B. Integração com Sistema Existente**
+- Reutilizar seletores de anexos existentes
+- Manter compatibilidade com `AttachmentTypes`
+- Não modificar lógica de upload/download
+
+#### **C. Performance**
+- Lazy loading de previews
+- Cache de thumbnails
+- Compressão de imagens grandes
+
+### **Fluxo de Implementação:**
+
+#### **Passo 1: Criar Utilitários**
+```javascript
+// fileTypeUtils.js
+export const getFileType = (filename) => {
+  const ext = filename.split('.').pop().toLowerCase();
+  return {
+    isImage: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext),
+    isPdf: ext === 'pdf',
+    isDocument: ['doc', 'docx', 'txt'].includes(ext),
+    extension: ext
+  };
+};
+```
+
+#### **Passo 2: Componente de Preview**
+```jsx
+// FilePreviewModal.jsx
+const FilePreviewModal = ({ file, isOpen, onClose }) => {
+  const fileType = getFileType(file.name);
+  
+  return (
+    <Modal open={isOpen} onClose={onClose} className="glass-panel">
+      {fileType.isImage && <ImagePreview file={file} />}
+      {fileType.isPdf && <PdfPreview file={file} />}
+      {fileType.isDocument && <DocumentPreview file={file} />}
+    </Modal>
+  );
+};
+```
+
+#### **Passo 3: Integração com Item**
+```jsx
+// Item.jsx - modificação
+const [previewFile, setPreviewFile] = useState(null);
+
+const handleThumbnailClick = (attachment) => {
+  setPreviewFile(attachment);
+};
+
+// No JSX
+{thumbnailAttachments.map((attachment) => (
+  <Image
+    key={attachment.id}
+    src={attachment.data.thumbnailUrls.outside360}
+    size="mini"
+    rounded
+    className={styles.thumbnail}
+    alt={attachment.name}
+    onClick={() => handleThumbnailClick(attachment)}
+  />
+))}
+
+<FilePreviewModal 
+  file={previewFile} 
+  isOpen={!!previewFile} 
+  onClose={() => setPreviewFile(null)} 
+/>
+```
+
+### **Considerações de Segurança:**
+- Validar URLs de ficheiros
+- Sanitizar nomes de ficheiros
+- Limitar tamanho de preview
+- Implementar timeout para carregamento
+
+### **Testes Necessários:**
+- [ ] Preview de diferentes tipos de imagem
+- [ ] Carregamento de PDFs grandes
+- [ ] Performance com múltiplos anexos
+- [ ] Responsividade em mobile
+- [ ] Acessibilidade (teclado, screen readers)
 - **Mobile:** Performance otimizada
 - **Acessibilidade:** Contraste e navegação adequados
 - **Integração:** Compatível com sistema glass existente
