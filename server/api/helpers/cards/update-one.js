@@ -474,6 +474,25 @@ module.exports = {
             list: values.list,
           });
         }
+
+        // Criar atividade para alteração de data de vencimento
+        if ('dueDate' in values && values.dueDate !== inputs.record.dueDate) {
+          await sails.helpers.actions.createOne.with({
+            values: {
+              card,
+              type: Action.Types.SET_DUE_DATE,
+              data: {
+                card: _.pick(card, ['name']),
+                oldDueDate: inputs.record.dueDate,
+                newDueDate: values.dueDate,
+              },
+              user: inputs.actorUser,
+            },
+            project: inputs.project,
+            board: inputs.board,
+            list: values.list || inputs.list,
+          });
+        }
       }
 
       sails.helpers.utils.sendWebhooks.with({

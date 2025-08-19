@@ -304,6 +304,9 @@ export default {
         '<0>{{user}}</0> moved <2>{{card}}</2> from {{fromList}} to {{toList}}',
       userMovedThisCardFromListToList:
         '<0>{{user}}</0> moved this card from {{fromList}} to {{toList}}',
+      userSetDueDateToCard: '<0>{{user}}</0> set due date to {{date}} for <2>{{card}}</2>',
+      userRemovedDueDateFromCard: '<0>{{user}}</0> removed due date from <1>{{card}}</1>',
+      userChangedDueDateOfCard: '<0>{{user}}</0> changed due date from {{oldDate}} to {{newDate}} for <5>{{card}}</5>',
       userRemovedUserFromCard: '<0>{{actorUser}}</0> removed {{removedUser}} from <4>{{card}}</4>',
       userRemovedUserFromThisCard: '<0>{{actorUser}}</0> removed {{removedUser}} from this card',
       username: 'Username',

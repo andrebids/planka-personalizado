@@ -42,6 +42,7 @@ const COLORS = [
   'antique-blue',
   'dark-granite',
   'turquoise-sea',
+  'ravenclaw-blue',
 ];
 
 module.exports = {
@@ -72,8 +73,31 @@ module.exports = {
     },
     color: {
       type: 'string',
-      isIn: COLORS,
       allowNull: true,
+      custom: function(value) {
+        // Se for null, é válido
+        if (value === null) {
+          return true;
+        }
+        
+        // Se for string vazia, é inválido
+        if (value === '') {
+          return false;
+        }
+        
+        // Aceitar cores padrão
+        if (COLORS.includes(value)) {
+          return true;
+        }
+        
+        // Aceitar cores personalizadas no formato: nome-cor (ex: ravenclaw-blue, gryffindor-red)
+        const customColorRegex = /^[a-z]+-[a-z]+$/;
+        if (customColorRegex.test(value)) {
+          return true;
+        }
+        
+        return false;
+      }
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

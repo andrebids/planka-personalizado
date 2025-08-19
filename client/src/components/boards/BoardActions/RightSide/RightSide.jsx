@@ -5,6 +5,7 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Icon } from 'semantic-ui-react';
 import { usePopup } from '../../../../lib/popup';
 
@@ -20,6 +21,7 @@ import styles from './RightSide.module.scss';
 const RightSide = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const isTimelinePanelExpanded = useSelector(selectIsTimelinePanelExpanded);
+  const [t] = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -64,7 +66,7 @@ const RightSide = React.memo(() => {
           type="button" 
           className={styles.button}
           onClick={handleTimelineClick}
-          aria-label="Abrir histórico de atividades"
+          aria-label={t('action.openActivityHistory')}
         >
           <Icon fitted name="history" />
         </button>

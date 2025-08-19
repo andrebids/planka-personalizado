@@ -46,18 +46,18 @@ const BoardActivitiesPanel = React.memo(() => {
       ref={panelRef}
       className={`${styles.panel} ${isExpanded ? styles.expanded : styles.collapsed} glass-panel`}
       role="complementary"
-      aria-label={t('common.boardActions', { context: 'title' })}
+      aria-label={t('common.boardActions_title')}
     >
       {/* Header */}
       <div className={styles.header}>
         <h3 className={styles.title}>
-          {isExpanded ? t('common.boardActions', { context: 'title' }) : ''}
+          {isExpanded ? t('common.boardActions_title') : ''}
         </h3>
         <button
           type="button"
           className={styles.toggleButton}
           onClick={handleToggle}
-          aria-label={isExpanded ? 'Recolher painel' : 'Expandir painel'}
+          aria-label={isExpanded ? t('action.collapsePanel') : t('action.expandPanel')}
         >
           <Icon fitted name={isExpanded ? "chevron right" : "chevron left"} />
         </button>

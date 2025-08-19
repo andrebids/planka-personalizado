@@ -187,6 +187,75 @@ const Item = React.memo(({ id }) => {
       );
 
       break;
+    case ActivityTypes.SET_DUE_DATE: {
+      const { oldDueDate, newDueDate } = activity.data;
+      
+      const formatDate = (date) => {
+        if (!date) return null;
+        return new Date(date).toLocaleDateString();
+      };
+
+      const oldDate = formatDate(oldDueDate);
+      const newDate = formatDate(newDueDate);
+
+      if (!oldDueDate && newDueDate) {
+        // Data de vencimento adicionada
+        contentNode = (
+          <Trans
+            i18nKey="common.userSetDueDateToCard"
+            values={{
+              user: userName,
+              card: cardName,
+              date: newDate,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' set due date to '}
+            <strong>{newDate}</strong>
+            {' for '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          </Trans>
+        );
+      } else if (oldDueDate && !newDueDate) {
+        // Data de vencimento removida
+        contentNode = (
+          <Trans
+            i18nKey="common.userRemovedDueDateFromCard"
+            values={{
+              user: userName,
+              card: cardName,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' removed due date from '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          </Trans>
+        );
+      } else {
+        // Data de vencimento alterada
+        contentNode = (
+          <Trans
+            i18nKey="common.userChangedDueDateOfCard"
+            values={{
+              user: userName,
+              card: cardName,
+              oldDate: oldDate,
+              newDate: newDate,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' changed due date from '}
+            <strong>{oldDate}</strong>
+            {' to '}
+            <strong>{newDate}</strong>
+            {' for '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          </Trans>
+        );
+      }
+
+      break;
+    }
     default:
       contentNode = (
         <Trans

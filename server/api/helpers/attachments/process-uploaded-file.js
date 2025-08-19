@@ -149,6 +149,18 @@ module.exports = {
       await rimraf(inputs.file.fd);
     }
 
+    // Garantir que data.image seja sempre inicializado
+    if (!data.image) {
+      data.image = null;
+    }
+
+    console.log('📤 Retornando dados do anexo:', {
+      filename: data.filename,
+      mimeType: data.mimeType,
+      hasImage: !!data.image,
+      imageData: data.image
+    });
+
     return data;
   },
 };

@@ -361,8 +361,12 @@ export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
       .getAttachmentsQuerySet()
       .toModelArray()
       .filter(
-        (attachmentModel) =>
-          attachmentModel.data && attachmentModel.data.image && !attachmentModel.coveredCard,
+        (attachmentModel) => {
+          // Verificar se attachmentModel.data existe antes de acessar suas propriedades
+          return attachmentModel.data && 
+                 attachmentModel.data.image && 
+                 !attachmentModel.coveredCard;
+        },
       )
       .map((attachmentModel) => attachmentModel.id);
   },
@@ -404,6 +408,8 @@ export const selectAttachmentsForCurrentCard = createSelector(
     return cardModel.getAttachmentsQuerySet().toRefArray();
   },
 );
+
+
 
 export const selectCustomFieldGroupIdsForCurrentCard = createSelector(
   orm,

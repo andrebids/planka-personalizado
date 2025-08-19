@@ -157,6 +157,9 @@ export default {
         '<0>{{user}}</0> moveu <2>{{card}}</2> de {{fromList}} para {{toList}}',
       userMovedThisCardFromListToList:
         '<0>{{user}}</0> moveu este cartão de {{fromList}} para {{toList}}',
+      userSetDueDateToCard: '<0>{{user}}</0> definiu data de vencimento para {{date}} em <2>{{card}}</2>',
+      userRemovedDueDateFromCard: '<0>{{user}}</0> removeu a data de vencimento de <1>{{card}}</1>',
+      userChangedDueDateOfCard: '<0>{{user}}</0> alterou a data de vencimento de {{oldDate}} para {{newDate}} em <5>{{card}}</5>',
       username: 'Nome de usuário',
       users: 'Usuários',
       viewer: 'Visualizador',

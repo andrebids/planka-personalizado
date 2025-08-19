@@ -12,6 +12,8 @@ const buildTitle = (action, t) => {
       return t('Card Created');
     case Action.Types.MOVE_CARD:
       return t('Card Moved');
+    case Action.Types.SET_DUE_DATE:
+      return t('Due Date Set');
     default:
       return null;
   }
@@ -73,6 +75,74 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
           escapeHtml(board.name),
         ),
       };
+    }
+    case Action.Types.SET_DUE_DATE: {
+      const formatDate = (date) => {
+        if (!date) return t('No date');
+        return new Date(date).toLocaleDateString();
+      };
+
+      const oldDate = formatDate(action.data.oldDueDate);
+      const newDate = formatDate(action.data.newDueDate);
+
+      if (!action.data.oldDueDate && action.data.newDueDate) {
+        // Data de vencimento adicionada
+        return {
+          text: t('%s set due date to %s for %s on %s', actorUser.name, newDate, card.name, board.name),
+          markdown: t(
+            '%s set due date to %s for %s on %s',
+            escapeMarkdown(actorUser.name),
+            `**${escapeMarkdown(newDate)}**`,
+            markdownCardLink,
+            escapeMarkdown(board.name),
+          ),
+          html: t(
+            '%s set due date to %s for %s on %s',
+            escapeHtml(actorUser.name),
+            `<b>${escapeHtml(newDate)}</b>`,
+            htmlCardLink,
+            escapeHtml(board.name),
+          ),
+        };
+      } else if (action.data.oldDueDate && !action.data.newDueDate) {
+        // Data de vencimento removida
+        return {
+          text: t('%s removed due date from %s on %s', actorUser.name, card.name, board.name),
+          markdown: t(
+            '%s removed due date from %s on %s',
+            escapeMarkdown(actorUser.name),
+            markdownCardLink,
+            escapeMarkdown(board.name),
+          ),
+          html: t(
+            '%s removed due date from %s on %s',
+            escapeHtml(actorUser.name),
+            htmlCardLink,
+            escapeHtml(board.name),
+          ),
+        };
+      } else {
+        // Data de vencimento alterada
+        return {
+          text: t('%s changed due date from %s to %s for %s on %s', actorUser.name, oldDate, newDate, card.name, board.name),
+          markdown: t(
+            '%s changed due date from %s to %s for %s on %s',
+            escapeMarkdown(actorUser.name),
+            `**${escapeMarkdown(oldDate)}**`,
+            `**${escapeMarkdown(newDate)}**`,
+            markdownCardLink,
+            escapeMarkdown(board.name),
+          ),
+          html: t(
+            '%s changed due date from %s to %s for %s on %s',
+            escapeHtml(actorUser.name),
+            `<b>${escapeHtml(oldDate)}</b>`,
+            `<b>${escapeHtml(newDate)}</b>`,
+            htmlCardLink,
+            escapeHtml(board.name),
+          ),
+        };
+      }
     }
     default:
       return null;

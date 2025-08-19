@@ -66,17 +66,47 @@ i18n.timeAgo = {
 i18n.markdownEditor = {
   init() {
     markdownEditorI18n.setFallbackLang(FALLBACK_LANGUAGE);
-    this.addLocale(FALLBACK_LANGUAGE, embeddedLocales[FALLBACK_LANGUAGE].markdownEditor);
+    
+    // Verificar se o locale pt-PT está disponível antes de tentar registrá-lo
+    try {
+      if (embeddedLocales[FALLBACK_LANGUAGE] && embeddedLocales[FALLBACK_LANGUAGE].markdownEditor) {
+        this.addLocale(FALLBACK_LANGUAGE, embeddedLocales[FALLBACK_LANGUAGE].markdownEditor);
+        console.log('✅ Locale pt-PT registado com sucesso no markdown editor');
+      } else {
+        console.warn('⚠️ Locale pt-PT não encontrado no markdown editor, usando fallback');
+        // Usar um locale alternativo como fallback
+        const fallbackLocale = 'en-US';
+        if (embeddedLocales[fallbackLocale] && embeddedLocales[fallbackLocale].markdownEditor) {
+          this.addLocale(FALLBACK_LANGUAGE, embeddedLocales[fallbackLocale].markdownEditor);
+        }
+      }
+    } catch (error) {
+      console.error('❌ Erro ao registar locale pt-PT no markdown editor:', error);
+      // Usar locale padrão como fallback
+      const fallbackLocale = 'en-US';
+      if (embeddedLocales[fallbackLocale] && embeddedLocales[fallbackLocale].markdownEditor) {
+        this.addLocale(FALLBACK_LANGUAGE, embeddedLocales[fallbackLocale].markdownEditor);
+      }
+    }
   },
   addLocale(language, locale) {
-    Object.entries(locale).forEach(([keyset, data]) => {
-      markdownEditorI18n.registerKeyset(language, keyset, data);
-    });
+    try {
+      Object.entries(locale).forEach(([keyset, data]) => {
+        markdownEditorI18n.registerKeyset(language, keyset, data);
+      });
+      console.log('✅ Locale registado no markdown editor:', language);
+    } catch (error) {
+      console.error('❌ Erro ao registar locale no markdown editor:', language, error);
+    }
   },
   setLanguage(language) {
-    configureMarkdownEditor({
-      lang: language,
-    });
+    try {
+      configureMarkdownEditor({
+        lang: language,
+      });
+    } catch (error) {
+      console.error('❌ Erro ao configurar idioma do markdown editor:', language, error);
+    }
   },
 };
 
@@ -132,6 +162,12 @@ i18n
       useSuspense: true,
     },
     debug: import.meta.env.DEV,
+  }).then(() => {
+    console.log('i18n inicializado com sucesso');
+    // Carregar o locale padrão pt-PT
+    i18n.loadCoreLocale(FALLBACK_LANGUAGE).then(() => {
+      console.log('Locale pt-PT carregado com sucesso');
+    });
   });
 
 i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
@@ -145,13 +181,20 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
         case 'dateFns':
         case 'timeAgo':
         case 'markdownEditor':
-          console.log(`Registando ${namespace} para ${language}:`, locale[namespace]);
           i18n[namespace].addLocale(language, locale[namespace]);
           break;
         default:
           i18n.addResourceBundle(language, namespace, locale[namespace], true, true);
       }
     });
+    
+    // Verificar se as traduções foram carregadas corretamente
+    console.log('Verificando traduções carregadas:');
+    console.log('boardActions_title:', i18n.t('common.boardActions_title'));
+    console.log('expandPanel:', i18n.t('action.expandPanel'));
+    console.log('collapsePanel:', i18n.t('action.collapsePanel'));
+    console.log('openActivityHistory:', i18n.t('action.openActivityHistory'));
+    
     return;
   }
 

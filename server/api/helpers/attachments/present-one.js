@@ -25,10 +25,10 @@ module.exports = {
             'image.thumbnailsExtension',
           ]),
           url: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/${inputs.record.data.filename}`,
-          thumbnailUrls: inputs.record.data.image && {
+          thumbnailUrls: inputs.record.data && inputs.record.data.image && inputs.record.data.image.thumbnailsExtension ? {
             outside360: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/thumbnails/outside-360.${inputs.record.data.image.thumbnailsExtension}`,
             outside720: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/thumbnails/outside-720.${inputs.record.data.image.thumbnailsExtension}`,
-          },
+          } : null,
         },
       };
     } else if (inputs.record.type === Attachment.Types.LINK) {
