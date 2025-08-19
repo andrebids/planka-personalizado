@@ -3,6 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
+const Action = require('../../models/Action');
+const Attachment = require('../../models/Attachment');
+const _ = require('lodash');
+
 module.exports = {
   inputs: {
     record: {
@@ -78,6 +82,22 @@ module.exports = {
           },
         }),
         user: inputs.actorUser,
+      });
+
+      // Criar ação para exclusão de anexo
+      await sails.helpers.actions.createOne.with({
+        values: {
+          type: Action.Types.DELETE_ATTACHMENT,
+          data: {
+            card: _.pick(inputs.card, ['name']),
+            attachment: _.pick(attachment, ['id', 'name']),
+          },
+          user: inputs.actorUser,
+          card: inputs.card,
+        },
+        project: inputs.project,
+        board: inputs.board,
+        list: inputs.list,
       });
     }
 

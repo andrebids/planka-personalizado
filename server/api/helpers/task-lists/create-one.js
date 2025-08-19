@@ -3,6 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
+const Action = require('../../models/Action');
+const TaskList = require('../../models/TaskList');
+const _ = require('lodash');
+
 module.exports = {
   inputs: {
     values: {
@@ -92,6 +96,22 @@ module.exports = {
         },
       }),
       user: inputs.actorUser,
+    });
+
+    // Criar ação para criação de lista de tarefas
+    await sails.helpers.actions.createOne.with({
+      values: {
+        type: Action.Types.CREATE_TASK_LIST,
+        data: {
+          card: _.pick(values.card, ['name']),
+          taskList: _.pick(taskList, ['id', 'name']),
+        },
+        user: inputs.actorUser,
+        card: values.card,
+      },
+      project: inputs.project,
+      board: inputs.board,
+      list: inputs.list,
     });
 
     return taskList;

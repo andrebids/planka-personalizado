@@ -3,6 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
+const Action = require('../../models/Action');
+const Task = require('../../models/Task');
+const _ = require('lodash');
+
 module.exports = {
   inputs: {
     record: {
@@ -137,6 +141,22 @@ module.exports = {
         await sails.helpers.actions.createOne.with({
           values: {
             type: task.isCompleted ? Action.Types.COMPLETE_TASK : Action.Types.UNCOMPLETE_TASK,
+            data: {
+              card: _.pick(inputs.card, ['name']),
+              task: _.pick(task, ['id', 'name']),
+            },
+            user: inputs.actorUser,
+            card: inputs.card,
+          },
+          project: inputs.project,
+          board: inputs.board,
+          list: inputs.list,
+        });
+      } else if (inputs.record.name !== task.name) {
+        // Criar ação para atualização de tarefa (quando o nome muda)
+        await sails.helpers.actions.createOne.with({
+          values: {
+            type: Action.Types.UPDATE_TASK,
             data: {
               card: _.pick(inputs.card, ['name']),
               task: _.pick(task, ['id', 'name']),

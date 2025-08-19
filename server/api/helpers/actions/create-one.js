@@ -12,6 +12,24 @@ const buildTitle = (action, t) => {
       return t('Card Created');
     case Action.Types.MOVE_CARD:
       return t('Card Moved');
+    case Action.Types.CREATE_TASK:
+      return t('Task Created');
+    case Action.Types.DELETE_TASK:
+      return t('Task Deleted');
+    case Action.Types.UPDATE_TASK:
+      return t('Task Updated');
+    case Action.Types.COMPLETE_TASK:
+      return t('Task Completed');
+    case Action.Types.UNCOMPLETE_TASK:
+      return t('Task Marked Incomplete');
+    case Action.Types.CREATE_TASK_LIST:
+      return t('Task List Created');
+    case Action.Types.DELETE_TASK_LIST:
+      return t('Task List Deleted');
+    case Action.Types.CREATE_ATTACHMENT:
+      return t('Attachment Created');
+    case Action.Types.DELETE_ATTACHMENT:
+      return t('Attachment Deleted');
     case Action.Types.SET_DUE_DATE:
       return t('Due Date Set');
     default:
@@ -143,6 +161,195 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
           ),
         };
       }
+    }
+    case Action.Types.CREATE_TASK: {
+      const taskName = action.data.task.name;
+
+      return {
+        text: t('%s created task %s in %s on %s', actorUser.name, taskName, card.name, board.name),
+        markdown: t(
+          '%s created task %s in %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s created task %s in %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.DELETE_TASK: {
+      const taskName = action.data.task.name;
+
+      return {
+        text: t('%s deleted task %s from %s on %s', actorUser.name, taskName, card.name, board.name),
+        markdown: t(
+          '%s deleted task %s from %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s deleted task %s from %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.UPDATE_TASK: {
+      const taskName = action.data.task.name;
+
+      return {
+        text: t('%s updated task %s in %s on %s', actorUser.name, taskName, card.name, board.name),
+        markdown: t(
+          '%s updated task %s in %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s updated task %s in %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.COMPLETE_TASK: {
+      const taskName = action.data.task.name;
+
+      return {
+        text: t('%s completed task %s in %s on %s', actorUser.name, taskName, card.name, board.name),
+        markdown: t(
+          '%s completed task %s in %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s completed task %s in %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.UNCOMPLETE_TASK: {
+      const taskName = action.data.task.name;
+
+      return {
+        text: t('%s marked task %s incomplete in %s on %s', actorUser.name, taskName, card.name, board.name),
+        markdown: t(
+          '%s marked task %s incomplete in %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s marked task %s incomplete in %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.CREATE_TASK_LIST: {
+      const taskListName = action.data.taskList.name;
+
+      return {
+        text: t('%s created task list %s in %s on %s', actorUser.name, taskListName, card.name, board.name),
+        markdown: t(
+          '%s created task list %s in %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskListName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s created task list %s in %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskListName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.DELETE_TASK_LIST: {
+      const taskListName = action.data.taskList.name;
+
+      return {
+        text: t('%s deleted task list %s from %s on %s', actorUser.name, taskListName, card.name, board.name),
+        markdown: t(
+          '%s deleted task list %s from %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(taskListName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s deleted task list %s from %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(taskListName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.CREATE_ATTACHMENT: {
+      const attachmentName = action.data.attachment.name;
+
+      return {
+        text: t('%s created attachment %s in %s on %s', actorUser.name, attachmentName, card.name, board.name),
+        markdown: t(
+          '%s created attachment %s in %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(attachmentName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s created attachment %s in %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(attachmentName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case Action.Types.DELETE_ATTACHMENT: {
+      const attachmentName = action.data.attachment.name;
+
+      return {
+        text: t('%s deleted attachment %s from %s on %s', actorUser.name, attachmentName, card.name, board.name),
+        markdown: t(
+          '%s deleted attachment %s from %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(attachmentName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s deleted attachment %s from %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(attachmentName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
     }
     default:
       return null;

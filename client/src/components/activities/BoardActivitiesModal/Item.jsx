@@ -256,6 +256,213 @@ const Item = React.memo(({ id }) => {
 
       break;
     }
+    case ActivityTypes.COMPLETE_TASK: {
+      const { task } = activity.data;
+      const taskName = task.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCompletedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' completou '}
+          <strong>{taskName}</strong>
+          {' em '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.UNCOMPLETE_TASK: {
+      const { task } = activity.data;
+      const taskName = task.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userMarkedTaskIncompleteOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' marcou '}
+          <strong>{taskName}</strong>
+          {' como incompleta em '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.CREATE_TASK: {
+      const { task } = activity.data;
+      const taskName = task.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCreatedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' criou '}
+          <strong>{taskName}</strong>
+          {' em '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.DELETE_TASK: {
+      const { task } = activity.data;
+      const taskName = task.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userDeletedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' excluiu '}
+          <strong>{taskName}</strong>
+          {' de '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.UPDATE_TASK: {
+      const { task } = activity.data;
+      const taskName = task.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userUpdatedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' atualizou '}
+          <strong>{taskName}</strong>
+          {' em '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.CREATE_TASK_LIST: {
+      const { taskList } = activity.data;
+      const taskListName = taskList.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCreatedTaskListOnCard"
+          values={{
+            user: userName,
+            taskList: taskListName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' criou lista de tarefas '}
+          <strong>{taskListName}</strong>
+          {' em '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.DELETE_TASK_LIST: {
+      const { taskList } = activity.data;
+      const taskListName = taskList.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userDeletedTaskListOnCard"
+          values={{
+            user: userName,
+            taskList: taskListName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' excluiu lista de tarefas '}
+          <strong>{taskListName}</strong>
+          {' de '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.CREATE_ATTACHMENT: {
+      const { attachment } = activity.data;
+      const attachmentName = attachment.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCreatedAttachmentOnCard"
+          values={{
+            user: userName,
+            attachment: attachmentName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' criou anexo '}
+          <strong>{attachmentName}</strong>
+          {' em '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.DELETE_ATTACHMENT: {
+      const { attachment } = activity.data;
+      const attachmentName = attachment.name;
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userDeletedAttachmentOnCard"
+          values={{
+            user: userName,
+            attachment: attachmentName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' excluiu anexo '}
+          <strong>{attachmentName}</strong>
+          {' de '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+        </Trans>
+      );
+
+      break;
+    }
     default:
       contentNode = (
         <Trans

@@ -3,6 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
+const Action = require('../../models/Action');
+const Attachment = require('../../models/Attachment');
+const _ = require('lodash');
+
 module.exports = {
   inputs: {
     values: {
@@ -60,6 +64,22 @@ module.exports = {
         },
       }),
       user: values.creatorUser,
+    });
+
+    // Criar ação para criação de anexo
+    await sails.helpers.actions.createOne.with({
+      values: {
+        type: Action.Types.CREATE_ATTACHMENT,
+        data: {
+          card: _.pick(values.card, ['name']),
+          attachment: _.pick(attachment, ['id', 'name']),
+        },
+        user: values.creatorUser,
+        card: values.card,
+      },
+      project: inputs.project,
+      board: inputs.board,
+      list: inputs.list,
     });
 
     if (!values.card.coverAttachmentId) {

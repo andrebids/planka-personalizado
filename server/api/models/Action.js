@@ -17,6 +17,13 @@ const Types = {
   REMOVE_MEMBER_FROM_CARD: 'removeMemberFromCard',
   COMPLETE_TASK: 'completeTask',
   UNCOMPLETE_TASK: 'uncompleteTask',
+  CREATE_TASK: 'createTask',
+  DELETE_TASK: 'deleteTask',
+  UPDATE_TASK: 'updateTask',
+  CREATE_TASK_LIST: 'createTaskList',
+  DELETE_TASK_LIST: 'deleteTaskList',
+  CREATE_ATTACHMENT: 'createAttachment',
+  DELETE_ATTACHMENT: 'deleteAttachment',
   SET_DUE_DATE: 'setDueDate',
 };
 
