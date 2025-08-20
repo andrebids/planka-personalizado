@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "sk-SK",
-  country: "sk",
-  name: "Slovenčina",
+  language: 'sk-SK',
+  country: 'sk',
+  name: 'Slovenčina',
   embeddedLocale: login,
 };

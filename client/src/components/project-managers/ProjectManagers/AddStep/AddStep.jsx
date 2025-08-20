@@ -3,28 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Input, Popup } from "../../../../lib/custom-ui";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Input, Popup } from '../../../../lib/custom-ui';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useField, useNestedRef } from "../../../../hooks";
-import User from "./User";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useField, useNestedRef } from '../../../../hooks';
+import User from './User';
 
-import styles from "./AddStep.module.scss";
+import styles from './AddStep.module.scss';
 
 const AddStep = React.memo(({ onClose }) => {
   const users = useSelector(selectors.selectActiveAdminOrProjectOwnerUsers);
   const currentUserIds = useSelector(
-    selectors.selectManagerUserIdsForCurrentProject,
+    selectors.selectManagerUserIdsForCurrentProject
   );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
-  const [search, handleSearchChange] = useField("");
+  const [search, handleSearchChange] = useField('');
   const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
   const filteredUsers = useMemo(
@@ -32,24 +32,24 @@ const AddStep = React.memo(({ onClose }) => {
       users.filter(
         (user) =>
           user.name.toLowerCase().includes(cleanSearch) ||
-          (user.username && user.username.includes(cleanSearch)),
+          (user.username && user.username.includes(cleanSearch))
       ),
-    [users, cleanSearch],
+    [users, cleanSearch]
   );
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const handleUserSelect = useCallback(
     (userId) => {
       dispatch(
         entryActions.createManagerInCurrentProject({
           userId,
-        }),
+        })
       );
 
       onClose();
     },
-    [onClose, dispatch],
+    [onClose, dispatch]
   );
 
   useEffect(() => {
@@ -61,8 +61,8 @@ const AddStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.addManager", {
-          context: "title",
+        {t('common.addManager', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -70,7 +70,7 @@ const AddStep = React.memo(({ onClose }) => {
           fluid
           ref={handleSearchFieldRef}
           value={search}
-          placeholder={t("common.searchUsers")}
+          placeholder={t('common.searchUsers')}
           maxLength={128}
           icon="search"
           onChange={handleSearchChange}

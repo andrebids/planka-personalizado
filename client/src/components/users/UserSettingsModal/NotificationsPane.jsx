@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Tab } from "semantic-ui-react";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Tab } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import NotificationServices from "../../notification-services/NotificationServices";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import NotificationServices from '../../notification-services/NotificationServices';
 
-import styles from "./NotificationsPane.module.scss";
+import styles from './NotificationsPane.module.scss';
 
 const NotificationsPane = React.memo(() => {
   const notificationServiceIds = useSelector(
-    selectors.selectNotificationServiceIdsForCurrentUser,
+    selectors.selectNotificationServiceIdsForCurrentUser
   );
 
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const NotificationsPane = React.memo(() => {
     (data) => {
       dispatch(entryActions.createNotificationServiceInCurrentUser(data));
     },
-    [dispatch],
+    [dispatch]
   );
 
   return (

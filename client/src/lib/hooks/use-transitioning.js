@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useLayoutEffect } from "react";
+import { useCallback, useLayoutEffect } from 'react';
 
 export default (ref, className, dependencies) => {
   const handleTransitionEnd = useCallback((event) => {

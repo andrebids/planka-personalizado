@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import CardModal from "./CardModal";
+import CardModal from './CardModal';
 
 export default CardModal;

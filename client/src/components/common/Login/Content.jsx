@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import isEmail from "validator/lib/isEmail";
-import React, { useCallback, useEffect, useMemo } from "react";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation, Trans } from "react-i18next";
+import isEmail from 'validator/lib/isEmail';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation, Trans } from 'react-i18next';
 import {
   Button,
   Divider,
@@ -15,16 +15,16 @@ import {
   Grid,
   Header,
   Message,
-} from "semantic-ui-react";
-import { useDidUpdate, usePrevious, useToggle } from "../../../lib/hooks";
-import { Input } from "../../../lib/custom-ui";
+} from 'semantic-ui-react';
+import { useDidUpdate, usePrevious, useToggle } from '../../../lib/hooks';
+import { Input } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useForm, useNestedRef } from "../../../hooks";
-import { isUsername } from "../../../utils/validator";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useForm, useNestedRef } from '../../../hooks';
+import { isUsername } from '../../../utils/validator';
 
-import styles from "./Content.module.scss";
+import styles from './Content.module.scss';
 
 const createMessage = (error) => {
   if (!error) {
@@ -32,55 +32,55 @@ const createMessage = (error) => {
   }
 
   switch (error.message) {
-    case "Invalid credentials":
+    case 'Invalid credentials':
       return {
-        type: "error",
-        content: "common.invalidCredentials",
+        type: 'error',
+        content: 'common.invalidCredentials',
       };
-    case "Invalid email or username":
+    case 'Invalid email or username':
       return {
-        type: "error",
-        content: "common.invalidEmailOrUsername",
+        type: 'error',
+        content: 'common.invalidEmailOrUsername',
       };
-    case "Invalid password":
+    case 'Invalid password':
       return {
-        type: "error",
-        content: "common.invalidPassword",
+        type: 'error',
+        content: 'common.invalidPassword',
       };
-    case "Use single sign-on":
+    case 'Use single sign-on':
       return {
-        type: "error",
-        content: "common.useSingleSignOn",
+        type: 'error',
+        content: 'common.useSingleSignOn',
       };
-    case "Email already in use":
+    case 'Email already in use':
       return {
-        type: "error",
-        content: "common.emailAlreadyInUse",
+        type: 'error',
+        content: 'common.emailAlreadyInUse',
       };
-    case "Username already in use":
+    case 'Username already in use':
       return {
-        type: "error",
-        content: "common.usernameAlreadyInUse",
+        type: 'error',
+        content: 'common.usernameAlreadyInUse',
       };
-    case "Active users limit reached":
+    case 'Active users limit reached':
       return {
-        type: "error",
-        content: "common.activeUsersLimitReached",
+        type: 'error',
+        content: 'common.activeUsersLimitReached',
       };
-    case "Failed to fetch":
+    case 'Failed to fetch':
       return {
-        type: "warning",
-        content: "common.noInternetConnection",
+        type: 'warning',
+        content: 'common.noInternetConnection',
       };
-    case "Network request failed":
+    case 'Network request failed':
       return {
-        type: "warning",
-        content: "common.serverConnectionFailed",
+        type: 'warning',
+        content: 'common.serverConnectionFailed',
       };
     default:
       return {
-        type: "warning",
-        content: "common.unknownError",
+        type: 'warning',
+        content: 'common.unknownError',
       };
   }
 };
@@ -100,8 +100,8 @@ const Content = React.memo(() => {
   const wasSubmitting = usePrevious(isSubmitting);
 
   const [data, handleFieldChange, setData] = useForm(() => ({
-    emailOrUsername: "",
-    password: "",
+    emailOrUsername: '',
+    password: '',
     ...defaultData,
   }));
 
@@ -109,8 +109,8 @@ const Content = React.memo(() => {
   const [focusPasswordFieldState, focusPasswordField] = useToggle();
 
   const [emailOrUsernameFieldRef, handleEmailOrUsernameFieldRef] =
-    useNestedRef("inputRef");
-  const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef("inputRef");
+    useNestedRef('inputRef');
+  const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef('inputRef');
 
   const handleSubmit = useCallback(() => {
     const cleanData = {
@@ -154,15 +154,15 @@ const Content = React.memo(() => {
   useDidUpdate(() => {
     if (wasSubmitting && !isSubmitting && error) {
       switch (error.message) {
-        case "Invalid credentials":
-        case "Invalid email or username":
+        case 'Invalid credentials':
+        case 'Invalid email or username':
           emailOrUsernameFieldRef.current.select();
 
           break;
-        case "Invalid password":
+        case 'Invalid password':
           setData((prevData) => ({
             ...prevData,
-            password: "",
+            password: '',
           }));
           focusPasswordField();
 
@@ -206,7 +206,7 @@ const Content = React.memo(() => {
                   <Form size="large" onSubmit={handleSubmit}>
                     <div className={styles.inputWrapper}>
                       <div className={styles.inputLabel}>
-                        {t("common.emailOrUsername")}
+                        {t('common.emailOrUsername')}
                       </div>
                       <Input
                         fluid
@@ -221,7 +221,7 @@ const Content = React.memo(() => {
                     </div>
                     <div className={styles.inputWrapper}>
                       <div className={styles.inputLabel}>
-                        {t("common.password")}
+                        {t('common.password')}
                       </div>
                       <Input.Password
                         fluid
@@ -239,7 +239,7 @@ const Content = React.memo(() => {
                       primary
                       icon="right arrow"
                       labelPosition="right"
-                      content={t("action.logIn")}
+                      content={t('action.logIn')}
                       loading={isSubmitting}
                       disabled={isSubmitting || isSubmittingWithOidc}
                     />
@@ -247,7 +247,7 @@ const Content = React.memo(() => {
                   {withOidc && (
                     <Divider
                       horizontal
-                      content={t("common.or")}
+                      content={t('common.or')}
                       className={styles.divider}
                     />
                   )}
@@ -257,9 +257,9 @@ const Content = React.memo(() => {
                 <Button
                   fluid
                   primary={isOidcEnforced}
-                  icon={isOidcEnforced ? "right arrow" : undefined}
-                  labelPosition={isOidcEnforced ? "right" : undefined}
-                  content={t("action.logInWithSso")}
+                  icon={isOidcEnforced ? 'right arrow' : undefined}
+                  labelPosition={isOidcEnforced ? 'right' : undefined}
+                  content={t('action.logInWithSso')}
                   loading={isSubmittingWithOidc}
                   disabled={isSubmitting || isSubmittingWithOidc}
                   onClick={handleAuthenticateWithOidcClick}
@@ -268,7 +268,7 @@ const Content = React.memo(() => {
             </div>
             <p className={styles.formFooter}>
               <Trans i18nKey="common.poweredByPlanka">
-                {"Powered by "}
+                {'Powered by '}
                 <a
                   href="https://blacherestudio.com/"
                   target="_blank"

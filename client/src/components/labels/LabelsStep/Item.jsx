@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-import React, { useCallback, useMemo } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
-import { Button } from "semantic-ui-react";
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+import React, { useCallback, useMemo } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
+import { Button } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import { BoardMembershipRoles } from "../../../constants/Enums";
+import selectors from '../../../selectors';
+import { BoardMembershipRoles } from '../../../constants/Enums';
 
-import styles from "./Item.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './Item.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const Item = React.memo(
   ({ id, index, isActive, onSelect, onDeselect, onEdit }) => {
@@ -67,7 +67,7 @@ const Item = React.memo(
                   isActive && styles.nameActive,
                   globalStyles[
                     `background${upperFirst(camelCase(label.color))}`
-                  ],
+                  ]
                 )}
                 onClick={handleToggleClick}
               >
@@ -92,7 +92,7 @@ const Item = React.memo(
         }}
       </Draggable>
     );
-  },
+  }
 );
 
 Item.propTypes = {

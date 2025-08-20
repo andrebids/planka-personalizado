@@ -3,32 +3,32 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Mention, MentionsInput } from "react-mentions";
-import { Button, Form } from "semantic-ui-react";
+import React, { useCallback, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Mention, MentionsInput } from 'react-mentions';
+import { Button, Form } from 'semantic-ui-react';
 import {
   useClickAwayListener,
   useDidUpdate,
   useToggle,
-} from "../../../lib/hooks";
+} from '../../../lib/hooks';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useEscapeInterceptor, useForm, useNestedRef } from "../../../hooks";
-import { isModifierKeyPressed } from "../../../utils/event-helpers";
-import UserAvatar from "../../users/UserAvatar";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useEscapeInterceptor, useForm, useNestedRef } from '../../../hooks';
+import { isModifierKeyPressed } from '../../../utils/event-helpers';
+import UserAvatar from '../../users/UserAvatar';
 
-import styles from "./Add.module.scss";
+import styles from './Add.module.scss';
 
 const DEFAULT_DATA = {
-  text: "",
+  text: '',
 };
 
 const Add = React.memo(() => {
   const boardMemberships = useSelector(
-    selectors.selectMembershipsForCurrentBoard,
+    selectors.selectMembershipsForCurrentBoard
   );
 
   const dispatch = useDispatch();
@@ -85,16 +85,16 @@ const Add = React.memo(() => {
         text,
       });
     },
-    [setData],
+    [setData]
   );
 
   const handleFieldKeyDown = useCallback(
     (event) => {
-      if (isModifierKeyPressed(event) && event.key === "Enter") {
+      if (isModifierKeyPressed(event) && event.key === 'Enter') {
         submit();
       }
     },
-    [submit],
+    [submit]
   );
 
   const handleAwayClick = useCallback(() => {
@@ -108,7 +108,7 @@ const Add = React.memo(() => {
   const clickAwayProps = useClickAwayListener(
     [textFieldRef, buttonRef],
     handleAwayClick,
-    handleClickAwayCancel,
+    handleClickAwayCancel
   );
 
   const suggestionRenderer = useCallback(
@@ -118,7 +118,7 @@ const Add = React.memo(() => {
         {highlightedDisplay}
       </div>
     ),
-    [],
+    []
   );
 
   useDidUpdate(() => {
@@ -143,13 +143,13 @@ const Add = React.memo(() => {
           ref={textMentionsRef}
           inputRef={textInputRef}
           value={data.text}
-          placeholder={t("common.writeComment")}
+          placeholder={t('common.writeComment')}
           maxLength={1048576}
           rows={isOpened ? 3 : 1}
           className="mentions-input"
           style={{
             control: {
-              minHeight: isOpened ? "79px" : "37px",
+              minHeight: isOpened ? '79px' : '37px',
             },
           }}
           onFocus={handleFieldFocus}
@@ -174,7 +174,7 @@ const Add = React.memo(() => {
             {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
             positive
             ref={handleButtonRef}
-            content={t("action.addComment")}
+            content={t('action.addComment')}
             className={styles.button}
           />
         </div>

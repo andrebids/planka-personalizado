@@ -3,34 +3,34 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Menu } from "semantic-ui-react";
-import { Popup } from "../../../../lib/custom-ui";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Menu } from 'semantic-ui-react';
+import { Popup } from '../../../../lib/custom-ui';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useSteps } from "../../../../hooks";
-import SelectRoleStep from "./SelectRoleStep";
-import ConfirmationStep from "../../ConfirmationStep";
-import EditUserInformationStep from "../../../users/EditUserInformationStep";
-import EditUserUsernameStep from "../../../users/EditUserUsernameStep";
-import EditUserEmailStep from "../../../users/EditUserEmailStep";
-import EditUserPasswordStep from "../../../users/EditUserPasswordStep";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useSteps } from '../../../../hooks';
+import SelectRoleStep from './SelectRoleStep';
+import ConfirmationStep from '../../ConfirmationStep';
+import EditUserInformationStep from '../../../users/EditUserInformationStep';
+import EditUserUsernameStep from '../../../users/EditUserUsernameStep';
+import EditUserEmailStep from '../../../users/EditUserEmailStep';
+import EditUserPasswordStep from '../../../users/EditUserPasswordStep';
 
-import styles from "./ActionsStep.module.scss";
+import styles from './ActionsStep.module.scss';
 
 const StepTypes = {
-  EDIT_INFORMATION: "EDIT_INFORMATION",
-  EDIT_USERNAME: "EDIT_USERNAME",
-  EDIT_EMAIL: "EDIT_EMAIL",
-  EDIT_PASSWORD: "EDIT_PASSWORD",
-  EDIT_ROLE: "EDIT_ROLE",
-  ACTIVATE: "ACTIVATE",
-  DEACTIVATE: "DEACTIVATE",
-  DELETE: "DELETE",
+  EDIT_INFORMATION: 'EDIT_INFORMATION',
+  EDIT_USERNAME: 'EDIT_USERNAME',
+  EDIT_EMAIL: 'EDIT_EMAIL',
+  EDIT_PASSWORD: 'EDIT_PASSWORD',
+  EDIT_ROLE: 'EDIT_ROLE',
+  ACTIVATE: 'ACTIVATE',
+  DEACTIVATE: 'DEACTIVATE',
+  DELETE: 'DELETE',
 };
 
 const ActionsStep = React.memo(({ userId, onClose }) => {
@@ -49,17 +49,17 @@ const ActionsStep = React.memo(({ userId, onClose }) => {
       dispatch(
         entryActions.updateUser(userId, {
           role,
-        }),
+        })
       );
     },
-    [userId, dispatch],
+    [userId, dispatch]
   );
 
   const handleActivateConfirm = useCallback(() => {
     dispatch(
       entryActions.updateUser(userId, {
         isDeactivated: false,
-      }),
+      })
     );
 
     onClose();
@@ -69,7 +69,7 @@ const ActionsStep = React.memo(({ userId, onClose }) => {
     dispatch(
       entryActions.updateUser(userId, {
         isDeactivated: true,
-      }),
+      })
     );
 
     onClose();
@@ -197,8 +197,8 @@ const ActionsStep = React.memo(({ userId, onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.userActions", {
-          context: "title",
+        {t('common.userActions', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -207,47 +207,47 @@ const ActionsStep = React.memo(({ userId, onClose }) => {
             className={styles.menuItem}
             onClick={handleEditInformationClick}
           >
-            {t("action.editInformation", {
-              context: "title",
+            {t('action.editInformation', {
+              context: 'title',
             })}
           </Menu.Item>
-          {!user.lockedFieldNames.includes("username") && (
+          {!user.lockedFieldNames.includes('username') && (
             <Menu.Item
               className={styles.menuItem}
               onClick={handleEditUsernameClick}
             >
-              {t("action.editUsername", {
-                context: "title",
+              {t('action.editUsername', {
+                context: 'title',
               })}
             </Menu.Item>
           )}
-          {!user.lockedFieldNames.includes("email") && (
+          {!user.lockedFieldNames.includes('email') && (
             <Menu.Item
               className={styles.menuItem}
               onClick={handleEditEmailClick}
             >
-              {t("action.editEmail", {
-                context: "title",
+              {t('action.editEmail', {
+                context: 'title',
               })}
             </Menu.Item>
           )}
-          {!user.lockedFieldNames.includes("password") && (
+          {!user.lockedFieldNames.includes('password') && (
             <Menu.Item
               className={styles.menuItem}
               onClick={handleEditPasswordClick}
             >
-              {t("action.editPassword", {
-                context: "title",
+              {t('action.editPassword', {
+                context: 'title',
               })}
             </Menu.Item>
           )}
-          {!user.lockedFieldNames.includes("role") && (
+          {!user.lockedFieldNames.includes('role') && (
             <Menu.Item
               className={styles.menuItem}
               onClick={handleEditRoleClick}
             >
-              {t("action.editRole", {
-                context: "title",
+              {t('action.editRole', {
+                context: 'title',
               })}
             </Menu.Item>
           )}
@@ -263,17 +263,17 @@ const ActionsStep = React.memo(({ userId, onClose }) => {
             }
           >
             {user.isDeactivated
-              ? t("action.activateUser", {
-                  context: "title",
+              ? t('action.activateUser', {
+                  context: 'title',
                 })
-              : t("action.deactivateUser", {
-                  context: "title",
+              : t('action.deactivateUser', {
+                  context: 'title',
                 })}
           </Menu.Item>
           {user.isDeactivated && !user.isDefaultAdmin && (
             <Menu.Item className={styles.menuItem} onClick={handleDeleteClick}>
-              {t("action.deleteUser", {
-                context: "title",
+              {t('action.deleteUser', {
+                context: 'title',
               })}
             </Menu.Item>
           )}

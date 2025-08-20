@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "id-ID",
-  country: "id",
-  name: "Bahasa Indonesia",
+  language: 'id-ID',
+  country: 'id',
+  name: 'Bahasa Indonesia',
   embeddedLocale: login,
 };

@@ -3,40 +3,40 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo, useRef } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Dropdown, Form } from "semantic-ui-react";
-import { useDidUpdate, useToggle } from "../../../lib/hooks";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Dropdown, Form } from 'semantic-ui-react';
+import { useDidUpdate, useToggle } from '../../../lib/hooks';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import { useForm } from "../../../hooks";
+import selectors from '../../../selectors';
+import { useForm } from '../../../hooks';
 
-import styles from "./AddCustomFieldGroupStep.module.scss";
-import CustomFieldGroupEditor from "../CustomFieldGroupEditor/CustomFieldGroupEditor";
+import styles from './AddCustomFieldGroupStep.module.scss';
+import CustomFieldGroupEditor from '../CustomFieldGroupEditor/CustomFieldGroupEditor';
 
 const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
   const baseCustomFieldGroups = useSelector(
-    selectors.selectBaseCustomFieldGroupsForCurrentProject,
+    selectors.selectBaseCustomFieldGroupsForCurrentProject
   );
 
   const [t] = useTranslation();
 
   const [data, handleFieldChange, setData] = useForm({
     baseCustomFieldGroupId: null,
-    name: "",
+    name: '',
   });
 
   const selectedBaseCustomFieldGroup = useMemo(() => {
-    if (data.baseCustomFieldGroupId === "without") {
+    if (data.baseCustomFieldGroupId === 'without') {
       return null;
     }
 
     return baseCustomFieldGroups.find(
       (baseCustomFieldGroup) =>
-        baseCustomFieldGroup.id === data.baseCustomFieldGroupId,
+        baseCustomFieldGroup.id === data.baseCustomFieldGroupId
     );
   }, [baseCustomFieldGroups, data.baseCustomFieldGroupId]);
 
@@ -79,13 +79,13 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
   const handleBaseCustomFieldGroupIdChange = useCallback(
     (_, { value }) => {
       setData((prevData) => {
-        const baseCustomFieldGroupId = value === "without" ? null : value; // FIXME: hack
+        const baseCustomFieldGroupId = value === 'without' ? null : value; // FIXME: hack
 
         const nextSelectedBaseCustomFieldGroup =
           baseCustomFieldGroupId &&
           baseCustomFieldGroups.find(
             (baseCustomFieldGroup) =>
-              baseCustomFieldGroup.id === baseCustomFieldGroupId,
+              baseCustomFieldGroup.id === baseCustomFieldGroupId
           );
 
         return {
@@ -93,13 +93,13 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
           baseCustomFieldGroupId,
           name: nextSelectedBaseCustomFieldGroup
             ? nextSelectedBaseCustomFieldGroup.name
-            : "",
+            : '',
         };
       });
 
       focusNameField();
     },
-    [baseCustomFieldGroups, setData, focusNameField],
+    [baseCustomFieldGroups, setData, focusNameField]
   );
 
   useDidUpdate(() => {
@@ -109,21 +109,21 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t("common.addCustomFieldGroup", {
-          context: "title",
+        {t('common.addCustomFieldGroup', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t("common.baseGroup")}</div>
+          <div className={styles.text}>{t('common.baseGroup')}</div>
           <Dropdown
             fluid
             selection
             name="baseCustomFieldGroupId"
             options={[
               {
-                value: "without",
-                text: t("common.withoutBaseGroup"),
+                value: 'without',
+                text: t('common.withoutBaseGroup'),
               },
               ...baseCustomFieldGroups.map((baseCustomFieldGroup) => ({
                 value: baseCustomFieldGroup.id,
@@ -131,7 +131,7 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
                 disabled: !baseCustomFieldGroup.isPersisted,
               })),
             ]}
-            value={data.baseCustomFieldGroupId || "without"}
+            value={data.baseCustomFieldGroupId || 'without'}
             className={styles.field}
             onChange={handleBaseCustomFieldGroupIdChange}
           />
@@ -140,7 +140,7 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
             data={data}
             onFieldChange={handleFieldChange}
           />
-          <Button positive content={t("action.addCustomFieldGroup")} />
+          <Button positive content={t('action.addCustomFieldGroup')} />
         </Form>
       </Popup.Content>
     </>

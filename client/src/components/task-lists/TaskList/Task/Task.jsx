@@ -3,28 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useContext, useMemo, useState } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
-import { Button, Checkbox, Icon } from "semantic-ui-react";
-import { useDidUpdate } from "../../../../lib/hooks";
+import React, { useCallback, useContext, useMemo, useState } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
+import { Button, Checkbox, Icon } from 'semantic-ui-react';
+import { useDidUpdate } from '../../../../lib/hooks';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { usePopupInClosableContext } from "../../../../hooks";
-import { isListArchiveOrTrash } from "../../../../utils/record-helpers";
-import { BoardMembershipRoles } from "../../../../constants/Enums";
-import { ClosableContext } from "../../../../contexts";
-import EditName from "./EditName";
-import SelectAssigneeStep from "./SelectAssigneeStep";
-import ActionsStep from "./ActionsStep";
-import Linkify from "../../../common/Linkify";
-import UserAvatar from "../../../users/UserAvatar";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { usePopupInClosableContext } from '../../../../hooks';
+import { isListArchiveOrTrash } from '../../../../utils/record-helpers';
+import { BoardMembershipRoles } from '../../../../constants/Enums';
+import { ClosableContext } from '../../../../contexts';
+import EditName from './EditName';
+import SelectAssigneeStep from './SelectAssigneeStep';
+import ActionsStep from './ActionsStep';
+import Linkify from '../../../common/Linkify';
+import UserAvatar from '../../../users/UserAvatar';
 
-import styles from "./Task.module.scss";
+import styles from './Task.module.scss';
 
 const Task = React.memo(({ id, index }) => {
   const selectTaskById = useMemo(() => selectors.makeSelectTaskById(), []);
@@ -62,7 +62,7 @@ const Task = React.memo(({ id, index }) => {
     dispatch(
       entryActions.updateTask(id, {
         isCompleted: !task.isCompleted,
-      }),
+      })
     );
   }, [id, task.isCompleted, dispatch]);
 
@@ -71,17 +71,17 @@ const Task = React.memo(({ id, index }) => {
       dispatch(
         entryActions.updateTask(id, {
           assigneeUserId: userId,
-        }),
+        })
       );
     },
-    [id, dispatch],
+    [id, dispatch]
   );
 
   const handleUserDeselect = useCallback(() => {
     dispatch(
       entryActions.updateTask(id, {
         assigneeUserId: null,
-      }),
+      })
     );
   }, [id, dispatch]);
 
@@ -122,7 +122,7 @@ const Task = React.memo(({ id, index }) => {
             ref={innerRef}
             className={classNames(
               styles.wrapper,
-              isDragging && styles.wrapperDragging,
+              isDragging && styles.wrapperDragging
             )}
           >
             <span className={styles.checkboxWrapper}>
@@ -142,14 +142,14 @@ const Task = React.memo(({ id, index }) => {
                 <span
                   className={classNames(
                     styles.text,
-                    canEdit && styles.textEditable,
+                    canEdit && styles.textEditable
                   )}
                   onClick={handleClick}
                 >
                   <span
                     className={classNames(
                       styles.task,
-                      task.isCompleted && styles.taskCompleted,
+                      task.isCompleted && styles.taskCompleted
                     )}
                   >
                     <Linkify linkStopPropagation>{task.name}</Linkify>
@@ -159,7 +159,7 @@ const Task = React.memo(({ id, index }) => {
                   <div
                     className={classNames(
                       styles.actions,
-                      isEditable && styles.actionsEditable,
+                      isEditable && styles.actionsEditable
                     )}
                   >
                     {isEditable ? (

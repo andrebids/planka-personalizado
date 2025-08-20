@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from "redux-orm";
+import { attr, fk } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import ActionTypes from "../constants/ActionTypes";
+import BaseModel from './BaseModel';
+import ActionTypes from '../constants/ActionTypes';
 
 export default class extends BaseModel {
-  static modelName = "CustomField";
+  static modelName = 'CustomField';
 
   static fields = {
     id: attr(),
@@ -17,14 +17,14 @@ export default class extends BaseModel {
     name: attr(),
     showOnFrontOfCard: attr(),
     baseCustomFieldGroupId: fk({
-      to: "BaseCustomFieldGroup",
-      as: "baseGroup",
-      relatedName: "customFields",
+      to: 'BaseCustomFieldGroup',
+      as: 'baseGroup',
+      relatedName: 'customFields',
     }),
     customFieldGroupId: fk({
-      to: "CustomFieldGroup",
-      as: "group",
-      relatedName: "customFields",
+      to: 'CustomFieldGroup',
+      as: 'group',
+      relatedName: 'customFields',
     }),
   };
 

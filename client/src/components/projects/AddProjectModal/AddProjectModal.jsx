@@ -3,39 +3,39 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import TextareaAutosize from "react-textarea-autosize";
-import { Button, Form, Header, Icon, TextArea } from "semantic-ui-react";
-import { usePopup } from "../../../lib/popup";
-import { Input } from "../../../lib/custom-ui";
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import TextareaAutosize from 'react-textarea-autosize';
+import { Button, Form, Header, Icon, TextArea } from 'semantic-ui-react';
+import { usePopup } from '../../../lib/popup';
+import { Input } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useClosableModal, useForm, useNestedRef } from "../../../hooks";
-import { isModifierKeyPressed } from "../../../utils/event-helpers";
-import { ProjectTypes } from "../../../constants/Enums";
-import { ProjectTypeIcons } from "../../../constants/Icons";
-import SelectTypeStep from "./SelectTypeStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useClosableModal, useForm, useNestedRef } from '../../../hooks';
+import { isModifierKeyPressed } from '../../../utils/event-helpers';
+import { ProjectTypes } from '../../../constants/Enums';
+import { ProjectTypeIcons } from '../../../constants/Icons';
+import SelectTypeStep from './SelectTypeStep';
 
-import styles from "./AddProjectModal.module.scss";
+import styles from './AddProjectModal.module.scss';
 
 const AddProjectModal = React.memo(() => {
   const defaultType = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.defaultType,
+    (state) => selectors.selectCurrentModal(state).params.defaultType
   );
 
   const { data: defaultData, isSubmitting } = useSelector(
-    selectors.selectProjectCreateForm,
+    selectors.selectProjectCreateForm
   );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
 
   const [data, handleFieldChange, setData] = useForm(() => ({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     type: ProjectTypes.PRIVATE,
     ...defaultData,
     ...(defaultType && {
@@ -43,7 +43,7 @@ const AddProjectModal = React.memo(() => {
     }),
   }));
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
 
   const submit = useCallback(() => {
     const cleanData = {
@@ -70,11 +70,11 @@ const AddProjectModal = React.memo(() => {
 
   const handleDescriptionKeyDown = useCallback(
     (event) => {
-      if (isModifierKeyPressed(event) && event.key === "Enter") {
+      if (isModifierKeyPressed(event) && event.key === 'Enter') {
         submit();
       }
     },
-    [submit],
+    [submit]
   );
 
   const handleTypeSelect = useCallback(
@@ -84,7 +84,7 @@ const AddProjectModal = React.memo(() => {
         type,
       }));
     },
-    [setData],
+    [setData]
   );
 
   const [ClosableModal, , activateClosable, deactivateClosable] =
@@ -108,12 +108,12 @@ const AddProjectModal = React.memo(() => {
     <ClosableModal basic closeIcon size="tiny" onClose={handleClose}>
       <ClosableModal.Content>
         <Header inverted size="huge">
-          {t("common.createProject", {
-            context: "title",
+          {t('common.createProject', {
+            context: 'title',
           })}
         </Header>
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t("common.title")}</div>
+          <div className={styles.text}>{t('common.title')}</div>
           <Input
             fluid
             inverted
@@ -125,7 +125,7 @@ const AddProjectModal = React.memo(() => {
             className={styles.field}
             onChange={handleFieldChange}
           />
-          <div className={styles.text}>{t("common.description")}</div>
+          <div className={styles.text}>{t('common.description')}</div>
           <TextArea
             as={TextareaAutosize}
             name="description"
@@ -141,7 +141,7 @@ const AddProjectModal = React.memo(() => {
             inverted
             color="green"
             icon="checkmark"
-            content={t("action.createProject")}
+            content={t('action.createProject')}
             loading={isSubmitting}
             disabled={isSubmitting}
           />

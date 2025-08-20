@@ -40,64 +40,64 @@
 
 export default (hljs) => {
   const NUMBERS = {
-    className: "number",
-    begin: "\\b\\d+(\\.\\d+)?",
+    className: 'number',
+    begin: '\\b\\d+(\\.\\d+)?',
     relevance: 0,
   };
   const STRINGS = {
-    className: "string",
+    className: 'string',
     begin: '"',
     end: '"',
     contains: [
       {
-        className: "variable",
-        begin: "\\${",
-        end: "\\}",
+        className: 'variable',
+        begin: '\\${',
+        end: '\\}',
         relevance: 9,
         contains: [
           {
-            className: "string",
+            className: 'string',
             begin: '"',
             end: '"',
           },
           {
-            className: "meta",
-            begin: "[A-Za-z_0-9]*" + "\\(", // eslint-disable-line no-useless-concat
-            end: "\\)",
+            className: 'meta',
+            begin: '[A-Za-z_0-9]*' + '\\(', // eslint-disable-line no-useless-concat
+            end: '\\)',
             contains: [
               NUMBERS,
               {
-                className: "string",
+                className: 'string',
                 begin: '"',
                 end: '"',
                 contains: [
                   {
-                    className: "variable",
-                    begin: "\\${",
-                    end: "\\}",
+                    className: 'variable',
+                    begin: '\\${',
+                    end: '\\}',
                     contains: [
                       {
-                        className: "string",
+                        className: 'string',
                         begin: '"',
                         end: '"',
                         contains: [
                           {
-                            className: "variable",
-                            begin: "\\${",
-                            end: "\\}",
+                            className: 'variable',
+                            begin: '\\${',
+                            end: '\\}',
                           },
                         ],
                       },
                       {
-                        className: "meta",
-                        begin: "[A-Za-z_0-9]*" + "\\(", // eslint-disable-line no-useless-concat
-                        end: "\\)",
+                        className: 'meta',
+                        begin: '[A-Za-z_0-9]*' + '\\(', // eslint-disable-line no-useless-concat
+                        end: '\\)',
                       },
                     ],
                   },
                 ],
               },
-              "self",
+              'self',
             ],
           },
         ],
@@ -106,10 +106,10 @@ export default (hljs) => {
   };
 
   return {
-    aliases: ["tf", "hcl"],
+    aliases: ['tf', 'hcl'],
     keywords:
-      "resource variable provider output locals module data terraform|10",
-    literal: "false true null",
-    contains: [hljs.COMMENT("\\#", "$"), NUMBERS, STRINGS],
+      'resource variable provider output locals module data terraform|10',
+    literal: 'false true null',
+    contains: [hljs.COMMENT('\\#', '$'), NUMBERS, STRINGS],
   };
 };

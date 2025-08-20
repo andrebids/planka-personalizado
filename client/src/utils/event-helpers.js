@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Config from "../constants/Config";
+import Config from '../constants/Config';
 
 // eslint-disable-next-line import/prefer-default-export
 export const isModifierKeyPressed = (event) =>

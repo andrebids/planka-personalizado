@@ -3,35 +3,35 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from "dequal";
-import React, { useCallback, useMemo, useRef } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import { dequal } from 'dequal';
+import React, { useCallback, useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useForm, useSteps } from "../../../hooks";
-import CustomFieldGroupEditor from "../CustomFieldGroupEditor";
-import ConfirmationStep from "../../common/ConfirmationStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useForm, useSteps } from '../../../hooks';
+import CustomFieldGroupEditor from '../CustomFieldGroupEditor';
+import ConfirmationStep from '../../common/ConfirmationStep';
 
-import styles from "./EditCustomFieldGroupStep.module.scss";
+import styles from './EditCustomFieldGroupStep.module.scss';
 
 const StepTypes = {
-  DELETE: "DELETE",
+  DELETE: 'DELETE',
 };
 
 const EditCustomFieldGroupStep = React.memo(
   ({ id, withDeleteButton, onBack, onClose }) => {
     const selectCustomFieldGroupById = useMemo(
       () => selectors.makeSelectCustomFieldGroupById(),
-      [],
+      []
     );
 
     const customFieldGroup = useSelector((state) =>
-      selectCustomFieldGroupById(state, id),
+      selectCustomFieldGroupById(state, id)
     );
 
     const dispatch = useDispatch();
@@ -41,11 +41,11 @@ const EditCustomFieldGroupStep = React.memo(
       () => ({
         name: customFieldGroup.name,
       }),
-      [customFieldGroup.name],
+      [customFieldGroup.name]
     );
 
     const [data, handleFieldChange] = useForm({
-      name: "",
+      name: '',
       ...defaultData,
     });
 
@@ -89,7 +89,7 @@ const EditCustomFieldGroupStep = React.memo(
             customFieldGroup.boardId ? customFieldGroup.name : undefined
           }
           typeContent={
-            customFieldGroup.boardId ? "common.typeTitleToConfirm" : undefined
+            customFieldGroup.boardId ? 'common.typeTitleToConfirm' : undefined
           }
           onConfirm={handleDeleteConfirm}
           onBack={handleBack}
@@ -100,8 +100,8 @@ const EditCustomFieldGroupStep = React.memo(
     return (
       <>
         <Popup.Header onBack={onBack}>
-          {t("common.editCustomFieldGroup", {
-            context: "title",
+          {t('common.editCustomFieldGroup', {
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>
@@ -110,11 +110,11 @@ const EditCustomFieldGroupStep = React.memo(
               data={data}
               onFieldChange={handleFieldChange}
             />
-            <Button positive content={t("action.save")} />
+            <Button positive content={t('action.save')} />
           </Form>
           {withDeleteButton && (
             <Button
-              content={t("action.delete")}
+              content={t('action.delete')}
               className={styles.deleteButton}
               onClick={handleDeleteClick}
             />
@@ -122,7 +122,7 @@ const EditCustomFieldGroupStep = React.memo(
         </Popup.Content>
       </>
     );
-  },
+  }
 );
 
 EditCustomFieldGroupStep.propTypes = {

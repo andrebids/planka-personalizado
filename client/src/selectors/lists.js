@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { selectPath } from "./router";
-import { isLocalId } from "../utils/local-id";
-import { BoardContexts, ListTypes } from "../constants/Enums";
+import orm from '../orm';
+import { selectPath } from './router';
+import { isLocalId } from '../utils/local-id';
+import { BoardContexts, ListTypes } from '../constants/Enums';
 
 export const makeSelectListById = () =>
   createSelector(
@@ -25,7 +25,7 @@ export const makeSelectListById = () =>
         ...listModel.ref,
         isPersisted: !isLocalId(id),
       };
-    },
+    }
   );
 
 export const selectListById = makeSelectListById();
@@ -42,7 +42,7 @@ export const makeSelectCardIdsByListId = () =>
       }
 
       return listModel.getCardsModelArray().map((cardModel) => cardModel.id);
-    },
+    }
   );
 
 export const selectCardIdsByListId = makeSelectCardIdsByListId();
@@ -61,7 +61,7 @@ export const makeSelectFilteredCardIdsByListId = () =>
       return listModel
         .getFilteredCardsModelArray()
         .map((cardModel) => cardModel.id);
-    },
+    }
   );
 
 export const selectFilteredCardIdsByListId =
@@ -92,7 +92,7 @@ export const selectCurrentListId = createSelector(
       .first();
 
     return listModel && listModel.id;
-  },
+  }
 );
 
 export const selectCurrentList = createSelector(
@@ -110,7 +110,7 @@ export const selectCurrentList = createSelector(
     }
 
     return listModel.ref;
-  },
+  }
 );
 
 export const selectFirstFiniteListId = createSelector(
@@ -129,7 +129,7 @@ export const selectFirstFiniteListId = createSelector(
 
     const listModel = boardModel.getFiniteListsQuerySet().first();
     return listModel && listModel.id;
-  },
+  }
 );
 
 export const selectFilteredCardIdsForCurrentList = createSelector(
@@ -149,7 +149,7 @@ export const selectFilteredCardIdsForCurrentList = createSelector(
     return listModel
       .getFilteredCardsModelArray()
       .map((cardModel) => cardModel.id);
-  },
+  }
 );
 
 export default {

@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from "redux-orm";
+import { attr, fk } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import ActionTypes from "../constants/ActionTypes";
+import BaseModel from './BaseModel';
+import ActionTypes from '../constants/ActionTypes';
 
 export default class extends BaseModel {
-  static modelName = "TaskList";
+  static modelName = 'TaskList';
 
   static fields = {
     id: attr(),
@@ -17,9 +17,9 @@ export default class extends BaseModel {
     name: attr(),
     showOnFrontOfCard: attr(),
     cardId: fk({
-      to: "Card",
-      as: "card",
-      relatedName: "taskLists",
+      to: 'Card',
+      as: 'card',
+      relatedName: 'taskLists',
     }),
   };
 
@@ -97,7 +97,7 @@ export default class extends BaseModel {
   }
 
   getTasksQuerySet() {
-    return this.tasks.orderBy(["position", "id.length", "id"]);
+    return this.tasks.orderBy(['position', 'id.length', 'id']);
   }
 
   duplicate(id, data, rootId) {

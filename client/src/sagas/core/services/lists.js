@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
-import toast from "react-hot-toast";
+import { call, put, select } from 'redux-saga/effects';
+import toast from 'react-hot-toast';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
-import ToastTypes from "../../../constants/ToastTypes";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
+import ToastTypes from '../../../constants/ToastTypes';
 
 export function* createList(boardId, data) {
   const localId = yield call(createLocalId);
@@ -26,7 +26,7 @@ export function* createList(boardId, data) {
       ...nextData,
       boardId,
       id: localId,
-    }),
+    })
   );
 
   let list;
@@ -74,7 +74,7 @@ export function* moveList(id, index) {
     selectors.selectNextListPosition,
     boardId,
     index,
-    id,
+    id
   );
 
   yield call(updateList, id, {
@@ -131,7 +131,7 @@ export function* moveListCards(id, nextId) {
 
 export function* moveListCardsToArchiveList(id) {
   const archiveListId = yield select(
-    selectors.selectArchiveListIdForCurrentBoard,
+    selectors.selectArchiveListIdForCurrentBoard
   );
 
   yield call(moveListCards, id, archiveListId);

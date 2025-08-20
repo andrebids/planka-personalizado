@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import EntryActionTypes from "../constants/EntryActionTypes";
+import EntryActionTypes from '../constants/EntryActionTypes';
 
 const createMembershipInCurrentBoard = (data) => ({
   type: EntryActionTypes.MEMBERSHIP_IN_CURRENT_BOARD_CREATE,

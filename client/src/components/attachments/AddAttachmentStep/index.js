@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import AddAttachmentStep from "./AddAttachmentStep";
+import AddAttachmentStep from './AddAttachmentStep';
 
 export default AddAttachmentStep;

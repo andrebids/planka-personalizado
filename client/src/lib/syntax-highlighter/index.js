@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import syntaxHighlighter from "./syntax-highlighter";
+import syntaxHighlighter from './syntax-highlighter';
 
 export default syntaxHighlighter;

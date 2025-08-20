@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Grid, Icon } from "semantic-ui-react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Grid, Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import { isUserAdminOrProjectOwner } from "../../../utils/record-helpers";
-import ProjectCard from "../../projects/ProjectCard";
-import PlusIcon from "../../../assets/images/plus-icon.svg?react";
+import selectors from '../../../selectors';
+import { isUserAdminOrProjectOwner } from '../../../utils/record-helpers';
+import ProjectCard from '../../projects/ProjectCard';
+import PlusIcon from '../../../assets/images/plus-icon.svg?react';
 
-import styles from "./Projects.module.scss";
+import styles from './Projects.module.scss';
 
 const Projects = React.memo(
   ({ ids, title, titleIcon, withTypeIndicator, onAdd }) => {
@@ -30,7 +30,7 @@ const Projects = React.memo(
       <div
         className={classNames(
           styles.wrapper,
-          !title && styles.wrapperWithoutTitle,
+          !title && styles.wrapperWithoutTitle
         )}
       >
         {title && (
@@ -39,7 +39,7 @@ const Projects = React.memo(
               <Icon name={titleIcon} className={styles.titleIcon} />
             )}
             {t(title, {
-              context: "title",
+              context: 'title',
             })}
           </div>
         )}
@@ -66,7 +66,7 @@ const Projects = React.memo(
                 <div className={styles.addButtonTitleWrapper}>
                   <div className={styles.addButtonTitle}>
                     <PlusIcon className={styles.addButtonTitleIcon} />
-                    {t("action.createProject")}
+                    {t('action.createProject')}
                   </div>
                 </div>
               </button>
@@ -75,7 +75,7 @@ const Projects = React.memo(
         </Grid>
       </div>
     );
-  },
+  }
 );
 
 Projects.propTypes = {

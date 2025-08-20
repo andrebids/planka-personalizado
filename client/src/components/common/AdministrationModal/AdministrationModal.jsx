@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Modal, Tab } from "semantic-ui-react";
+import React, { useCallback, useState } from 'react';
+import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Modal, Tab } from 'semantic-ui-react';
 
-import entryActions from "../../../entry-actions";
-import { useClosableModal } from "../../../hooks";
-import UsersPane from "./UsersPane";
+import entryActions from '../../../entry-actions';
+import { useClosableModal } from '../../../hooks';
+import UsersPane from './UsersPane';
 
-import styles from "./AdministrationModal.module.scss";
+import styles from './AdministrationModal.module.scss';
 
 const AdministrationModal = React.memo(() => {
   const dispatch = useDispatch();
@@ -32,8 +32,8 @@ const AdministrationModal = React.memo(() => {
 
   const panes = [
     {
-      menuItem: t("common.users", {
-        context: "title",
+      menuItem: t('common.users', {
+        context: 'title',
       }),
       render: () => <UsersPane />,
     },
@@ -44,7 +44,7 @@ const AdministrationModal = React.memo(() => {
   return (
     <ClosableModal
       closeIcon
-      size={isUsersPaneActive ? "large" : "small"}
+      size={isUsersPaneActive ? 'large' : 'small'}
       centered={false}
       className={classNames(isUsersPaneActive && styles.wrapperUsers)}
       onClose={handleClose}

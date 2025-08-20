@@ -3,31 +3,31 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Menu } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Menu } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useSteps } from "../../../hooks";
-import { ListTypes } from "../../../constants/Enums";
-import EditColorStep from "./EditColorStep";
-import SortStep from "./SortStep";
-import SelectListTypeStep from "../SelectListTypeStep";
-import ConfirmationStep from "../../common/ConfirmationStep";
-import ArchiveCardsStep from "../../cards/ArchiveCardsStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useSteps } from '../../../hooks';
+import { ListTypes } from '../../../constants/Enums';
+import EditColorStep from './EditColorStep';
+import SortStep from './SortStep';
+import SelectListTypeStep from '../SelectListTypeStep';
+import ConfirmationStep from '../../common/ConfirmationStep';
+import ArchiveCardsStep from '../../cards/ArchiveCardsStep';
 
-import styles from "./ActionsStep.module.scss";
+import styles from './ActionsStep.module.scss';
 
 const StepTypes = {
-  EDIT_TYPE: "EDIT_TYPE",
-  EDIT_COLOR: "EDIT_COLOR",
-  SORT: "SORT",
-  ARCHIVE_CARDS: "ARCHIVE_CARDS",
-  DELETE: "DELETE",
+  EDIT_TYPE: 'EDIT_TYPE',
+  EDIT_COLOR: 'EDIT_COLOR',
+  SORT: 'SORT',
+  ARCHIVE_CARDS: 'ARCHIVE_CARDS',
+  DELETE: 'DELETE',
 };
 
 const ActionsStep = React.memo(({ listId, onNameEdit, onCardAdd, onClose }) => {
@@ -44,10 +44,10 @@ const ActionsStep = React.memo(({ listId, onNameEdit, onCardAdd, onClose }) => {
       dispatch(
         entryActions.updateList(listId, {
           type,
-        }),
+        })
       );
     },
-    [listId, dispatch],
+    [listId, dispatch]
   );
 
   const handleDeleteConfirm = useCallback(() => {
@@ -135,35 +135,35 @@ const ActionsStep = React.memo(({ listId, onNameEdit, onCardAdd, onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.listActions", {
-          context: "title",
+        {t('common.listActions', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
         <Menu secondary vertical className={styles.menu}>
           <Menu.Item className={styles.menuItem} onClick={handleEditNameClick}>
-            {t("action.editTitle", {
-              context: "title",
+            {t('action.editTitle', {
+              context: 'title',
             })}
           </Menu.Item>
           <Menu.Item className={styles.menuItem} onClick={handleEditTypeClick}>
-            {t("action.editType", {
-              context: "title",
+            {t('action.editType', {
+              context: 'title',
             })}
           </Menu.Item>
           <Menu.Item className={styles.menuItem} onClick={handleEditColorClick}>
-            {t("action.editColor", {
-              context: "title",
+            {t('action.editColor', {
+              context: 'title',
             })}
           </Menu.Item>
           <Menu.Item className={styles.menuItem} onClick={handleAddCardClick}>
-            {t("action.addCard", {
-              context: "title",
+            {t('action.addCard', {
+              context: 'title',
             })}
           </Menu.Item>
           <Menu.Item className={styles.menuItem} onClick={handleSortClick}>
-            {t("action.sortList", {
-              context: "title",
+            {t('action.sortList', {
+              context: 'title',
             })}
           </Menu.Item>
           {list.type === ListTypes.CLOSED && (
@@ -171,14 +171,14 @@ const ActionsStep = React.memo(({ listId, onNameEdit, onCardAdd, onClose }) => {
               className={styles.menuItem}
               onClick={handleArchiveCardsClick}
             >
-              {t("action.archiveCards", {
-                context: "title",
+              {t('action.archiveCards', {
+                context: 'title',
               })}
             </Menu.Item>
           )}
           <Menu.Item className={styles.menuItem} onClick={handleDeleteClick}>
-            {t("action.deleteList", {
-              context: "title",
+            {t('action.deleteList', {
+              context: 'title',
             })}
           </Menu.Item>
         </Menu>

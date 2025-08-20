@@ -3,9 +3,9 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-const UNAUTHORIZED = "E_UNAUTHORIZED";
-const NOT_FOUND = "E_NOT_FOUND";
-const CONFLICT = "E_CONFLICT";
+const UNAUTHORIZED = 'E_UNAUTHORIZED';
+const NOT_FOUND = 'E_NOT_FOUND';
+const CONFLICT = 'E_CONFLICT';
 
 export default {
   UNAUTHORIZED,

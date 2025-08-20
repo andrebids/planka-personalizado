@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { MENTION_REGEX } from "../../utils/mentions";
+import { MENTION_REGEX } from '../../utils/mentions';
 
 export default (md) => {
-  md.core.ruler.push("mention", ({ tokens }) => {
+  md.core.ruler.push('mention', ({ tokens }) => {
     tokens.forEach((token) => {
-      if (token.type === "inline" && token.content) {
+      if (token.type === 'inline' && token.content) {
         const matches = [...token.content.matchAll(MENTION_REGEX)];
 
         if (matches.length > 0) {
@@ -19,7 +19,7 @@ export default (md) => {
             // Add text before the mention
             if (match.index > lastIndex) {
               newChildren.push({
-                type: "text",
+                type: 'text',
                 content: token.content.slice(lastIndex, match.index),
                 level: token.level,
               });
@@ -27,7 +27,7 @@ export default (md) => {
 
             // Add mention token
             newChildren.push({
-              type: "mention",
+              type: 'mention',
               meta: {
                 display: match[1],
                 userId: match[2],
@@ -41,7 +41,7 @@ export default (md) => {
           // Add remaining text after last mention
           if (lastIndex < token.content.length) {
             newChildren.push({
-              type: "text",
+              type: 'text',
               content: token.content.slice(lastIndex),
               level: token.level,
             });

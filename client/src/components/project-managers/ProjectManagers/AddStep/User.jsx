@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
-import selectors from "../../../../selectors";
-import UserAvatar from "../../../users/UserAvatar";
+import selectors from '../../../../selectors';
+import UserAvatar from '../../../users/UserAvatar';
 
-import styles from "./User.module.scss";
+import styles from './User.module.scss';
 
 const User = React.memo(({ id, isActive, onSelect }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
@@ -35,7 +35,7 @@ const User = React.memo(({ id, isActive, onSelect }) => {
       <div
         className={classNames(
           styles.menuItemText,
-          isActive && styles.menuItemTextActive,
+          isActive && styles.menuItemTextActive
         )}
       >
         {user.name}

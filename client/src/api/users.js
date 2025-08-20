@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import http from "./http";
-import socket from "./socket";
+import http from './http';
+import socket from './socket';
 
 /* Actions */
 
-const getUsers = (headers) => socket.get("/users", undefined, headers);
+const getUsers = (headers) => socket.get('/users', undefined, headers);
 
-const createUser = (data, headers) => socket.post("/users", data, headers);
+const createUser = (data, headers) => socket.post('/users', data, headers);
 
 /* const getUser = (id, headers) =>
   socket.get(`/users/${id}`, undefined, headers).then((body) => ({
@@ -20,9 +20,9 @@ const createUser = (data, headers) => socket.post("/users", data, headers);
 
 const getCurrentUser = (subscribe, headers) =>
   socket.get(
-    `/users/me${subscribe ? "?subscribe=true" : ""}`,
+    `/users/me${subscribe ? '?subscribe=true' : ''}`,
     undefined,
-    headers,
+    headers
   );
 
 const updateUser = (id, data, headers) =>

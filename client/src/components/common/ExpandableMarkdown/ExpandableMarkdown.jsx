@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useTranslation } from "react-i18next";
-import { Button, Icon } from "semantic-ui-react";
-import { useToggle } from "../../../lib/hooks";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { Button, Icon } from 'semantic-ui-react';
+import { useToggle } from '../../../lib/hooks';
 
-import Markdown from "../Markdown";
+import Markdown from '../Markdown';
 
-import styles from "./ExpandableMarkdown.module.scss";
+import styles from './ExpandableMarkdown.module.scss';
 
 const MAX_VISIBLE_PART_HEIGHT = 800;
 
@@ -30,13 +30,13 @@ const ExpandableMarkdown = React.memo(({ children }) => {
 
       toggleExpanded();
     },
-    [toggleExpanded],
+    [toggleExpanded]
   );
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
       setIsOverflowing(
-        contentRef.current.scrollHeight > MAX_VISIBLE_PART_HEIGHT,
+        contentRef.current.scrollHeight > MAX_VISIBLE_PART_HEIGHT
       );
     });
 
@@ -55,7 +55,7 @@ const ExpandableMarkdown = React.memo(({ children }) => {
         className={classNames(
           styles.wrapper,
           isExpanded && styles.wrapperExpanded,
-          isPartHidden && styles.wrapperPartHidden,
+          isPartHidden && styles.wrapperPartHidden
         )}
         style={{ maxHeight: `${MAX_VISIBLE_PART_HEIGHT}px` }}
       >
@@ -69,8 +69,8 @@ const ExpandableMarkdown = React.memo(({ children }) => {
           className={styles.toggleButton}
           onClick={handleToggleExpandClick}
         >
-          <Icon name={isExpanded ? "angle up" : "angle down"} />
-          {isExpanded ? t("action.showLess") : t("action.showMore")}
+          <Icon name={isExpanded ? 'angle up' : 'angle down'} />
+          {isExpanded ? t('action.showLess') : t('action.showMore')}
         </Button>
       )}
     </>

@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import { goToProject } from "./router";
-import request from "../request";
-import requests from "../requests";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
-import mergeRecords from "../../../utils/merge-records";
+import { goToProject } from './router';
+import request from '../request';
+import requests from '../requests';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
+import mergeRecords from '../../../utils/merge-records';
 
 export function* createBoardMembership(boardId, data) {
   const localId = yield call(createLocalId);
@@ -22,7 +22,7 @@ export function* createBoardMembership(boardId, data) {
       ...data,
       boardId,
       id: localId,
-    }),
+    })
   );
 
   let boardMembership;
@@ -31,7 +31,7 @@ export function* createBoardMembership(boardId, data) {
       request,
       api.createBoardMembership,
       boardId,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.createBoardMembership.failure(localId, error));
@@ -53,7 +53,7 @@ export function* handleBoardMembershipCreate(boardMembership, users) {
 
   const isExternalAccessibleForCurrentUser = yield select(
     selectors.selectIsProjectWithIdExternalAccessibleForCurrentUser,
-    boardMembership.projectId,
+    boardMembership.projectId
   );
 
   let project;
@@ -132,7 +132,7 @@ export function* handleBoardMembershipCreate(boardMembership, users) {
         if (body.card) {
           notificationsToDelete = yield select(
             selectors.selectNotificationsByCardId,
-            body.card.id,
+            body.card.id
           );
         }
       }
@@ -141,7 +141,7 @@ export function* handleBoardMembershipCreate(boardMembership, users) {
 
   const isProjectAvailable = yield select(
     selectors.selectIsProjectWithIdAvailableForCurrentUser,
-    boardMembership.projectId,
+    boardMembership.projectId
   );
 
   yield put(
@@ -168,8 +168,8 @@ export function* handleBoardMembershipCreate(boardMembership, users) {
       mergeRecords(customFields1, customFields2),
       customFieldValues,
       notificationsToDelete,
-      notificationServices,
-    ),
+      notificationServices
+    )
   );
 }
 
@@ -182,7 +182,7 @@ export function* updateBoardMembership(id, data) {
       request,
       api.updateBoardMembership,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateBoardMembership.failure(id, error));
@@ -209,7 +209,7 @@ export function* deleteBoardMembership(id) {
   if (isCurrentUser && boardMembership.boardId === boardId) {
     const isAvailableForCurrentUser = yield select(
       selectors.selectIsBoardWithIdAvailableForCurrentUser,
-      boardMembership.boardId,
+      boardMembership.boardId
     );
 
     if (!isAvailableForCurrentUser) {
@@ -221,7 +221,7 @@ export function* deleteBoardMembership(id) {
     ({ item: boardMembership } = yield call(
       request,
       api.deleteBoardMembership,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.deleteBoardMembership.failure(id, error));
@@ -229,7 +229,7 @@ export function* deleteBoardMembership(id) {
   }
 
   yield put(
-    actions.deleteBoardMembership.success(boardMembership, isCurrentUser),
+    actions.deleteBoardMembership.success(boardMembership, isCurrentUser)
   );
 }
 
@@ -240,13 +240,13 @@ export function* handleBoardMembershipDelete(boardMembership) {
   const isCurrentUser = boardMembership.userId === currentUserId;
 
   yield put(
-    actions.handleBoardMembershipDelete(boardMembership, isCurrentUser),
+    actions.handleBoardMembershipDelete(boardMembership, isCurrentUser)
   );
 
   if (isCurrentUser && boardMembership.boardId === boardId) {
     const isAvailableForCurrentUser = yield select(
       selectors.selectIsBoardWithIdAvailableForCurrentUser,
-      boardMembership.boardId,
+      boardMembership.boardId
     );
 
     if (!isAvailableForCurrentUser) {

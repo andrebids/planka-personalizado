@@ -3,38 +3,38 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Icon, Label, Loader } from "semantic-ui-react";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Icon, Label, Loader } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { usePopupInClosableContext } from "../../../hooks";
-import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { usePopupInClosableContext } from '../../../hooks';
+import { isListArchiveOrTrash } from '../../../utils/record-helpers';
 import {
   AttachmentTypes,
   BoardMembershipRoles,
-} from "../../../constants/Enums";
-import EditStep from "./EditStep";
-import Favicon from "./Favicon";
-import TimeAgo from "../../common/TimeAgo";
+} from '../../../constants/Enums';
+import EditStep from './EditStep';
+import Favicon from './Favicon';
+import TimeAgo from '../../common/TimeAgo';
 
-import styles from "./ItemContent.module.scss";
+import styles from './ItemContent.module.scss';
 
 const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
   const selectAttachmentById = useMemo(
     () => selectors.makeSelectAttachmentById(),
-    [],
+    []
   );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const attachment = useSelector((state) => selectAttachmentById(state, id));
 
   const isCover = useSelector(
-    (state) => id === selectors.selectCurrentCard(state).coverAttachmentId,
+    (state) => id === selectors.selectCurrentCard(state).coverAttachmentId
   );
 
   const canEdit = useSelector((state) => {
@@ -59,7 +59,7 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
     if (onOpen) {
       onOpen();
     } else {
-      window.open(attachment.data.url, "_blank");
+      window.open(attachment.data.url, '_blank');
     }
   }, [onOpen, attachment.data]);
 
@@ -67,13 +67,13 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
     (event) => {
       event.stopPropagation();
 
-      const linkElement = document.createElement("a");
+      const linkElement = document.createElement('a');
       linkElement.href = attachment.data.url;
       linkElement.download = attachment.data.filename;
-      linkElement.target = "_blank";
+      linkElement.target = '_blank';
       linkElement.click();
     },
-    [attachment.data],
+    [attachment.data]
   );
 
   const handleToggleCoverClick = useCallback(
@@ -83,10 +83,10 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
       dispatch(
         entryActions.updateCurrentCard({
           coverAttachmentId: isCover ? null : id,
-        }),
+        })
       );
     },
-    [id, isCover, dispatch],
+    [id, isCover, dispatch]
   );
 
   const EditPopup = usePopupInClosableContext(EditStep);
@@ -119,8 +119,8 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
                 corner="left"
                 size="mini"
                 icon={{
-                  name: "checkmark",
-                  color: "grey",
+                  name: 'checkmark',
+                  color: 'grey',
                   inverted: true,
                 }}
                 className={styles.thumbnailLabel}
@@ -128,7 +128,7 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
             )
           ) : (
             <span className={styles.thumbnailExtension}>
-              {attachment.data.extension || "-"}
+              {attachment.data.extension || '-'}
             </span>
           ))}
         {attachment.type === AttachmentTypes.LINK && (
@@ -168,11 +168,11 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
                 />
                 <span className={styles.optionText}>
                   {isCover
-                    ? t("action.removeCover", {
-                        context: "title",
+                    ? t('action.removeCover', {
+                        context: 'title',
                       })
-                    : t("action.makeCover", {
-                        context: "title",
+                    : t('action.makeCover', {
+                        context: 'title',
                       })}
                 </span>
               </button>

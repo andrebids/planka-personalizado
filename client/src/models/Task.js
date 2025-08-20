@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from "redux-orm";
+import { attr, fk } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import ActionTypes from "../constants/ActionTypes";
+import BaseModel from './BaseModel';
+import ActionTypes from '../constants/ActionTypes';
 
 export default class extends BaseModel {
-  static modelName = "Task";
+  static modelName = 'Task';
 
   static fields = {
     id: attr(),
@@ -19,14 +19,14 @@ export default class extends BaseModel {
       getDefault: () => false,
     }),
     taskListId: fk({
-      to: "TaskList",
-      as: "taskList",
-      relatedName: "tasks",
+      to: 'TaskList',
+      as: 'taskList',
+      relatedName: 'tasks',
     }),
     assigneeUserId: fk({
-      to: "User",
-      as: "user",
-      relatedName: "assignedTasks",
+      to: 'User',
+      as: 'user',
+      relatedName: 'assignedTasks',
     }),
   };
 

@@ -3,20 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Button, Form, Icon, Menu } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Button, Form, Icon, Menu } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import { ListTypes } from "../../../constants/Enums";
-import { ListTypeIcons } from "../../../constants/Icons";
+import { ListTypes } from '../../../constants/Enums';
+import { ListTypeIcons } from '../../../constants/Icons';
 
-import styles from "./SelectListTypeStep.module.scss";
+import styles from './SelectListTypeStep.module.scss';
 
 const DESCRIPTION_BY_TYPE = {
-  [ListTypes.ACTIVE]: "common.cardsOnThisListAreReadyToBeWorkedOn",
-  [ListTypes.CLOSED]: "common.cardsOnThisListAreCompleteAndReadyToBeArchived",
+  [ListTypes.ACTIVE]: 'common.cardsOnThisListAreReadyToBeWorkedOn',
+  [ListTypes.CLOSED]: 'common.cardsOnThisListAreCompleteAndReadyToBeArchived',
 };
 
 const SelectListTypeStep = React.memo(
@@ -44,7 +44,7 @@ const SelectListTypeStep = React.memo(
           onClose();
         }
       },
-      [defaultValue, withButton, onSelect, onClose],
+      [defaultValue, withButton, onSelect, onClose]
     );
 
     const handleSubmit = useCallback(() => {
@@ -59,7 +59,7 @@ const SelectListTypeStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: "title",
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>
@@ -91,7 +91,7 @@ const SelectListTypeStep = React.memo(
         </Popup.Content>
       </>
     );
-  },
+  }
 );
 
 SelectListTypeStep.propTypes = {
@@ -105,9 +105,9 @@ SelectListTypeStep.propTypes = {
 };
 
 SelectListTypeStep.defaultProps = {
-  title: "common.selectType",
+  title: 'common.selectType',
   withButton: false,
-  buttonContent: "action.selectType",
+  buttonContent: 'action.selectType',
   onBack: undefined,
 };
 

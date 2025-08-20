@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { ListTypes, UserRoles } from "../constants/Enums";
+import { ListTypes, UserRoles } from '../constants/Enums';
 
 export const isUserAdminOrProjectOwner = (user) =>
   [UserRoles.ADMIN, UserRoles.PROJECT_OWNER].includes(user.role);

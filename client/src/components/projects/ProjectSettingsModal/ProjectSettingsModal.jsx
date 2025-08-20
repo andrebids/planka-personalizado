@@ -3,24 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Tab } from "semantic-ui-react";
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Tab } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useClosableModal } from "../../../hooks";
-import GeneralPane from "./GeneralPane";
-import ManagersPane from "./ManagersPane";
-import BackgroundPane from "./BackgroundPane";
-import BaseCustomFieldGroupsPane from "./BaseCustomFieldGroupsPane";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useClosableModal } from '../../../hooks';
+import GeneralPane from './GeneralPane';
+import ManagersPane from './ManagersPane';
+import BackgroundPane from './BackgroundPane';
+import BaseCustomFieldGroupsPane from './BaseCustomFieldGroupsPane';
 
-import styles from "./ProjectSettingsModal.module.scss";
+import styles from './ProjectSettingsModal.module.scss';
 
 const ProjectSettingsModal = React.memo(() => {
   const withManagablePanes = useSelector(
-    selectors.selectIsCurrentUserManagerForCurrentProject,
+    selectors.selectIsCurrentUserManagerForCurrentProject
   );
 
   const dispatch = useDispatch();
@@ -39,14 +39,14 @@ const ProjectSettingsModal = React.memo(() => {
 
   const panes = [
     {
-      menuItem: t("common.general", {
-        context: "title",
+      menuItem: t('common.general', {
+        context: 'title',
       }),
       render: () => <GeneralPane />,
     },
     {
-      menuItem: t("common.managers", {
-        context: "title",
+      menuItem: t('common.managers', {
+        context: 'title',
       }),
       render: () => <ManagersPane />,
     },
@@ -55,17 +55,17 @@ const ProjectSettingsModal = React.memo(() => {
   if (withManagablePanes) {
     panes.push(
       {
-        menuItem: t("common.background", {
-          context: "title",
+        menuItem: t('common.background', {
+          context: 'title',
         }),
         render: () => <BackgroundPane />,
       },
       {
-        menuItem: t("common.baseCustomFields", {
-          context: "title",
+        menuItem: t('common.baseCustomFields', {
+          context: 'title',
         }),
         render: () => <BaseCustomFieldGroupsPane />,
-      },
+      }
     );
   }
 

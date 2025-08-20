@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 const createCustomFieldGroup = (customFieldGroup) => ({
   type: ActionTypes.CUSTOM_FIELD_GROUP_CREATE,

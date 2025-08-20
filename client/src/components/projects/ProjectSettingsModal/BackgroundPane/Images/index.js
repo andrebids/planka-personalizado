@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Images from "./Images";
+import Images from './Images';
 
 export default Images;

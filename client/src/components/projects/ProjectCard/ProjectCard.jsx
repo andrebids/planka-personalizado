@@ -3,28 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Button, Icon } from "semantic-ui-react";
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Button, Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import Paths from "../../../constants/Paths";
-import { ProjectBackgroundTypes } from "../../../constants/Enums";
-import UserAvatar from "../../users/UserAvatar";
-import NotificationIndicator from "./NotificationIndicator";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import Paths from '../../../constants/Paths';
+import { ProjectBackgroundTypes } from '../../../constants/Enums';
+import UserAvatar from '../../users/UserAvatar';
+import NotificationIndicator from './NotificationIndicator';
 
-import styles from "./ProjectCard.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './ProjectCard.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const Sizes = {
-  SMALL: "small",
-  LARGE: "large",
+  SMALL: 'small',
+  LARGE: 'large',
 };
 
 const ProjectCard = React.memo(
@@ -39,41 +39,41 @@ const ProjectCard = React.memo(
   }) => {
     const selectProjectById = useMemo(
       () => selectors.makeSelectProjectById(),
-      [],
+      []
     );
 
     const selectFirstBoardIdByProjectId = useMemo(
       () => selectors.makeSelectFirstBoardIdByProjectId(),
-      [],
+      []
     );
 
     const selectNotificationsTotalByProjectId = useMemo(
       () => selectors.makeSelectNotificationsTotalByProjectId(),
-      [],
+      []
     );
 
     const selectProjectManagerById = useMemo(
       () => selectors.makeSelectProjectManagerById(),
-      [],
+      []
     );
     const selectBackgroundImageById = useMemo(
       () => selectors.makeSelectBackgroundImageById(),
-      [],
+      []
     );
 
     const project = useSelector((state) => selectProjectById(state, id));
     const firstBoardId = useSelector((state) =>
-      selectFirstBoardIdByProjectId(state, id),
+      selectFirstBoardIdByProjectId(state, id)
     );
 
     const notificationsTotal = useSelector((state) =>
-      selectNotificationsTotalByProjectId(state, id),
+      selectNotificationsTotalByProjectId(state, id)
     );
 
     const ownerProjectManager = useSelector(
       (state) =>
         project.ownerProjectManagerId &&
-        selectProjectManagerById(state, project.ownerProjectManagerId),
+        selectProjectManagerById(state, project.ownerProjectManagerId)
     );
 
     const backgroundImageUrl = useSelector((state) => {
@@ -86,7 +86,7 @@ const ProjectCard = React.memo(
 
       const backgroundImage = selectBackgroundImageById(
         state,
-        project.backgroundImageId,
+        project.backgroundImageId
       );
 
       if (!backgroundImage) {
@@ -102,7 +102,7 @@ const ProjectCard = React.memo(
       dispatch(
         entryActions.updateProject(project.id, {
           isFavorite: !project.isFavorite,
-        }),
+        })
       );
     }, [project, dispatch]);
 
@@ -115,14 +115,14 @@ const ProjectCard = React.memo(
           className,
           styles.wrapper,
           styles[`wrapper${upperFirst(size)}`],
-          project.isHidden && styles.wrapperHidden,
+          project.isHidden && styles.wrapperHidden
         )}
       >
         <Link
           to={
             firstBoardId
-              ? Paths.BOARDS.replace(":id", firstBoardId)
-              : Paths.PROJECTS.replace(":id", id)
+              ? Paths.BOARDS.replace(':id', firstBoardId)
+              : Paths.PROJECTS.replace(':id', id)
           }
           className={styles.content}
         >
@@ -132,7 +132,7 @@ const ProjectCard = React.memo(
               project.backgroundType === ProjectBackgroundTypes.GRADIENT &&
                 globalStyles[
                   `background${upperFirst(camelCase(project.backgroundGradient))}`
-                ],
+                ]
             )}
             style={{
               background:
@@ -148,14 +148,14 @@ const ProjectCard = React.memo(
           <div
             className={classNames(
               styles.information,
-              withSidebar && styles.informationWithSidebar,
+              withSidebar && styles.informationWithSidebar
             )}
           >
             <div
               className={classNames(
                 styles.title,
                 isActive !== undefined && styles.titleActivatable,
-                isActive && styles.titleActive,
+                isActive && styles.titleActive
               )}
             >
               {project.name}
@@ -168,7 +168,7 @@ const ProjectCard = React.memo(
             <div
               className={classNames(
                 styles.typeIndicator,
-                ownerProjectManager && styles.typeIndicatorWithUser,
+                ownerProjectManager && styles.typeIndicatorWithUser
               )}
             >
               {ownerProjectManager ? (
@@ -187,20 +187,20 @@ const ProjectCard = React.memo(
           <Button
             className={classNames(
               styles.favoriteButton,
-              !project.isFavorite && styles.favoriteButtonAppearable,
+              !project.isFavorite && styles.favoriteButtonAppearable
             )}
             onClick={handleToggleFavoriteClick}
           >
             <Icon
               fitted
-              name={project.isFavorite ? "star" : "star outline"}
+              name={project.isFavorite ? 'star' : 'star outline'}
               className={classNames(styles.icon, styles.favoriteButtonIcon)}
             />
           </Button>
         )}
       </div>
     );
-  },
+  }
 );
 
 ProjectCard.propTypes = {

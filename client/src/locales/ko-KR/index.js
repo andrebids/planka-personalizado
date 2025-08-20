@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "ko-KR",
-  country: "kr",
-  name: "한국어",
+  language: 'ko-KR',
+  country: 'kr',
+  name: '한국어',
   embeddedLocale: login,
 };

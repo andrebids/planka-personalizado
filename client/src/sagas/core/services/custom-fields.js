@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* createCustomFieldInBaseGroup(baseCustomFieldGroupId, data) {
   const localId = yield call(createLocalId);
@@ -18,7 +18,7 @@ export function* createCustomFieldInBaseGroup(baseCustomFieldGroupId, data) {
     ...data,
     position: yield select(
       selectors.selectNextCustomFieldPositionInBaseGroup,
-      baseCustomFieldGroupId,
+      baseCustomFieldGroupId
     ),
   };
 
@@ -27,7 +27,7 @@ export function* createCustomFieldInBaseGroup(baseCustomFieldGroupId, data) {
       ...nextData,
       baseCustomFieldGroupId,
       id: localId,
-    }),
+    })
   );
 
   let customField;
@@ -36,7 +36,7 @@ export function* createCustomFieldInBaseGroup(baseCustomFieldGroupId, data) {
       request,
       api.createCustomFieldInBaseGroup,
       baseCustomFieldGroupId,
-      nextData,
+      nextData
     ));
   } catch (error) {
     yield put(actions.createCustomField.failure(localId, error));
@@ -53,7 +53,7 @@ export function* createCustomFieldInGroup(customFieldGroupId, data) {
     ...data,
     position: yield select(
       selectors.selectNextCustomFieldPositionInGroup,
-      customFieldGroupId,
+      customFieldGroupId
     ),
   };
 
@@ -62,7 +62,7 @@ export function* createCustomFieldInGroup(customFieldGroupId, data) {
       ...nextData,
       customFieldGroupId,
       id: localId,
-    }),
+    })
   );
 
   let customField;
@@ -71,7 +71,7 @@ export function* createCustomFieldInGroup(customFieldGroupId, data) {
       request,
       api.createCustomFieldInGroup,
       customFieldGroupId,
-      nextData,
+      nextData
     ));
   } catch (error) {
     yield put(actions.createCustomField.failure(localId, error));
@@ -94,7 +94,7 @@ export function* updateCustomField(id, data) {
       request,
       api.updateCustomField,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateCustomField.failure(id, error));
@@ -117,14 +117,14 @@ export function* moveCustomField(id, index) {
       selectors.selectNextCustomFieldPositionInBaseGroup,
       customField.baseCustomFieldGroupId,
       index,
-      id,
+      id
     );
   } else if (customField.customFieldGroupId) {
     position = yield select(
       selectors.selectNextCustomFieldPositionInGroup,
       customField.customFieldGroupId,
       index,
-      id,
+      id
     );
   }
 

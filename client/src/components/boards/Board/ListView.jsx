@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import { useTranslation } from "react-i18next";
-import { Button, Loader } from "semantic-ui-react";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
+import { useTranslation } from 'react-i18next';
+import { Button, Loader } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import { BoardMembershipRoles } from "../../../constants/Enums";
-import Card from "../../cards/Card";
-import AddCard from "../../cards/AddCard";
-import PlusMathIcon from "../../../assets/images/plus-math-icon.svg?react";
+import selectors from '../../../selectors';
+import { BoardMembershipRoles } from '../../../constants/Enums';
+import Card from '../../cards/Card';
+import AddCard from '../../cards/AddCard';
+import PlusMathIcon from '../../../assets/images/plus-math-icon.svg?react';
 
-import styles from "./ListView.module.scss";
+import styles from './ListView.module.scss';
 
 const ListView = React.memo(
   ({
@@ -73,8 +73,8 @@ const ListView = React.memo(
               <PlusMathIcon className={styles.addCardButtonIcon} />
               <span className={styles.addCardButtonText}>
                 {onCardCreate
-                  ? t("action.addCard")
-                  : t("common.atLeastOneListMustBePresent")}
+                  ? t('action.addCard')
+                  : t('common.atLeastOneListMustBePresent')}
               </span>
             </Button>
           ))}
@@ -98,7 +98,7 @@ const ListView = React.memo(
         )}
       </div>
     );
-  },
+  }
 );
 
 ListView.propTypes = {

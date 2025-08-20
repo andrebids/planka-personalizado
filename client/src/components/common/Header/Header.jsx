@@ -3,30 +3,30 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import classNames from "classnames";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Button, Icon, Menu } from "semantic-ui-react";
-import { usePopup } from "../../../lib/popup";
+import React, { useCallback } from 'react';
+import classNames from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Button, Icon, Menu } from 'semantic-ui-react';
+import { usePopup } from '../../../lib/popup';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { selectIsSidebarExpanded } from "../../../selectors/sidebarSelectors";
-import Paths from "../../../constants/Paths";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { selectIsSidebarExpanded } from '../../../selectors/sidebarSelectors';
+import Paths from '../../../constants/Paths';
 import {
   BoardMembershipRoles,
   BoardViews,
   UserRoles,
-} from "../../../constants/Enums";
-import UserAvatar from "../../users/UserAvatar";
-import UserStep from "../../users/UserStep";
-import NotificationsStep from "../../notifications/NotificationsStep";
+} from '../../../constants/Enums';
+import UserAvatar from '../../users/UserAvatar';
+import UserStep from '../../users/UserStep';
+import NotificationsStep from '../../notifications/NotificationsStep';
 
-import styles from "./Header.module.scss";
+import styles from './Header.module.scss';
 
 const POPUP_PROPS = {
-  position: "bottom right",
+  position: 'bottom right',
 };
 
 const Header = React.memo(() => {
@@ -34,7 +34,7 @@ const Header = React.memo(() => {
   const project = useSelector(selectors.selectCurrentProject);
   const board = useSelector(selectors.selectCurrentBoard);
   const notificationIds = useSelector(
-    selectors.selectNotificationIdsForCurrentUser,
+    selectors.selectNotificationIdsForCurrentUser
   );
   const isFavoritesEnabled = useSelector(selectors.selectIsFavoritesEnabled);
   const isEditModeEnabled = useSelector(selectors.selectIsEditModeEnabled);
@@ -43,7 +43,7 @@ const Header = React.memo(() => {
   const withFavoritesToggler = useSelector(
     // TODO: use selector instead?
     (state) =>
-      selectors.selectFavoriteProjectIdsForCurrentUser(state).length > 0,
+      selectors.selectFavoriteProjectIdsForCurrentUser(state).length > 0
   );
 
   const { withEditModeToggler, canEditProject } = useSelector((state) => {
@@ -108,11 +108,11 @@ const Header = React.memo(() => {
 
   const NotificationsPopup = usePopup(NotificationsStep, {
     ...POPUP_PROPS,
-    variantClass: "notifications",
+    variantClass: 'notifications',
   });
   const UserPopup = usePopup(UserStep, {
     ...POPUP_PROPS,
-    variantClass: "user",
+    variantClass: 'user',
   });
 
   return (
@@ -127,13 +127,13 @@ const Header = React.memo(() => {
               <div
                 className={classNames(
                   styles.hamburger,
-                  isSidebarExpanded && styles.open,
+                  isSidebarExpanded && styles.open
                 )}
-                aria-label={isSidebarExpanded ? "Fechar menu" : "Abrir menu"}
+                aria-label={isSidebarExpanded ? 'Fechar menu' : 'Abrir menu'}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
+                  if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     handleToggleSidebarClick();
                   }
@@ -162,13 +162,13 @@ const Header = React.memo(() => {
               <div
                 className={classNames(
                   styles.hamburger,
-                  isSidebarExpanded && styles.open,
+                  isSidebarExpanded && styles.open
                 )}
-                aria-label={isSidebarExpanded ? "Fechar menu" : "Abrir menu"}
+                aria-label={isSidebarExpanded ? 'Fechar menu' : 'Abrir menu'}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
+                  if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     handleToggleSidebarClick();
                   }
@@ -207,9 +207,9 @@ const Header = React.memo(() => {
             >
               <Icon
                 fitted
-                name={isFavoritesEnabled ? "star" : "star outline"}
+                name={isFavoritesEnabled ? 'star' : 'star outline'}
                 className={classNames(
-                  isFavoritesEnabled && styles.itemIconEnabled,
+                  isFavoritesEnabled && styles.itemIconEnabled
                 )}
               />
             </Menu.Item>
@@ -221,9 +221,9 @@ const Header = React.memo(() => {
             >
               <Icon
                 fitted
-                name={isEditModeEnabled ? "unlock" : "lock"}
+                name={isEditModeEnabled ? 'unlock' : 'lock'}
                 className={classNames(
-                  isEditModeEnabled && styles.itemIconEnabled,
+                  isEditModeEnabled && styles.itemIconEnabled
                 )}
               />
             </Menu.Item>

@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
 
 export function* deleteAllNotifications() {
   yield put(actions.deleteAllNotifications());

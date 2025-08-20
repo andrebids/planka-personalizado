@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { BoardViews } from "../../../constants/Enums";
-import GridView from "./GridView";
-import ListView from "./ListView";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { BoardViews } from '../../../constants/Enums';
+import GridView from './GridView';
+import ListView from './ListView';
 
 const EndlessContent = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const { isCardsFetching, isAllCardsFetched } = useSelector(
-    selectors.selectCurrentList,
+    selectors.selectCurrentList
   );
   const cardIds = useSelector(selectors.selectFilteredCardIdsForCurrentList);
 
@@ -29,7 +29,7 @@ const EndlessContent = React.memo(() => {
     (data, autoOpen) => {
       dispatch(entryActions.createCardInCurrentList(data, autoOpen));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const viewProps = {

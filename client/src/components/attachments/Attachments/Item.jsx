@@ -3,27 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Item as GalleryItem } from "react-photoswipe-gallery";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Item as GalleryItem } from 'react-photoswipe-gallery';
 
-import selectors from "../../../selectors";
-import Config from "../../../constants/Config";
-import Encodings from "../../../constants/Encodings";
-import { AttachmentTypes } from "../../../constants/Enums";
-import ItemContent from "./ItemContent";
-import ContentViewer from "./ContentViewer";
-import CsvViewer from "./CsvViewer";
+import selectors from '../../../selectors';
+import Config from '../../../constants/Config';
+import Encodings from '../../../constants/Encodings';
+import { AttachmentTypes } from '../../../constants/Enums';
+import ItemContent from './ItemContent';
+import ContentViewer from './ContentViewer';
+import CsvViewer from './CsvViewer';
 
-import styles from "./Item.module.scss";
+import styles from './Item.module.scss';
 
 const Item = React.memo(({ id, isVisible }) => {
   const selectAttachmentById = useMemo(
     () => selectors.makeSelectAttachmentById(),
-    [],
+    []
   );
 
   const attachment = useSelector((state) => selectAttachmentById(state, id));
@@ -41,7 +41,7 @@ const Item = React.memo(({ id, isVisible }) => {
     } else {
       let content;
       switch (attachment.data.mimeType) {
-        case "application/pdf":
+        case 'application/pdf':
           content = (
             // eslint-disable-next-line jsx-a11y/alt-text
             <object
@@ -52,12 +52,12 @@ const Item = React.memo(({ id, isVisible }) => {
           );
 
           break;
-        case "audio/mpeg":
-        case "audio/wav":
-        case "audio/ogg":
-        case "audio/opus":
-        case "audio/mp4":
-        case "audio/x-aac":
+        case 'audio/mpeg':
+        case 'audio/wav':
+        case 'audio/ogg':
+        case 'audio/opus':
+        case 'audio/mp4':
+        case 'audio/x-aac':
           content = (
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <audio
@@ -68,9 +68,9 @@ const Item = React.memo(({ id, isVisible }) => {
           );
 
           break;
-        case "video/mp4":
-        case "video/ogg":
-        case "video/webm":
+        case 'video/mp4':
+        case 'video/ogg':
+        case 'video/webm':
           content = (
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <video
@@ -81,7 +81,7 @@ const Item = React.memo(({ id, isVisible }) => {
           );
 
           break;
-        case "text/csv":
+        case 'text/csv':
           content = (
             <CsvViewer
               src={attachment.data.url}
@@ -108,14 +108,14 @@ const Item = React.memo(({ id, isVisible }) => {
                 <span
                   className={classNames(styles.content, styles.contentError)}
                 >
-                  {t("common.contentOfThisAttachmentIsTooBigToDisplay")}
+                  {t('common.contentOfThisAttachmentIsTooBigToDisplay')}
                 </span>
               );
             }
           } else {
             content = (
               <span className={classNames(styles.content, styles.contentError)}>
-                {t("common.thereIsNoPreviewAvailableForThisAttachment")}
+                {t('common.thereIsNoPreviewAvailableForThisAttachment')}
               </span>
             );
           }
@@ -129,7 +129,7 @@ const Item = React.memo(({ id, isVisible }) => {
     galleryItemProps = {
       content: (
         <span className={classNames(styles.content, styles.contentError)}>
-          {t("common.thereIsNoPreviewAvailableForThisAttachment")}
+          {t('common.thereIsNoPreviewAvailableForThisAttachment')}
         </span>
       ),
     };

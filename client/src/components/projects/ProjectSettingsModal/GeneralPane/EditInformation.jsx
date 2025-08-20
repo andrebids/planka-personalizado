@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from "dequal";
-import React, { useCallback, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import TextareaAutosize from "react-textarea-autosize";
-import { Button, Form, Input, TextArea } from "semantic-ui-react";
+import { dequal } from 'dequal';
+import React, { useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import TextareaAutosize from 'react-textarea-autosize';
+import { Button, Form, Input, TextArea } from 'semantic-ui-react';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useForm, useNestedRef } from "../../../../hooks";
-import { isModifierKeyPressed } from "../../../../utils/event-helpers";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useForm, useNestedRef } from '../../../../hooks';
+import { isModifierKeyPressed } from '../../../../utils/event-helpers';
 
-import styles from "./EditInformation.module.scss";
+import styles from './EditInformation.module.scss';
 
 const EditInformation = React.memo(() => {
   const project = useSelector(selectors.selectCurrentProject);
@@ -28,13 +28,13 @@ const EditInformation = React.memo(() => {
       name: project.name,
       description: project.description,
     }),
-    [project.name, project.description],
+    [project.name, project.description]
   );
 
   const [data, handleFieldChange] = useForm(() => ({
-    name: "",
+    name: '',
     ...defaultData,
-    description: defaultData.description || "",
+    description: defaultData.description || '',
   }));
 
   const cleanData = useMemo(
@@ -43,10 +43,10 @@ const EditInformation = React.memo(() => {
       name: data.name.trim(),
       description: data.description.trim() || null,
     }),
-    [data],
+    [data]
   );
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
 
   const submit = useCallback(() => {
     if (!cleanData.name) {
@@ -63,16 +63,16 @@ const EditInformation = React.memo(() => {
 
   const handleDescriptionKeyDown = useCallback(
     (event) => {
-      if (isModifierKeyPressed(event) && event.key === "Enter") {
+      if (isModifierKeyPressed(event) && event.key === 'Enter') {
         submit();
       }
     },
-    [submit],
+    [submit]
   );
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div className={styles.text}>{t("common.title")}</div>
+      <div className={styles.text}>{t('common.title')}</div>
       <Input
         fluid
         ref={handleNameFieldRef}
@@ -82,7 +82,7 @@ const EditInformation = React.memo(() => {
         className={styles.field}
         onChange={handleFieldChange}
       />
-      <div className={styles.text}>{t("common.description")}</div>
+      <div className={styles.text}>{t('common.description')}</div>
       <TextArea
         as={TextareaAutosize}
         name="description"
@@ -97,7 +97,7 @@ const EditInformation = React.memo(() => {
       <Button
         positive
         disabled={dequal(cleanData, defaultData)}
-        content={t("action.save")}
+        content={t('action.save')}
       />
     </Form>
   );

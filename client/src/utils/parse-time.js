@@ -3,52 +3,52 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import parseDate from "date-fns/parse";
+import parseDate from 'date-fns/parse';
 
 const TIME_REGEX =
   /^((\d{1,2})((:|\.)?(\d{1,2}))?)(a|p|(am|a\.m\.|midnight|mi|pm|p\.m\.|noon|n))?$/;
 
-const ALTERNATIVE_AM_MERIDIEMS_SET = new Set(["am", "a.m.", "midnight", "mi"]);
-const ALTERNATIVE_PM_MERIDIEMS_SET = new Set(["pm", "p.m.", "noon", "n"]);
+const ALTERNATIVE_AM_MERIDIEMS_SET = new Set(['am', 'a.m.', 'midnight', 'mi']);
+const ALTERNATIVE_PM_MERIDIEMS_SET = new Set(['pm', 'p.m.', 'noon', 'n']);
 
 const TimeFormats = {
-  TWENTY_FOUR_HOUR: "twentyFourHour",
-  TWELVE_HOUR: "twelveHour",
+  TWENTY_FOUR_HOUR: 'twentyFourHour',
+  TWELVE_HOUR: 'twelveHour',
 };
 
 const PATTERNS_GROUPS_BY_TIME_FORMAT = {
   [TimeFormats.TWENTY_FOUR_HOUR]: {
     byNumbersTotal: {
-      1: ["H"],
-      2: ["HH"],
-      3: ["Hmm"],
-      4: ["HHmm"],
+      1: ['H'],
+      2: ['HH'],
+      3: ['Hmm'],
+      4: ['HHmm'],
     },
-    withDelimiter: ["H:m", "H:mm", "HH:m", "HH:mm"],
+    withDelimiter: ['H:m', 'H:mm', 'HH:m', 'HH:mm'],
   },
   [TimeFormats.TWELVE_HOUR]: {
     byNumbersTotal: {
-      1: ["haaaaa"],
-      2: ["hhaaaaa"],
-      3: ["hmmaaaaa"],
-      4: ["hhmmaaaaa"],
+      1: ['haaaaa'],
+      2: ['hhaaaaa'],
+      3: ['hmmaaaaa'],
+      4: ['hhmmaaaaa'],
     },
-    withDelimiter: ["h:maaaaa", "h:mmaaaaa", "hh:maaaaa", "hh:mmaaaaa"],
+    withDelimiter: ['h:maaaaa', 'h:mmaaaaa', 'hh:maaaaa', 'hh:mmaaaaa'],
   },
 };
 
-const INVALID_DATE = new Date("invalid-date");
+const INVALID_DATE = new Date('invalid-date');
 
-const normalizeDelimeter = (delimeter) => (delimeter === "." ? ":" : delimeter);
+const normalizeDelimeter = (delimeter) => (delimeter === '.' ? ':' : delimeter);
 
 const normalizeMeridiem = (meridiem, alternativeMeridiem) => {
   if (meridiem && alternativeMeridiem) {
     if (ALTERNATIVE_AM_MERIDIEMS_SET.has(alternativeMeridiem)) {
-      return "a";
+      return 'a';
     }
 
     if (ALTERNATIVE_PM_MERIDIEMS_SET.has(alternativeMeridiem)) {
-      return "p";
+      return 'p';
     }
   }
 
@@ -71,7 +71,7 @@ const makeTimeString = (hours, minutes, delimeter, meridiem) => {
 };
 
 export default (string, referenceDate) => {
-  const match = string.replace(/\s/g, "").toLowerCase().match(TIME_REGEX);
+  const match = string.replace(/\s/g, '').toLowerCase().match(TIME_REGEX);
 
   if (!match) {
     return INVALID_DATE;
@@ -95,7 +95,7 @@ export default (string, referenceDate) => {
     hours,
     minutes,
     normalizedDelimeter,
-    normalizedMeridiem,
+    normalizedMeridiem
   );
 
   const timeFormat = meridiem

@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import socketIOClient from "socket.io-client";
-import sailsIOClient from "sails.io.js";
+import socketIOClient from 'socket.io-client';
+import sailsIOClient from 'sails.io.js';
 
-import Config from "../constants/Config";
+import Config from '../constants/Config';
 
 const io = sailsIOClient(socketIOClient);
 
@@ -20,7 +20,7 @@ const { socket } = io;
 
 socket.connect = socket._connect; // eslint-disable-line no-underscore-dangle
 
-["GET", "POST", "PUT", "PATCH", "DELETE"].forEach((method) => {
+['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach((method) => {
   socket[method.toLowerCase()] = (url, data, headers) =>
     new Promise((resolve, reject) => {
       socket.request(
@@ -36,7 +36,7 @@ socket.connect = socket._connect; // eslint-disable-line no-underscore-dangle
           } else {
             resolve(body);
           }
-        },
+        }
       );
     });
 });

@@ -3,20 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Icon, Menu } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Icon, Menu } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import { ProjectTypes } from "../../../constants/Enums";
-import { ProjectTypeIcons } from "../../../constants/Icons";
+import { ProjectTypes } from '../../../constants/Enums';
+import { ProjectTypeIcons } from '../../../constants/Icons';
 
-import styles from "./SelectTypeStep.module.scss";
+import styles from './SelectTypeStep.module.scss';
 
 const DESCRIPTION_BY_TYPE = {
-  [ProjectTypes.PRIVATE]: "common.forPersonalProjects",
-  [ProjectTypes.SHARED]: "common.forTeamBasedProjects",
+  [ProjectTypes.PRIVATE]: 'common.forPersonalProjects',
+  [ProjectTypes.SHARED]: 'common.forTeamBasedProjects',
 };
 
 const SelectTypeStep = React.memo(({ value, onSelect, onClose }) => {
@@ -30,14 +30,14 @@ const SelectTypeStep = React.memo(({ value, onSelect, onClose }) => {
 
       onClose();
     },
-    [value, onSelect, onClose],
+    [value, onSelect, onClose]
   );
 
   return (
     <>
       <Popup.Header>
-        {t("common.selectType", {
-          context: "title",
+        {t('common.selectType', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>

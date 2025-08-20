@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { selectPath } from "./router";
-import { selectCurrentUserId } from "./users";
-import { isLocalId } from "../utils/local-id";
+import orm from '../orm';
+import { selectPath } from './router';
+import { selectCurrentUserId } from './users';
+import { isLocalId } from '../utils/local-id';
 
 export const makeSelectProjectById = () =>
   createSelector(
@@ -22,7 +22,7 @@ export const makeSelectProjectById = () =>
       }
 
       return projectModel.ref;
-    },
+    }
   );
 
 export const selectProjectById = makeSelectProjectById();
@@ -48,7 +48,7 @@ export const makeSelectBoardIdsByProjectId = () =>
       return projectModel
         .getBoardsModelArrayAvailableForUser(currentUserModel)
         .map((boardModel) => boardModel.id);
-    },
+    }
   );
 
 export const selectBoardIdsByProjectId = makeSelectBoardIdsByProjectId();
@@ -70,7 +70,7 @@ export const makeSelectFirstBoardIdByProjectId = () =>
         projectModel.getBoardsModelArrayAvailableForUser(currentUserModel);
 
       return boardsModels[0] && boardsModels[0].id;
-    },
+    }
   );
 
 export const selectFirstBoardIdByProjectId =
@@ -95,9 +95,9 @@ export const makeSelectNotificationsTotalByProjectId = () =>
       return boardsModels.reduce(
         (result, boardModel) =>
           result + boardModel.getUnreadNotificationsQuerySet().count(),
-        0,
+        0
       );
-    },
+    }
   );
 
 export const selectNotificationsTotalByProjectId =
@@ -117,7 +117,7 @@ export const makeSelectIsProjectWithIdAvailableForCurrentUser = () =>
 
       const currentUserModel = User.withId(currentUserId);
       return projectModel.isAvailableForUser(currentUserModel);
-    },
+    }
   );
 
 export const selectIsProjectWithIdAvailableForCurrentUser =
@@ -137,7 +137,7 @@ export const makeSelectIsProjectWithIdExternalAccessibleForCurrentUser = () =>
 
       const currentUserModel = User.withId(currentUserId);
       return projectModel.isExternalAccessibleForUser(currentUserModel);
-    },
+    }
   );
 
 export const selectIsProjectWithIdExternalAccessibleForCurrentUser =
@@ -158,7 +158,7 @@ export const selectCurrentProject = createSelector(
     }
 
     return projectModel.ref;
-  },
+  }
 );
 
 export const selectManagersForCurrentProject = createSelector(
@@ -183,7 +183,7 @@ export const selectManagersForCurrentProject = createSelector(
         isPersisted: !isLocalId(projectManagerModel.id),
         user: projectManagerModel.user.ref,
       }));
-  },
+  }
 );
 
 export const selectManagerUserIdsForCurrentProject = createSelector(
@@ -204,7 +204,7 @@ export const selectManagerUserIdsForCurrentProject = createSelector(
       .getManagersQuerySet()
       .toRefArray()
       .map((projectManager) => projectManager.userId);
-  },
+  }
 );
 
 export const selectBackgroundImageIdsForCurrentProject = createSelector(
@@ -225,7 +225,7 @@ export const selectBackgroundImageIdsForCurrentProject = createSelector(
       .getBackgroundImagesQuerySet()
       .toRefArray()
       .map((backgroundImage) => backgroundImage.id);
-  },
+  }
 );
 
 export const selectBaseCustomFieldGroupIdsForCurrentProject = createSelector(
@@ -246,7 +246,7 @@ export const selectBaseCustomFieldGroupIdsForCurrentProject = createSelector(
       .getBaseCustomFieldGroupsQuerySet()
       .toRefArray()
       .map((baseCustomFieldGroup) => baseCustomFieldGroup.id);
-  },
+  }
 );
 
 export const selectBaseCustomFieldGroupsForCurrentProject = createSelector(
@@ -270,7 +270,7 @@ export const selectBaseCustomFieldGroupsForCurrentProject = createSelector(
         ...baseCustomFieldGroup,
         isPersisted: !isLocalId(baseCustomFieldGroup.id),
       }));
-  },
+  }
 );
 
 export const selectBoardIdsForCurrentProject = createSelector(
@@ -293,7 +293,7 @@ export const selectBoardIdsForCurrentProject = createSelector(
     return projectModel
       .getBoardsModelArrayAvailableForUser(currentUserModel)
       .map((boardModel) => boardModel.id);
-  },
+  }
 );
 
 export const selectIsCurrentUserManagerForCurrentProject = createSelector(
@@ -312,7 +312,7 @@ export const selectIsCurrentUserManagerForCurrentProject = createSelector(
     }
 
     return projectModel.hasManagerWithUserId(currentUserId);
-  },
+  }
 );
 
 export default {

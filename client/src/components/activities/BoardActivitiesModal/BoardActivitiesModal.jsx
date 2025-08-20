@@ -3,24 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { useInView } from "react-intersection-observer";
-import { Comment, Loader } from "semantic-ui-react";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useInView } from 'react-intersection-observer';
+import { Comment, Loader } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useClosableModal } from "../../../hooks";
-import Item from "./Item";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useClosableModal } from '../../../hooks';
+import Item from './Item';
 
-import styles from "./BoardActivitiesModal.module.scss";
+import styles from './BoardActivitiesModal.module.scss';
 
 const BoardActivitiesModal = React.memo(() => {
   const activityIds = useSelector(selectors.selectActivityIdsForCurrentBoard);
 
   const { isActivitiesFetching, isAllActivitiesFetched } = useSelector(
-    selectors.selectCurrentBoard,
+    selectors.selectCurrentBoard
   );
 
   const dispatch = useDispatch();
@@ -49,8 +49,8 @@ const BoardActivitiesModal = React.memo(() => {
       onClose={handleClose}
     >
       <ClosableModal.Header>
-        {t("common.boardActions", {
-          context: "title",
+        {t('common.boardActions', {
+          context: 'title',
         })}
       </ClosableModal.Header>
       <ClosableModal.Content>

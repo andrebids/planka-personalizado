@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { Menu, Tab } from "semantic-ui-react";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Menu, Tab } from 'semantic-ui-react';
 
-import Comments from "../../comments/Comments";
-import CardActivities from "../../activities/CardActivities";
+import Comments from '../../comments/Comments';
+import CardActivities from '../../activities/CardActivities';
 
-import styles from "./Communication.module.scss";
+import styles from './Communication.module.scss';
 
 const Communication = React.memo(() => {
   const [t] = useTranslation();
@@ -19,8 +19,8 @@ const Communication = React.memo(() => {
     {
       menuItem: (
         <Menu.Item key="comments" className={styles.menuItem}>
-          {t("common.comments", {
-            context: "title",
+          {t('common.comments', {
+            context: 'title',
           })}
         </Menu.Item>
       ),
@@ -29,8 +29,8 @@ const Communication = React.memo(() => {
     {
       menuItem: (
         <Menu.Item key="actions" className={styles.menuItem}>
-          {t("common.actions", {
-            context: "title",
+          {t('common.actions', {
+            context: 'title',
           })}
         </Menu.Item>
       ),

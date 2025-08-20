@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from "lodash/omit";
-import truncate from "lodash/truncate";
-import { call, put, select } from "redux-saga/effects";
+import omit from 'lodash/omit';
+import truncate from 'lodash/truncate';
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
-import { AttachmentTypes } from "../../../constants/Enums";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
+import { AttachmentTypes } from '../../../constants/Enums';
 
 export function* createAttachment(cardId, data) {
   const localId = yield call(createLocalId);
@@ -27,11 +27,11 @@ export function* createAttachment(cardId, data) {
 
   yield put(
     actions.createAttachment({
-      ...omit(nextData, ["file", "url"]),
+      ...omit(nextData, ['file', 'url']),
       cardId,
       id: localId,
       creatorUserId: currentUserId,
-    }),
+    })
   );
 
   let attachment;
@@ -56,7 +56,7 @@ export function* createAttachmentInCurrentCard(data) {
 export function* handleAttachmentCreate(attachment, requestId) {
   const isExists = yield select(
     selectors.selectIsAttachmentWithIdExists,
-    requestId,
+    requestId
   );
 
   if (!isExists) {
@@ -73,7 +73,7 @@ export function* updateAttachment(id, data) {
       request,
       api.updateAttachment,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateAttachment.failure(id, error));

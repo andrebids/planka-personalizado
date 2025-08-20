@@ -3,33 +3,33 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from "dequal";
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Mention, MentionsInput } from "react-mentions";
-import { Button, Form } from "semantic-ui-react";
-import { useClickAwayListener } from "../../../lib/hooks";
+import { dequal } from 'dequal';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Mention, MentionsInput } from 'react-mentions';
+import { Button, Form } from 'semantic-ui-react';
+import { useClickAwayListener } from '../../../lib/hooks';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useForm, useNestedRef } from "../../../hooks";
-import { focusEnd } from "../../../utils/element-helpers";
-import { isModifierKeyPressed } from "../../../utils/event-helpers";
-import UserAvatar from "../../users/UserAvatar";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useForm, useNestedRef } from '../../../hooks';
+import { focusEnd } from '../../../utils/element-helpers';
+import { isModifierKeyPressed } from '../../../utils/event-helpers';
+import UserAvatar from '../../users/UserAvatar';
 
-import styles from "./Edit.module.scss";
+import styles from './Edit.module.scss';
 
 const Edit = React.memo(({ commentId, onClose }) => {
   const selectCommentById = useMemo(
     () => selectors.makeSelectCommentById(),
-    [],
+    []
   );
 
   const comment = useSelector((state) => selectCommentById(state, commentId));
   const boardMemberships = useSelector(
-    selectors.selectMembershipsForCurrentBoard,
+    selectors.selectMembershipsForCurrentBoard
   );
 
   const dispatch = useDispatch();
@@ -39,11 +39,11 @@ const Edit = React.memo(({ commentId, onClose }) => {
     () => ({
       text: comment.text,
     }),
-    [comment.text],
+    [comment.text]
   );
 
   const [data, , setData] = useForm(() => ({
-    text: "",
+    text: '',
     ...defaultData,
   }));
 
@@ -76,16 +76,16 @@ const Edit = React.memo(({ commentId, onClose }) => {
         text,
       });
     },
-    [setData],
+    [setData]
   );
 
   const handleFieldKeyDown = useCallback(
     (event) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         if (isModifierKeyPressed(event)) {
           submit();
         }
-      } else if (event.key === "Escape") {
+      } else if (event.key === 'Escape') {
         if (textMentionsRef.current.isOpened()) {
           textMentionsRef.current.clearSuggestions();
           return;
@@ -94,7 +94,7 @@ const Edit = React.memo(({ commentId, onClose }) => {
         onClose();
       }
     },
-    [onClose, submit],
+    [onClose, submit]
   );
 
   const handleCancelClick = useCallback(() => {
@@ -108,7 +108,7 @@ const Edit = React.memo(({ commentId, onClose }) => {
   const clickAwayProps = useClickAwayListener(
     [textFieldRef, submitButtonRef, cancelButtonRef],
     submit,
-    handleClickAwayCancel,
+    handleClickAwayCancel
   );
 
   const suggestionRenderer = useCallback(
@@ -118,7 +118,7 @@ const Edit = React.memo(({ commentId, onClose }) => {
         {highlightedDisplay}
       </div>
     ),
-    [],
+    []
   );
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const Edit = React.memo(({ commentId, onClose }) => {
           className="mentions-input"
           style={{
             control: {
-              minHeight: "79px",
+              minHeight: '79px',
             },
           }}
           onChange={handleFieldChange}
@@ -163,13 +163,13 @@ const Edit = React.memo(({ commentId, onClose }) => {
           {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
           positive
           ref={handleSubmitButtonRef}
-          content={t("action.save")}
+          content={t('action.save')}
         />
         <Button
           {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
           ref={handleCancelButtonRef}
           type="button"
-          content={t("action.cancel")}
+          content={t('action.cancel')}
           onClick={handleCancelClick}
         />
       </div>

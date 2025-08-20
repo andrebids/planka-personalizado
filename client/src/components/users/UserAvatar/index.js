@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import UserAvatar from "./UserAvatar";
+import UserAvatar from './UserAvatar';
 
 export default UserAvatar;

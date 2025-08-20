@@ -8,9 +8,9 @@
  */
 
 // Tipos de ficheiros suportados para preview
-const SUPPORTED_IMAGE_TYPES = ["jpg", "jpeg", "png", "gif", "webp", "svg"];
-const SUPPORTED_DOCUMENT_TYPES = ["pdf", "doc", "docx", "txt"];
-const SUPPORTED_ARCHIVE_TYPES = ["zip", "rar", "7z"];
+const SUPPORTED_IMAGE_TYPES = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+const SUPPORTED_DOCUMENT_TYPES = ['pdf', 'doc', 'docx', 'txt'];
+const SUPPORTED_ARCHIVE_TYPES = ['zip', 'rar', '7z'];
 
 /**
  * Extrai a extensão de um nome de ficheiro
@@ -18,10 +18,10 @@ const SUPPORTED_ARCHIVE_TYPES = ["zip", "rar", "7z"];
  * @returns {string} Extensão em minúsculas
  */
 export const getFileExtension = (filename) => {
-  if (!filename || typeof filename !== "string") {
-    return "";
+  if (!filename || typeof filename !== 'string') {
+    return '';
   }
-  return filename.split(".").pop().toLowerCase();
+  return filename.split('.').pop().toLowerCase();
 };
 
 /**
@@ -35,7 +35,7 @@ export const getFileType = (filename) => {
   return {
     extension,
     isImage: SUPPORTED_IMAGE_TYPES.includes(extension),
-    isPdf: extension === "pdf",
+    isPdf: extension === 'pdf',
     isDocument: SUPPORTED_DOCUMENT_TYPES.includes(extension),
     isArchive: SUPPORTED_ARCHIVE_TYPES.includes(extension),
     isPreviewable:
@@ -53,26 +53,26 @@ export const getFileType = (filename) => {
 export const getMimeType = (extension) => {
   const mimeTypes = {
     // Imagens
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    png: "image/png",
-    gif: "image/gif",
-    webp: "image/webp",
-    svg: "image/svg+xml",
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    gif: 'image/gif',
+    webp: 'image/webp',
+    svg: 'image/svg+xml',
 
     // Documentos
-    pdf: "application/pdf",
-    doc: "application/msword",
-    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    txt: "text/plain",
+    pdf: 'application/pdf',
+    doc: 'application/msword',
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    txt: 'text/plain',
 
     // Arquivos
-    zip: "application/zip",
-    rar: "application/vnd.rar",
-    "7z": "application/x-7z-compressed",
+    zip: 'application/zip',
+    rar: 'application/vnd.rar',
+    '7z': 'application/x-7z-compressed',
   };
 
-  return mimeTypes[extension] || "application/octet-stream";
+  return mimeTypes[extension] || 'application/octet-stream';
 };
 
 /**
@@ -140,20 +140,20 @@ export const getFileIcon = (filename) => {
   const fileType = getFileType(filename);
 
   if (fileType.isImage) {
-    return "image";
+    return 'image';
   }
 
   if (fileType.isPdf) {
-    return "file pdf outline";
+    return 'file pdf outline';
   }
 
   if (fileType.isDocument) {
-    return "file text outline";
+    return 'file text outline';
   }
 
   if (fileType.isArchive) {
-    return "archive";
+    return 'archive';
   }
 
-  return "file outline";
+  return 'file outline';
 };

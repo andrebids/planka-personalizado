@@ -3,22 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from "redux-orm";
+import { attr, fk } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import ActionTypes from "../constants/ActionTypes";
+import BaseModel from './BaseModel';
+import ActionTypes from '../constants/ActionTypes';
 
 export default class extends BaseModel {
-  static modelName = "BackgroundImage";
+  static modelName = 'BackgroundImage';
 
   static fields = {
     id: attr(),
     url: attr(),
     thumbnailUrls: attr(),
     projectId: fk({
-      to: "Project",
-      as: "project",
-      relatedName: "backgroundImages",
+      to: 'Project',
+      as: 'project',
+      relatedName: 'backgroundImages',
     }),
   };
 
@@ -71,7 +71,7 @@ export default class extends BaseModel {
       case ActionTypes.BACKGROUND_IMAGE_DELETE__SUCCESS:
       case ActionTypes.BACKGROUND_IMAGE_DELETE_HANDLE: {
         const backgroundImageModel = BackgroundImage.withId(
-          payload.backgroundImage.id,
+          payload.backgroundImage.id
         );
 
         if (backgroundImageModel) {

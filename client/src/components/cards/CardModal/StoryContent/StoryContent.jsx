@@ -3,53 +3,53 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useContext, useMemo, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Gallery, Item as GalleryItem } from "react-photoswipe-gallery";
-import { Button, Grid, Icon } from "semantic-ui-react";
-import { useDidUpdate } from "../../../../lib/hooks";
+import React, { useCallback, useContext, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Gallery, Item as GalleryItem } from 'react-photoswipe-gallery';
+import { Button, Grid, Icon } from 'semantic-ui-react';
+import { useDidUpdate } from '../../../../lib/hooks';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { usePopupInClosableContext } from "../../../../hooks";
-import { isUsableMarkdownElement } from "../../../../utils/element-helpers";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { usePopupInClosableContext } from '../../../../hooks';
+import { isUsableMarkdownElement } from '../../../../utils/element-helpers';
 import {
   BoardMembershipRoles,
   CardTypes,
   ListTypes,
-} from "../../../../constants/Enums";
-import { CardTypeIcons } from "../../../../constants/Icons";
-import { ClosableContext } from "../../../../contexts";
-import Thumbnail from "./Thumbnail";
-import NameField from "../NameField";
-import CustomFieldGroups from "../CustomFieldGroups";
-import Communication from "../Communication";
-import CreationDetailsStep from "../CreationDetailsStep";
-import SelectCardTypeStep from "../../SelectCardTypeStep";
-import MoveCardStep from "../../MoveCardStep";
-import Markdown from "../../../common/Markdown";
-import EditMarkdown from "../../../common/EditMarkdown";
-import ConfirmationStep from "../../../common/ConfirmationStep";
-import UserAvatar from "../../../users/UserAvatar";
-import BoardMembershipsStep from "../../../board-memberships/BoardMembershipsStep";
-import LabelChip from "../../../labels/LabelChip";
-import LabelsStep from "../../../labels/LabelsStep";
-import ListsStep from "../../../lists/ListsStep";
-import Attachments from "../../../attachments/Attachments";
-import AddAttachmentStep from "../../../attachments/AddAttachmentStep";
-import AddCustomFieldGroupStep from "../../../custom-field-groups/AddCustomFieldGroupStep";
+} from '../../../../constants/Enums';
+import { CardTypeIcons } from '../../../../constants/Icons';
+import { ClosableContext } from '../../../../contexts';
+import Thumbnail from './Thumbnail';
+import NameField from '../NameField';
+import CustomFieldGroups from '../CustomFieldGroups';
+import Communication from '../Communication';
+import CreationDetailsStep from '../CreationDetailsStep';
+import SelectCardTypeStep from '../../SelectCardTypeStep';
+import MoveCardStep from '../../MoveCardStep';
+import Markdown from '../../../common/Markdown';
+import EditMarkdown from '../../../common/EditMarkdown';
+import ConfirmationStep from '../../../common/ConfirmationStep';
+import UserAvatar from '../../../users/UserAvatar';
+import BoardMembershipsStep from '../../../board-memberships/BoardMembershipsStep';
+import LabelChip from '../../../labels/LabelChip';
+import LabelsStep from '../../../labels/LabelsStep';
+import ListsStep from '../../../lists/ListsStep';
+import Attachments from '../../../attachments/Attachments';
+import AddAttachmentStep from '../../../attachments/AddAttachmentStep';
+import AddCustomFieldGroupStep from '../../../custom-field-groups/AddCustomFieldGroupStep';
 
-import styles from "./StoryContent.module.scss";
+import styles from './StoryContent.module.scss';
 
 const StoryContent = React.memo(({ onClose }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
   const selectPrevListById = useMemo(() => selectors.makeSelectListById(), []);
   const selectAttachmentById = useMemo(
     () => selectors.makeSelectAttachmentById(),
-    [],
+    []
   );
 
   const card = useSelector(selectors.selectCurrentCard);
@@ -57,11 +57,11 @@ const StoryContent = React.memo(({ onClose }) => {
   const userIds = useSelector(selectors.selectUserIdsForCurrentCard);
   const labelIds = useSelector(selectors.selectLabelIdsForCurrentCard);
   const attachmentIds = useSelector(
-    selectors.selectAttachmentIdsForCurrentCard,
+    selectors.selectAttachmentIdsForCurrentCard
   );
 
   const imageAttachmentIdsExceptCover = useSelector(
-    selectors.selectImageAttachmentIdsExceptCoverForCurrentCard,
+    selectors.selectImageAttachmentIdsExceptCoverForCurrentCard
   );
 
   const isJoined = useSelector(selectors.selectIsCurrentUserInCurrentCard);
@@ -70,11 +70,11 @@ const StoryContent = React.memo(({ onClose }) => {
 
   // TODO: check availability?
   const prevList = useSelector(
-    (state) => card.prevListId && selectPrevListById(state, card.prevListId),
+    (state) => card.prevListId && selectPrevListById(state, card.prevListId)
   );
 
   const coverAttachment = useSelector((state) =>
-    selectAttachmentById(state, card.coverAttachmentId),
+    selectAttachmentById(state, card.coverAttachmentId)
   );
 
   const isInArchiveList = list.type === ListTypes.ARCHIVE;
@@ -158,7 +158,7 @@ const StoryContent = React.memo(({ onClose }) => {
     (listId) => {
       dispatch(entryActions.moveCurrentCard(listId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleTypeSelect = useCallback(
@@ -166,10 +166,10 @@ const StoryContent = React.memo(({ onClose }) => {
       dispatch(
         entryActions.updateCurrentCard({
           type,
-        }),
+        })
       );
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleNameUpdate = useCallback(
@@ -177,10 +177,10 @@ const StoryContent = React.memo(({ onClose }) => {
       dispatch(
         entryActions.updateCurrentCard({
           name,
-        }),
+        })
       );
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleDescriptionUpdate = useCallback(
@@ -188,19 +188,19 @@ const StoryContent = React.memo(({ onClose }) => {
       dispatch(
         entryActions.updateCurrentCard({
           description,
-        }),
+        })
       );
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleDuplicateClick = useCallback(() => {
     dispatch(
       entryActions.duplicateCurrentCard({
-        name: `${card.name} (${t("common.copy", {
-          context: "inline",
+        name: `${card.name} (${t('common.copy', {
+          context: 'inline',
         })})`,
-      }),
+      })
     );
 
     onClose();
@@ -226,35 +226,35 @@ const StoryContent = React.memo(({ onClose }) => {
     (userId) => {
       dispatch(entryActions.addUserToCurrentCard(userId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleUserDeselect = useCallback(
     (userId) => {
       dispatch(entryActions.removeUserFromCurrentCard(userId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleLabelSelect = useCallback(
     (labelId) => {
       dispatch(entryActions.addLabelToCurrentCard(labelId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleLabelDeselect = useCallback(
     (labelId) => {
       dispatch(entryActions.removeLabelFromCurrentCard(labelId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleCustomFieldGroupCreate = useCallback(
     (data) => {
       dispatch(entryActions.createCustomFieldGroupInCurrentCard(data));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleToggleJointClick = useCallback(() => {
@@ -269,7 +269,7 @@ const StoryContent = React.memo(({ onClose }) => {
     dispatch(
       entryActions.updateCurrentCard({
         isSubscribed: !card.isSubscribed,
-      }),
+      })
     );
   }, [card.isSubscribed, dispatch]);
 
@@ -293,11 +293,11 @@ const StoryContent = React.memo(({ onClose }) => {
     (gallery) => {
       activateClosable();
 
-      gallery.on("destroy", () => {
+      gallery.on('destroy', () => {
         deactivateClosable();
       });
     },
-    [activateClosable, deactivateClosable],
+    [activateClosable, deactivateClosable]
   );
 
   useDidUpdate(() => {
@@ -317,7 +317,7 @@ const StoryContent = React.memo(({ onClose }) => {
   const SelectCardTypePopup = usePopupInClosableContext(SelectCardTypeStep);
   const AddAttachmentPopup = usePopupInClosableContext(AddAttachmentStep);
   const AddCustomFieldGroupPopup = usePopupInClosableContext(
-    AddCustomFieldGroupStep,
+    AddCustomFieldGroupStep
   );
   const MoveCardPopup = usePopupInClosableContext(MoveCardStep);
   const ConfirmationPopup = usePopupInClosableContext(ConfirmationStep);
@@ -352,12 +352,12 @@ const StoryContent = React.memo(({ onClose }) => {
             withDownloadButton
             options={{
               wheelToZoom: true,
-              showHideAnimationType: "none",
-              closeTitle: "",
-              zoomTitle: "",
-              arrowPrevTitle: "",
-              arrowNextTitle: "",
-              errorMsg: "",
+              showHideAnimationType: 'none',
+              closeTitle: '',
+              zoomTitle: '',
+              arrowPrevTitle: '',
+              arrowNextTitle: '',
+              errorMsg: '',
               paddingFn: (viewportSize) => {
                 const paddingX = viewportSize.x / 20;
                 const paddingY = viewportSize.y / 20;
@@ -378,7 +378,7 @@ const StoryContent = React.memo(({ onClose }) => {
               <div
                 className={classNames(
                   styles.moduleWrapper,
-                  styles.moduleWrapperAttachments,
+                  styles.moduleWrapperAttachments
                 )}
               >
                 {coverAttachment && (
@@ -444,7 +444,7 @@ const StoryContent = React.memo(({ onClose }) => {
                           type="button"
                           className={classNames(
                             styles.attachment,
-                            styles.dueDate,
+                            styles.dueDate
                           )}
                         >
                           <Icon
@@ -463,7 +463,7 @@ const StoryContent = React.memo(({ onClose }) => {
               <div
                 className={classNames(
                   styles.contentModule,
-                  styles.contentModuleDescription,
+                  styles.contentModuleDescription
                 )}
               >
                 <div className={styles.moduleWrapper}>
@@ -480,7 +480,7 @@ const StoryContent = React.memo(({ onClose }) => {
                       <>
                         {descriptionDraft && (
                           <span className={styles.draftChip}>
-                            {t("common.unsavedChanges")}
+                            {t('common.unsavedChanges')}
                           </span>
                         )}
                         {card.description ? (
@@ -489,7 +489,7 @@ const StoryContent = React.memo(({ onClose }) => {
                           <div
                             className={classNames(
                               styles.descriptionText,
-                              styles.cursorPointer,
+                              styles.cursorPointer
                             )}
                             onClick={handleEditDescriptionClick}
                           >
@@ -505,7 +505,7 @@ const StoryContent = React.memo(({ onClose }) => {
                             onClick={handleEditDescriptionClick}
                           >
                             <span className={styles.descriptionButtonText}>
-                              {t("action.addMoreDetailedDescription")}
+                              {t('action.addMoreDetailedDescription')}
                             </span>
                           </button>
                         )}
@@ -536,7 +536,7 @@ const StoryContent = React.memo(({ onClose }) => {
               <div className={styles.moduleWrapper}>
                 <Icon name="attach" className={styles.moduleIcon} />
                 <div className={styles.moduleHeader}>
-                  {t("common.attachments")}
+                  {t('common.attachments')}
                 </div>
                 <Attachments hideImagesWhenNotAllVisible />
               </div>
@@ -555,11 +555,11 @@ const StoryContent = React.memo(({ onClose }) => {
               <div
                 className={classNames(
                   styles.attachments,
-                  styles.attachmentsList,
+                  styles.attachmentsList
                 )}
               >
                 <div className={classNames(styles.text, styles.textList)}>
-                  {t("common.list")}
+                  {t('common.list')}
                 </div>
                 {canUseLists ? (
                   <ListsPopup currentId={list.id} onSelect={handleListSelect}>
@@ -567,7 +567,7 @@ const StoryContent = React.memo(({ onClose }) => {
                       <span
                         className={classNames(
                           styles.list,
-                          styles.listHoverable,
+                          styles.listHoverable
                         )}
                       >
                         <Icon
@@ -601,7 +601,7 @@ const StoryContent = React.memo(({ onClose }) => {
               canAddCustomFieldGroup) && (
               <div className={styles.actions}>
                 <span className={styles.actionsTitle}>
-                  {t("action.addToCard")}
+                  {t('action.addToCard')}
                 </span>
                 {canUseLabels && (
                   <LabelsPopup
@@ -614,14 +614,14 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon
                         name="bookmark outline"
                         className={styles.actionIcon}
                       />
-                      {t("common.labels")}
+                      {t('common.labels')}
                     </Button>
                   </LabelsPopup>
                 )}
@@ -631,11 +631,11 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon name="attach" className={styles.actionIcon} />
-                      {t("common.attachment")}
+                      {t('common.attachment')}
                     </Button>
                   </AddAttachmentPopup>
                 )}
@@ -647,15 +647,15 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon
                         name="sticky note outline"
                         className={styles.actionIcon}
                       />
-                      {t("common.customField", {
-                        context: "title",
+                      {t('common.customField', {
+                        context: 'title',
                       })}
                     </Button>
                   </AddCustomFieldGroupPopup>
@@ -670,11 +670,11 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon name="user outline" className={styles.actionIcon} />
-                      {t("common.members")}
+                      {t('common.members')}
                     </Button>
                   </BoardMembershipsPopup>
                 )}
@@ -690,7 +690,7 @@ const StoryContent = React.memo(({ onClose }) => {
               canDelete) && (
               <div className={styles.actions}>
                 <span className={styles.actionsTitle}>
-                  {t("common.actions")}
+                  {t('common.actions')}
                 </span>
                 {canJoin && (
                   <Button
@@ -699,10 +699,10 @@ const StoryContent = React.memo(({ onClose }) => {
                     onClick={handleToggleJointClick}
                   >
                     <Icon
-                      name={isJoined ? "flag outline" : "flag checkered"}
+                      name={isJoined ? 'flag outline' : 'flag checkered'}
                       className={styles.actionIcon}
                     />
-                    {isJoined ? t("action.leave") : t("action.join")}
+                    {isJoined ? t('action.leave') : t('action.join')}
                   </Button>
                 )}
                 {canSubscribe && (
@@ -718,21 +718,21 @@ const StoryContent = React.memo(({ onClose }) => {
                           name="bell slash outline"
                           className={styles.actionIcon}
                         />
-                        {t("common.boardSubscribed")}
+                        {t('common.boardSubscribed')}
                       </>
                     ) : (
                       <>
                         <Icon
                           name={
                             card.isSubscribed
-                              ? "bell slash outline"
-                              : "bell outline"
+                              ? 'bell slash outline'
+                              : 'bell outline'
                           }
                           className={styles.actionIcon}
                         />
                         {card.isSubscribed
-                          ? t("action.unsubscribe")
-                          : t("action.subscribe")}
+                          ? t('action.unsubscribe')
+                          : t('action.subscribe')}
                       </>
                     )}
                   </Button>
@@ -749,12 +749,12 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon name="map outline" className={styles.actionIcon} />
-                      {t("action.editType", {
-                        context: "title",
+                      {t('action.editType', {
+                        context: 'title',
                       })}
                     </Button>
                   </SelectCardTypePopup>
@@ -766,7 +766,7 @@ const StoryContent = React.memo(({ onClose }) => {
                     onClick={handleDuplicateClick}
                   >
                     <Icon name="copy outline" className={styles.actionIcon} />
-                    {t("action.duplicate")}
+                    {t('action.duplicate')}
                   </Button>
                 )}
                 {canMove && (
@@ -775,14 +775,14 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon
                         name="share square outline"
                         className={styles.actionIcon}
                       />
-                      {t("action.move")}
+                      {t('action.move')}
                     </Button>
                   </MoveCardPopup>
                 )}
@@ -795,10 +795,10 @@ const StoryContent = React.memo(({ onClose }) => {
                   >
                     <Icon name="undo alternate" className={styles.actionIcon} />
                     {prevList
-                      ? t("action.restoreToList", {
+                      ? t('action.restoreToList', {
                           list: prevList.name || t(`common.${prevList.type}`),
                         })
-                      : t("common.selectListToRestoreThisCard")}
+                      : t('common.selectListToRestoreThisCard')}
                   </Button>
                 )}
                 {canArchive && !isInArchiveList && (
@@ -812,14 +812,14 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon
                         name="folder open outline"
                         className={styles.actionIcon}
                       />
-                      {t("action.archive")}
+                      {t('action.archive')}
                     </Button>
                   </ConfirmationPopup>
                 )}
@@ -827,18 +827,18 @@ const StoryContent = React.memo(({ onClose }) => {
                   <ConfirmationPopup
                     title={
                       isInTrashList
-                        ? "common.deleteCardForever"
-                        : "common.deleteCard"
+                        ? 'common.deleteCardForever'
+                        : 'common.deleteCard'
                     }
                     content={
                       isInTrashList
-                        ? "common.areYouSureYouWantToDeleteThisCardForever"
-                        : "common.areYouSureYouWantToDeleteThisCard"
+                        ? 'common.areYouSureYouWantToDeleteThisCardForever'
+                        : 'common.areYouSureYouWantToDeleteThisCard'
                     }
                     buttonContent={
                       isInTrashList
-                        ? "action.deleteCardForever"
-                        : "action.deleteCard"
+                        ? 'action.deleteCardForever'
+                        : 'action.deleteCard'
                     }
                     onConfirm={handleDeleteConfirm}
                   >
@@ -846,7 +846,7 @@ const StoryContent = React.memo(({ onClose }) => {
                       fluid
                       className={classNames(
                         styles.actionButton,
-                        styles.hidable,
+                        styles.hidable
                       )}
                     >
                       <Icon
@@ -854,10 +854,10 @@ const StoryContent = React.memo(({ onClose }) => {
                         className={styles.actionIcon}
                       />
                       {isInTrashList
-                        ? t("action.deleteForever", {
-                            context: "title",
+                        ? t('action.deleteForever', {
+                            context: 'title',
                           })
-                        : t("action.delete")}
+                        : t('action.delete')}
                     </Button>
                   </ConfirmationPopup>
                 )}

@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import InputMask from "react-input-mask";
+import InputMask from 'react-input-mask';
 
 export default class MaskedInput extends InputMask {
   focus(options) {

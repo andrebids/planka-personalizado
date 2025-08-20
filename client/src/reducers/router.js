@@ -3,8 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createRouterReducer } from "../lib/redux-router";
+import { createRouterReducer } from '../lib/redux-router';
 
-import history from "../history";
+import history from '../history';
 
 export default createRouterReducer(history);

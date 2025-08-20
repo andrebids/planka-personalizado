@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { all, takeEvery } from "redux-saga/effects";
+import { all, takeEvery } from 'redux-saga/effects';
 
-import services from "../services";
-import EntryActionTypes from "../../../constants/EntryActionTypes";
+import services from '../services';
+import EntryActionTypes from '../../../constants/EntryActionTypes';
 
 export default function* customFieldValuessWatchers() {
   yield all([
@@ -17,13 +17,13 @@ export default function* customFieldValuessWatchers() {
           cardId,
           customFieldGroupId,
           customFieldId,
-          data,
-        ),
+          data
+        )
     ),
     takeEvery(
       EntryActionTypes.CUSTOM_FIELD_VALUE_UPDATE_HANDLE,
       ({ payload: { customFieldValue } }) =>
-        services.handleCustomFieldValueUpdate(customFieldValue),
+        services.handleCustomFieldValueUpdate(customFieldValue)
     ),
     takeEvery(
       EntryActionTypes.CUSTOM_FIELD_VALUE_DELETE,
@@ -31,13 +31,13 @@ export default function* customFieldValuessWatchers() {
         services.deleteCustomFieldValue(
           cardId,
           customFieldGroupId,
-          customFieldId,
-        ),
+          customFieldId
+        )
     ),
     takeEvery(
       EntryActionTypes.CUSTOM_FIELD_VALUE_DELETE_HANDLE,
       ({ payload: { customFieldValue } }) =>
-        services.handleCustomFieldValueDelete(customFieldValue),
+        services.handleCustomFieldValueDelete(customFieldValue)
     ),
   ]);
 }

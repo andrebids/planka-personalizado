@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import UserStep from "./UserStep";
+import UserStep from './UserStep';
 
 export default UserStep;

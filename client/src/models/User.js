@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { orderBy } from "lodash";
-import { attr } from "redux-orm";
+import { orderBy } from 'lodash';
+import { attr } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import buildSearchParts from "../utils/build-search-parts";
-import ActionTypes from "../constants/ActionTypes";
-import { UserRoles } from "../constants/Enums";
+import BaseModel from './BaseModel';
+import buildSearchParts from '../utils/build-search-parts';
+import ActionTypes from '../constants/ActionTypes';
+import { UserRoles } from '../constants/Enums';
 
 const DEFAULT_EMAIL_UPDATE_FORM = {
   data: {
-    email: "",
-    currentPassword: "",
+    email: '',
+    currentPassword: '',
   },
   isSubmitting: false,
   error: null,
@@ -22,8 +22,8 @@ const DEFAULT_EMAIL_UPDATE_FORM = {
 
 const DEFAULT_PASSWORD_UPDATE_FORM = {
   data: {
-    password: "",
-    currentPassword: "",
+    password: '',
+    currentPassword: '',
   },
   isSubmitting: false,
   error: null,
@@ -31,8 +31,8 @@ const DEFAULT_PASSWORD_UPDATE_FORM = {
 
 const DEFAULT_USERNAME_UPDATE_FORM = {
   data: {
-    username: "",
-    currentPassword: "",
+    username: '',
+    currentPassword: '',
   },
   isSubmitting: false,
   error: null,
@@ -40,7 +40,7 @@ const DEFAULT_USERNAME_UPDATE_FORM = {
 
 const filterProjectModels = (projectModels, search, isHidden) => {
   let filteredProjectModels = projectModels.filter(
-    (projectModel) => projectModel.isHidden === isHidden,
+    (projectModel) => projectModel.isHidden === isHidden
   );
 
   if (filteredProjectModels.length > 0 && search) {
@@ -48,8 +48,8 @@ const filterProjectModels = (projectModels, search, isHidden) => {
 
     filteredProjectModels = filteredProjectModels.filter((projectModel) =>
       searchParts.every((searchPart) =>
-        projectModel.name.toLowerCase().includes(searchPart),
-      ),
+        projectModel.name.toLowerCase().includes(searchPart)
+      )
     );
   }
 
@@ -57,7 +57,7 @@ const filterProjectModels = (projectModels, search, isHidden) => {
 };
 
 export default class extends BaseModel {
-  static modelName = "User";
+  static modelName = 'User';
 
   static fields = {
     id: attr(),
@@ -310,21 +310,21 @@ export default class extends BaseModel {
   }
 
   static getAllQuerySet() {
-    return this.orderBy([({ name }) => name.toLowerCase(), "id.length", "id"]);
+    return this.orderBy([({ name }) => name.toLowerCase(), 'id.length', 'id']);
   }
 
   static getActiveQuerySet() {
     return this.filter({
       isDeactivated: false,
-    }).orderBy([({ name }) => name.toLowerCase(), "id.length", "id"]);
+    }).orderBy([({ name }) => name.toLowerCase(), 'id.length', 'id']);
   }
 
   getProjectManagersQuerySet() {
-    return this.projectManagers.orderBy(["id.length", "id"]);
+    return this.projectManagers.orderBy(['id.length', 'id']);
   }
 
   getBoardMembershipsQuerySet() {
-    return this.boardMemberships.orderBy(["id.length", "id"]);
+    return this.boardMemberships.orderBy(['id.length', 'id']);
   }
 
   getUnreadNotificationsQuerySet() {
@@ -332,11 +332,11 @@ export default class extends BaseModel {
       .filter({
         isRead: false,
       })
-      .orderBy(["id.length", "id"], ["desc", "desc"]);
+      .orderBy(['id.length', 'id'], ['desc', 'desc']);
   }
 
   getNotificationServicesQuerySet() {
-    return this.notificationServices.orderBy(["id.length", "id"]);
+    return this.notificationServices.orderBy(['id.length', 'id']);
   }
 
   getManagerProjectsModelArray() {
@@ -367,7 +367,7 @@ export default class extends BaseModel {
       (projectModel) => {
         projectIds.push(projectModel.id);
         return projectModel;
-      },
+      }
     );
 
     const membershipProjectModels =
@@ -423,7 +423,7 @@ export default class extends BaseModel {
     let projectModels = this.getProjectsModelArray();
 
     projectModels = projectModels.filter(
-      (projectModel) => !projectModel.isHidden && projectModel.isFavorite,
+      (projectModel) => !projectModel.isHidden && projectModel.isFavorite
     );
 
     if (orderByArgs) {
@@ -441,13 +441,13 @@ export default class extends BaseModel {
         let filteredProjectModels = filterProjectModels(
           projectModels,
           search,
-          isHidden,
+          isHidden
         );
 
         if (orderByArgs) {
           filteredProjectModels = orderBy(
             filteredProjectModels,
-            ...orderByArgs,
+            ...orderByArgs
           );
         }
 
@@ -456,7 +456,7 @@ export default class extends BaseModel {
           [key]: filteredProjectModels,
         };
       },
-      {},
+      {}
     );
   }
 

@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import { Icon, Button } from "semantic-ui-react";
-import { usePopup } from "../../../lib/popup";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Icon, Button } from 'semantic-ui-react';
+import { usePopup } from '../../../lib/popup';
 
-import { BoardMembershipRoleIcons } from "../../../constants/Icons";
-import GroupItemsStep from "./GroupItemsStep";
-import ActionsStep from "./ActionsStep";
-import UserAvatar from "../../users/UserAvatar";
+import { BoardMembershipRoleIcons } from '../../../constants/Icons';
+import GroupItemsStep from './GroupItemsStep';
+import ActionsStep from './ActionsStep';
+import UserAvatar from '../../users/UserAvatar';
 
-import styles from "./Group.module.scss";
+import styles from './Group.module.scss';
 
 const MAX_MEMBERS = 6;
 

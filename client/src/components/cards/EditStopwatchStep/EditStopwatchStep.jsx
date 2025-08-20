@@ -3,34 +3,34 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from "dequal";
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form } from "semantic-ui-react";
-import { useDidUpdate, useToggle } from "../../../lib/hooks";
-import { Input, Popup } from "../../../lib/custom-ui";
+import { dequal } from 'dequal';
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form } from 'semantic-ui-react';
+import { useDidUpdate, useToggle } from '../../../lib/hooks';
+import { Input, Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useForm, useNestedRef } from "../../../hooks";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useForm, useNestedRef } from '../../../hooks';
 import {
   createStopwatch,
   getStopwatchParts,
   startStopwatch,
   stopStopwatch,
   updateStopwatch,
-} from "../../../utils/stopwatch";
+} from '../../../utils/stopwatch';
 
-import styles from "./EditStopwatchStep.module.scss";
+import styles from './EditStopwatchStep.module.scss';
 
 const createData = (stopwatch) => {
   if (!stopwatch) {
     return {
-      hours: "0",
-      minutes: "0",
-      seconds: "0",
+      hours: '0',
+      minutes: '0',
+      seconds: '0',
     };
   }
 
@@ -47,29 +47,29 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
   const defaultValue = useSelector(
-    (state) => selectCardById(state, cardId).stopwatch,
+    (state) => selectCardById(state, cardId).stopwatch
   );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
   const [data, handleFieldChange, setData] = useForm(() =>
-    createData(defaultValue),
+    createData(defaultValue)
   );
   const [isEditing, toggleEditing] = useToggle();
 
-  const [hoursFieldRef, handleHoursFieldRef] = useNestedRef("inputRef");
-  const [minutesFieldRef, handleMinutesFieldRef] = useNestedRef("inputRef");
-  const [secondsFieldRef, handleSecondsFieldRef] = useNestedRef("inputRef");
+  const [hoursFieldRef, handleHoursFieldRef] = useNestedRef('inputRef');
+  const [minutesFieldRef, handleMinutesFieldRef] = useNestedRef('inputRef');
+  const [secondsFieldRef, handleSecondsFieldRef] = useNestedRef('inputRef');
 
   const update = useCallback(
     (stopwatch) => {
       dispatch(
         entryActions.updateCard(cardId, {
           stopwatch,
-        }),
+        })
       );
     },
-    [cardId, dispatch],
+    [cardId, dispatch]
   );
 
   const handleSubmit = useCallback(() => {
@@ -144,15 +144,15 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t("common.editStopwatch", {
-          context: "title",
+        {t('common.editStopwatch', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
           <div className={styles.fieldWrapper}>
             <div className={styles.fieldBox}>
-              <div className={styles.text}>{t("common.hours")}</div>
+              <div className={styles.text}>{t('common.hours')}</div>
               <Input.Mask
                 ref={handleHoursFieldRef}
                 name="hours"
@@ -164,7 +164,7 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
               />
             </div>
             <div className={styles.fieldBox}>
-              <div className={styles.text}>{t("common.minutes")}</div>
+              <div className={styles.text}>{t('common.minutes')}</div>
               <Input.Mask
                 ref={handleMinutesFieldRef}
                 name="minutes"
@@ -176,7 +176,7 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
               />
             </div>
             <div className={styles.fieldBox}>
-              <div className={styles.text}>{t("common.seconds")}</div>
+              <div className={styles.text}>{t('common.seconds')}</div>
               <Input.Mask
                 ref={handleSecondsFieldRef}
                 name="seconds"
@@ -189,32 +189,32 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
             </div>
             <Button
               type="button"
-              icon={isEditing ? "close" : "edit"}
+              icon={isEditing ? 'close' : 'edit'}
               className={styles.iconButton}
               onClick={handleToggleEditingClick}
             />
           </div>
-          {isEditing && <Button positive content={t("action.save")} />}
+          {isEditing && <Button positive content={t('action.save')} />}
         </Form>
         {!isEditing &&
           (defaultValue && defaultValue.startedAt ? (
             <Button
               positive
-              content={t("action.stop")}
+              content={t('action.stop')}
               icon="pause"
               onClick={handleStopClick}
             />
           ) : (
             <Button
               positive
-              content={t("action.start")}
+              content={t('action.start')}
               icon="play"
               onClick={handleStartClick}
             />
           ))}
         <Button
           negative
-          content={t("action.remove")}
+          content={t('action.remove')}
           className={styles.deleteButton}
           onClick={handleClearClick}
         />

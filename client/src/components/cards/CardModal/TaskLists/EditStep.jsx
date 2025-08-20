@@ -3,34 +3,34 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from "dequal";
-import React, { useCallback, useMemo, useRef } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form } from "semantic-ui-react";
-import { Popup } from "../../../../lib/custom-ui";
+import { dequal } from 'dequal';
+import React, { useCallback, useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form } from 'semantic-ui-react';
+import { Popup } from '../../../../lib/custom-ui';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useForm, useSteps } from "../../../../hooks";
-import ConfirmationStep from "../../../common/ConfirmationStep";
-import TaskListEditor from "../../../task-lists/TaskListEditor";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useForm, useSteps } from '../../../../hooks';
+import ConfirmationStep from '../../../common/ConfirmationStep';
+import TaskListEditor from '../../../task-lists/TaskListEditor';
 
-import styles from "./EditStep.module.scss";
+import styles from './EditStep.module.scss';
 
 const StepTypes = {
-  DELETE: "DELETE",
+  DELETE: 'DELETE',
 };
 
 const EditStep = React.memo(({ taskListId, onClose }) => {
   const selectTaskListById = useMemo(
     () => selectors.makeSelectTaskListById(),
-    [],
+    []
   );
 
   const taskList = useSelector((state) =>
-    selectTaskListById(state, taskListId),
+    selectTaskListById(state, taskListId)
   );
 
   const dispatch = useDispatch();
@@ -41,12 +41,12 @@ const EditStep = React.memo(({ taskListId, onClose }) => {
       name: taskList.name,
       showOnFrontOfCard: taskList.showOnFrontOfCard,
     }),
-    [taskList.name, taskList.showOnFrontOfCard],
+    [taskList.name, taskList.showOnFrontOfCard]
   );
 
   const [data, handleFieldChange] = useForm(() => ({
-    name: t("common.taskList", {
-      context: "title",
+    name: t('common.taskList', {
+      context: 'title',
     }),
     showOnFrontOfCard: true,
     ...defaultData,
@@ -97,8 +97,8 @@ const EditStep = React.memo(({ taskListId, onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.taskListActions", {
-          context: "title",
+        {t('common.taskListActions', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -108,10 +108,10 @@ const EditStep = React.memo(({ taskListId, onClose }) => {
             data={data}
             onFieldChange={handleFieldChange}
           />
-          <Button positive content={t("action.save")} />
+          <Button positive content={t('action.save')} />
         </Form>
         <Button
-          content={t("action.delete")}
+          content={t('action.delete')}
           className={styles.deleteButton}
           onClick={handleDeleteClick}
         />

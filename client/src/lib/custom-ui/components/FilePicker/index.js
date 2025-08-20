@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import FilePicker from "./FilePicker";
+import FilePicker from './FilePicker';
 
 export default FilePicker;

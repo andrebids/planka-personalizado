@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* createCustomFieldGroupInBoard(boardId, data) {
   const localId = yield call(createLocalId);
@@ -18,7 +18,7 @@ export function* createCustomFieldGroupInBoard(boardId, data) {
     ...data,
     position: yield select(
       selectors.selectNextCustomFieldGroupPositionInBoard,
-      boardId,
+      boardId
     ),
   };
 
@@ -27,7 +27,7 @@ export function* createCustomFieldGroupInBoard(boardId, data) {
       ...nextData,
       boardId,
       id: localId,
-    }),
+    })
   );
 
   let customFieldGroup;
@@ -36,7 +36,7 @@ export function* createCustomFieldGroupInBoard(boardId, data) {
       request,
       api.createCustomFieldGroupInBoard,
       boardId,
-      nextData,
+      nextData
     ));
   } catch (error) {
     yield put(actions.createCustomFieldGroup.failure(localId, error));
@@ -59,7 +59,7 @@ export function* createCustomFieldGroupInCard(cardId, data) {
     ...data,
     position: yield select(
       selectors.selectNextCustomFieldGroupPositionInCard,
-      cardId,
+      cardId
     ),
   };
 
@@ -68,7 +68,7 @@ export function* createCustomFieldGroupInCard(cardId, data) {
       ...nextData,
       cardId,
       id: localId,
-    }),
+    })
   );
 
   let customFieldGroup;
@@ -77,7 +77,7 @@ export function* createCustomFieldGroupInCard(cardId, data) {
       request,
       api.createCustomFieldGroupInCard,
       cardId,
-      nextData,
+      nextData
     ));
   } catch (error) {
     yield put(actions.createCustomFieldGroup.failure(localId, error));
@@ -106,7 +106,7 @@ export function* updateCustomFieldGroup(id, data) {
       request,
       api.updateCustomFieldGroup,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateCustomFieldGroup.failure(id, error));
@@ -123,7 +123,7 @@ export function* handleCustomFieldGroupUpdate(customFieldGroup) {
 export function* moveCustomFieldGroup(id, index) {
   const customFieldGroup = yield select(
     selectors.selectCustomFieldGroupById,
-    id,
+    id
   );
 
   let position;
@@ -132,14 +132,14 @@ export function* moveCustomFieldGroup(id, index) {
       selectors.selectNextCustomFieldGroupPositionInBoard,
       customFieldGroup.boardId,
       index,
-      id,
+      id
     );
   } else if (customFieldGroup.cardId) {
     position = yield select(
       selectors.selectNextCustomFieldGroupPositionInCard,
       customFieldGroup.cardId,
       index,
-      id,
+      id
     );
   }
 
@@ -156,7 +156,7 @@ export function* deleteCustomFieldGroup(id) {
     ({ item: customFieldGroup } = yield call(
       request,
       api.deleteCustomFieldGroup,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.deleteCustomFieldGroup.failure(id, error));

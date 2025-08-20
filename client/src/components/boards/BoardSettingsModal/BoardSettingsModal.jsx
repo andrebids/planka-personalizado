@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Tab } from "semantic-ui-react";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Tab } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useClosableModal } from "../../../hooks";
-import GeneralPane from "./GeneralPane";
-import PreferencesPane from "./PreferencesPane";
-import NotificationsPane from "./NotificationsPane";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useClosableModal } from '../../../hooks';
+import GeneralPane from './GeneralPane';
+import PreferencesPane from './PreferencesPane';
+import NotificationsPane from './NotificationsPane';
 
 const BoardSettingsModal = React.memo(() => {
   const openPreferences = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.openPreferences,
+    (state) => selectors.selectCurrentModal(state).params.openPreferences
   );
 
   const dispatch = useDispatch();
@@ -31,20 +31,20 @@ const BoardSettingsModal = React.memo(() => {
 
   const panes = [
     {
-      menuItem: t("common.general", {
-        context: "title",
+      menuItem: t('common.general', {
+        context: 'title',
       }),
       render: () => <GeneralPane />,
     },
     {
-      menuItem: t("common.preferences", {
-        context: "title",
+      menuItem: t('common.preferences', {
+        context: 'title',
       }),
       render: () => <PreferencesPane />,
     },
     {
-      menuItem: t("common.notifications", {
-        context: "title",
+      menuItem: t('common.notifications', {
+        context: 'title',
       }),
       render: () => <NotificationsPane />,
     },

@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 
-import Config from "../constants/Config";
+import Config from '../constants/Config';
 
 export const setAccessToken = (accessToken) => {
   const { exp } = jwtDecode(accessToken);
@@ -14,8 +14,8 @@ export const setAccessToken = (accessToken) => {
 
   Cookies.set(Config.ACCESS_TOKEN_KEY, accessToken, {
     expires,
-    secure: window.location.protocol === "https:",
-    sameSite: "strict",
+    secure: window.location.protocol === 'https:',
+    sameSite: 'strict',
   });
 
   Cookies.set(Config.ACCESS_TOKEN_VERSION_KEY, Config.ACCESS_TOKEN_VERSION, {

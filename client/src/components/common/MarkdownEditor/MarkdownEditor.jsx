@@ -3,22 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React, { useCallback, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import {
   useMarkdownEditor,
   wysiwygToolbarConfigs,
   MarkdownEditorView,
-} from "@gravity-ui/markdown-editor";
+} from '@gravity-ui/markdown-editor';
 /* eslint-disable import/no-unresolved */
-import { full as toolbarsPreset } from "@gravity-ui/markdown-editor/_/modules/toolbars/presets";
-import { ActionName } from "@gravity-ui/markdown-editor/_/bundle/config/action-names";
+import { full as toolbarsPreset } from '@gravity-ui/markdown-editor/_/modules/toolbars/presets';
+import { ActionName } from '@gravity-ui/markdown-editor/_/bundle/config/action-names';
 /* eslint-enable import/no-unresolved */
 
-import { EditorModes } from "../../../constants/Enums";
+import { EditorModes } from '../../../constants/Enums';
 
-import styles from "./MarkdownEditor.module.scss";
+import styles from './MarkdownEditor.module.scss';
 
 const removedActionNamesSet = new Set([
   ActionName.checkbox,
@@ -33,14 +33,14 @@ removedActionNamesSet.forEach((actionName) => {
   Object.entries(toolbarsPreset.orders).forEach(([orderName, order]) => {
     order.forEach((actions, actionsIndex) => {
       toolbarsPreset.orders[orderName][actionsIndex] = actions.filter(
-        (action) => action.id || action !== actionName,
+        (action) => action.id || action !== actionName
       );
     });
   });
 });
 
 const commandMenuActions = wysiwygToolbarConfigs.wCommandMenuConfig.filter(
-  (action) => !removedActionNamesSet.has(action.id),
+  (action) => !removedActionNamesSet.has(action.id)
 );
 
 export const fileToBase64Data = (file) =>
@@ -68,7 +68,7 @@ const MarkdownEditor = React.forwardRef(
       onModeChange,
       ...props
     },
-    ref,
+    ref
   ) => {
     const wrapperRef = useRef(null);
 
@@ -76,13 +76,13 @@ const MarkdownEditor = React.forwardRef(
       (element) => {
         wrapperRef.current = element;
 
-        if (typeof ref === "function") {
+        if (typeof ref === 'function') {
           ref(element);
         } else if (ref) {
           ref.current = element; // eslint-disable-line no-param-reassign
         }
       },
-      [ref],
+      [ref]
     );
 
     const editor = useMarkdownEditor({
@@ -125,16 +125,16 @@ const MarkdownEditor = React.forwardRef(
         }
       };
 
-      editor.on("change", handleChange);
-      editor.on("submit", handleSubmit);
-      editor.on("cancel", handleCancel);
-      editor.on("change-editor-mode", handleModeChange);
+      editor.on('change', handleChange);
+      editor.on('submit', handleSubmit);
+      editor.on('cancel', handleCancel);
+      editor.on('change-editor-mode', handleModeChange);
 
       return () => {
-        editor.off("change", handleChange);
-        editor.off("submit", handleSubmit);
-        editor.off("cancel", handleCancel);
-        editor.off("change-editor-mode", handleModeChange);
+        editor.off('change', handleChange);
+        editor.off('submit', handleSubmit);
+        editor.off('cancel', handleCancel);
+        editor.off('change-editor-mode', handleModeChange);
       };
     }, [onChange, onSubmit, onCancel, onModeChange, editor]);
 
@@ -145,10 +145,10 @@ const MarkdownEditor = React.forwardRef(
         event.stopPropagation();
       };
 
-      wrapperElement.addEventListener("paste", handlePaste);
+      wrapperElement.addEventListener('paste', handlePaste);
 
       return () => {
-        wrapperElement.removeEventListener("paste", handlePaste);
+        wrapperElement.removeEventListener('paste', handlePaste);
       };
     }, []);
 
@@ -167,7 +167,7 @@ const MarkdownEditor = React.forwardRef(
         />
       </div>
     );
-  },
+  }
 );
 
 MarkdownEditor.propTypes = {

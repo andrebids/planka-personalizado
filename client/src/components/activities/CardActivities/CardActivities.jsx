@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import { Comment, Loader } from "semantic-ui-react";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
+import { Comment, Loader } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import Item from "./Item";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import Item from './Item';
 
-import styles from "./CardActivities.module.scss";
+import styles from './CardActivities.module.scss';
 
 const CardActivities = React.memo(() => {
   const activityIds = useSelector(selectors.selectActivityIdsForCurrentCard);
   const { isActivitiesFetching, isAllActivitiesFetched } = useSelector(
-    selectors.selectCurrentCard,
+    selectors.selectCurrentCard
   );
 
   const dispatch = useDispatch();

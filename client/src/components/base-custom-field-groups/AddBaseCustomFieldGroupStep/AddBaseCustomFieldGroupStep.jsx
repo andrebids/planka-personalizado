@@ -3,27 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form } from "semantic-ui-react";
-import { Input, Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form } from 'semantic-ui-react';
+import { Input, Popup } from '../../../lib/custom-ui';
 
-import entryActions from "../../../entry-actions";
-import { useForm, useNestedRef } from "../../../hooks";
+import entryActions from '../../../entry-actions';
+import { useForm, useNestedRef } from '../../../hooks';
 
-import styles from "./AddBaseCustomFieldGroupStep.module.scss";
+import styles from './AddBaseCustomFieldGroupStep.module.scss';
 
 const AddBaseCustomFieldGroupStep = React.memo(({ onClose }) => {
   const dispatch = useDispatch();
   const [t] = useTranslation();
 
   const [data, handleFieldChange] = useForm({
-    name: "",
+    name: '',
   });
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
 
   const handleSubmit = useCallback(() => {
     const cleanData = {
@@ -37,7 +37,7 @@ const AddBaseCustomFieldGroupStep = React.memo(({ onClose }) => {
     }
 
     dispatch(
-      entryActions.createBaseCustomFieldGroupInCurrentProject(cleanData),
+      entryActions.createBaseCustomFieldGroupInCurrentProject(cleanData)
     );
     onClose();
   }, [onClose, dispatch, data, nameFieldRef]);
@@ -51,13 +51,13 @@ const AddBaseCustomFieldGroupStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.createCustomFieldGroup", {
-          context: "title",
+        {t('common.createCustomFieldGroup', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t("common.title")}</div>
+          <div className={styles.text}>{t('common.title')}</div>
           <Input
             fluid
             ref={handleNameFieldRef}
@@ -67,7 +67,7 @@ const AddBaseCustomFieldGroupStep = React.memo(({ onClose }) => {
             className={styles.field}
             onChange={handleFieldChange}
           />
-          <Button positive content={t("action.createCustomFieldGroup")} />
+          <Button positive content={t('action.createCustomFieldGroup')} />
         </Form>
       </Popup.Content>
     </>

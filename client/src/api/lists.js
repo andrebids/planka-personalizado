@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from "lodash/omit";
+import omit from 'lodash/omit';
 
-import socket from "./socket";
-import { transformCard } from "./cards";
-import { transformAttachment } from "./attachments";
-import { transformActivity } from "./activities";
+import socket from './socket';
+import { transformCard } from './cards';
+import { transformAttachment } from './attachments';
+import { transformActivity } from './activities';
 
 /* Actions */
 
@@ -41,7 +41,7 @@ const moveListCards = (id, data, headers) =>
   socket.post(`/lists/${id}/move-cards`, data, headers).then((body) => ({
     ...body,
     included: {
-      ...omit(body.included, "actions"),
+      ...omit(body.included, 'actions'),
       cards: body.included.cards.map(transformCard),
       activities: body.included.actions.map(transformActivity),
     },

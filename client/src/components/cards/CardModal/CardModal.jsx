@@ -3,23 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from "react";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { push } from "../../../lib/redux-router";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { push } from '../../../lib/redux-router';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useClosableModal } from "../../../hooks";
-import { isListArchiveOrTrash } from "../../../utils/record-helpers";
-import { isActiveTextElement } from "../../../utils/element-helpers";
-import Paths from "../../../constants/Paths";
-import { BoardMembershipRoles, CardTypes } from "../../../constants/Enums";
-import ProjectContent from "./ProjectContent";
-import StoryContent from "./StoryContent";
-import AddAttachmentZone from "./AddAttachmentZone";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useClosableModal } from '../../../hooks';
+import { isListArchiveOrTrash } from '../../../utils/record-helpers';
+import { isActiveTextElement } from '../../../utils/element-helpers';
+import Paths from '../../../constants/Paths';
+import { BoardMembershipRoles, CardTypes } from '../../../constants/Enums';
+import ProjectContent from './ProjectContent';
+import StoryContent from './StoryContent';
+import AddAttachmentZone from './AddAttachmentZone';
 
-import styles from "./CardModal.module.scss";
+import styles from './CardModal.module.scss';
 
 const DIRECTION_BY_KEY = {
   ArrowLeft: -1,
@@ -48,7 +48,7 @@ const CardModal = React.memo(() => {
   const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
-    dispatch(push(Paths.BOARDS.replace(":id", card.boardId)));
+    dispatch(push(Paths.BOARDS.replace(':id', card.boardId)));
   }, [card.boardId, dispatch]);
 
   const [ClosableModal, isClosableActiveRef] = useClosableModal();
@@ -71,10 +71,10 @@ const CardModal = React.memo(() => {
       dispatch(entryActions.goToAdjacentCard(DIRECTION_BY_KEY[event.key]));
     };
 
-    document.addEventListener("keydown", handleKeydown);
+    document.addEventListener('keydown', handleKeydown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeydown);
+      document.removeEventListener('keydown', handleKeydown);
     };
   }, [card, dispatch, isClosableActiveRef]);
 
@@ -97,7 +97,7 @@ const CardModal = React.memo(() => {
       centered={false}
       className={classNames(
         styles.wrapper,
-        card.type === CardTypes.STORY && styles.wrapperStory,
+        card.type === CardTypes.STORY && styles.wrapperStory
       )}
       onClose={handleClose}
     >

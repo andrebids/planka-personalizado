@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
-import { Button } from "semantic-ui-react";
+import React, { useCallback, useMemo } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
+import { Button } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
+import selectors from '../../../selectors';
 
-import styles from "./Item.module.scss";
+import styles from './Item.module.scss';
 
 const Item = React.memo(({ id, index, onEdit }) => {
   const selectCustomFieldGroupById = useMemo(
     () => selectors.makeSelectCustomFieldGroupById(),
-    [],
+    []
   );
 
   const customFieldGroup = useSelector((state) =>
-    selectCustomFieldGroupById(state, id),
+    selectCustomFieldGroupById(state, id)
   );
 
   const handleEditClick = useCallback(() => {

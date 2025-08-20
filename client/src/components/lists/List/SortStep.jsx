@@ -3,23 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Menu } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Menu } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import entryActions from "../../../entry-actions";
-import { ListSortFieldNames, SortOrders } from "../../../constants/Enums";
+import entryActions from '../../../entry-actions';
+import { ListSortFieldNames, SortOrders } from '../../../constants/Enums';
 
-import styles from "./ActionsStep.module.scss";
+import styles from './ActionsStep.module.scss';
 
 const Types = {
-  ALPHABETICALLY: "alphabetically",
-  BY_DUE_DATE: "byDueDate",
-  OLDEST_FIRST: "oldestFirst",
-  NEWEST_FIRST: "newestFirst",
+  ALPHABETICALLY: 'alphabetically',
+  BY_DUE_DATE: 'byDueDate',
+  OLDEST_FIRST: 'oldestFirst',
+  NEWEST_FIRST: 'newestFirst',
 };
 
 const DATA_BY_TYPE = {
@@ -47,14 +47,14 @@ const SortStep = React.memo(({ listId, onBack, onClose }) => {
       dispatch(entryActions.sortList(listId, DATA_BY_TYPE[type]));
       onClose();
     },
-    [listId, onClose, dispatch],
+    [listId, onClose, dispatch]
   );
 
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t("common.sortList", {
-          context: "title",
+        {t('common.sortList', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>

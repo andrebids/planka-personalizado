@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import socket from "./socket";
+import socket from './socket';
 
 /* Actions */
 
@@ -12,24 +12,24 @@ const updateCustomFieldValue = (
   customFieldGroupId,
   customFieldId,
   data,
-  headers,
+  headers
 ) =>
   socket.patch(
     `/cards/${cardId}/custom-field-values/customFieldGroupId:${customFieldGroupId}:customFieldId:${customFieldId}`,
     data,
-    headers,
+    headers
   );
 
 const deleteCustomFieldValue = (
   cardId,
   customFieldGroupId,
   customFieldId,
-  headers,
+  headers
 ) =>
   socket.delete(
     `/cards/${cardId}/custom-field-values/customFieldGroupId:${customFieldGroupId}:customFieldId:${customFieldId}`,
     undefined,
-    headers,
+    headers
   );
 
 export default {

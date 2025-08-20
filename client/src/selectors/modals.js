@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { selectPath } from "./router";
-import { selectCurrentUserId } from "./users";
-import { isUserAdminOrProjectOwner } from "../utils/record-helpers";
-import ModalTypes from "../constants/ModalTypes";
-import { UserRoles } from "../constants/Enums";
+import orm from '../orm';
+import { selectPath } from './router';
+import { selectCurrentUserId } from './users';
+import { isUserAdminOrProjectOwner } from '../utils/record-helpers';
+import ModalTypes from '../constants/ModalTypes';
+import { UserRoles } from '../constants/Enums';
 
 export const selectCurrentModal = ({ core: { modal } }) => modal;
 
@@ -56,7 +56,7 @@ export const isCurrentModalAvailableForCurrentUser = createSelector(
     }
 
     return true;
-  },
+  }
 );
 
 export default {

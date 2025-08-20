@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* createNotificationServiceInCurrentUser(data) {
   const localId = yield call(createLocalId);
@@ -20,7 +20,7 @@ export function* createNotificationServiceInCurrentUser(data) {
       ...data,
       id: localId,
       userId: currentUserId,
-    }),
+    })
   );
 
   let notificationService;
@@ -29,7 +29,7 @@ export function* createNotificationServiceInCurrentUser(data) {
       request,
       api.createNotificationServiceInUser,
       currentUserId,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.createNotificationService.failure(localId, error));
@@ -37,7 +37,7 @@ export function* createNotificationServiceInCurrentUser(data) {
   }
 
   yield put(
-    actions.createNotificationService.success(localId, notificationService),
+    actions.createNotificationService.success(localId, notificationService)
   );
 }
 
@@ -49,7 +49,7 @@ export function* createNotificationServiceInBoard(boardId, data) {
       ...data,
       boardId,
       id: localId,
-    }),
+    })
   );
 
   let notificationService;
@@ -58,7 +58,7 @@ export function* createNotificationServiceInBoard(boardId, data) {
       request,
       api.createNotificationServiceInBoard,
       boardId,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.createNotificationService.failure(localId, error));
@@ -66,7 +66,7 @@ export function* createNotificationServiceInBoard(boardId, data) {
   }
 
   yield put(
-    actions.createNotificationService.success(localId, notificationService),
+    actions.createNotificationService.success(localId, notificationService)
   );
 }
 
@@ -83,7 +83,7 @@ export function* updateNotificationService(id, data) {
       request,
       api.updateNotificationService,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateNotificationService.failure(id, error));
@@ -105,7 +105,7 @@ export function* testNotificationService(id) {
     ({ item: notificationService } = yield call(
       request,
       api.testNotificationService,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.testNotificationService.failure(id, error));
@@ -123,7 +123,7 @@ export function* deleteNotificationService(id) {
     ({ item: notificationService } = yield call(
       request,
       api.deleteNotificationService,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.deleteNotificationService.failure(id, error));

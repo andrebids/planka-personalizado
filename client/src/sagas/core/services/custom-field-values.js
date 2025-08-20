@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put } from "redux-saga/effects";
+import { call, put } from 'redux-saga/effects';
 
-import request from "../request";
-import actions from "../../../actions";
-import api from "../../../api";
-import { buildCustomFieldValueId } from "../../../models/CustomFieldValue";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import actions from '../../../actions';
+import api from '../../../api';
+import { buildCustomFieldValueId } from '../../../models/CustomFieldValue';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* updateCustomFieldValue(
   cardId,
   customFieldGroupId,
   customFieldId,
-  data,
+  data
 ) {
   const localId = yield call(createLocalId);
 
@@ -25,7 +25,7 @@ export function* updateCustomFieldValue(
       cardId,
       customFieldGroupId,
       customFieldId,
-    }),
+    })
   );
 
   let customFieldValue;
@@ -36,7 +36,7 @@ export function* updateCustomFieldValue(
       cardId,
       customFieldGroupId,
       customFieldId,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateCustomFieldValue.failure(localId, error));
@@ -53,7 +53,7 @@ export function* handleCustomFieldValueUpdate(customFieldValue) {
 export function* deleteCustomFieldValue(
   cardId,
   customFieldGroupId,
-  customFieldId,
+  customFieldId
 ) {
   const id = buildCustomFieldValueId({
     cardId,
@@ -70,7 +70,7 @@ export function* deleteCustomFieldValue(
       api.deleteCustomFieldValue,
       cardId,
       customFieldGroupId,
-      customFieldId,
+      customFieldId
     ));
   } catch (error) {
     yield put(actions.deleteCustomFieldValue.failure(id, error));

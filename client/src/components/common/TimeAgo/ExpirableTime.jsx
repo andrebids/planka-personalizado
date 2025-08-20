@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import styles from "./ExpirableTime.module.scss";
+import styles from './ExpirableTime.module.scss';
 
 const DAY = 1000 * 60 * 60 * 24;
 
@@ -23,7 +23,7 @@ const ExpirableTime = React.memo(
     >
       {children}
     </time>
-  ),
+  )
 );
 
 ExpirableTime.propTypes = {

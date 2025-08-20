@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useEffect, useCallback } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Modal, Icon, Button } from "semantic-ui-react";
+import React, { useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Modal, Icon, Button } from 'semantic-ui-react';
 
-import { getFileType, canPreviewFile } from "../../../utils/fileTypeUtils";
-import ImagePreview from "./ImagePreview";
-import PdfPreview from "./PdfPreview";
+import { getFileType, canPreviewFile } from '../../../utils/fileTypeUtils';
+import ImagePreview from './ImagePreview';
+import PdfPreview from './PdfPreview';
 
-import styles from "./FilePreviewModal.module.scss";
+import styles from './FilePreviewModal.module.scss';
 
 const FilePreviewModal = ({ file, isOpen, onClose }) => {
   const [t] = useTranslation();
@@ -20,20 +20,20 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
   // Fechar modal com ESC
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener('keydown', handleKeyDown);
       // Prevenir scroll do body
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
 
@@ -43,7 +43,7 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
         onClose();
       }
     },
-    [onClose],
+    [onClose]
   );
 
   const handleClose = useCallback(() => {
@@ -76,7 +76,7 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
         <div className={styles.modalHeader}>
           <div className={styles.modalTitle}>
             <Icon name="eye" />
-            <span>{t("common.filePreview")}</span>
+            <span>{t('common.filePreview')}</span>
           </div>
 
           <div className={styles.modalActions}>
@@ -84,7 +84,7 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
               icon="close"
               size="mini"
               onClick={handleClose}
-              title={t("common.close")}
+              title={t('common.close')}
             />
           </div>
         </div>
@@ -102,20 +102,20 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
               <div className={styles.documentInfo}>
                 <Icon name="file text outline" size="huge" />
                 <h3>{file.name}</h3>
-                <p>{t("common.documentPreviewNotAvailable")}</p>
+                <p>{t('common.documentPreviewNotAvailable')}</p>
               </div>
 
               <div className={styles.documentActions}>
                 <Button
                   icon="external alternate"
-                  content={t("common.openInNewTab")}
-                  onClick={() => window.open(file.data.url, "_blank")}
+                  content={t('common.openInNewTab')}
+                  onClick={() => window.open(file.data.url, '_blank')}
                 />
                 <Button
                   icon="download"
-                  content={t("common.download")}
+                  content={t('common.download')}
                   onClick={() => {
-                    const link = document.createElement("a");
+                    const link = document.createElement('a');
                     link.href = file.data.url;
                     link.download = file.name;
                     link.click();

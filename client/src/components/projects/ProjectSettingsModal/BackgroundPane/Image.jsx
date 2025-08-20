@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { Button, Icon, Label } from "semantic-ui-react";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { Button, Icon, Label } from 'semantic-ui-react';
 
-import { usePopupInClosableContext } from "../../../../hooks";
-import ConfirmationStep from "../../../common/ConfirmationStep";
+import { usePopupInClosableContext } from '../../../../hooks';
+import ConfirmationStep from '../../../common/ConfirmationStep';
 
-import styles from "./Image.module.scss";
+import styles from './Image.module.scss';
 
 const Image = React.memo(
   ({ url, isActive, onSelect, onDeselect, onDelete }) => {
@@ -39,8 +39,8 @@ const Image = React.memo(
             corner="left"
             size="mini"
             icon={{
-              name: "checkmark",
-              color: "grey",
+              name: 'checkmark',
+              color: 'grey',
               inverted: true,
             }}
             className={styles.label}
@@ -60,7 +60,7 @@ const Image = React.memo(
         )}
       </div>
     );
-  },
+  }
 );
 
 Image.propTypes = {

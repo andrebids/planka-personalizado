@@ -3,26 +3,26 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import { Comment, Loader } from "semantic-ui-react";
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
+import { Comment, Loader } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { isListArchiveOrTrash } from "../../../utils/record-helpers";
-import { BoardMembershipRoles } from "../../../constants/Enums";
-import Item from "./Item";
-import Add from "./Add";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { isListArchiveOrTrash } from '../../../utils/record-helpers';
+import { BoardMembershipRoles } from '../../../constants/Enums';
+import Item from './Item';
+import Add from './Add';
 
-import styles from "./Comments.module.scss";
+import styles from './Comments.module.scss';
 
 const Comments = React.memo(() => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const commentIds = useSelector(selectors.selectCommentIdsForCurrentCard);
   const { isCommentsFetching, isAllCommentsFetched } = useSelector(
-    selectors.selectCurrentCard,
+    selectors.selectCurrentCard
   );
 
   const cadAdd = useSelector((state) => {

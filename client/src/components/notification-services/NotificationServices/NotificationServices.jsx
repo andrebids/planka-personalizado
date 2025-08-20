@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { Trans } from "react-i18next";
+import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { Trans } from 'react-i18next';
 import {
   Button,
   Dropdown,
@@ -14,17 +14,17 @@ import {
   Icon,
   Input,
   Message,
-} from "semantic-ui-react";
-import { useDidUpdate, useToggle } from "../../../lib/hooks";
+} from 'semantic-ui-react';
+import { useDidUpdate, useToggle } from '../../../lib/hooks';
 
-import { useEscapeInterceptor, useForm, useNestedRef } from "../../../hooks";
-import { NotificationServiceFormats } from "../../../constants/Enums";
-import Item from "./Item";
+import { useEscapeInterceptor, useForm, useNestedRef } from '../../../hooks';
+import { NotificationServiceFormats } from '../../../constants/Enums';
+import Item from './Item';
 
-import styles from "./NotificationServices.module.scss";
+import styles from './NotificationServices.module.scss';
 
 const DEFAULT_DATA = {
-  url: "",
+  url: '',
   format: NotificationServiceFormats.MARKDOWN,
 };
 
@@ -32,7 +32,7 @@ const NotificationServices = React.memo(({ ids, onCreate }) => {
   const [data, handleFieldChange, setData] = useForm(DEFAULT_DATA);
   const [focusUrlFieldState, focusUrlField] = useToggle();
 
-  const [urlFieldRef, handleUrlFieldRef] = useNestedRef("inputRef");
+  const [urlFieldRef, handleUrlFieldRef] = useNestedRef('inputRef');
 
   const handleUrlEscape = useCallback(() => {
     urlFieldRef.current.blur();
@@ -81,7 +81,7 @@ const NotificationServices = React.memo(({ ids, onCreate }) => {
     <>
       <Message>
         <Trans i18nKey="common.plankaUsesAppriseToSendNotificationsToOver100PopularServices">
-          {"PLANKA uses "}
+          {'PLANKA uses '}
           <a
             href="https://github.com/caronc/apprise/wiki"
             target="_blank"
@@ -89,7 +89,7 @@ const NotificationServices = React.memo(({ ids, onCreate }) => {
           >
             <b>Apprise</b>
           </a>
-          {" to send notifications to over 100 popular services."}
+          {' to send notifications to over 100 popular services.'}
         </Trans>
       </Message>
       {ids.map((id) => (

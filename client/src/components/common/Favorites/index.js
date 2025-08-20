@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Favorites from "./Favorites";
+import Favorites from './Favorites';
 
 export default Favorites;

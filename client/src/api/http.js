@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Config from "../constants/Config";
+import Config from '../constants/Config';
 
 const http = {};
 
 // TODO: add all methods
-["GET", "POST", "DELETE"].forEach((method) => {
+['GET', 'POST', 'DELETE'].forEach((method) => {
   http[method.toLowerCase()] = (url, data, headers) => {
     const formData =
       data &&
@@ -22,13 +22,13 @@ const http = {};
       method,
       headers,
       body: formData,
-      credentials: "include",
+      credentials: 'include',
     })
       .then((response) =>
         response.json().then((body) => ({
           body,
           isError: response.status !== 200,
-        })),
+        }))
       )
       .then(({ body, isError }) => {
         if (isError) {

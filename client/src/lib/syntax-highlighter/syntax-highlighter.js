@@ -3,9 +3,9 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import hljs from "highlight.js";
+import hljs from 'highlight.js';
 
-import { detectLanguagesByFilename, languageLoaders } from "./languages";
+import { detectLanguagesByFilename, languageLoaders } from './languages';
 
 const loadLanguages = async (languages) => {
   for (let i = 0; i < languages.length; i += 1) {
@@ -23,7 +23,7 @@ const highlight = (content, languages) =>
     ? hljs.highlight(content, { language: languages[0] })
     : hljs.highlightAuto(
         content,
-        languages.length === 0 ? undefined : languages,
+        languages.length === 0 ? undefined : languages
       );
 
 export default {

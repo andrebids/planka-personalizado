@@ -4,45 +4,45 @@
  */
 
 export const IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/gif",
-  "image/webp",
-  "image/bmp",
-  "image/svg+xml",
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+  'image/bmp',
+  'image/svg+xml',
 ];
 
 export const SUPPORTED_FILE_TYPES = [
   // Imagens
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/gif",
-  "image/webp",
-  "image/bmp",
-  "image/svg+xml",
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+  'image/bmp',
+  'image/svg+xml',
   // Documentos
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "application/vnd.ms-excel",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  "application/vnd.ms-powerpoint",
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   // Arquivos de design
-  "application/x-photoshop",
-  "image/vnd.adobe.photoshop",
-  "application/illustrator",
-  "image/vnd.adobe.illustrator",
-  "application/postscript",
-  "application/eps",
-  "application/x-illustrator",
+  'application/x-photoshop',
+  'image/vnd.adobe.photoshop',
+  'application/illustrator',
+  'image/vnd.adobe.illustrator',
+  'application/postscript',
+  'application/eps',
+  'application/x-illustrator',
   // Outros
-  "text/plain",
-  "text/csv",
-  "application/zip",
-  "application/x-rar-compressed",
+  'text/plain',
+  'text/csv',
+  'application/zip',
+  'application/x-rar-compressed',
 ];
 
 export const MAX_IMAGES_PER_DROP = 10;
@@ -53,45 +53,45 @@ export const isImageFile = (file) => {
 };
 
 export const isSupportedFile = (file) => {
-  console.log("🔍 Verificando arquivo:", file.name);
-  console.log("🔍 MIME type:", file.type);
-  console.log("🔍 Tamanho:", file.size);
+  console.log('🔍 Verificando arquivo:', file.name);
+  console.log('🔍 MIME type:', file.type);
+  console.log('🔍 Tamanho:', file.size);
 
   // Verificar por MIME type primeiro
   const isSupportedByMimeType = SUPPORTED_FILE_TYPES.includes(file.type);
-  console.log("🔍 É suportado por MIME type?", isSupportedByMimeType);
+  console.log('🔍 É suportado por MIME type?', isSupportedByMimeType);
 
   // Se não for suportado por MIME type, verificar por extensão
   if (!isSupportedByMimeType) {
-    const extension = file.name.toLowerCase().split(".").pop();
-    console.log("🔍 Extensão do arquivo:", extension);
+    const extension = file.name.toLowerCase().split('.').pop();
+    console.log('🔍 Extensão do arquivo:', extension);
 
     const supportedExtensions = [
-      "jpg",
-      "jpeg",
-      "png",
-      "gif",
-      "webp",
-      "bmp",
-      "svg",
-      "pdf",
-      "doc",
-      "docx",
-      "xls",
-      "xlsx",
-      "ppt",
-      "pptx",
-      "psd",
-      "ai",
-      "eps",
-      "txt",
-      "csv",
-      "zip",
-      "rar",
+      'jpg',
+      'jpeg',
+      'png',
+      'gif',
+      'webp',
+      'bmp',
+      'svg',
+      'pdf',
+      'doc',
+      'docx',
+      'xls',
+      'xlsx',
+      'ppt',
+      'pptx',
+      'psd',
+      'ai',
+      'eps',
+      'txt',
+      'csv',
+      'zip',
+      'rar',
     ];
 
     const isSupportedByExtension = supportedExtensions.includes(extension);
-    console.log("🔍 É suportado por extensão?", isSupportedByExtension);
+    console.log('🔍 É suportado por extensão?', isSupportedByExtension);
 
     return isSupportedByExtension;
   }
@@ -100,7 +100,7 @@ export const isSupportedFile = (file) => {
 };
 
 export const getFileNameWithoutExtension = (filename) => {
-  return filename.replace(/\.[^/.]+$/, "");
+  return filename.replace(/\.[^/.]+$/, '');
 };
 
 export const validateImageFiles = (files) => {

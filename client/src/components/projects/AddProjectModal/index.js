@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import AddProjectModal from "./AddProjectModal";
+import AddProjectModal from './AddProjectModal';
 
 export default AddProjectModal;

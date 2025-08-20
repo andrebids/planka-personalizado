@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 export const saveProjectsOrder = (order) => ({
   type: ActionTypes.PROJECTS_ORDER_SAVE,

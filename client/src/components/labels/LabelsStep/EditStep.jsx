@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from "dequal";
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import { dequal } from 'dequal';
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useForm, useSteps } from "../../../hooks";
-import LABEL_COLORS from "../../../constants/LabelColors";
-import Editor from "./Editor";
-import ConfirmationStep from "../../common/ConfirmationStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useForm, useSteps } from '../../../hooks';
+import LABEL_COLORS from '../../../constants/LabelColors';
+import Editor from './Editor';
+import ConfirmationStep from '../../common/ConfirmationStep';
 
-import styles from "./EditStep.module.scss";
+import styles from './EditStep.module.scss';
 
 const StepTypes = {
-  DELETE: "DELETE",
+  DELETE: 'DELETE',
 };
 
 const EditStep = React.memo(({ labelId, onBack }) => {
@@ -37,13 +37,13 @@ const EditStep = React.memo(({ labelId, onBack }) => {
       name: label.name,
       color: label.color,
     }),
-    [label.name, label.color],
+    [label.name, label.color]
   );
 
   const [data, handleFieldChange] = useForm(() => ({
     color: LABEL_COLORS[0],
     ...defaultData,
-    name: defaultData.name || "",
+    name: defaultData.name || '',
   }));
 
   const [step, openStep, handleBack] = useSteps();
@@ -84,18 +84,18 @@ const EditStep = React.memo(({ labelId, onBack }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t("common.editLabel", {
-          context: "title",
+        {t('common.editLabel', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
           <Editor data={data} onFieldChange={handleFieldChange} />
           <div className={styles.actions}>
-            <Button positive content={t("action.save")} />
+            <Button positive content={t('action.save')} />
             <Button
               type="button"
-              content={t("action.delete")}
+              content={t('action.delete')}
               className={styles.deleteButton}
               onClick={handleDeleteClick}
             />

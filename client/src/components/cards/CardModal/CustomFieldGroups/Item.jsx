@@ -3,30 +3,30 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { Button, Icon } from "semantic-ui-react";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 
-import selectors from "../../../../selectors";
-import { usePopupInClosableContext } from "../../../../hooks";
-import { isListArchiveOrTrash } from "../../../../utils/record-helpers";
-import { BoardMembershipRoles } from "../../../../constants/Enums";
-import CustomFieldGroup from "../../../custom-field-groups/CustomFieldGroup";
-import CustomFieldGroupStep from "../../../custom-field-groups/CustomFieldGroupStep";
+import selectors from '../../../../selectors';
+import { usePopupInClosableContext } from '../../../../hooks';
+import { isListArchiveOrTrash } from '../../../../utils/record-helpers';
+import { BoardMembershipRoles } from '../../../../constants/Enums';
+import CustomFieldGroup from '../../../custom-field-groups/CustomFieldGroup';
+import CustomFieldGroupStep from '../../../custom-field-groups/CustomFieldGroupStep';
 
-import styles from "./Item.module.scss";
+import styles from './Item.module.scss';
 
 const Item = React.memo(({ id, dragHandleProps }) => {
   const selectCustomFieldGroupById = useMemo(
     () => selectors.makeSelectCustomFieldGroupById(),
-    [],
+    []
   );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const customFieldGroup = useSelector((state) =>
-    selectCustomFieldGroupById(state, id),
+    selectCustomFieldGroupById(state, id)
   );
 
   const canEdit = useSelector((state) => {
@@ -59,7 +59,7 @@ const Item = React.memo(({ id, dragHandleProps }) => {
           <div
             className={classNames(
               styles.moduleHeader,
-              canEdit && styles.moduleHeaderEditable,
+              canEdit && styles.moduleHeaderEditable
             )}
           >
             {customFieldGroup.isPersisted && canEdit && (

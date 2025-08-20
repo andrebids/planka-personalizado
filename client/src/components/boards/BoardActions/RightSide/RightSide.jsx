@@ -3,20 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
-import { usePopup } from "../../../../lib/popup";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Icon } from 'semantic-ui-react';
+import { usePopup } from '../../../../lib/popup';
 
-import selectors from "../../../../selectors";
-import { selectIsTimelinePanelExpanded } from "../../../../selectors/timelinePanelSelectors";
-import entryActions from "../../../../entry-actions";
-import { BoardContexts, BoardViews } from "../../../../constants/Enums";
-import { BoardContextIcons, BoardViewIcons } from "../../../../constants/Icons";
-import ActionsStep from "./ActionsStep";
+import selectors from '../../../../selectors';
+import { selectIsTimelinePanelExpanded } from '../../../../selectors/timelinePanelSelectors';
+import entryActions from '../../../../entry-actions';
+import { BoardContexts, BoardViews } from '../../../../constants/Enums';
+import { BoardContextIcons, BoardViewIcons } from '../../../../constants/Icons';
+import ActionsStep from './ActionsStep';
 
-import styles from "./RightSide.module.scss";
+import styles from './RightSide.module.scss';
 
 const RightSide = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
@@ -29,14 +29,14 @@ const RightSide = React.memo(() => {
     ({ currentTarget: { value: view } }) => {
       dispatch(entryActions.updateViewInCurrentBoard(view));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleTimelineClick = useCallback(() => {
     dispatch(entryActions.toggleTimelinePanel());
   }, [dispatch]);
 
-  const ActionsPopup = usePopup(ActionsStep, { variantClass: "glass" });
+  const ActionsPopup = usePopup(ActionsStep, { variantClass: 'glass' });
 
   const views = [BoardViews.GRID, BoardViews.LIST];
   if (board.context === BoardContexts.BOARD) {
@@ -66,7 +66,7 @@ const RightSide = React.memo(() => {
           type="button"
           className={styles.button}
           onClick={handleTimelineClick}
-          aria-label={t("action.openActivityHistory")}
+          aria-label={t('action.openActivityHistory')}
         >
           <Icon fitted name="history" />
         </button>

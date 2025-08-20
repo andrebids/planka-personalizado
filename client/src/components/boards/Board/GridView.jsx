@@ -3,23 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import { useTranslation } from "react-i18next";
-import { Button, Loader } from "semantic-ui-react";
-import { useWindowWidth } from "../../../lib/hooks";
-import { Masonry } from "../../../lib/custom-ui";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
+import { useTranslation } from 'react-i18next';
+import { Button, Loader } from 'semantic-ui-react';
+import { useWindowWidth } from '../../../lib/hooks';
+import { Masonry } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import { selectIsTimelinePanelExpanded } from "../../../selectors/timelinePanelSelectors";
-import { BoardMembershipRoles } from "../../../constants/Enums";
-import Card from "../../cards/Card";
-import AddCard from "../../cards/AddCard";
-import PlusMathIcon from "../../../assets/images/plus-math-icon.svg?react";
+import selectors from '../../../selectors';
+import { selectIsTimelinePanelExpanded } from '../../../selectors/timelinePanelSelectors';
+import { BoardMembershipRoles } from '../../../constants/Enums';
+import Card from '../../cards/Card';
+import AddCard from '../../cards/AddCard';
+import PlusMathIcon from '../../../assets/images/plus-math-icon.svg?react';
 
-import styles from "./GridView.module.scss";
+import styles from './GridView.module.scss';
 
 const GridView = React.memo(
   ({
@@ -86,8 +86,8 @@ const GridView = React.memo(
                 <PlusMathIcon className={styles.addCardButtonIcon} />
                 <span className={styles.addCardButtonText}>
                   {onCardCreate
-                    ? t("action.addCard")
-                    : t("common.atLeastOneListMustBePresent")}
+                    ? t('action.addCard')
+                    : t('common.atLeastOneListMustBePresent')}
                 </span>
               </Button>
             ))}
@@ -108,7 +108,7 @@ const GridView = React.memo(
         )}
       </div>
     );
-  },
+  }
 );
 
 GridView.propTypes = {

@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { selectRecentCardId } from "./core";
-import { selectPath } from "./router";
-import { selectCurrentUserId } from "./users";
-import { buildCustomFieldValueId } from "../models/CustomFieldValue";
-import { isLocalId } from "../utils/local-id";
+import orm from '../orm';
+import { selectRecentCardId } from './core';
+import { selectPath } from './router';
+import { selectCurrentUserId } from './users';
+import { buildCustomFieldValueId } from '../models/CustomFieldValue';
+import { isLocalId } from '../utils/local-id';
 
 export const makeSelectCardById = () =>
   createSelector(
@@ -27,7 +27,7 @@ export const makeSelectCardById = () =>
         ...cardModel.ref,
         isPersisted: !isLocalId(id),
       };
-    },
+    }
   );
 
 export const selectCardById = makeSelectCardById();
@@ -46,7 +46,7 @@ export const makeSelectCardIndexById = () =>
       return cardModel.list
         .getCardsModelArray()
         .findIndex((cardModelItem) => cardModelItem.id === cardModel.id);
-    },
+    }
   );
 
 export const selectCardIndexById = makeSelectCardIndexById();
@@ -63,7 +63,7 @@ export const makeSelectUserIdsByCardId = () =>
       }
 
       return cardModel.users.toRefArray().map((user) => user.id);
-    },
+    }
   );
 
 export const selectUserIdsByCardId = makeSelectUserIdsByCardId();
@@ -80,7 +80,7 @@ export const makeSelectLabelIdsByCardId = () =>
       }
 
       return cardModel.labels.toRefArray().map((label) => label.id);
-    },
+    }
   );
 
 export const selectLabelIdsByCardId = makeSelectLabelIdsByCardId();
@@ -99,7 +99,7 @@ export const makeSelectShownOnFrontOfCardTaskListIdsByCardId = () =>
       return cardModel
         .getShownOnFrontOfCardTaskListsModelArray()
         .map((taskList) => taskList.id);
-    },
+    }
   );
 
 export const selectShownOnFrontOfCardTaskListIdsByCardId =
@@ -117,7 +117,7 @@ export const makeSelectAttachmentsTotalByCardId = () =>
       }
 
       return cardModel.attachments.count();
-    },
+    }
   );
 
 export const selectAttachmentsTotalByCardId =
@@ -151,11 +151,11 @@ export const makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId = () =>
                     cardId: id,
                     customFieldGroupId: customFieldGroupModel.id,
                     customFieldId: customFieldModel.id,
-                  }),
+                  })
                 );
 
                 return customFieldValue ? customFieldValue.id : [];
-              }),
+              })
           ),
         ...cardModel
           .getCustomFieldGroupsQuerySet()
@@ -169,14 +169,14 @@ export const makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId = () =>
                     cardId: id,
                     customFieldGroupId: customFieldGroupModel.id,
                     customFieldId: customFieldModel.id,
-                  }),
+                  })
                 );
 
                 return customFieldValue ? customFieldValue.id : [];
-              }),
+              })
           ),
       ];
-    },
+    }
   );
 
 export const selectShownOnFrontOfCardCustomFieldValueIdsByCardId =
@@ -194,7 +194,7 @@ export const makeSelectNotificationsByCardId = () =>
       }
 
       return cardModel.getUnreadNotificationsQuerySet().toRefArray();
-    },
+    }
   );
 
 export const selectNotificationsByCardId = makeSelectNotificationsByCardId();
@@ -211,7 +211,7 @@ export const makeSelectNotificationsTotalByCardId = () =>
       }
 
       return cardModel.getUnreadNotificationsQuerySet().count();
-    },
+    }
   );
 
 export const selectNotificationsTotalByCardId =
@@ -230,7 +230,7 @@ export const makeSelectIsCardWithIdRecent = () =>
       }
 
       return cardModel.id === recentCardId;
-    },
+    }
   );
 
 export const selectIsCardWithIdRecent = makeSelectIsCardWithIdRecent();
@@ -248,7 +248,7 @@ export const selectIsCardWithIdAvailableForCurrentUser = createSelector(
 
     const currentUserModel = User.withId(currentUserId);
     return cardModel.isAvailableForUser(currentUserModel);
-  },
+  }
 );
 
 export const selectCurrentCard = createSelector(
@@ -266,7 +266,7 @@ export const selectCurrentCard = createSelector(
     }
 
     return cardModel.ref;
-  },
+  }
 );
 
 export const selectUserIdsForCurrentCard = createSelector(
@@ -284,7 +284,7 @@ export const selectUserIdsForCurrentCard = createSelector(
     }
 
     return cardModel.users.toRefArray().map((user) => user.id);
-  },
+  }
 );
 
 export const selectLabelIdsForCurrentCard = createSelector(
@@ -302,7 +302,7 @@ export const selectLabelIdsForCurrentCard = createSelector(
     }
 
     return cardModel.labels.toRefArray().map((label) => label.id);
-  },
+  }
 );
 
 export const selectTaskListIdsForCurrentCard = createSelector(
@@ -323,7 +323,7 @@ export const selectTaskListIdsForCurrentCard = createSelector(
       .getTaskListsQuerySet()
       .toRefArray()
       .map((taskList) => taskList.id);
-  },
+  }
 );
 
 export const selectAttachmentIdsForCurrentCard = createSelector(
@@ -344,7 +344,7 @@ export const selectAttachmentIdsForCurrentCard = createSelector(
       .getAttachmentsQuerySet()
       .toRefArray()
       .map((attachment) => attachment.id);
-  },
+  }
 );
 
 export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
@@ -373,7 +373,7 @@ export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
         );
       })
       .map((attachmentModel) => attachmentModel.id);
-  },
+  }
 );
 
 export const makeSelectAttachmentsForCard = () =>
@@ -392,7 +392,7 @@ export const makeSelectAttachmentsForCard = () =>
       }
 
       return cardModel.getAttachmentsQuerySet().toRefArray();
-    },
+    }
   );
 
 export const selectAttachmentsForCurrentCard = createSelector(
@@ -410,7 +410,7 @@ export const selectAttachmentsForCurrentCard = createSelector(
     }
 
     return cardModel.getAttachmentsQuerySet().toRefArray();
-  },
+  }
 );
 
 export const selectCustomFieldGroupIdsForCurrentCard = createSelector(
@@ -431,7 +431,7 @@ export const selectCustomFieldGroupIdsForCurrentCard = createSelector(
       .getCustomFieldGroupsQuerySet()
       .toRefArray()
       .map((customFieldGroup) => customFieldGroup.id);
-  },
+  }
 );
 
 export const selectCommentIdsForCurrentCard = createSelector(
@@ -451,7 +451,7 @@ export const selectCommentIdsForCurrentCard = createSelector(
     return cardModel
       .getCommentsModelArray()
       .map((commentModel) => commentModel.id);
-  },
+  }
 );
 
 export const selectActivityIdsForCurrentCard = createSelector(
@@ -469,7 +469,7 @@ export const selectActivityIdsForCurrentCard = createSelector(
     }
 
     return cardModel.getActivitiesModelArray().map((activity) => activity.id);
-  },
+  }
 );
 
 export const selectIsCurrentUserInCurrentCard = createSelector(
@@ -488,7 +488,7 @@ export const selectIsCurrentUserInCurrentCard = createSelector(
     }
 
     return cardModel.hasUserWithId(currentUserId);
-  },
+  }
 );
 
 export default {

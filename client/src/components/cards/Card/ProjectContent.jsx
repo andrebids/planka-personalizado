@@ -3,88 +3,88 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Icon } from "semantic-ui-react";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { startStopwatch, stopStopwatch } from "../../../utils/stopwatch";
-import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { startStopwatch, stopStopwatch } from '../../../utils/stopwatch';
+import { isListArchiveOrTrash } from '../../../utils/record-helpers';
 import {
   BoardMembershipRoles,
   BoardViews,
   ListTypes,
-} from "../../../constants/Enums";
-import TaskList from "./TaskList";
-import DueDateChip from "../DueDateChip";
-import StopwatchChip from "../StopwatchChip";
-import UserAvatar from "../../users/UserAvatar";
-import LabelChip from "../../labels/LabelChip";
-import CustomFieldValueChip from "../../custom-field-values/CustomFieldValueChip";
+} from '../../../constants/Enums';
+import TaskList from './TaskList';
+import DueDateChip from '../DueDateChip';
+import StopwatchChip from '../StopwatchChip';
+import UserAvatar from '../../users/UserAvatar';
+import LabelChip from '../../labels/LabelChip';
+import CustomFieldValueChip from '../../custom-field-values/CustomFieldValueChip';
 
-import styles from "./ProjectContent.module.scss";
+import styles from './ProjectContent.module.scss';
 
 const ProjectContent = React.memo(({ cardId }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
   const selectUserIdsByCardId = useMemo(
     () => selectors.makeSelectUserIdsByCardId(),
-    [],
+    []
   );
   const selectLabelIdsByCardId = useMemo(
     () => selectors.makeSelectLabelIdsByCardId(),
-    [],
+    []
   );
 
   const selectShownOnFrontOfCardTaskListIdsByCardId = useMemo(
     () => selectors.makeSelectShownOnFrontOfCardTaskListIdsByCardId(),
-    [],
+    []
   );
 
   const selectAttachmentsTotalByCardId = useMemo(
     () => selectors.makeSelectAttachmentsTotalByCardId(),
-    [],
+    []
   );
 
   const selectShownOnFrontOfCardCustomFieldValueIdsByCardId = useMemo(
     () => selectors.makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId(),
-    [],
+    []
   );
 
   const selectNotificationsTotalByCardId = useMemo(
     () => selectors.makeSelectNotificationsTotalByCardId(),
-    [],
+    []
   );
 
   const selectAttachmentById = useMemo(
     () => selectors.makeSelectAttachmentById(),
-    [],
+    []
   );
 
   const card = useSelector((state) => selectCardById(state, cardId));
   const list = useSelector((state) => selectListById(state, card.listId));
   const userIds = useSelector((state) => selectUserIdsByCardId(state, cardId));
   const labelIds = useSelector((state) =>
-    selectLabelIdsByCardId(state, cardId),
+    selectLabelIdsByCardId(state, cardId)
   );
 
   const taskListIds = useSelector((state) =>
-    selectShownOnFrontOfCardTaskListIdsByCardId(state, cardId),
+    selectShownOnFrontOfCardTaskListIdsByCardId(state, cardId)
   );
 
   const attachmentsTotal = useSelector((state) =>
-    selectAttachmentsTotalByCardId(state, cardId),
+    selectAttachmentsTotalByCardId(state, cardId)
   );
 
   const customFieldValueIds = useSelector((state) =>
-    selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId),
+    selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId)
   );
 
   const notificationsTotal = useSelector((state) =>
-    selectNotificationsTotalByCardId(state, cardId),
+    selectNotificationsTotalByCardId(state, cardId)
   );
 
   const coverUrl = useSelector((state) => {
@@ -125,10 +125,10 @@ const ProjectContent = React.memo(({ cardId }) => {
           stopwatch: card.stopwatch.startedAt
             ? stopStopwatch(card.stopwatch)
             : startStopwatch(card.stopwatch),
-        }),
+        })
       );
     },
-    [cardId, card.stopwatch, dispatch],
+    [cardId, card.stopwatch, dispatch]
   );
 
   const isInClosedList = list.type === ListTypes.CLOSED;
@@ -226,7 +226,7 @@ const ProjectContent = React.memo(({ cardId }) => {
               className={classNames(
                 styles.attachment,
                 styles.attachmentLeft,
-                styles.notification,
+                styles.notification
               )}
             >
               {notificationsTotal}

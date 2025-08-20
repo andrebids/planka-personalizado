@@ -3,67 +3,67 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { Button } from "semantic-ui-react";
-import { Input, Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { Button } from 'semantic-ui-react';
+import { Input, Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useField, useNestedRef, useSteps } from "../../../hooks";
-import DroppableTypes from "../../../constants/DroppableTypes";
-import EditStep from "./EditStep";
-import CustomField from "./CustomField";
-import CustomFieldAddStep from "./CustomFieldAddStep";
-import CustomFieldEditStep from "./CustomFieldEditStep";
-import ConfirmationStep from "../../common/ConfirmationStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useField, useNestedRef, useSteps } from '../../../hooks';
+import DroppableTypes from '../../../constants/DroppableTypes';
+import EditStep from './EditStep';
+import CustomField from './CustomField';
+import CustomFieldAddStep from './CustomFieldAddStep';
+import CustomFieldEditStep from './CustomFieldEditStep';
+import ConfirmationStep from '../../common/ConfirmationStep';
 
-import styles from "./BaseCustomFieldGroupStep.module.scss";
+import styles from './BaseCustomFieldGroupStep.module.scss';
 
 const StepTypes = {
-  EDIT: "EDIT",
-  DELETE: "DELETE",
-  ADD_CUSTOM_FIELD: "ADD_CUSTOM_FIELD",
-  EDIT_CUSTOM_FIELD: "EDIT_CUSTOM_FIELD",
+  EDIT: 'EDIT',
+  DELETE: 'DELETE',
+  ADD_CUSTOM_FIELD: 'ADD_CUSTOM_FIELD',
+  EDIT_CUSTOM_FIELD: 'EDIT_CUSTOM_FIELD',
 };
 
 const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
   const selectBaseCustomFieldGroupById = useMemo(
     () => selectors.makeSelectBaseCustomFieldGroupById(),
-    [],
+    []
   );
 
   const selectCustomFieldsByBaseGroupId = useMemo(
     () => selectors.makeSelectCustomFieldsByBaseGroupId(),
-    [],
+    []
   );
 
   const baseCustomFieldGroupName = useSelector(
-    (state) => selectBaseCustomFieldGroupById(state, id).name,
+    (state) => selectBaseCustomFieldGroupById(state, id).name
   );
 
   const customFields = useSelector((state) =>
-    selectCustomFieldsByBaseGroupId(state, id),
+    selectCustomFieldsByBaseGroupId(state, id)
   );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
   const [step, openStep, handleBack] = useSteps();
-  const [search, handleSearchChange] = useField("");
+  const [search, handleSearchChange] = useField('');
   const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
   const filteredCustomFields = useMemo(
     () =>
       customFields.filter((customField) =>
-        customField.name.toLowerCase().includes(cleanSearch),
+        customField.name.toLowerCase().includes(cleanSearch)
       ),
-    [customFields, cleanSearch],
+    [customFields, cleanSearch]
   );
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const handleDeleteConfirm = useCallback(() => {
     dispatch(entryActions.deleteBaseCustomFieldGroup(id));
@@ -77,7 +77,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
 
       dispatch(entryActions.moveCustomField(draggableId, destination.index));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleEditClick = useCallback(() => {
@@ -98,7 +98,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
         id: customFieldId,
       });
     },
-    [openStep],
+    [openStep]
   );
 
   useEffect(() => {
@@ -142,7 +142,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
         );
       case StepTypes.EDIT_CUSTOM_FIELD: {
         const currentCustomField = customFields.find(
-          (customField) => customField.id === step.params.id,
+          (customField) => customField.id === step.params.id
         );
 
         if (currentCustomField) {
@@ -165,8 +165,8 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t("common.customFieldGroup", {
-          context: "title",
+        {t('common.customFieldGroup', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -174,7 +174,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
           fluid
           ref={handleSearchFieldRef}
           value={search}
-          placeholder={t("common.searchCustomFields")}
+          placeholder={t('common.searchCustomFields')}
           maxLength={128}
           icon="search"
           onChange={handleSearchChange}
@@ -221,19 +221,19 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
         )}
         <Button
           fluid
-          content={t("action.addCustomField")}
+          content={t('action.addCustomField')}
           className={styles.actionButton}
           onClick={handleCustomFieldAddClick}
         />
         <Button
           fluid
-          content={t("action.editGroup")}
+          content={t('action.editGroup')}
           className={styles.actionButton}
           onClick={handleEditClick}
         />
         <Button
           fluid
-          content={t("action.deleteGroup")}
+          content={t('action.deleteGroup')}
           className={styles.actionButton}
           onClick={handleDeleteClick}
         />

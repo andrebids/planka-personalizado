@@ -3,22 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import selectors from "../../../selectors";
-import UnbasedContent from "./UnbasedContent";
-import EditCustomFieldGroupStep from "../EditCustomFieldGroupStep";
+import selectors from '../../../selectors';
+import UnbasedContent from './UnbasedContent';
+import EditCustomFieldGroupStep from '../EditCustomFieldGroupStep';
 
 const CustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
   const selectCustomFielGroupdById = useMemo(
     () => selectors.makeSelectCustomFieldGroupById(),
-    [],
+    []
   );
 
   const customFieldGroup = useSelector((state) =>
-    selectCustomFielGroupdById(state, id),
+    selectCustomFielGroupdById(state, id)
   );
 
   if (customFieldGroup.baseCustomFieldGroupId) {

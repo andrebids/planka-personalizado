@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import http from "./http";
-import socket from "./socket";
-import { transformCard } from "./cards";
-import { transformAttachment } from "./attachments";
+import http from './http';
+import socket from './socket';
+import { transformCard } from './cards';
+import { transformAttachment } from './attachments';
 
 /* Actions */
 
@@ -17,15 +17,15 @@ const createBoardWithImport = (projectId, data, requestId, headers) =>
   http.post(
     `/projects/${projectId}/boards?requestId=${requestId}`,
     data,
-    headers,
+    headers
   );
 
 const getBoard = (id, subscribe, headers) =>
   socket
     .get(
-      `/boards/${id}${subscribe ? "?subscribe=true" : ""}`,
+      `/boards/${id}${subscribe ? '?subscribe=true' : ''}`,
       undefined,
-      headers,
+      headers
     )
     .then((body) => ({
       ...body,

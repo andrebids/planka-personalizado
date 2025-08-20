@@ -3,34 +3,34 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Input, Popup } from "../../../lib/custom-ui";
+import React, { useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Input, Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import { useField, useNestedRef } from "../../../hooks";
-import Item from "./Item";
+import selectors from '../../../selectors';
+import { useField, useNestedRef } from '../../../hooks';
+import Item from './Item';
 
-import styles from "./ListsStep.module.scss";
+import styles from './ListsStep.module.scss';
 
 const ListsStep = React.memo(({ currentId, onSelect }) => {
   const lists = useSelector(selectors.selectAvailableListsForCurrentBoard);
 
   const [t] = useTranslation();
-  const [search, handleSearchChange] = useField("");
+  const [search, handleSearchChange] = useField('');
   const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
   const filteredLists = useMemo(
     () =>
       lists.filter((list) =>
-        (list.name ? list.name.toLowerCase() : list.type).includes(cleanSearch),
+        (list.name ? list.name.toLowerCase() : list.type).includes(cleanSearch)
       ),
-    [lists, cleanSearch],
+    [lists, cleanSearch]
   );
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   useEffect(() => {
     searchFieldRef.current.focus({
@@ -41,8 +41,8 @@ const ListsStep = React.memo(({ currentId, onSelect }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.lists", {
-          context: "title",
+        {t('common.lists', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -50,7 +50,7 @@ const ListsStep = React.memo(({ currentId, onSelect }) => {
           fluid
           ref={handleSearchFieldRef}
           value={search}
-          placeholder={t("common.searchLists")}
+          placeholder={t('common.searchLists')}
           maxLength={128}
           icon="search"
           onChange={handleSearchChange}

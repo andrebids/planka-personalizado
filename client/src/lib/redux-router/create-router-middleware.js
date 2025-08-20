@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { HISTORY_METHOD_CALL } from "./actions";
+import { HISTORY_METHOD_CALL } from './actions';
 
 const createRouterMiddleware = (history) => {
   // eslint-disable-next-line consistent-return

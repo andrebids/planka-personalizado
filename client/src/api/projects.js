@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import socket from "./socket";
+import socket from './socket';
 
 /* Actions */
 
-const getProjects = (headers) => socket.get("/projects", undefined, headers);
+const getProjects = (headers) => socket.get('/projects', undefined, headers);
 
 const createProject = (data, headers) =>
-  socket.post("/projects", data, headers);
+  socket.post('/projects', data, headers);
 
 const getProject = (id, headers) =>
   socket.get(`/projects/${id}`, undefined, headers);

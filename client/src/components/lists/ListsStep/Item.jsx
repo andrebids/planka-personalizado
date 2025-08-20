@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import { ListTypes } from "../../../constants/Enums";
-import { ListTypeIcons } from "../../../constants/Icons";
+import selectors from '../../../selectors';
+import { ListTypes } from '../../../constants/Enums';
+import { ListTypeIcons } from '../../../constants/Icons';
 
-import styles from "./Item.module.scss";
+import styles from './Item.module.scss';
 
 const Item = React.memo(({ id, isActive, onSelect }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);

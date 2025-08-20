@@ -3,8 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { getAccessToken } from "../utils/access-token-storage";
-import ActionTypes from "../constants/ActionTypes";
+import { getAccessToken } from '../utils/access-token-storage';
+import ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   accessToken: getAccessToken(),

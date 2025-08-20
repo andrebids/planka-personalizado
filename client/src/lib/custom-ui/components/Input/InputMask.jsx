@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import { Input } from "semantic-ui-react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Input } from 'semantic-ui-react';
 
-import MaskedInput from "./MaskedInput";
+import MaskedInput from './MaskedInput';
 
 const InputMask = React.forwardRef(({ mask, maskChar, ...props }, ref) => (
   // eslint-disable-next-line react/jsx-props-no-spreading

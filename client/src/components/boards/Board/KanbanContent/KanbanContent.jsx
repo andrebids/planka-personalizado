@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { useDidUpdate } from "../../../../lib/hooks";
-import { closePopup } from "../../../../lib/popup";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { useDidUpdate } from '../../../../lib/hooks';
+import { closePopup } from '../../../../lib/popup';
 
-import selectors from "../../../../selectors";
-import { selectIsTimelinePanelExpanded } from "../../../../selectors/timelinePanelSelectors";
-import entryActions from "../../../../entry-actions";
-import parseDndId from "../../../../utils/parse-dnd-id";
-import DroppableTypes from "../../../../constants/DroppableTypes";
-import { BoardMembershipRoles } from "../../../../constants/Enums";
-import AddList from "./AddList";
-import List from "../../../lists/List";
-import PlusMathIcon from "../../../../assets/images/plus-math-icon.svg?react";
+import selectors from '../../../../selectors';
+import { selectIsTimelinePanelExpanded } from '../../../../selectors/timelinePanelSelectors';
+import entryActions from '../../../../entry-actions';
+import parseDndId from '../../../../utils/parse-dnd-id';
+import DroppableTypes from '../../../../constants/DroppableTypes';
+import { BoardMembershipRoles } from '../../../../constants/Enums';
+import AddList from './AddList';
+import List from '../../../lists/List';
+import PlusMathIcon from '../../../../assets/images/plus-math-icon.svg?react';
 
-import styles from "./KanbanContent.module.scss";
-import globalStyles from "../../../../styles.module.scss";
+import styles from './KanbanContent.module.scss';
+import globalStyles from '../../../../styles.module.scss';
 
 const KanbanContent = React.memo(() => {
   const listIds = useSelector(selectors.selectFiniteListIdsForCurrentBoard);
@@ -80,15 +80,15 @@ const KanbanContent = React.memo(() => {
             entryActions.moveCard(
               id,
               parseDndId(destination.droppableId),
-              destination.index,
-            ),
+              destination.index
+            )
           );
 
           break;
         default:
       }
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleAddListClick = useCallback(() => {
@@ -142,18 +142,18 @@ const KanbanContent = React.memo(() => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("mousemove", handleWindowMouseMove);
+    window.addEventListener('mousemove', handleWindowMouseMove);
 
-    window.addEventListener("mouseup", handleWindowMouseRelease);
-    window.addEventListener("blur", handleWindowMouseRelease);
-    window.addEventListener("contextmenu", handleWindowMouseRelease);
+    window.addEventListener('mouseup', handleWindowMouseRelease);
+    window.addEventListener('blur', handleWindowMouseRelease);
+    window.addEventListener('contextmenu', handleWindowMouseRelease);
 
     return () => {
-      window.removeEventListener("mousemove", handleWindowMouseMove);
+      window.removeEventListener('mousemove', handleWindowMouseMove);
 
-      window.removeEventListener("mouseup", handleWindowMouseRelease);
-      window.removeEventListener("blur", handleWindowMouseRelease);
-      window.removeEventListener("contextmenu", handleWindowMouseRelease);
+      window.removeEventListener('mouseup', handleWindowMouseRelease);
+      window.removeEventListener('blur', handleWindowMouseRelease);
+      window.removeEventListener('contextmenu', handleWindowMouseRelease);
     };
   }, [handleWindowMouseMove, handleWindowMouseRelease]);
 
@@ -208,8 +208,8 @@ const KanbanContent = React.memo(() => {
                         <PlusMathIcon className={styles.addListButtonIcon} />
                         <span className={styles.addListButtonText}>
                           {listIds.length > 0
-                            ? t("action.addAnotherList")
-                            : t("action.addList")}
+                            ? t('action.addAnotherList')
+                            : t('action.addList')}
                         </span>
                       </button>
                     )}

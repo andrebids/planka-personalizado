@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "it-IT",
-  country: "it",
-  name: "Italiano",
+  language: 'it-IT',
+  country: 'it',
+  name: 'Italiano',
   embeddedLocale: login,
 };

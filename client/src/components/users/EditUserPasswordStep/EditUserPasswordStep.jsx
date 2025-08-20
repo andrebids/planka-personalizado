@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from "lodash/omit";
-import React, { useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form, Message } from "semantic-ui-react";
-import { useDidUpdate, usePrevious, useToggle } from "../../../lib/hooks";
-import { Input, Popup } from "../../../lib/custom-ui";
+import omit from 'lodash/omit';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form, Message } from 'semantic-ui-react';
+import { useDidUpdate, usePrevious, useToggle } from '../../../lib/hooks';
+import { Input, Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useForm, useNestedRef } from "../../../hooks";
-import { isPassword } from "../../../utils/validator";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useForm, useNestedRef } from '../../../hooks';
+import { isPassword } from '../../../utils/validator';
 
-import styles from "./EditUserPasswordStep.module.scss";
+import styles from './EditUserPasswordStep.module.scss';
 
 const createMessage = (error) => {
   if (!error) {
@@ -25,15 +25,15 @@ const createMessage = (error) => {
   }
 
   switch (error.message) {
-    case "Invalid current password":
+    case 'Invalid current password':
       return {
-        type: "error",
-        content: "common.invalidCurrentPassword",
+        type: 'error',
+        content: 'common.invalidCurrentPassword',
       };
     default:
       return {
-        type: "warning",
-        content: "common.unknownError",
+        type: 'warning',
+        content: 'common.unknownError',
       };
   }
 };
@@ -53,8 +53,8 @@ const EditUserPasswordStep = React.memo(
     const wasSubmitting = usePrevious(isSubmitting);
 
     const [data, handleFieldChange, setData] = useForm({
-      password: "",
-      currentPassword: "",
+      password: '',
+      currentPassword: '',
       ...defaultData,
     });
 
@@ -62,9 +62,9 @@ const EditUserPasswordStep = React.memo(
     const [focusCurrentPasswordFieldState, focusCurrentPasswordField] =
       useToggle();
 
-    const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef("inputRef");
+    const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef('inputRef');
     const [currentPasswordFieldRef, handleCurrentPasswordFieldRef] =
-      useNestedRef("inputRef");
+      useNestedRef('inputRef');
 
     const handleSubmit = useCallback(() => {
       if (!data.password || !isPassword(data.password)) {
@@ -80,8 +80,8 @@ const EditUserPasswordStep = React.memo(
       dispatch(
         entryActions.updateUserPassword(
           id,
-          withPasswordConfirmation ? data : omit(data, "currentPassword"),
-        ),
+          withPasswordConfirmation ? data : omit(data, 'currentPassword')
+        )
       );
     }, [
       id,
@@ -106,10 +106,10 @@ const EditUserPasswordStep = React.memo(
       if (wasSubmitting && !isSubmitting) {
         if (!error) {
           onClose();
-        } else if (error.message === "Invalid current password") {
+        } else if (error.message === 'Invalid current password') {
           setData((prevData) => ({
             ...prevData,
-            currentPassword: "",
+            currentPassword: '',
           }));
           focusCurrentPasswordField();
         }
@@ -123,8 +123,8 @@ const EditUserPasswordStep = React.memo(
     return (
       <>
         <Popup.Header onBack={onBack}>
-          {t("common.editPassword", {
-            context: "title",
+          {t('common.editPassword', {
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>
@@ -139,7 +139,7 @@ const EditUserPasswordStep = React.memo(
             />
           )}
           <Form onSubmit={handleSubmit}>
-            <div className={styles.text}>{t("common.newPassword")}</div>
+            <div className={styles.text}>{t('common.newPassword')}</div>
             <Input.Password
               withStrengthBar
               fluid
@@ -152,7 +152,7 @@ const EditUserPasswordStep = React.memo(
             />
             {withPasswordConfirmation && (
               <>
-                <div className={styles.text}>{t("common.currentPassword")}</div>
+                <div className={styles.text}>{t('common.currentPassword')}</div>
                 <Input.Password
                   fluid
                   ref={handleCurrentPasswordFieldRef}
@@ -166,7 +166,7 @@ const EditUserPasswordStep = React.memo(
             )}
             <Button
               positive
-              content={t("action.save")}
+              content={t('action.save')}
               loading={isSubmitting}
               disabled={isSubmitting}
             />
@@ -174,7 +174,7 @@ const EditUserPasswordStep = React.memo(
         </Popup.Content>
       </>
     );
-  },
+  }
 );
 
 EditUserPasswordStep.propTypes = {

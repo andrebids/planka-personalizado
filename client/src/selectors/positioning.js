@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import isUndefined from "lodash/isUndefined";
-import { createSelector } from "redux-orm";
+import isUndefined from 'lodash/isUndefined';
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import Config from "../constants/Config";
+import orm from '../orm';
+import Config from '../constants/Config';
 
 const nextPosition = (items, index, excludedId) => {
   const filteredItems = isUndefined(excludedId)
@@ -46,9 +46,9 @@ export const selectNextBoardPosition = createSelector(
     return nextPosition(
       projectModel.getBoardsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextLabelPosition = createSelector(
@@ -66,9 +66,9 @@ export const selectNextLabelPosition = createSelector(
     return nextPosition(
       boardModel.getLabelsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextListPosition = createSelector(
@@ -86,9 +86,9 @@ export const selectNextListPosition = createSelector(
     return nextPosition(
       boardModel.getFiniteListsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextCardPosition = createSelector(
@@ -106,9 +106,9 @@ export const selectNextCardPosition = createSelector(
     return nextPosition(
       listModel.getFilteredCardsModelArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextTaskListPosition = createSelector(
@@ -126,9 +126,9 @@ export const selectNextTaskListPosition = createSelector(
     return nextPosition(
       cardModel.getTaskListsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextTaskPosition = createSelector(
@@ -146,9 +146,9 @@ export const selectNextTaskPosition = createSelector(
     return nextPosition(
       taskListModel.getTasksQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextCustomFieldGroupPositionInBoard = createSelector(
@@ -166,9 +166,9 @@ export const selectNextCustomFieldGroupPositionInBoard = createSelector(
     return nextPosition(
       boardModel.getCustomFieldGroupsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextCustomFieldGroupPositionInCard = createSelector(
@@ -186,9 +186,9 @@ export const selectNextCustomFieldGroupPositionInCard = createSelector(
     return nextPosition(
       cardModel.getCustomFieldGroupsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextCustomFieldPositionInBaseGroup = createSelector(
@@ -198,7 +198,7 @@ export const selectNextCustomFieldPositionInBaseGroup = createSelector(
   (_, __, ___, excludedId) => excludedId,
   ({ BaseCustomFieldGroup }, baseCustomFieldGroupId, index, excludedId) => {
     const baseCustomFieldGroupModel = BaseCustomFieldGroup.withId(
-      baseCustomFieldGroupId,
+      baseCustomFieldGroupId
     );
 
     if (!baseCustomFieldGroupModel) {
@@ -208,9 +208,9 @@ export const selectNextCustomFieldPositionInBaseGroup = createSelector(
     return nextPosition(
       baseCustomFieldGroupModel.getCustomFieldsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export const selectNextCustomFieldPositionInGroup = createSelector(
@@ -228,9 +228,9 @@ export const selectNextCustomFieldPositionInGroup = createSelector(
     return nextPosition(
       customFieldGroupModel.getCustomFieldsQuerySet().toRefArray(),
       index,
-      excludedId,
+      excludedId
     );
-  },
+  }
 );
 
 export default {

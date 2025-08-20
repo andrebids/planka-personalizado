@@ -3,24 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Menu } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Menu } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { UserRoles } from "../../../constants/Enums";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { UserRoles } from '../../../constants/Enums';
 
-import styles from "./UserStep.module.scss";
+import styles from './UserStep.module.scss';
 
 const UserStep = React.memo(({ onClose }) => {
   const isLogouting = useSelector(selectors.selectIsLogouting);
 
   const withAdministration = useSelector(
-    (state) => selectors.selectCurrentUser(state).role === UserRoles.ADMIN,
+    (state) => selectors.selectCurrentUser(state).role === UserRoles.ADMIN
   );
 
   const dispatch = useDispatch();
@@ -55,16 +55,16 @@ const UserStep = React.memo(({ onClose }) => {
     <>
       <Popup.Header>
         <span className={styles.headerTitle}>
-          {t("common.userActions", {
-            context: "title",
+          {t('common.userActions', {
+            context: 'title',
           })}
         </span>
       </Popup.Header>
       <Popup.Content>
         <Menu secondary vertical className={styles.menu}>
           <Menu.Item className={styles.menuItem} onClick={handleSettingsClick}>
-            {t("common.settings", {
-              context: "title",
+            {t('common.settings', {
+              context: 'title',
             })}
           </Menu.Item>
           <Menu.Item
@@ -72,8 +72,8 @@ const UserStep = React.memo(({ onClose }) => {
             className={styles.menuItem}
             onClick={handleLogoutClick}
           >
-            {t("action.logOut", {
-              context: "title",
+            {t('action.logOut', {
+              context: 'title',
             })}
           </Menu.Item>
           {withAdministration && (
@@ -83,8 +83,8 @@ const UserStep = React.memo(({ onClose }) => {
                 className={styles.menuItem}
                 onClick={handleAdministrationClick}
               >
-                {t("common.administration", {
-                  context: "title",
+                {t('common.administration', {
+                  context: 'title',
                 })}
               </Menu.Item>
             </>

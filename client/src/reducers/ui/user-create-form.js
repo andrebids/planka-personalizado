@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../../constants/ActionTypes";
+import ActionTypes from '../../constants/ActionTypes';
 
 const initialState = {
   data: {
-    email: "",
-    name: "",
-    username: "",
+    email: '',
+    name: '',
+    username: '',
   },
   isSubmitting: false,
   error: null,

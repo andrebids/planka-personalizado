@@ -3,37 +3,37 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-import React, { useCallback, useMemo, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Icon } from "semantic-ui-react";
-import { push } from "../../../lib/redux-router";
-import { usePopup } from "../../../lib/popup";
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+import React, { useCallback, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
+import { push } from '../../../lib/redux-router';
+import { usePopup } from '../../../lib/popup';
 
-import selectors from "../../../selectors";
-import Paths from "../../../constants/Paths";
+import selectors from '../../../selectors';
+import Paths from '../../../constants/Paths';
 import {
   BoardMembershipRoles,
   CardTypes,
   ListTypes,
-} from "../../../constants/Enums";
-import ProjectContent from "./ProjectContent";
-import StoryContent from "./StoryContent";
-import InlineContent from "./InlineContent";
-import EditName from "./EditName";
-import ActionsStep from "./ActionsStep";
+} from '../../../constants/Enums';
+import ProjectContent from './ProjectContent';
+import StoryContent from './StoryContent';
+import InlineContent from './InlineContent';
+import EditName from './EditName';
+import ActionsStep from './ActionsStep';
 
-import styles from "./Card.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './Card.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const Card = React.memo(({ id, isInline }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectIsCardWithIdRecent = useMemo(
     () => selectors.makeSelectIsCardWithIdRecent(),
-    [],
+    []
   );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
@@ -67,7 +67,7 @@ const Card = React.memo(({ id, isInline }) => {
       document.activeElement.blur();
     }
 
-    dispatch(push(Paths.CARDS.replace(":id", id)));
+    dispatch(push(Paths.CARDS.replace(':id', id)));
   }, [id, dispatch]);
 
   const handleNameEdit = useCallback(() => {
@@ -78,7 +78,7 @@ const Card = React.memo(({ id, isInline }) => {
     setIsEditNameOpened(false);
   }, []);
 
-  const ActionsPopup = usePopup(ActionsStep, { variantClass: "notifications" });
+  const ActionsPopup = usePopup(ActionsStep, { variantClass: 'notifications' });
 
   if (isEditNameOpened) {
     return <EditName cardId={id} onClose={handleEditNameClose} />;
@@ -107,7 +107,7 @@ const Card = React.memo(({ id, isInline }) => {
       className={classNames(
         styles.wrapper,
         isHighlightedAsRecent && styles.wrapperRecent,
-        "card",
+        'card'
       )}
     >
       {card.isPersisted ? (
@@ -117,7 +117,7 @@ const Card = React.memo(({ id, isInline }) => {
           <div
             className={classNames(
               styles.content,
-              list.type === ListTypes.CLOSED && styles.contentDisabled,
+              list.type === ListTypes.CLOSED && styles.contentDisabled
             )}
             onClick={handleClick}
           >
@@ -135,7 +135,7 @@ const Card = React.memo(({ id, isInline }) => {
         <span
           className={classNames(
             styles.content,
-            list.type === ListTypes.CLOSED && styles.contentDisabled,
+            list.type === ListTypes.CLOSED && styles.contentDisabled
           )}
         >
           <Content cardId={id} />

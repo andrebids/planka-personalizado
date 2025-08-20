@@ -3,28 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import isEmail from "validator/lib/isEmail";
-import React, { useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Form, Icon, Message } from "semantic-ui-react";
-import { useDidUpdate, usePrevious } from "../../../../lib/hooks";
-import { Input, Popup } from "../../../../lib/custom-ui";
+import isEmail from 'validator/lib/isEmail';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Form, Icon, Message } from 'semantic-ui-react';
+import { useDidUpdate, usePrevious } from '../../../../lib/hooks';
+import { Input, Popup } from '../../../../lib/custom-ui';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useForm, useNestedRef, useSteps } from "../../../../hooks";
-import { isPassword, isUsername } from "../../../../utils/validator";
-import { UserRoles } from "../../../../constants/Enums";
-import { UserRoleIcons } from "../../../../constants/Icons";
-import SelectRoleStep from "./SelectRoleStep";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useForm, useNestedRef, useSteps } from '../../../../hooks';
+import { isPassword, isUsername } from '../../../../utils/validator';
+import { UserRoles } from '../../../../constants/Enums';
+import { UserRoleIcons } from '../../../../constants/Icons';
+import SelectRoleStep from './SelectRoleStep';
 
-import styles from "./AddStep.module.scss";
+import styles from './AddStep.module.scss';
 
 const StepTypes = {
-  SELECT_ROLE: "SELECT_ROLE",
+  SELECT_ROLE: 'SELECT_ROLE',
 };
 
 const createMessage = (error) => {
@@ -33,20 +33,20 @@ const createMessage = (error) => {
   }
 
   switch (error.message) {
-    case "Email already in use":
+    case 'Email already in use':
       return {
-        type: "error",
-        content: "common.emailAlreadyInUse",
+        type: 'error',
+        content: 'common.emailAlreadyInUse',
       };
-    case "Username already in use":
+    case 'Username already in use':
       return {
-        type: "error",
-        content: "common.usernameAlreadyInUse",
+        type: 'error',
+        content: 'common.usernameAlreadyInUse',
       };
     default:
       return {
-        type: "warning",
-        content: "common.unknownError",
+        type: 'warning',
+        content: 'common.unknownError',
       };
   }
 };
@@ -63,10 +63,10 @@ const AddStep = React.memo(({ onClose }) => {
   const wasSubmitting = usePrevious(isSubmitting);
 
   const [data, handleFieldChange, setData] = useForm(() => ({
-    email: "",
-    password: "",
-    name: "",
-    username: "",
+    email: '',
+    password: '',
+    name: '',
+    username: '',
     role: UserRoles.BOARD_USER,
     ...defaultData,
   }));
@@ -74,10 +74,10 @@ const AddStep = React.memo(({ onClose }) => {
   const [step, openStep, handleBack] = useSteps();
   const message = useMemo(() => createMessage(error), [error]);
 
-  const [emailFieldRef, handleEmailFieldRef] = useNestedRef("inputRef");
-  const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef("inputRef");
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
-  const [usernameFieldRef, handleUsernameFieldRef] = useNestedRef("inputRef");
+  const [emailFieldRef, handleEmailFieldRef] = useNestedRef('inputRef');
+  const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [usernameFieldRef, handleUsernameFieldRef] = useNestedRef('inputRef');
 
   const handleSubmit = useCallback(() => {
     const cleanData = {
@@ -124,7 +124,7 @@ const AddStep = React.memo(({ onClose }) => {
         role,
       }));
     },
-    [setData],
+    [setData]
   );
 
   const handleMessageDismiss = useCallback(() => {
@@ -145,11 +145,11 @@ const AddStep = React.memo(({ onClose }) => {
     if (wasSubmitting && !isSubmitting) {
       if (error) {
         switch (error.message) {
-          case "Email already in use":
+          case 'Email already in use':
             emailFieldRef.current.select();
 
             break;
-          case "Username already in use":
+          case 'Username already in use':
             usernameFieldRef.current.select();
 
             break;
@@ -174,8 +174,8 @@ const AddStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.addUser", {
-          context: "title",
+        {t('common.addUser', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -190,7 +190,7 @@ const AddStep = React.memo(({ onClose }) => {
           />
         )}
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t("common.email")}</div>
+          <div className={styles.text}>{t('common.email')}</div>
           <Input
             fluid
             ref={handleEmailFieldRef}
@@ -201,7 +201,7 @@ const AddStep = React.memo(({ onClose }) => {
             className={styles.field}
             onChange={handleFieldChange}
           />
-          <div className={styles.text}>{t("common.password")}</div>
+          <div className={styles.text}>{t('common.password')}</div>
           <Input.Password
             withStrengthBar
             fluid
@@ -213,7 +213,7 @@ const AddStep = React.memo(({ onClose }) => {
             className={styles.field}
             onChange={handleFieldChange}
           />
-          <div className={styles.text}>{t("common.name")}</div>
+          <div className={styles.text}>{t('common.name')}</div>
           <Input
             fluid
             ref={handleNameFieldRef}
@@ -225,9 +225,9 @@ const AddStep = React.memo(({ onClose }) => {
             onChange={handleFieldChange}
           />
           <div className={styles.text}>
-            {t("common.username")} (
-            {t("common.optional", {
-              context: "inline",
+            {t('common.username')} (
+            {t('common.optional', {
+              context: 'inline',
             })}
             )
           </div>
@@ -244,7 +244,7 @@ const AddStep = React.memo(({ onClose }) => {
           <div className={styles.controls}>
             <Button
               positive
-              content={t("action.addUser")}
+              content={t('action.addUser')}
               loading={isSubmitting}
               disabled={isSubmitting}
               className={styles.button}

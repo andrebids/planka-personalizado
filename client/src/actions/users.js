@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 const createUser = (data) => ({
   type: ActionTypes.USER_CREATE,
@@ -86,7 +86,7 @@ const handleUserUpdate = (
   customFields,
   customFieldValues,
   notificationsToDelete,
-  notificationServices,
+  notificationServices
 ) => ({
   type: ActionTypes.USER_UPDATE_HANDLE,
   payload: {

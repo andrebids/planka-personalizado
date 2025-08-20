@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-import entryActions from "../../entry-actions";
-import ConfirmationStep from "../common/ConfirmationStep";
+import entryActions from '../../entry-actions';
+import ConfirmationStep from '../common/ConfirmationStep';
 
 const ArchiveCardsStep = React.memo(({ listId, onBack, onClose }) => {
   const dispatch = useDispatch();

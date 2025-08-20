@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef, useState } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+import React, { useCallback, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-import styles from "./Masonry.module.scss";
+import styles from './Masonry.module.scss';
 
 const pixelsToNumber = (pixels) => {
-  return Number(pixels.replace("px", ""));
+  return Number(pixels.replace('px', ''));
 };
 
 const Masonry = React.memo(({ children, columns, spacing }) => {
@@ -70,7 +70,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
         }
       });
     },
-    [children, handleChildResize], // eslint-disable-line react-hooks/exhaustive-deps
+    [children, handleChildResize] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const styledChildren = React.Children.map(
@@ -82,7 +82,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
           margin: `${spacing / 2}px`,
           width: `calc(${(100 / columns).toFixed(2)}% - ${spacing}px)`,
         },
-      }),
+      })
   );
 
   const lineBreaks = [...Array(columns > 0 ? columns - 1 : 0)].map(
@@ -95,7 +95,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
           order: index + 1,
         }}
       />
-    ),
+    )
   );
 
   return (

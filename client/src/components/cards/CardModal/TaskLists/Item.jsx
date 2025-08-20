@@ -3,26 +3,26 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
-import { Button, Icon } from "semantic-ui-react";
+import React, { useMemo } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
+import { Button, Icon } from 'semantic-ui-react';
 
-import selectors from "../../../../selectors";
-import { usePopupInClosableContext } from "../../../../hooks";
-import { BoardMembershipRoles } from "../../../../constants/Enums";
-import EditStep from "./EditStep";
-import TaskList from "../../../task-lists/TaskList";
+import selectors from '../../../../selectors';
+import { usePopupInClosableContext } from '../../../../hooks';
+import { BoardMembershipRoles } from '../../../../constants/Enums';
+import EditStep from './EditStep';
+import TaskList from '../../../task-lists/TaskList';
 
-import styles from "./Item.module.scss";
+import styles from './Item.module.scss';
 
 const Item = React.memo(({ id, index }) => {
   const selectTaskListById = useMemo(
     () => selectors.makeSelectTaskListById(),
-    [],
+    []
   );
 
   const taskList = useSelector((state) => selectTaskListById(state, id));
@@ -57,7 +57,7 @@ const Item = React.memo(({ id, index }) => {
                 <div
                   className={classNames(
                     styles.moduleHeader,
-                    canEdit && styles.moduleHeaderEditable,
+                    canEdit && styles.moduleHeaderEditable
                   )}
                 >
                   {taskList.isPersisted && canEdit && (

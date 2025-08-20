@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "fa-IR",
-  country: "ir",
-  name: "فارسی",
+  language: 'fa-IR',
+  country: 'ir',
+  name: 'فارسی',
   embeddedLocale: login,
 };

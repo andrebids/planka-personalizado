@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import { changeCoreLanguage, logout } from "./core";
-import request from "../request";
-import requests from "../requests";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { setAccessToken } from "../../../utils/access-token-storage";
-import mergeRecords from "../../../utils/merge-records";
-import { isUserAdminOrProjectOwner } from "../../../utils/record-helpers";
-import { UserRoles } from "../../../constants/Enums";
+import { changeCoreLanguage, logout } from './core';
+import request from '../request';
+import requests from '../requests';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { setAccessToken } from '../../../utils/access-token-storage';
+import mergeRecords from '../../../utils/merge-records';
+import { isUserAdminOrProjectOwner } from '../../../utils/record-helpers';
+import { UserRoles } from '../../../constants/Enums';
 
 export function* createUser(data) {
   yield put(actions.createUser(data));
@@ -147,7 +147,7 @@ export function* handleUserUpdate(user) {
           if (body.card) {
             notificationsToDelete = yield select(
               selectors.selectNotificationsByCardId,
-              body.card.id,
+              body.card.id
             );
           }
         }
@@ -184,13 +184,13 @@ export function* handleUserUpdate(user) {
       mergeRecords(customFields1, customFields2),
       customFieldValues,
       notificationsToDelete,
-      notificationServices,
-    ),
+      notificationServices
+    )
   );
 
   if (isCurrentUser) {
     const isAvailableForCurrentUser = yield select(
-      selectors.isCurrentModalAvailableForCurrentUser,
+      selectors.isCurrentModalAvailableForCurrentUser
     );
 
     if (!isAvailableForCurrentUser) {
@@ -255,7 +255,7 @@ export function* updateUserPassword(id, data) {
       request,
       api.updateUserPassword,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateUserPassword.failure(id, error));
@@ -375,7 +375,7 @@ export function* addUserToCard(id, cardId) {
       cardId,
       {
         userId: id,
-      },
+      }
     ));
   } catch (error) {
     yield put(actions.addUserToCard.failure(id, cardId, error));
@@ -410,7 +410,7 @@ export function* removeUserFromCard(id, cardId) {
       request,
       api.deleteCardMembership,
       cardId,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.removeUserFromCard.failure(id, cardId, error));

@@ -3,55 +3,55 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
-import { useForceUpdate } from "../../../lib/hooks";
+import upperFirst from 'lodash/upperFirst';
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { Icon } from 'semantic-ui-react';
+import { useForceUpdate } from '../../../lib/hooks';
 
-import getDateFormat from "../../../utils/get-date-format";
+import getDateFormat from '../../../utils/get-date-format';
 
-import styles from "./DueDateChip.module.scss";
+import styles from './DueDateChip.module.scss';
 
 const Sizes = {
-  TINY: "tiny",
-  SMALL: "small",
-  MEDIUM: "medium",
+  TINY: 'tiny',
+  SMALL: 'small',
+  MEDIUM: 'medium',
 };
 
 const Statuses = {
-  DUE_SOON: "dueSoon",
-  OVERDUE: "overdue",
+  DUE_SOON: 'dueSoon',
+  OVERDUE: 'overdue',
 };
 
 const LONG_DATE_FORMAT_BY_SIZE = {
-  [Sizes.TINY]: "longDate",
-  [Sizes.SMALL]: "longDate",
-  [Sizes.MEDIUM]: "longDateTime",
+  [Sizes.TINY]: 'longDate',
+  [Sizes.SMALL]: 'longDate',
+  [Sizes.MEDIUM]: 'longDateTime',
 };
 
 const FULL_DATE_FORMAT_BY_SIZE = {
-  [Sizes.TINY]: "fullDate",
-  [Sizes.SMALL]: "fullDate",
-  [Sizes.MEDIUM]: "fullDateTime",
+  [Sizes.TINY]: 'fullDate',
+  [Sizes.SMALL]: 'fullDate',
+  [Sizes.MEDIUM]: 'fullDateTime',
 };
 
 const STATUS_ICON_PROPS_BY_STATUS = {
   [Statuses.DUE_SOON]: {
-    name: "hourglass half",
-    color: "orange",
+    name: 'hourglass half',
+    color: 'orange',
   },
   [Statuses.OVERDUE]: {
-    name: "hourglass end",
-    color: "red",
+    name: 'hourglass end',
+    color: 'red',
   },
 };
 
 const getStatus = (date) => {
   const secondsLeft = Math.floor(
-    (date.getTime() - new Date().getTime()) / 1000,
+    (date.getTime() - new Date().getTime()) / 1000
   );
 
   if (secondsLeft <= 0) {
@@ -78,7 +78,7 @@ const DueDateChip = React.memo(
     const dateFormat = getDateFormat(
       value,
       LONG_DATE_FORMAT_BY_SIZE[size],
-      FULL_DATE_FORMAT_BY_SIZE[size],
+      FULL_DATE_FORMAT_BY_SIZE[size]
     );
 
     useEffect(() => {
@@ -111,12 +111,12 @@ const DueDateChip = React.memo(
           !withStatusIcon &&
             statusRef.current &&
             styles[`wrapper${upperFirst(statusRef.current)}`],
-          onClick && styles.wrapperHoverable,
+          onClick && styles.wrapperHoverable
         )}
       >
         {t(`format:${dateFormat}`, {
           value,
-          postProcess: "formatDate",
+          postProcess: 'formatDate',
         })}
         {withStatusIcon && statusRef.current && (
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -140,7 +140,7 @@ const DueDateChip = React.memo(
     ) : (
       contentNode
     );
-  },
+  }
 );
 
 DueDateChip.propTypes = {

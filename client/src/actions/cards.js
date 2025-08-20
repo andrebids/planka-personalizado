@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 const fetchCards = (listId) => ({
   type: ActionTypes.CARDS_FETCH,
@@ -23,7 +23,7 @@ fetchCards.success = (
   attachments,
   customFieldGroups,
   customFields,
-  customFieldValues,
+  customFieldValues
 ) => ({
   type: ActionTypes.CARDS_FETCH__SUCCESS,
   payload: {
@@ -91,7 +91,7 @@ const handleCardCreate = (
   attachments,
   customFieldGroups,
   customFields,
-  customFieldValues,
+  customFieldValues
 ) => ({
   type: ActionTypes.CARD_CREATE_HANDLE,
   payload: {
@@ -142,7 +142,7 @@ const handleCardUpdate = (
   attachments,
   customFieldGroups,
   customFields,
-  customFieldValues,
+  customFieldValues
 ) => ({
   type: ActionTypes.CARD_UPDATE_HANDLE,
   payload: {
@@ -179,7 +179,7 @@ duplicateCard.success = (
   attachments,
   customFieldGroups,
   customFields,
-  customFieldValues,
+  customFieldValues
 ) => ({
   type: ActionTypes.CARD_DUPLICATE__SUCCESS,
   payload: {

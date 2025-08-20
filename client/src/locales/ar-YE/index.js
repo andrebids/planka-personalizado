@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "ar-YE",
-  country: "ye",
-  name: "العربية",
+  language: 'ar-YE',
+  country: 'ye',
+  name: 'العربية',
   embeddedLocale: login,
 };

@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import CustomFieldGroupsStep from "./CustomFieldGroupsStep";
+import CustomFieldGroupsStep from './CustomFieldGroupsStep';
 
 export default CustomFieldGroupsStep;

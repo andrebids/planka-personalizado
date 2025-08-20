@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import authenticateForm from "./authenticate-form";
-import userCreateForm from "./user-create-form";
-import projectCreateForm from "./project-create-form";
+import authenticateForm from './authenticate-form';
+import userCreateForm from './user-create-form';
+import projectCreateForm from './project-create-form';
 
 export default combineReducers({
   authenticateForm,

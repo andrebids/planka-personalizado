@@ -3,32 +3,32 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import TextareaAutosize from "react-textarea-autosize";
-import { Button, Form, Icon, TextArea } from "semantic-ui-react";
+import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import TextareaAutosize from 'react-textarea-autosize';
+import { Button, Form, Icon, TextArea } from 'semantic-ui-react';
 import {
   useClickAwayListener,
   useDidUpdate,
   usePrevious,
   useToggle,
-} from "../../../lib/hooks";
-import { usePopup } from "../../../lib/popup";
+} from '../../../lib/hooks';
+import { usePopup } from '../../../lib/popup';
 
-import selectors from "../../../selectors";
-import { useClosable, useForm, useNestedRef } from "../../../hooks";
-import { isModifierKeyPressed } from "../../../utils/event-helpers";
-import { CardTypeIcons } from "../../../constants/Icons";
-import { processSupportedFiles } from "../../../utils/file-helpers";
-import SelectCardTypeStep from "../SelectCardTypeStep";
+import selectors from '../../../selectors';
+import { useClosable, useForm, useNestedRef } from '../../../hooks';
+import { isModifierKeyPressed } from '../../../utils/event-helpers';
+import { CardTypeIcons } from '../../../constants/Icons';
+import { processSupportedFiles } from '../../../utils/file-helpers';
+import SelectCardTypeStep from '../SelectCardTypeStep';
 
-import styles from "./AddCard.module.scss";
+import styles from './AddCard.module.scss';
 
 const DEFAULT_DATA = {
-  name: "",
+  name: '',
 };
 
 const AddCard = React.memo(
@@ -92,7 +92,7 @@ const AddCard = React.memo(
         setData,
         focusNameField,
         nameFieldRef,
-      ],
+      ]
     );
 
     const handleSubmit = useCallback(() => {
@@ -106,25 +106,25 @@ const AddCard = React.memo(
           type,
         }));
       },
-      [setData],
+      [setData]
     );
 
     const handleFieldKeyDown = useCallback(
       (event) => {
         switch (event.key) {
-          case "Enter":
+          case 'Enter':
             event.preventDefault();
             submit(isModifierKeyPressed(event));
 
             break;
-          case "Escape":
+          case 'Escape':
             onClose();
 
             break;
           default:
         }
       },
-      [onClose, submit],
+      [onClose, submit]
     );
 
     const handleSelectTypeClose = useCallback(() => {
@@ -147,7 +147,7 @@ const AddCard = React.memo(
     const clickAwayProps = useClickAwayListener(
       [nameFieldRef, submitButtonRef, selectTypeButtonRef],
       handleAwayClick,
-      handleClickAwayCancel,
+      handleClickAwayCancel
     );
 
     // Handlers para drag & drop
@@ -166,15 +166,15 @@ const AddCard = React.memo(
         e.preventDefault();
         setIsDragOver(false);
 
-        console.log("📁 Drag & Drop ativado!");
+        console.log('📁 Drag & Drop ativado!');
         const files = Array.from(e.dataTransfer.files);
-        console.log("📁 Arquivos arrastados:", files);
+        console.log('📁 Arquivos arrastados:', files);
 
         const processedFiles = processSupportedFiles(files);
-        console.log("✅ Arquivos processados:", processedFiles);
+        console.log('✅ Arquivos processados:', processedFiles);
 
         if (processedFiles.length === 0) {
-          console.log("❌ Nenhum arquivo válido encontrado");
+          console.log('❌ Nenhum arquivo válido encontrado');
           return;
         }
 
@@ -188,38 +188,38 @@ const AddCard = React.memo(
               type: defaultType, // Sempre usar o tipo padrão do board para consistência
             };
 
-            console.log("🎴 Criando card:", cardData);
+            console.log('🎴 Criando card:', cardData);
             console.log(
-              "📄 Tipo de arquivo:",
-              fileData.isImage ? "Imagem (capa)" : "Anexo",
+              '📄 Tipo de arquivo:',
+              fileData.isImage ? 'Imagem (capa)' : 'Anexo'
             );
-            console.log("📄 Arquivo:", fileData.file);
+            console.log('📄 Arquivo:', fileData.file);
             console.log(
-              "📄 Nome do arquivo:",
-              fileData.file ? fileData.file.name : "undefined",
+              '📄 Nome do arquivo:',
+              fileData.file ? fileData.file.name : 'undefined'
             );
             console.log(
-              "📄 Tamanho do arquivo:",
-              fileData.file ? fileData.file.size : "undefined",
+              '📄 Tamanho do arquivo:',
+              fileData.file ? fileData.file.size : 'undefined'
             );
 
             // Usar a action createCardWithAttachment para criar card com anexo
             if (onCreateWithAttachment) {
-              console.log("📎 Usando createCardWithAttachment");
+              console.log('📎 Usando createCardWithAttachment');
               onCreateWithAttachment(cardData, fileData.file);
             } else {
-              console.log("📝 Usando createCard normal");
+              console.log('📝 Usando createCard normal');
               onCreate(cardData, false);
             }
           }
         } catch (error) {
-          console.error("❌ Erro ao processar arquivos:", error);
+          console.error('❌ Erro ao processar arquivos:', error);
         } finally {
           setIsProcessing(false);
-          console.log("✅ Processamento finalizado");
+          console.log('✅ Processamento finalizado');
         }
       },
-      [data.name, defaultType, onCreate, onCreateWithAttachment],
+      [data.name, defaultType, onCreate, onCreateWithAttachment]
     );
 
     useEffect(() => {
@@ -255,7 +255,7 @@ const AddCard = React.memo(
           className={classNames(
             styles.fieldWrapper,
             isDragOver && styles.fieldWrapperDragOver,
-            isProcessing && styles.fieldWrapperProcessing,
+            isProcessing && styles.fieldWrapperProcessing
           )}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -269,15 +269,15 @@ const AddCard = React.memo(
             value={data.name}
             placeholder={
               isDragOver
-                ? t("common.dropFilesHere")
-                : t("common.enterCardTitle")
+                ? t('common.dropFilesHere')
+                : t('common.enterCardTitle')
             }
             maxLength={1024}
             minRows={3}
             spellCheck={false}
             className={classNames(
               styles.field,
-              isProcessing && styles.fieldProcessing,
+              isProcessing && styles.fieldProcessing
             )}
             onKeyDown={handleFieldKeyDown}
             onChange={handleFieldChange}
@@ -286,13 +286,13 @@ const AddCard = React.memo(
           {isDragOver && (
             <div className={styles.dragOverlay}>
               <Icon name="upload" size="large" />
-              <span>{t("common.dropFilesHere")}</span>
+              <span>{t('common.dropFilesHere')}</span>
             </div>
           )}
           {isProcessing && (
             <div className={styles.processingOverlay}>
               <Icon name="spinner" loading size="large" />
-              <span>{t("common.processingFiles")}</span>
+              <span>{t('common.processingFiles')}</span>
             </div>
           )}
         </div>
@@ -301,7 +301,7 @@ const AddCard = React.memo(
             {...clickAwayProps}
             positive
             ref={handleSubmitButtonRef}
-            content={t("action.addCard")}
+            content={t('action.addCard')}
             className={styles.button}
             disabled={isProcessing}
           />
@@ -326,7 +326,7 @@ const AddCard = React.memo(
         </div>
       </Form>
     );
-  },
+  }
 );
 
 AddCard.propTypes = {

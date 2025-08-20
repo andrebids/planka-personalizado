@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef } from "react";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
+import React, { useCallback, useRef } from 'react';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
-import selectors from "../../../selectors";
-import ProjectCard from "../../projects/ProjectCard";
+import selectors from '../../../selectors';
+import ProjectCard from '../../projects/ProjectCard';
 
-import styles from "./Favorites.module.scss";
+import styles from './Favorites.module.scss';
 
 const Favorites = React.memo(() => {
   const { projectId: currentProjectId } = useSelector(selectors.selectPath);
   const projectIds = useSelector(
-    selectors.selectFavoriteProjectIdsForCurrentUser,
+    selectors.selectFavoriteProjectIdsForCurrentUser
   );
   const isActive = useSelector(selectors.selectIsFavoritesActiveForCurrentUser);
 

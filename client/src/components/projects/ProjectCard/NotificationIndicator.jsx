@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "./NotificationIndicator.module.scss";
+import styles from './NotificationIndicator.module.scss';
 
 /**
  * Componente de notificação simplificado - sempre azul claro
  */
 const NotificationIndicator = React.memo(({ count = 1 }) => {
-  const displayCount = count > 99 ? "99+" : count;
+  const displayCount = count > 99 ? '99+' : count;
 
   return (
     <div className={styles.wrapper}>

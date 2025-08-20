@@ -3,29 +3,29 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Icon, Menu } from "semantic-ui-react";
-import { Popup } from "../../../../lib/custom-ui";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Icon, Menu } from 'semantic-ui-react';
+import { Popup } from '../../../../lib/custom-ui';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useSteps } from "../../../../hooks";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useSteps } from '../../../../hooks';
 import {
   BoardContexts,
   BoardMembershipRoles,
-} from "../../../../constants/Enums";
-import { BoardContextIcons } from "../../../../constants/Icons";
-import ConfirmationStep from "../../../common/ConfirmationStep";
-import CustomFieldGroupsStep from "../../../custom-field-groups/CustomFieldGroupsStep";
+} from '../../../../constants/Enums';
+import { BoardContextIcons } from '../../../../constants/Icons';
+import ConfirmationStep from '../../../common/ConfirmationStep';
+import CustomFieldGroupsStep from '../../../custom-field-groups/CustomFieldGroupsStep';
 
-import styles from "./ActionsStep.module.scss";
+import styles from './ActionsStep.module.scss';
 
 const StepTypes = {
-  CUSTOM_FIELD_GROUPS: "CUSTOM_FIELD_GROUPS",
-  EMPTY_TRASH: "EMPTY_TRASH",
+  CUSTOM_FIELD_GROUPS: 'CUSTOM_FIELD_GROUPS',
+  EMPTY_TRASH: 'EMPTY_TRASH',
 };
 
 const ActionsStep = React.memo(({ onClose }) => {
@@ -62,7 +62,7 @@ const ActionsStep = React.memo(({ onClose }) => {
     dispatch(
       entryActions.updateCurrentBoard({
         isSubscribed: !board.isSubscribed,
-      }),
+      })
     );
 
     onClose();
@@ -73,7 +73,7 @@ const ActionsStep = React.memo(({ onClose }) => {
       dispatch(entryActions.updateContextInCurrentBoard(context));
       onClose();
     },
-    [onClose, dispatch],
+    [onClose, dispatch]
   );
 
   const handleActivitiesClick = useCallback(() => {
@@ -115,8 +115,8 @@ const ActionsStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.boardActions", {
-          context: "title",
+        {t('common.boardActions', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -128,15 +128,15 @@ const ActionsStep = React.memo(({ onClose }) => {
             >
               <Icon
                 name={
-                  board.isSubscribed ? "bell slash outline" : "bell outline"
+                  board.isSubscribed ? 'bell slash outline' : 'bell outline'
                 }
                 className={styles.menuItemIcon}
               />
               {t(
-                board.isSubscribed ? "action.unsubscribe" : "action.subscribe",
+                board.isSubscribed ? 'action.unsubscribe' : 'action.subscribe',
                 {
-                  context: "title",
-                },
+                  context: 'title',
+                }
               )}
             </Menu.Item>
           )}
@@ -149,8 +149,8 @@ const ActionsStep = React.memo(({ onClose }) => {
                 name="sticky note outline"
                 className={styles.menuItemIcon}
               />
-              {t("common.customFields", {
-                context: "title",
+              {t('common.customFields', {
+                context: 'title',
               })}
             </Menu.Item>
           )}
@@ -159,8 +159,8 @@ const ActionsStep = React.memo(({ onClose }) => {
             onClick={handleActivitiesClick}
           >
             <Icon name="list ul" className={styles.menuItemIcon} />
-            {t("common.actions", {
-              context: "title",
+            {t('common.actions', {
+              context: 'title',
             })}
           </Menu.Item>
           {withTrashEmptier && (
@@ -174,8 +174,8 @@ const ActionsStep = React.memo(({ onClose }) => {
                   name="trash alternate outline"
                   className={styles.menuItemIcon}
                 />
-                {t("action.emptyTrash", {
-                  context: "title",
+                {t('action.emptyTrash', {
+                  context: 'title',
                 })}
               </Menu.Item>
             </>

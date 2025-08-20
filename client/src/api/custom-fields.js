@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import socket from "./socket";
+import socket from './socket';
 
 /* Actions */
 
@@ -11,14 +11,14 @@ const createCustomFieldInBaseGroup = (baseCustomFieldGroupId, data, headers) =>
   socket.post(
     `/base-custom-field-groups/${baseCustomFieldGroupId}/custom-fields`,
     data,
-    headers,
+    headers
   );
 
 const createCustomFieldInGroup = (customFieldGroupId, data, headers) =>
   socket.post(
     `/custom-field-groups/${customFieldGroupId}/custom-fields`,
     data,
-    headers,
+    headers
   );
 
 const updateCustomField = (id, data, headers) =>

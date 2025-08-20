@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import SelectCardType from "./SelectCardType";
+import SelectCardType from './SelectCardType';
 
 export default SelectCardType;

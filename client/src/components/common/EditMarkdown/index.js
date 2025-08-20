@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import EditMarkdown from "./EditMarkdown";
+import EditMarkdown from './EditMarkdown';
 
 export default EditMarkdown;

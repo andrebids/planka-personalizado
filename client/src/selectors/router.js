@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector as createReselectSelector } from "reselect";
-import { createSelector as createReduxOrmSelector } from "redux-orm";
+import { createSelector as createReselectSelector } from 'reselect';
+import { createSelector as createReduxOrmSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { selectCurrentUserId } from "./users";
-import matchPaths from "../utils/match-paths";
-import Paths from "../constants/Paths";
+import orm from '../orm';
+import { selectCurrentUserId } from './users';
+import matchPaths from '../utils/match-paths';
+import Paths from '../constants/Paths';
 
 export const selectPathname = ({
   router: {
@@ -19,7 +19,7 @@ export const selectPathname = ({
 
 export const selectPathsMatch = createReselectSelector(
   selectPathname,
-  (pathname) => matchPaths(pathname, Object.values(Paths)),
+  (pathname) => matchPaths(pathname, Object.values(Paths))
 );
 
 export const selectPath = createReduxOrmSelector(
@@ -84,7 +84,7 @@ export const selectPath = createReduxOrmSelector(
     }
 
     return {};
-  },
+  }
 );
 
 export default {

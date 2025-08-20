@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { isLocalId } from "../utils/local-id";
+import orm from '../orm';
+import { isLocalId } from '../utils/local-id';
 
 export const makeSelectBaseCustomFieldGroupById = () =>
   createSelector(
@@ -23,7 +23,7 @@ export const makeSelectBaseCustomFieldGroupById = () =>
         ...baseCustomFieldGroupModel.ref,
         isPersisted: !isLocalId(baseCustomFieldGroupModel.id),
       };
-    },
+    }
   );
 
 export const selectBaseCustomFieldGroupById =
@@ -45,7 +45,7 @@ export const makeSelectCustomFieldsByBaseGroupId = () =>
       }
 
       return baseCustomFieldGroupModel.getCustomFieldsQuerySet().toRefArray();
-    },
+    }
   );
 
 export const selectCustomFieldsByBaseGroupId =

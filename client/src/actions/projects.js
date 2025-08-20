@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 const searchProjects = (value) => ({
   type: ActionTypes.PROJECTS_SEARCH,
@@ -57,7 +57,7 @@ const handleProjectCreate = (
   boards,
   boardMemberships,
   customFields,
-  notificationServices,
+  notificationServices
 ) => ({
   type: ActionTypes.PROJECT_CREATE_HANDLE,
   payload: {
@@ -119,7 +119,7 @@ const handleProjectUpdate = (
   customFields,
   customFieldValues,
   notificationsToDelete,
-  notificationServices,
+  notificationServices
 ) => ({
   type: ActionTypes.PROJECT_UPDATE_HANDLE,
   payload: {

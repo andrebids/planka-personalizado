@@ -3,42 +3,42 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button } from "semantic-ui-react";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useSteps } from "../../../hooks";
-import { UserRoles } from "../../../constants/Enums";
-import ConfirmationStep from "../../common/ConfirmationStep";
-import UserAvatar from "../../users/UserAvatar";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useSteps } from '../../../hooks';
+import { UserRoles } from '../../../constants/Enums';
+import ConfirmationStep from '../../common/ConfirmationStep';
+import UserAvatar from '../../users/UserAvatar';
 
-import styles from "./ActionsStep.module.scss";
+import styles from './ActionsStep.module.scss';
 
 const StepTypes = {
-  DELETE: "DELETE",
-  ASSIGN_AS_OWNER: "ASSIGN_AS_OWNER",
+  DELETE: 'DELETE',
+  ASSIGN_AS_OWNER: 'ASSIGN_AS_OWNER',
 };
 
 const ActionsStep = React.memo(({ projectManagerId, onClose }) => {
   const selectProjectManagerById = useMemo(
     () => selectors.makeSelectProjectManagerById(),
-    [],
+    []
   );
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
   const projectManager = useSelector((state) =>
-    selectProjectManagerById(state, projectManagerId),
+    selectProjectManagerById(state, projectManagerId)
   );
   const user = useSelector((state) =>
-    selectUserById(state, projectManager.userId),
+    selectUserById(state, projectManager.userId)
   );
 
   const isCurrentUser = useSelector(
-    (state) => projectManager.userId === selectors.selectCurrentUserId(state),
+    (state) => projectManager.userId === selectors.selectCurrentUserId(state)
   );
 
   const { canDelete, canAssignAsOwner } = useSelector((state) => {
@@ -71,7 +71,7 @@ const ActionsStep = React.memo(({ projectManagerId, onClose }) => {
     dispatch(
       entryActions.updateCurrentProject({
         ownerProjectManagerId: projectManagerId,
-      }),
+      })
     );
 
     onClose();
@@ -106,15 +106,15 @@ const ActionsStep = React.memo(({ projectManagerId, onClose }) => {
         return (
           <ConfirmationStep
             title={
-              isCurrentUser ? "common.leaveProject" : "common.removeManager"
+              isCurrentUser ? 'common.leaveProject' : 'common.removeManager'
             }
             content={
               isCurrentUser
-                ? "common.areYouSureYouWantToLeaveProject"
-                : "common.areYouSureYouWantToRemoveThisManagerFromProject"
+                ? 'common.areYouSureYouWantToLeaveProject'
+                : 'common.areYouSureYouWantToRemoveThisManagerFromProject'
             }
             buttonContent={
-              isCurrentUser ? "action.leaveProject" : "action.removeManager"
+              isCurrentUser ? 'action.leaveProject' : 'action.removeManager'
             }
             onConfirm={handleDeleteConfirm}
             onBack={handleBack}
@@ -138,7 +138,7 @@ const ActionsStep = React.memo(({ projectManagerId, onClose }) => {
       {canAssignAsOwner && (
         <Button
           fluid
-          content={t("action.assignAsOwner")}
+          content={t('action.assignAsOwner')}
           className={styles.button}
           onClick={handleAssignAsOwnerClick}
         />
@@ -148,8 +148,8 @@ const ActionsStep = React.memo(({ projectManagerId, onClose }) => {
           fluid
           content={
             isCurrentUser
-              ? t("action.leaveProject")
-              : t("action.removeFromProject")
+              ? t('action.leaveProject')
+              : t('action.removeFromProject')
           }
           className={styles.button}
           onClick={handleDeleteClick}

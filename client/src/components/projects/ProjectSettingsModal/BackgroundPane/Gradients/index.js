@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Gradients from "./Gradients";
+import Gradients from './Gradients';
 
 export default Gradients;

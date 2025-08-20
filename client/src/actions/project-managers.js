@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 const createProjectManager = (projectManager) => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE,
@@ -53,7 +53,7 @@ const handleProjectManagerCreate = (
   customFields,
   customFieldValues,
   notificationsToDelete,
-  notificationServices,
+  notificationServices
 ) => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE_HANDLE,
   payload: {

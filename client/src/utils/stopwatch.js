@@ -50,5 +50,5 @@ export const formatStopwatch = (stopwatch) => {
   return [
     hours,
     ...[minutes, seconds].map((part) => (part < 10 ? `0${part}` : part)),
-  ].join(":");
+  ].join(':');
 };

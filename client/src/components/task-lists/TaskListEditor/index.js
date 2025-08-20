@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import TaskListEditor from "./TaskListEditor";
+import TaskListEditor from './TaskListEditor';
 
 export default TaskListEditor;

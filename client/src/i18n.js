@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import { initReactI18next } from "react-i18next";
-import formatDate from "date-fns/format";
-import parseDate from "date-fns/parse";
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
+import formatDate from 'date-fns/format';
+import parseDate from 'date-fns/parse';
 import {
   registerLocale as registerDatepickerLocale,
   setDefaultLocale as setDefaultDatepickerLocale,
-} from "react-datepicker";
-import timeAgoDefaultLocale from "javascript-time-ago/locale/en";
-import TimeAgo from "javascript-time-ago";
-import ptPTLocale from "javascript-time-ago/locale/pt-PT";
-import { configure as configureMarkdownEditor } from "@gravity-ui/markdown-editor";
+} from 'react-datepicker';
+import timeAgoDefaultLocale from 'javascript-time-ago/locale/en';
+import TimeAgo from 'javascript-time-ago';
+import ptPTLocale from 'javascript-time-ago/locale/pt-PT';
+import { configure as configureMarkdownEditor } from '@gravity-ui/markdown-editor';
 // eslint-disable-next-line import/no-unresolved
-import { i18n as markdownEditorI18n } from "@gravity-ui/markdown-editor/_/i18n/i18n";
+import { i18n as markdownEditorI18n } from '@gravity-ui/markdown-editor/_/i18n/i18n';
 
-import { embeddedLocales, languages } from "./locales";
+import { embeddedLocales, languages } from './locales';
 
-const FALLBACK_LANGUAGE = "pt-PT";
+const FALLBACK_LANGUAGE = 'pt-PT';
 
 i18n.dateFns = {
   locales: {},
@@ -54,7 +54,7 @@ i18n.timeAgo = {
   init() {
     TimeAgo.addDefaultLocale(timeAgoDefaultLocale);
     // Adicionar o locale pt-PT explicitamente
-    console.log("Registando locale pt-PT no i18n:", ptPTLocale);
+    console.log('Registando locale pt-PT no i18n:', ptPTLocale);
     TimeAgo.addLocale(ptPTLocale);
   },
   addLocale(_, locale) {
@@ -75,39 +75,39 @@ i18n.markdownEditor = {
       ) {
         this.addLocale(
           FALLBACK_LANGUAGE,
-          embeddedLocales[FALLBACK_LANGUAGE].markdownEditor,
+          embeddedLocales[FALLBACK_LANGUAGE].markdownEditor
         );
-        console.log("✅ Locale pt-PT registado com sucesso no markdown editor");
+        console.log('✅ Locale pt-PT registado com sucesso no markdown editor');
       } else {
         console.warn(
-          "⚠️ Locale pt-PT não encontrado no markdown editor, usando fallback",
+          '⚠️ Locale pt-PT não encontrado no markdown editor, usando fallback'
         );
         // Usar um locale alternativo como fallback
-        const fallbackLocale = "en-US";
+        const fallbackLocale = 'en-US';
         if (
           embeddedLocales[fallbackLocale] &&
           embeddedLocales[fallbackLocale].markdownEditor
         ) {
           this.addLocale(
             FALLBACK_LANGUAGE,
-            embeddedLocales[fallbackLocale].markdownEditor,
+            embeddedLocales[fallbackLocale].markdownEditor
           );
         }
       }
     } catch (error) {
       console.error(
-        "❌ Erro ao registar locale pt-PT no markdown editor:",
-        error,
+        '❌ Erro ao registar locale pt-PT no markdown editor:',
+        error
       );
       // Usar locale padrão como fallback
-      const fallbackLocale = "en-US";
+      const fallbackLocale = 'en-US';
       if (
         embeddedLocales[fallbackLocale] &&
         embeddedLocales[fallbackLocale].markdownEditor
       ) {
         this.addLocale(
           FALLBACK_LANGUAGE,
-          embeddedLocales[fallbackLocale].markdownEditor,
+          embeddedLocales[fallbackLocale].markdownEditor
         );
       }
     }
@@ -117,12 +117,12 @@ i18n.markdownEditor = {
       Object.entries(locale).forEach(([keyset, data]) => {
         markdownEditorI18n.registerKeyset(language, keyset, data);
       });
-      console.log("✅ Locale registado no markdown editor:", language);
+      console.log('✅ Locale registado no markdown editor:', language);
     } catch (error) {
       console.error(
-        "❌ Erro ao registar locale no markdown editor:",
+        '❌ Erro ao registar locale no markdown editor:',
         language,
-        error,
+        error
       );
     }
   },
@@ -133,9 +133,9 @@ i18n.markdownEditor = {
       });
     } catch (error) {
       console.error(
-        "❌ Erro ao configurar idioma do markdown editor:",
+        '❌ Erro ao configurar idioma do markdown editor:',
         language,
-        error,
+        error
       );
     }
   },
@@ -145,23 +145,23 @@ i18n.dateFns.init();
 i18n.timeAgo.init();
 i18n.markdownEditor.init();
 
-i18n.on("languageChanged", () => {
+i18n.on('languageChanged', () => {
   i18n.dateFns.setLanguage(i18n.resolvedLanguage);
   i18n.timeAgo.setLanguage(i18n.resolvedLanguage);
   i18n.markdownEditor.setLanguage(i18n.resolvedLanguage);
 });
 
 const formatDatePostProcessor = {
-  type: "postProcessor",
-  name: "formatDate",
+  type: 'postProcessor',
+  name: 'formatDate',
   process(value, _, options) {
     return i18n.dateFns.format(options.value, value);
   },
 };
 
 const parseDatePostProcessor = {
-  type: "postProcessor",
-  name: "parseDate",
+  type: 'postProcessor',
+  name: 'parseDate',
   process(value, _, options) {
     return i18n.dateFns.parse(options.value, value, new Date());
   },
@@ -176,7 +176,7 @@ i18n
     resources: embeddedLocales,
     fallbackLng: FALLBACK_LANGUAGE,
     supportedLngs: languages,
-    load: "currentOnly",
+    load: 'currentOnly',
     interpolation: {
       escapeValue: false,
       format(value, format, language) {
@@ -195,24 +195,24 @@ i18n
     debug: import.meta.env.DEV,
   })
   .then(() => {
-    console.log("i18n inicializado com sucesso");
+    console.log('i18n inicializado com sucesso');
     // Carregar o locale padrão pt-PT
     i18n.loadCoreLocale(FALLBACK_LANGUAGE).then(() => {
-      console.log("Locale pt-PT carregado com sucesso");
+      console.log('Locale pt-PT carregado com sucesso');
     });
   });
 
 i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
   if (language === FALLBACK_LANGUAGE) {
-    console.log("Carregando locale padrão pt-PT");
+    console.log('Carregando locale padrão pt-PT');
     // Carregar o locale pt-PT mesmo sendo o padrão
     const { default: locale } = await import(`./locales/${language}/core.js`);
 
     Object.keys(locale).forEach((namespace) => {
       switch (namespace) {
-        case "dateFns":
-        case "timeAgo":
-        case "markdownEditor":
+        case 'dateFns':
+        case 'timeAgo':
+        case 'markdownEditor':
           i18n[namespace].addLocale(language, locale[namespace]);
           break;
         default:
@@ -221,17 +221,17 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
             namespace,
             locale[namespace],
             true,
-            true,
+            true
           );
       }
     });
 
     // Verificar se as traduções foram carregadas corretamente
-    console.log("Verificando traduções carregadas:");
-    console.log("boardActions_title:", i18n.t("common.boardActions_title"));
-    console.log("expandPanel:", i18n.t("action.expandPanel"));
-    console.log("collapsePanel:", i18n.t("action.collapsePanel"));
-    console.log("openActivityHistory:", i18n.t("action.openActivityHistory"));
+    console.log('Verificando traduções carregadas:');
+    console.log('boardActions_title:', i18n.t('common.boardActions_title'));
+    console.log('expandPanel:', i18n.t('action.expandPanel'));
+    console.log('collapsePanel:', i18n.t('action.collapsePanel'));
+    console.log('openActivityHistory:', i18n.t('action.openActivityHistory'));
 
     return;
   }
@@ -240,12 +240,12 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
 
   Object.keys(locale).forEach((namespace) => {
     switch (namespace) {
-      case "dateFns":
-      case "timeAgo":
-      case "markdownEditor":
+      case 'dateFns':
+      case 'timeAgo':
+      case 'markdownEditor':
         console.log(
           `Registando ${namespace} para ${language}:`,
-          locale[namespace],
+          locale[namespace]
         );
         i18n[namespace].addLocale(language, locale[namespace]);
         break;
@@ -255,7 +255,7 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
           namespace,
           locale[namespace],
           true,
-          true,
+          true
         );
     }
   });
@@ -270,7 +270,7 @@ i18n.detectLanguage = () => {
   const detectedLanguages = languageDetector.detect();
 
   // Priorizar pt-PT se estiver disponível, caso contrário usar a detecção normal
-  const preferredLanguages = ["pt-PT", ...detectedLanguages];
+  const preferredLanguages = ['pt-PT', ...detectedLanguages];
   i18n.language = languageUtils.getBestMatchFromCodes(preferredLanguages);
   i18n.languages = languageUtils.toResolveHierarchy(i18n.language);
 

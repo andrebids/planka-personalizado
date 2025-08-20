@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useState, useCallback } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Icon, Button, Loader } from "semantic-ui-react";
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Icon, Button, Loader } from 'semantic-ui-react';
 
-import styles from "./FilePreviewModal.module.scss";
+import styles from './FilePreviewModal.module.scss';
 
 const ImagePreview = ({ file, onClose }) => {
   const [t] = useTranslation();
@@ -54,7 +54,7 @@ const ImagePreview = ({ file, onClose }) => {
         });
       }
     },
-    [zoom, position],
+    [zoom, position]
   );
 
   const handleMouseMove = useCallback(
@@ -66,7 +66,7 @@ const ImagePreview = ({ file, onClose }) => {
         });
       }
     },
-    [isDragging, zoom, dragStart],
+    [isDragging, zoom, dragStart]
   );
 
   const handleMouseUp = useCallback(() => {
@@ -75,7 +75,7 @@ const ImagePreview = ({ file, onClose }) => {
 
   const handleDownload = useCallback(() => {
     if (previewUrl) {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = previewUrl;
       link.download = file.name;
       link.click();
@@ -86,8 +86,8 @@ const ImagePreview = ({ file, onClose }) => {
     return (
       <div className={styles.errorContainer}>
         <Icon name="exclamation triangle" size="huge" />
-        <p>{t("common.errorLoadingImage")}</p>
-        <Button onClick={onClose}>{t("common.close")}</Button>
+        <p>{t('common.errorLoadingImage')}</p>
+        <Button onClick={onClose}>{t('common.close')}</Button>
       </div>
     );
   }
@@ -107,19 +107,19 @@ const ImagePreview = ({ file, onClose }) => {
               icon="zoom out"
               onClick={handleZoomOut}
               disabled={zoom <= 0.5}
-              title={t("common.zoomOut")}
+              title={t('common.zoomOut')}
             />
             <Button
               icon="zoom"
               onClick={handleResetZoom}
               disabled={zoom === 1}
-              title={t("common.resetZoom")}
+              title={t('common.resetZoom')}
             />
             <Button
               icon="zoom in"
               onClick={handleZoomIn}
               disabled={zoom >= 3}
-              title={t("common.zoomIn")}
+              title={t('common.zoomIn')}
             />
           </Button.Group>
 
@@ -127,14 +127,14 @@ const ImagePreview = ({ file, onClose }) => {
             icon="download"
             size="mini"
             onClick={handleDownload}
-            title={t("common.download")}
+            title={t('common.download')}
           />
 
           <Button
             icon="close"
             size="mini"
             onClick={onClose}
-            title={t("common.close")}
+            title={t('common.close')}
           />
         </div>
       </div>
@@ -147,13 +147,13 @@ const ImagePreview = ({ file, onClose }) => {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         style={{
-          cursor: isDragging ? "grabbing" : zoom > 1 ? "grab" : "default",
+          cursor: isDragging ? 'grabbing' : zoom > 1 ? 'grab' : 'default',
         }}
       >
         {isLoading && (
           <div className={styles.loadingOverlay}>
             <Loader active size="large" />
-            <p>{t("common.loadingImage")}</p>
+            <p>{t('common.loadingImage')}</p>
           </div>
         )}
 
@@ -163,7 +163,7 @@ const ImagePreview = ({ file, onClose }) => {
           className={styles.previewImage}
           style={{
             transform: `scale(${zoom}) translate(${position.x / zoom}px, ${position.y / zoom}px)`,
-            cursor: isDragging ? "grabbing" : zoom > 1 ? "grab" : "default",
+            cursor: isDragging ? 'grabbing' : zoom > 1 ? 'grab' : 'default',
           }}
           onLoad={handleImageLoad}
           onError={handleImageError}

@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export default (value) => {
   const prevValueRef = useRef();

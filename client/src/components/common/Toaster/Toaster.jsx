@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
+import React from 'react';
 import {
   Toaster as HotToaster,
   ToastBar as HotToastBar,
-} from "react-hot-toast";
+} from 'react-hot-toast';
 
-import ToastTypes from "../../../constants/ToastTypes";
-import EmptyTrashToast from "./EmptyTrashToast";
+import ToastTypes from '../../../constants/ToastTypes';
+import EmptyTrashToast from './EmptyTrashToast';
 
 const TOAST_BY_TYPE = {
   [ToastTypes.EMPTY_TRASH]: EmptyTrashToast,
@@ -22,9 +22,9 @@ const Toaster = React.memo(() => (
       <HotToastBar
         toast={toast}
         style={{
-          background: "transparent",
+          background: 'transparent',
           borderRadius: 0,
-          maxWidth: "90%",
+          maxWidth: '90%',
           padding: 0,
         }}
       >

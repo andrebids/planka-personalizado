@@ -3,20 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useImperativeHandle } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Input } from "../../../lib/custom-ui";
+import React, { useCallback, useEffect, useImperativeHandle } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Input } from '../../../lib/custom-ui';
 
-import { useNestedRef } from "../../../hooks";
+import { useNestedRef } from '../../../hooks';
 
-import styles from "./CustomFieldGroupEditor.module.scss";
+import styles from './CustomFieldGroupEditor.module.scss';
 
 const CustomFieldGroupEditor = React.forwardRef(
   ({ data, onFieldChange }, ref) => {
     const [t] = useTranslation();
 
-    const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
+    const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
 
     const focusNameField = useCallback(() => {
       nameFieldRef.current.focus({
@@ -34,7 +34,7 @@ const CustomFieldGroupEditor = React.forwardRef(
         focusNameField,
         selectNameField,
       }),
-      [focusNameField, selectNameField],
+      [focusNameField, selectNameField]
     );
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const CustomFieldGroupEditor = React.forwardRef(
 
     return (
       <>
-        <div className={styles.text}>{t("common.title")}</div>
+        <div className={styles.text}>{t('common.title')}</div>
         <Input
           fluid
           ref={handleNameFieldRef}
@@ -55,7 +55,7 @@ const CustomFieldGroupEditor = React.forwardRef(
         />
       </>
     );
-  },
+  }
 );
 
 CustomFieldGroupEditor.propTypes = {

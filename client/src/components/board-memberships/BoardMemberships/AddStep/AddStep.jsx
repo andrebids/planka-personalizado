@@ -3,23 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Input, Popup } from "../../../../lib/custom-ui";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Input, Popup } from '../../../../lib/custom-ui';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { useField, useNestedRef, useSteps } from "../../../../hooks";
-import { isUserAdminOrProjectOwner } from "../../../../utils/record-helpers";
-import User from "./User";
-import SelectPermissionsStep from "../SelectPermissionsStep";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { useField, useNestedRef, useSteps } from '../../../../hooks';
+import { isUserAdminOrProjectOwner } from '../../../../utils/record-helpers';
+import User from './User';
+import SelectPermissionsStep from '../SelectPermissionsStep';
 
-import styles from "./AddStep.module.scss";
+import styles from './AddStep.module.scss';
 
 const StepTypes = {
-  SELECT_PERMISSIONS: "SELECT_PERMISSIONS",
+  SELECT_PERMISSIONS: 'SELECT_PERMISSIONS',
 };
 
 const AddStep = React.memo(({ onClose }) => {
@@ -34,13 +34,13 @@ const AddStep = React.memo(({ onClose }) => {
   });
 
   const currentUserIds = useSelector(
-    selectors.selectMemberUserIdsForCurrentBoard,
+    selectors.selectMemberUserIdsForCurrentBoard
   );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
   const [step, openStep, handleBack] = useSteps();
-  const [search, handleSearchChange] = useField("");
+  const [search, handleSearchChange] = useField('');
   const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
   const filteredUsers = useMemo(
@@ -48,12 +48,12 @@ const AddStep = React.memo(({ onClose }) => {
       users.filter(
         (user) =>
           user.name.toLowerCase().includes(cleanSearch) ||
-          (user.username && user.username.includes(cleanSearch)),
+          (user.username && user.username.includes(cleanSearch))
       ),
-    [users, cleanSearch],
+    [users, cleanSearch]
   );
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const handleRoleSelect = useCallback(
     (data) => {
@@ -61,12 +61,12 @@ const AddStep = React.memo(({ onClose }) => {
         entryActions.createMembershipInCurrentBoard({
           ...data,
           userId: step.params.userId,
-        }),
+        })
       );
 
       onClose();
     },
-    [onClose, dispatch, step],
+    [onClose, dispatch, step]
   );
 
   const handleUserSelect = useCallback(
@@ -75,7 +75,7 @@ const AddStep = React.memo(({ onClose }) => {
         userId,
       });
     },
-    [openStep],
+    [openStep]
   );
 
   useEffect(() => {
@@ -104,8 +104,8 @@ const AddStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t("common.addMember", {
-          context: "title",
+        {t('common.addMember', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -113,7 +113,7 @@ const AddStep = React.memo(({ onClose }) => {
           fluid
           ref={handleSearchFieldRef}
           value={search}
-          placeholder={t("common.searchUsers")}
+          placeholder={t('common.searchUsers')}
           maxLength={128}
           icon="search"
           onChange={handleSearchChange}

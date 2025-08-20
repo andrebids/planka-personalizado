@@ -3,22 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { Progress } from "semantic-ui-react";
-import { useToggle } from "../../../../lib/hooks";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { Progress } from 'semantic-ui-react';
+import { useToggle } from '../../../../lib/hooks';
 
-import selectors from "../../../../selectors";
-import Task from "./Task";
+import selectors from '../../../../selectors';
+import Task from './Task';
 
-import styles from "./TaskList.module.scss";
+import styles from './TaskList.module.scss';
 
 const TaskList = React.memo(({ id }) => {
   const selectTasksByTaskListId = useMemo(
     () => selectors.makeSelectTasksByTaskListId(),
-    [],
+    []
   );
 
   const tasks = useSelector((state) => selectTasksByTaskListId(state, id));
@@ -30,9 +30,9 @@ const TaskList = React.memo(({ id }) => {
     () =>
       tasks.reduce(
         (result, task) => (task.isCompleted ? result + 1 : result),
-        0,
+        0
       ),
-    [tasks],
+    [tasks]
   );
 
   const handleToggleClick = useCallback(
@@ -40,7 +40,7 @@ const TaskList = React.memo(({ id }) => {
       event.stopPropagation();
       toggleOpened();
     },
-    [toggleOpened],
+    [toggleOpened]
   );
 
   if (tasks.length === 0) {
@@ -65,7 +65,7 @@ const TaskList = React.memo(({ id }) => {
         <span
           className={classNames(
             styles.count,
-            isOpened ? styles.countOpened : styles.countClosed,
+            isOpened ? styles.countOpened : styles.countClosed
           )}
         >
           {completedTasksTotal}/{tasks.length}

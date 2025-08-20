@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 
-import BoardMembershipsStep from "../../../board-memberships/BoardMembershipsStep";
+import BoardMembershipsStep from '../../../board-memberships/BoardMembershipsStep';
 
 const SelectAssigneeStep = React.memo(
   ({ currentUserId, onUserSelect, onUserDeselect, onBack, onClose }) => {
@@ -20,7 +20,7 @@ const SelectAssigneeStep = React.memo(
         onUserSelect(userId);
         onClose();
       },
-      [onUserSelect, onClose],
+      [onUserSelect, onClose]
     );
 
     const handleUserDeselect = useCallback(() => {
@@ -42,7 +42,7 @@ const SelectAssigneeStep = React.memo(
         onBack={onBack}
       />
     );
-  },
+  }
 );
 
 SelectAssigneeStep.propTypes = {

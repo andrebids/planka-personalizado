@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from "lodash/omit";
+import omit from 'lodash/omit';
 
-import socket from "./socket";
-import { transformAttachment } from "./attachments";
-import { transformActivity } from "./activities";
-import { transformNotification } from "./notifications";
+import socket from './socket';
+import { transformAttachment } from './attachments';
+import { transformActivity } from './activities';
+import { transformNotification } from './notifications';
 
 /* Transformers */
 
@@ -121,7 +121,7 @@ const makeHandleCardsUpdate = (next) => (body) => {
     ...body,
     items: body.items.map(transformCard),
     included: body.included && {
-      ...omit(body.included, "actions"),
+      ...omit(body.included, 'actions'),
       activities: body.included.actions.map(transformActivity),
     },
   });

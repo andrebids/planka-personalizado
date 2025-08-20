@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector as createOrmSelector } from "redux-orm";
-import { createSelector as createReselectSelector } from "reselect";
+import { createSelector as createOrmSelector } from 'redux-orm';
+import { createSelector as createReselectSelector } from 'reselect';
 
-import orm from "../orm";
-import { selectCurrentUserId } from "./users";
+import orm from '../orm';
+import { selectCurrentUserId } from './users';
 
 export const selectSidebarState = (state) => state.sidebar;
 export const selectIsSidebarExpanded = (state) =>
@@ -68,7 +68,7 @@ export const selectSidebarProjects = createOrmSelector(
       if (projectId && !processedProjects.has(projectId)) {
         // Contar notificações apenas para projetos que o usuário tem acesso
         const hasProjectAccess = projectModels.some(
-          (pm) => pm.id === projectId,
+          (pm) => pm.id === projectId
         );
         if (hasProjectAccess) {
           notificationsByProject[projectId] =
@@ -89,7 +89,7 @@ export const selectSidebarProjects = createOrmSelector(
         isFavorite: !!project.isFavorite,
         isHidden: !!project.isHidden,
         hasNotifications: notificationCount > 0,
-        notificationCount: notificationCount > 99 ? "99+" : notificationCount,
+        notificationCount: notificationCount > 99 ? '99+' : notificationCount,
         // Adicionar informações de background
         backgroundType: project.backgroundType,
         backgroundGradient: project.backgroundGradient,
@@ -115,19 +115,19 @@ export const selectSidebarProjects = createOrmSelector(
     return projectsWithData
       .filter((p) => !p.isHidden)
       .sort((a, b) => a.name.localeCompare(b.name));
-  },
+  }
 );
 
 // Lista apenas de favoritos (já filtrados e ordenados)
 export const selectSidebarFavoriteProjects = createReselectSelector(
   selectSidebarProjects,
-  (projects) => projects.filter((p) => p.isFavorite),
+  (projects) => projects.filter((p) => p.isFavorite)
 );
 
 // Lista de não favoritos (já filtrados e ordenados)
 export const selectSidebarOtherProjects = createReselectSelector(
   selectSidebarProjects,
-  (projects) => projects.filter((p) => !p.isFavorite),
+  (projects) => projects.filter((p) => !p.isFavorite)
 );
 
 // Ordenados conforme orders salvos
@@ -147,7 +147,7 @@ export const selectSidebarFavoriteProjectsOrdered = createReselectSelector(
       var ib = map[b.id] !== undefined ? map[b.id] : 999;
       return ia - ib;
     });
-  },
+  }
 );
 
 export const selectSidebarOtherProjectsOrdered = createReselectSelector(
@@ -166,7 +166,7 @@ export const selectSidebarOtherProjectsOrdered = createReselectSelector(
       var ib = map[b.id] !== undefined ? map[b.id] : 999;
       return ia - ib;
     });
-  },
+  }
 );
 
 // Selector para total de projetos (para mostrar indicador de "mais projetos")
@@ -184,5 +184,5 @@ export const selectTotalProjectsCount = createOrmSelector(
     }
 
     return userModel.getProjectsModelArray().length;
-  },
+  }
 );

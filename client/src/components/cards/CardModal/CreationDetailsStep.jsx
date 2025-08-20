@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import { StaticUserIds } from "../../../constants/StaticUsers";
-import TimeAgo from "../../common/TimeAgo";
-import UserAvatar from "../../users/UserAvatar";
+import selectors from '../../../selectors';
+import { StaticUserIds } from '../../../constants/StaticUsers';
+import TimeAgo from '../../common/TimeAgo';
+import UserAvatar from '../../users/UserAvatar';
 
-import styles from "./CreationDetailsStep.module.scss";
+import styles from './CreationDetailsStep.module.scss';
 
 const CreationDetailsStep = React.memo(({ userId }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
@@ -34,7 +34,7 @@ const CreationDetailsStep = React.memo(({ userId }) => {
           <div className={styles.name}>
             {user.id === StaticUserIds.DELETED
               ? t(`common.${user.name}`, {
-                  context: "title",
+                  context: 'title',
                 })
               : user.name}
           </div>

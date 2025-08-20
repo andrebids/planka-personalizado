@@ -1,8 +1,8 @@
-import login from "./login";
+import login from './login';
 
 export default {
-  language: "ja-JP",
-  country: "jp",
-  name: "日本語",
+  language: 'ja-JP',
+  country: 'jp',
+  name: '日本語',
   embeddedLocale: login,
 };

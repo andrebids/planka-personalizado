@@ -3,8 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import http from "./http";
-import socket from "./socket";
+import http from './http';
+import socket from './socket';
 
 /* Transformers */
 
@@ -27,7 +27,7 @@ const createAttachmentWithFile = (
   cardId,
   { file, ...data },
   requestId,
-  headers,
+  headers
 ) =>
   http
     .post(
@@ -36,7 +36,7 @@ const createAttachmentWithFile = (
         ...data,
         file,
       },
-      headers,
+      headers
     )
     .then((body) => ({
       ...body,

@@ -3,22 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Button, Form, Icon, Menu } from "semantic-ui-react";
-import { Popup } from "../../../../lib/custom-ui";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Button, Form, Icon, Menu } from 'semantic-ui-react';
+import { Popup } from '../../../../lib/custom-ui';
 
-import { UserRoles } from "../../../../constants/Enums";
-import { UserRoleIcons } from "../../../../constants/Icons";
+import { UserRoles } from '../../../../constants/Enums';
+import { UserRoleIcons } from '../../../../constants/Icons';
 
-import styles from "./SelectRoleStep.module.scss";
+import styles from './SelectRoleStep.module.scss';
 
 const DESCRIPTION_BY_ROLE = {
-  [UserRoles.ADMIN]: "common.canManageSystemWideSettingsAndActAsProjectOwner",
+  [UserRoles.ADMIN]: 'common.canManageSystemWideSettingsAndActAsProjectOwner',
   [UserRoles.PROJECT_OWNER]:
-    "common.canCreateOwnProjectsAndBeInvitedToWorkInOthers",
-  [UserRoles.BOARD_USER]: "common.canBeInvitedToWorkInBoards",
+    'common.canCreateOwnProjectsAndBeInvitedToWorkInOthers',
+  [UserRoles.BOARD_USER]: 'common.canBeInvitedToWorkInBoards',
 };
 
 const SelectRoleStep = React.memo(
@@ -46,7 +46,7 @@ const SelectRoleStep = React.memo(
           onBack();
         }
       },
-      [defaultValue, withButton, onSelect, onBack],
+      [defaultValue, withButton, onSelect, onBack]
     );
 
     const handleSubmit = useCallback(() => {
@@ -61,7 +61,7 @@ const SelectRoleStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: "title",
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>
@@ -97,7 +97,7 @@ const SelectRoleStep = React.memo(
         </Popup.Content>
       </>
     );
-  },
+  }
 );
 
 SelectRoleStep.propTypes = {
@@ -111,9 +111,9 @@ SelectRoleStep.propTypes = {
 };
 
 SelectRoleStep.defaultProps = {
-  title: "common.selectRole",
+  title: 'common.selectRole',
   withButton: false,
-  buttonContent: "action.selectRole",
+  buttonContent: 'action.selectRole',
   onBack: undefined,
 };
 

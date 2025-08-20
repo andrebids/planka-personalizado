@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import debounce from "lodash/debounce";
-import React, { useCallback, useMemo, useState } from "react";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Icon } from "semantic-ui-react";
-import { useDidUpdate } from "../../../lib/hooks";
-import { usePopup } from "../../../lib/popup";
-import { Input } from "../../../lib/custom-ui";
+import debounce from 'lodash/debounce';
+import React, { useCallback, useMemo, useState } from 'react';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Icon } from 'semantic-ui-react';
+import { useDidUpdate } from '../../../lib/hooks';
+import { usePopup } from '../../../lib/popup';
+import { Input } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useNestedRef } from "../../../hooks";
-import UserAvatar from "../../users/UserAvatar";
-import BoardMembershipsStep from "../../board-memberships/BoardMembershipsStep";
-import LabelChip from "../../labels/LabelChip";
-import LabelsStep from "../../labels/LabelsStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useNestedRef } from '../../../hooks';
+import UserAvatar from '../../users/UserAvatar';
+import BoardMembershipsStep from '../../board-memberships/BoardMembershipsStep';
+import LabelChip from '../../labels/LabelChip';
+import LabelsStep from '../../labels/LabelsStep';
 
-import styles from "./Filters.module.scss";
+import styles from './Filters.module.scss';
 
 const Filters = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
@@ -30,7 +30,7 @@ const Filters = React.memo(() => {
   const currentUserId = useSelector(selectors.selectCurrentUserId);
 
   const withCurrentUserSelector = useSelector(
-    (state) => !!selectors.selectCurrentUserMembershipForCurrentBoard(state),
+    (state) => !!selectors.selectCurrentUserMembershipForCurrentBoard(state)
   );
 
   const dispatch = useDispatch();
@@ -43,15 +43,15 @@ const Filters = React.memo(() => {
       debounce((nextSearch) => {
         dispatch(entryActions.searchInCurrentBoard(nextSearch));
       }, 400),
-    [dispatch],
+    [dispatch]
   );
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const cancelSearch = useCallback(() => {
     debouncedSearch.cancel();
-    setSearch("");
-    dispatch(entryActions.searchInCurrentBoard(""));
+    setSearch('');
+    dispatch(entryActions.searchInCurrentBoard(''));
     searchFieldRef.current.blur();
   }, [dispatch, debouncedSearch, searchFieldRef]);
 
@@ -59,7 +59,7 @@ const Filters = React.memo(() => {
     (userId) => {
       dispatch(entryActions.addUserToFilterInCurrentBoard(userId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleCurrentUserSelect = useCallback(() => {
@@ -70,7 +70,7 @@ const Filters = React.memo(() => {
     (userId) => {
       dispatch(entryActions.removeUserFromFilterInCurrentBoard(userId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleUserClick = useCallback(
@@ -81,21 +81,21 @@ const Filters = React.memo(() => {
     }) => {
       dispatch(entryActions.removeUserFromFilterInCurrentBoard(userId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleLabelSelect = useCallback(
     (labelId) => {
       dispatch(entryActions.addLabelToFilterInCurrentBoard(labelId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleLabelDeselect = useCallback(
     (labelId) => {
       dispatch(entryActions.removeLabelFromFilterInCurrentBoard(labelId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleLabelClick = useCallback(
@@ -106,7 +106,7 @@ const Filters = React.memo(() => {
     }) => {
       dispatch(entryActions.removeLabelFromFilterInCurrentBoard(labelId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleSearchChange = useCallback(
@@ -114,7 +114,7 @@ const Filters = React.memo(() => {
       setSearch(value);
       debouncedSearch(value);
     },
-    [debouncedSearch],
+    [debouncedSearch]
   );
 
   const handleSearchFocus = useCallback(() => {
@@ -123,11 +123,11 @@ const Filters = React.memo(() => {
 
   const handleSearchKeyDown = useCallback(
     (event) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         cancelSearch();
       }
     },
-    [cancelSearch],
+    [cancelSearch]
   );
 
   const handleSearchBlur = useCallback(() => {
@@ -159,9 +159,9 @@ const Filters = React.memo(() => {
           <button type="button" className={styles.filterButton}>
             <span
               className={styles.filterTitle}
-            >{`${t("common.members")}:`}</span>
+            >{`${t('common.members')}:`}</span>
             {userIds.length === 0 && (
-              <span className={styles.filterLabel}>{t("common.all")}</span>
+              <span className={styles.filterLabel}>{t('common.all')}</span>
             )}
           </button>
         </BoardMembershipsPopup>
@@ -192,9 +192,9 @@ const Filters = React.memo(() => {
           <button type="button" className={styles.filterButton}>
             <span
               className={styles.filterTitle}
-            >{`${t("common.labels")}:`}</span>
+            >{`${t('common.labels')}:`}</span>
             {labelIds.length === 0 && (
-              <span className={styles.filterLabel}>{t("common.all")}</span>
+              <span className={styles.filterLabel}>{t('common.all')}</span>
             )}
           </button>
         </LabelsPopup>
@@ -208,18 +208,18 @@ const Filters = React.memo(() => {
         <Input
           ref={handleSearchFieldRef}
           value={search}
-          placeholder={t("common.searchCards")}
+          placeholder={t('common.searchCards')}
           maxLength={128}
           icon={
             isSearchActive ? (
               <Icon link name="cancel" onClick={handleCancelSearchClick} />
             ) : (
-              "search"
+              'search'
             )
           }
           className={classNames(
             styles.search,
-            !isSearchActive && styles.searchInactive,
+            !isSearchActive && styles.searchInactive
           )}
           onFocus={handleSearchFocus}
           onKeyDown={handleSearchKeyDown}

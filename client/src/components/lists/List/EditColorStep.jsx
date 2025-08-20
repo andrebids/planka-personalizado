@@ -3,28 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import LIST_COLORS from "../../../constants/ListColors";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import LIST_COLORS from '../../../constants/ListColors';
 
-import styles from "./EditColorStep.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './EditColorStep.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const defaultValue = useSelector(
-    (state) => selectListById(state, listId).color,
+    (state) => selectListById(state, listId).color
   );
 
   const dispatch = useDispatch();
@@ -35,17 +35,17 @@ const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
       dispatch(
         entryActions.updateList(listId, {
           color,
-        }),
+        })
       );
     },
-    [listId, dispatch],
+    [listId, dispatch]
   );
 
   const handleClearClick = useCallback(() => {
     dispatch(
       entryActions.updateList(listId, {
         color: null,
-      }),
+      })
     );
 
     onClose();
@@ -54,8 +54,8 @@ const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t("common.editColor", {
-          context: "title",
+        {t('common.editColor', {
+          context: 'title',
         })}
       </Popup.Header>
       <Popup.Content>
@@ -68,7 +68,7 @@ const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
               className={classNames(
                 styles.colorButton,
                 color === defaultValue && styles.colorButtonActive,
-                globalStyles[`background${upperFirst(camelCase(color))}`],
+                globalStyles[`background${upperFirst(camelCase(color))}`]
               )}
               onClick={handleSelectClick}
             />
@@ -77,7 +77,7 @@ const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
         {defaultValue && (
           <Button
             fluid
-            content={t("action.removeColor")}
+            content={t('action.removeColor')}
             className={styles.clearButton}
             onClick={handleClearClick}
           />

@@ -3,41 +3,41 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { Icon } from "semantic-ui-react";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import markdownToText from "../../../utils/markdown-to-text";
-import { BoardViews, ListTypes } from "../../../constants/Enums";
-import UserAvatar from "../../users/UserAvatar";
-import LabelChip from "../../labels/LabelChip";
+import selectors from '../../../selectors';
+import markdownToText from '../../../utils/markdown-to-text';
+import { BoardViews, ListTypes } from '../../../constants/Enums';
+import UserAvatar from '../../users/UserAvatar';
+import LabelChip from '../../labels/LabelChip';
 
-import styles from "./InlineContent.module.scss";
+import styles from './InlineContent.module.scss';
 
 const InlineContent = React.memo(({ cardId }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
   const selectLabelIdsByCardId = useMemo(
     () => selectors.makeSelectLabelIdsByCardId(),
-    [],
+    []
   );
 
   const selectNotificationsTotalByCardId = useMemo(
     () => selectors.makeSelectNotificationsTotalByCardId(),
-    [],
+    []
   );
 
   const card = useSelector((state) => selectCardById(state, cardId));
   const list = useSelector((state) => selectListById(state, card.listId));
   const labelIds = useSelector((state) =>
-    selectLabelIdsByCardId(state, cardId),
+    selectLabelIdsByCardId(state, cardId)
   );
 
   const notificationsTotal = useSelector((state) =>
-    selectNotificationsTotalByCardId(state, cardId),
+    selectNotificationsTotalByCardId(state, cardId)
   );
 
   const listName = useSelector((state) => {
@@ -56,7 +56,7 @@ const InlineContent = React.memo(({ cardId }) => {
 
   const descriptionText = useMemo(
     () => card.description && markdownToText(card.description),
-    [card.description],
+    [card.description]
   );
 
   const isInClosedList = list.type === ListTypes.CLOSED;
@@ -73,7 +73,7 @@ const InlineContent = React.memo(({ cardId }) => {
               className={classNames(
                 styles.attachment,
                 styles.attachmentLeft,
-                styles.notification,
+                styles.notification
               )}
             >
               {notificationsTotal}
@@ -107,7 +107,7 @@ const InlineContent = React.memo(({ cardId }) => {
         className={classNames(
           styles.attachments,
           styles.name,
-          isInClosedList && styles.nameClosed,
+          isInClosedList && styles.nameClosed
         )}
       >
         <div className={styles.hidable}>{card.name}</div>
@@ -117,7 +117,7 @@ const InlineContent = React.memo(({ cardId }) => {
           className={classNames(
             styles.attachments,
             styles.descriptionText,
-            styles.hidable,
+            styles.hidable
           )}
         >
           {descriptionText}

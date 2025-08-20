@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import StoryContent from "./StoryContent";
+import StoryContent from './StoryContent';
 
 export default StoryContent;

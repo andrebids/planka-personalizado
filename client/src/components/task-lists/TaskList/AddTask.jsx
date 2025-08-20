@@ -3,27 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
-import TextareaAutosize from "react-textarea-autosize";
-import { Button, Form, TextArea } from "semantic-ui-react";
+import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import TextareaAutosize from 'react-textarea-autosize';
+import { Button, Form, TextArea } from 'semantic-ui-react';
 import {
   useClickAwayListener,
   useDidUpdate,
   useToggle,
-} from "../../../lib/hooks";
+} from '../../../lib/hooks';
 
-import entryActions from "../../../entry-actions";
-import { useForm, useNestedRef } from "../../../hooks";
-import { focusEnd } from "../../../utils/element-helpers";
-import { isModifierKeyPressed } from "../../../utils/event-helpers";
+import entryActions from '../../../entry-actions';
+import { useForm, useNestedRef } from '../../../hooks';
+import { focusEnd } from '../../../utils/element-helpers';
+import { isModifierKeyPressed } from '../../../utils/event-helpers';
 
-import styles from "./AddTask.module.scss";
+import styles from './AddTask.module.scss';
 
 const DEFAULT_DATA = {
-  name: "",
+  name: '',
 };
 
 const MULTIPLE_REGEX = /\s*\r?\n\s*/;
@@ -55,7 +55,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
             entryActions.createTask(taskListId, {
               ...cleanData,
               name,
-            }),
+            })
           );
         });
       } else {
@@ -65,7 +65,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
       setData(DEFAULT_DATA);
       focusNameField();
     },
-    [taskListId, dispatch, data, setData, focusNameField, nameFieldRef],
+    [taskListId, dispatch, data, setData, focusNameField, nameFieldRef]
   );
 
   const handleSubmit = useCallback(() => {
@@ -74,14 +74,14 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
 
   const handleFieldKeyDown = useCallback(
     (event) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         event.preventDefault();
         submit(isModifierKeyPressed(event));
-      } else if (event.key === "Escape") {
+      } else if (event.key === 'Escape') {
         onClose();
       }
     },
-    [onClose, submit],
+    [onClose, submit]
   );
 
   const handleClickAwayCancel = useCallback(() => {
@@ -91,7 +91,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
   const clickAwayProps = useClickAwayListener(
     [nameFieldRef, buttonRef],
     onClose,
-    handleClickAwayCancel,
+    handleClickAwayCancel
   );
 
   useEffect(() => {
@@ -116,7 +116,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
         as={TextareaAutosize}
         name="name"
         value={data.name}
-        placeholder={t("common.enterTaskDescription")}
+        placeholder={t('common.enterTaskDescription')}
         maxLength={1024}
         minRows={2}
         spellCheck={false}
@@ -129,7 +129,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
           {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
           positive
           ref={handleButtonRef}
-          content={t("action.addTask")}
+          content={t('action.addTask')}
         />
       </div>
     </Form>

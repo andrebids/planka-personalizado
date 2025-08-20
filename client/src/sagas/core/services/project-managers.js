@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import requests from "../requests";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
-import mergeRecords from "../../../utils/merge-records";
+import request from '../request';
+import requests from '../requests';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
+import mergeRecords from '../../../utils/merge-records';
 
 export function* createProjectManager(projectId, data) {
   const localId = yield call(createLocalId);
@@ -21,7 +21,7 @@ export function* createProjectManager(projectId, data) {
       ...data,
       projectId,
       id: localId,
-    }),
+    })
   );
 
   let projectManager;
@@ -30,7 +30,7 @@ export function* createProjectManager(projectId, data) {
       request,
       api.createProjectManager,
       projectId,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.createProjectManager.failure(localId, error));
@@ -80,7 +80,7 @@ export function* handleProjectManagerCreate(projectManager, users) {
 
     const isExternalAccessibleForCurrentUser = yield select(
       selectors.selectIsProjectWithIdExternalAccessibleForCurrentUser,
-      projectManager.projectId,
+      projectManager.projectId
     );
 
     try {
@@ -131,7 +131,7 @@ export function* handleProjectManagerCreate(projectManager, users) {
         if (body.card) {
           notificationsToDelete = yield select(
             selectors.selectNotificationsByCardId,
-            body.card.id,
+            body.card.id
           );
         }
       }
@@ -140,12 +140,12 @@ export function* handleProjectManagerCreate(projectManager, users) {
 
   const boardIds = yield select(
     selectors.selectBoardIdsByProjectId,
-    projectManager.projectId,
+    projectManager.projectId
   );
 
   const isProjectAvailable = yield select(
     selectors.selectIsProjectWithIdAvailableForCurrentUser,
-    projectManager.projectId,
+    projectManager.projectId
   );
 
   yield put(
@@ -174,8 +174,8 @@ export function* handleProjectManagerCreate(projectManager, users) {
       mergeRecords(customFields1, customFields2),
       customFieldValues,
       notificationsToDelete,
-      notificationServices,
-    ),
+      notificationServices
+    )
   );
 }
 
@@ -187,7 +187,7 @@ export function* deleteProjectManager(id) {
 
   if (projectManager.userId === currentUserId) {
     const isAvailableForCurrentUser = yield select(
-      selectors.isCurrentModalAvailableForCurrentUser,
+      selectors.isCurrentModalAvailableForCurrentUser
     );
 
     if (!isAvailableForCurrentUser) {
@@ -199,7 +199,7 @@ export function* deleteProjectManager(id) {
     ({ item: projectManager } = yield call(
       request,
       api.deleteProjectManager,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.deleteProjectManager.failure(id, error));
@@ -216,7 +216,7 @@ export function* handleProjectManagerDelete(projectManager) {
 
   if (projectManager.userId === currentUserId) {
     const isAvailableForCurrentUser = yield select(
-      selectors.isCurrentModalAvailableForCurrentUser,
+      selectors.isCurrentModalAvailableForCurrentUser
     );
 
     if (!isAvailableForCurrentUser) {

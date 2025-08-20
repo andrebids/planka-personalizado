@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useRef } from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "./FilePicker.module.css";
+import styles from './FilePicker.module.css';
 
 const FilePicker = React.memo(({ children, accept, multiple, onSelect }) => {
   const fieldRef = useRef(null);
@@ -20,7 +20,7 @@ const FilePicker = React.memo(({ children, accept, multiple, onSelect }) => {
       onSelect(multiple ? [...target.files] : target.files[0]);
       target.value = null; // eslint-disable-line no-param-reassign
     },
-    [multiple, onSelect],
+    [multiple, onSelect]
   );
 
   const tigger = React.cloneElement(children, {

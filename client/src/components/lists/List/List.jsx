@@ -3,48 +3,48 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Draggable, Droppable } from "react-beautiful-dnd";
-import { Button, Icon } from "semantic-ui-react";
-import { useDidUpdate, useTransitioning } from "../../../lib/hooks";
-import { usePopup } from "../../../lib/popup";
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Button, Icon } from 'semantic-ui-react';
+import { useDidUpdate, useTransitioning } from '../../../lib/hooks';
+import { usePopup } from '../../../lib/popup';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import DroppableTypes from "../../../constants/DroppableTypes";
-import { BoardMembershipRoles, ListTypes } from "../../../constants/Enums";
-import { ListTypeIcons } from "../../../constants/Icons";
-import EditName from "./EditName";
-import ActionsStep from "./ActionsStep";
-import DraggableCard from "../../cards/DraggableCard";
-import AddCard from "../../cards/AddCard";
-import ArchiveCardsStep from "../../cards/ArchiveCardsStep";
-import PlusMathIcon from "../../../assets/images/plus-math-icon.svg?react";
-import { processSupportedFiles } from "../../../utils/file-helpers";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import DroppableTypes from '../../../constants/DroppableTypes';
+import { BoardMembershipRoles, ListTypes } from '../../../constants/Enums';
+import { ListTypeIcons } from '../../../constants/Icons';
+import EditName from './EditName';
+import ActionsStep from './ActionsStep';
+import DraggableCard from '../../cards/DraggableCard';
+import AddCard from '../../cards/AddCard';
+import ArchiveCardsStep from '../../cards/ArchiveCardsStep';
+import PlusMathIcon from '../../../assets/images/plus-math-icon.svg?react';
+import { processSupportedFiles } from '../../../utils/file-helpers';
 
-import styles from "./List.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './List.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const List = React.memo(({ id, index }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const selectFilteredCardIdsByListId = useMemo(
     () => selectors.makeSelectFilteredCardIdsByListId(),
-    [],
+    []
   );
 
   const isFavoritesActive = useSelector(
-    selectors.selectIsFavoritesActiveForCurrentUser,
+    selectors.selectIsFavoritesActiveForCurrentUser
   );
   const list = useSelector((state) => selectListById(state, id));
   const cardIds = useSelector((state) =>
-    selectFilteredCardIdsByListId(state, id),
+    selectFilteredCardIdsByListId(state, id)
   );
 
   const { canEdit, canArchiveCards, canAddCard, canDropCard } = useSelector(
@@ -64,7 +64,7 @@ const List = React.memo(({ id, index }) => {
         canDropCard: isEditor,
       };
     },
-    shallowEqual,
+    shallowEqual
   );
 
   const dispatch = useDispatch();
@@ -81,16 +81,16 @@ const List = React.memo(({ id, index }) => {
     (data, autoOpen) => {
       dispatch(entryActions.createCard(id, data, autoOpen));
     },
-    [id, dispatch],
+    [id, dispatch]
   );
 
   const handleCardCreateWithAttachment = useCallback(
     (cardData, attachmentFile) => {
       dispatch(
-        entryActions.createCardWithAttachment(id, cardData, attachmentFile),
+        entryActions.createCardWithAttachment(id, cardData, attachmentFile)
       );
     },
-    [id, dispatch],
+    [id, dispatch]
   );
 
   const handleHeaderClick = useCallback(() => {
@@ -140,7 +140,7 @@ const List = React.memo(({ id, index }) => {
       const processedFiles = processSupportedFiles(files);
       if (processedFiles.length === 0) return;
 
-      console.log("Processando arquivos:", processedFiles);
+      console.log('Processando arquivos:', processedFiles);
 
       setIsProcessing(true);
 
@@ -149,40 +149,40 @@ const List = React.memo(({ id, index }) => {
         processedFiles.forEach((fileData) => {
           const cardData = {
             name: fileData.name,
-            type: "story", // Adicionar tipo padrão
+            type: 'story', // Adicionar tipo padrão
           };
-          console.log("Criando card com anexo:", cardData);
+          console.log('Criando card com anexo:', cardData);
           console.log(
-            "📄 Tipo de arquivo:",
-            fileData.isImage ? "Imagem (capa)" : "Anexo",
+            '📄 Tipo de arquivo:',
+            fileData.isImage ? 'Imagem (capa)' : 'Anexo'
           );
-          console.log("📄 Arquivo:", fileData.file);
+          console.log('📄 Arquivo:', fileData.file);
           console.log(
-            "📄 Nome do arquivo:",
-            fileData.file ? fileData.file.name : "undefined",
+            '📄 Nome do arquivo:',
+            fileData.file ? fileData.file.name : 'undefined'
           );
           console.log(
-            "📄 Tamanho do arquivo:",
-            fileData.file ? fileData.file.size : "undefined",
+            '📄 Tamanho do arquivo:',
+            fileData.file ? fileData.file.size : 'undefined'
           );
           dispatch(
-            entryActions.createCardWithAttachment(id, cardData, fileData.file),
+            entryActions.createCardWithAttachment(id, cardData, fileData.file)
           );
         });
       } catch (error) {
-        console.error("Erro ao processar arquivos:", error);
+        console.error('Erro ao processar arquivos:', error);
       } finally {
         setIsProcessing(false);
-        console.log("✅ Processamento finalizado");
+        console.log('✅ Processamento finalizado');
       }
     },
-    [id, dispatch],
+    [id, dispatch]
   );
 
   const handleWrapperTransitionEnd = useTransitioning(
     wrapperRef,
     styles.outerWrapperTransitioning,
-    [isFavoritesActive],
+    [isFavoritesActive]
   );
 
   useDidUpdate(() => {
@@ -247,7 +247,7 @@ const List = React.memo(({ id, index }) => {
               styles.outerWrapper,
               list.color &&
                 styles[`outerWrapper${upperFirst(camelCase(list.color))}`],
-              isFavoritesActive && styles.outerWrapperWithFavorites,
+              isFavoritesActive && styles.outerWrapperWithFavorites
             )}
             onTransitionEnd={handleWrapperTransitionEnd}
           >
@@ -257,7 +257,7 @@ const List = React.memo(({ id, index }) => {
               {...dragHandleProps} // eslint-disable-line react/jsx-props-no-spreading
               className={classNames(
                 styles.header,
-                canEdit && styles.headerEditable,
+                canEdit && styles.headerEditable
               )}
               onClick={handleHeaderClick}
             >
@@ -273,7 +273,7 @@ const List = React.memo(({ id, index }) => {
                     styles.headerIcon,
                     list.isPersisted &&
                       (canEdit || canArchiveCards) &&
-                      styles.headerIconHidable,
+                      styles.headerIconHidable
                   )}
                 />
               )}
@@ -310,7 +310,7 @@ const List = React.memo(({ id, index }) => {
                   list.color &&
                     styles[`addCardButton${upperFirst(camelCase(list.color))}`],
                   isDragOver && styles.addCardButtonDragOver,
-                  isProcessing && styles.addCardButtonProcessing,
+                  isProcessing && styles.addCardButtonProcessing
                 )}
                 onClick={handleAddCardClick}
                 onDragOver={handleDragOver}
@@ -320,23 +320,23 @@ const List = React.memo(({ id, index }) => {
                 <PlusMathIcon className={styles.addCardButtonIcon} />
                 <span className={styles.addCardButtonText}>
                   {isDragOver
-                    ? t("common.dropFilesHere")
+                    ? t('common.dropFilesHere')
                     : isProcessing
-                      ? t("common.processingFiles")
+                      ? t('common.processingFiles')
                       : cardIds.length > 0
-                        ? t("action.addAnotherCard")
-                        : t("action.addCard")}
+                        ? t('action.addAnotherCard')
+                        : t('action.addCard')}
                 </span>
                 {isDragOver && (
                   <div className={styles.dragOverlay}>
                     <Icon name="upload" size="large" />
-                    <span>{t("common.dropFilesHere")}</span>
+                    <span>{t('common.dropFilesHere')}</span>
                   </div>
                 )}
                 {isProcessing && (
                   <div className={styles.processingOverlay}>
                     <Icon name="spinner" loading size="large" />
-                    <span>{t("common.processingFiles")}</span>
+                    <span>{t('common.processingFiles')}</span>
                   </div>
                 )}
               </button>

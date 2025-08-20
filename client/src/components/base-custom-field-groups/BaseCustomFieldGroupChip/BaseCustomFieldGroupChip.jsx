@@ -3,30 +3,30 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
+import upperFirst from 'lodash/upperFirst';
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
-import selectors from "../../../selectors";
+import selectors from '../../../selectors';
 
-import styles from "./BaseCustomFieldGroupChip.module.scss";
+import styles from './BaseCustomFieldGroupChip.module.scss';
 
 const Sizes = {
-  TINY: "tiny",
-  SMALL: "small",
-  MEDIUM: "medium",
+  TINY: 'tiny',
+  SMALL: 'small',
+  MEDIUM: 'medium',
 };
 
 const BaseCustomFieldGroupChip = React.memo(({ id, size, onClick }) => {
   const selectBaseCustomFieldGroupById = useMemo(
     () => selectors.makeSelectBaseCustomFieldGroupById(),
-    [],
+    []
   );
 
   const baseCustomFieldGroup = useSelector((state) =>
-    selectBaseCustomFieldGroupById(state, id),
+    selectBaseCustomFieldGroupById(state, id)
   );
 
   const contentNode = (
@@ -35,7 +35,7 @@ const BaseCustomFieldGroupChip = React.memo(({ id, size, onClick }) => {
       className={classNames(
         styles.wrapper,
         styles[`wrapper${upperFirst(size)}`],
-        onClick && styles.wrapperHoverable,
+        onClick && styles.wrapperHoverable
       )}
     >
       {baseCustomFieldGroup.name}

@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* createBaseCustomFieldGroup(projectId, data) {
   const localId = yield call(createLocalId);
@@ -19,7 +19,7 @@ export function* createBaseCustomFieldGroup(projectId, data) {
       ...data,
       projectId,
       id: localId,
-    }),
+    })
   );
 
   let baseCustomFieldGroup;
@@ -28,7 +28,7 @@ export function* createBaseCustomFieldGroup(projectId, data) {
       request,
       api.createBaseCustomFieldGroup,
       projectId,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.createBaseCustomFieldGroup.failure(localId, error));
@@ -36,7 +36,7 @@ export function* createBaseCustomFieldGroup(projectId, data) {
   }
 
   yield put(
-    actions.createBaseCustomFieldGroup.success(localId, baseCustomFieldGroup),
+    actions.createBaseCustomFieldGroup.success(localId, baseCustomFieldGroup)
   );
 }
 
@@ -59,7 +59,7 @@ export function* updateBaseCustomFieldGroup(id, data) {
       request,
       api.updateBaseCustomFieldGroup,
       id,
-      data,
+      data
     ));
   } catch (error) {
     yield put(actions.updateBaseCustomFieldGroup.failure(id, error));
@@ -81,7 +81,7 @@ export function* deleteBaseCustomFieldGroup(id) {
     ({ item: baseCustomFieldGroup } = yield call(
       request,
       api.deleteBaseCustomFieldGroup,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.deleteBaseCustomFieldGroup.failure(id, error));

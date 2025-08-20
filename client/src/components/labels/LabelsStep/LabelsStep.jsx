@@ -3,29 +3,29 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { Button } from "semantic-ui-react";
-import { Input, Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { Button } from 'semantic-ui-react';
+import { Input, Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useField, useNestedRef, useSteps } from "../../../hooks";
-import DroppableTypes from "../../../constants/DroppableTypes";
-import { BoardMembershipRoles } from "../../../constants/Enums";
-import Item from "./Item";
-import AddStep from "./AddStep";
-import EditStep from "./EditStep";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useField, useNestedRef, useSteps } from '../../../hooks';
+import DroppableTypes from '../../../constants/DroppableTypes';
+import { BoardMembershipRoles } from '../../../constants/Enums';
+import Item from './Item';
+import AddStep from './AddStep';
+import EditStep from './EditStep';
 
-import styles from "./LabelsStep.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './LabelsStep.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const StepTypes = {
-  ADD: "ADD",
-  EDIT: "EDIT",
+  ADD: 'ADD',
+  EDIT: 'EDIT',
 };
 
 const LabelsStep = React.memo(
@@ -44,7 +44,7 @@ const LabelsStep = React.memo(
     const dispatch = useDispatch();
     const [t] = useTranslation();
     const [step, openStep, handleBack] = useSteps();
-    const [search, handleSearchChange] = useField("");
+    const [search, handleSearchChange] = useField('');
     const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
     const filteredLabels = useMemo(
@@ -52,12 +52,12 @@ const LabelsStep = React.memo(
         labels.filter(
           (label) =>
             (label.name && label.name.toLowerCase().includes(cleanSearch)) ||
-            label.color.includes(cleanSearch),
+            label.color.includes(cleanSearch)
         ),
-      [labels, cleanSearch],
+      [labels, cleanSearch]
     );
 
-    const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
+    const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
     const handleDragStart = useCallback(() => {
       document.body.classList.add(globalStyles.dragging);
@@ -73,7 +73,7 @@ const LabelsStep = React.memo(
 
         dispatch(entryActions.moveLabel(draggableId, destination.index));
       },
-      [dispatch],
+      [dispatch]
     );
 
     const handleAddClick = useCallback(() => {
@@ -86,7 +86,7 @@ const LabelsStep = React.memo(
           id,
         });
       },
-      [openStep],
+      [openStep]
     );
 
     useEffect(() => {
@@ -110,7 +110,7 @@ const LabelsStep = React.memo(
           );
         case StepTypes.EDIT: {
           const currentLabel = labels.find(
-            (label) => label.id === step.params.id,
+            (label) => label.id === step.params.id
           );
 
           if (currentLabel) {
@@ -129,7 +129,7 @@ const LabelsStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: "title",
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>
@@ -137,7 +137,7 @@ const LabelsStep = React.memo(
             fluid
             ref={handleSearchFieldRef}
             value={search}
-            placeholder={t("common.searchLabels")}
+            placeholder={t('common.searchLabels')}
             maxLength={128}
             icon="search"
             onChange={handleSearchChange}
@@ -185,7 +185,7 @@ const LabelsStep = React.memo(
           {canAdd && (
             <Button
               fluid
-              content={t("action.createNewLabel")}
+              content={t('action.createNewLabel')}
               className={styles.addButton}
               onClick={handleAddClick}
             />
@@ -193,7 +193,7 @@ const LabelsStep = React.memo(
         </Popup.Content>
       </>
     );
-  },
+  }
 );
 
 LabelsStep.propTypes = {
@@ -207,7 +207,7 @@ LabelsStep.propTypes = {
 
 LabelsStep.defaultProps = {
   cardId: undefined,
-  title: "common.labels",
+  title: 'common.labels',
   onBack: undefined,
 };
 

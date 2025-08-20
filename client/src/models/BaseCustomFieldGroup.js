@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from "redux-orm";
+import { attr, fk } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import ActionTypes from "../constants/ActionTypes";
+import BaseModel from './BaseModel';
+import ActionTypes from '../constants/ActionTypes';
 
 export default class extends BaseModel {
-  static modelName = "BaseCustomFieldGroup";
+  static modelName = 'BaseCustomFieldGroup';
 
   static fields = {
     id: attr(),
     name: attr(),
     projectId: fk({
-      to: "Project",
-      as: "project",
-      relatedName: "baseCustomFieldGroups",
+      to: 'Project',
+      as: 'project',
+      relatedName: 'baseCustomFieldGroups',
     }),
   };
 
@@ -76,7 +76,7 @@ export default class extends BaseModel {
       case ActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE__SUCCESS:
       case ActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE_HANDLE: {
         const baseCustomFieldGroupModel = BaseCustomFieldGroup.withId(
-          payload.baseCustomFieldGroup.id,
+          payload.baseCustomFieldGroup.id
         );
 
         if (baseCustomFieldGroupModel) {
@@ -90,7 +90,7 @@ export default class extends BaseModel {
   }
 
   getCustomFieldsQuerySet() {
-    return this.customFields.orderBy(["position", "id.length", "id"]);
+    return this.customFields.orderBy(['position', 'id.length', 'id']);
   }
 
   deleteRelated() {

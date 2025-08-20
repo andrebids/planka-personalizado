@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { isUserAdminOrProjectOwner } from "../../../utils/record-helpers";
-import { ProjectGroups, ProjectTypes } from "../../../constants/Enums";
-import { ProjectGroupIcons } from "../../../constants/Icons";
-import Projects from "./Projects";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { isUserAdminOrProjectOwner } from '../../../utils/record-helpers';
+import { ProjectGroups, ProjectTypes } from '../../../constants/Enums';
+import { ProjectGroupIcons } from '../../../constants/Icons';
+import Projects from './Projects';
 
 const TITLE_BY_GROUP = {
-  [ProjectGroups.MY_OWN]: "common.myOwn",
-  [ProjectGroups.TEAM]: "common.team",
-  [ProjectGroups.SHARED_WITH_ME]: "common.sharedWithMe",
-  [ProjectGroups.OTHERS]: "common.others",
+  [ProjectGroups.MY_OWN]: 'common.myOwn',
+  [ProjectGroups.TEAM]: 'common.team',
+  [ProjectGroups.SHARED_WITH_ME]: 'common.sharedWithMe',
+  [ProjectGroups.OTHERS]: 'common.others',
 };
 
 const DEFAULT_TYPE_BY_GROUP = {
@@ -27,7 +27,7 @@ const DEFAULT_TYPE_BY_GROUP = {
 
 const GroupedProjectsView = React.memo(() => {
   const projectIdsByGroup = useSelector(
-    selectors.selectFilteredProjctIdsByGroupForCurrentUser,
+    selectors.selectFilteredProjctIdsByGroupForCurrentUser
   );
 
   const canAdd = useSelector((state) => {
@@ -41,7 +41,7 @@ const GroupedProjectsView = React.memo(() => {
     (defaultType) => {
       dispatch(entryActions.openAddProjectModal(defaultType));
     },
-    [dispatch],
+    [dispatch]
   );
 
   return (
@@ -56,7 +56,7 @@ const GroupedProjectsView = React.memo(() => {
               titleIcon={ProjectGroupIcons[group]}
               onAdd={() => handleAdd(DEFAULT_TYPE_BY_GROUP[group])}
             />
-          ),
+          )
       )}
       {[ProjectGroups.SHARED_WITH_ME, ProjectGroups.OTHERS].map(
         (group) =>
@@ -68,7 +68,7 @@ const GroupedProjectsView = React.memo(() => {
               title={TITLE_BY_GROUP[group]}
               titleIcon={ProjectGroupIcons[group]}
             />
-          ),
+          )
       )}
     </>
   );

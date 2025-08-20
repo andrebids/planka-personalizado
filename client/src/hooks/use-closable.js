@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef } from 'react';
 
 export default (initialValue = false) => {
   const isActiveRef = useRef(initialValue);

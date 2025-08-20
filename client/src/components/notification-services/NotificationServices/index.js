@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import NotificationServices from "./NotificationServices";
+import NotificationServices from './NotificationServices';
 
 export default NotificationServices;

@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { selectPath } from "./router";
-import { selectCurrentUserId } from "./users";
-import { isLocalId } from "../utils/local-id";
-import { isListArchiveOrTrash } from "../utils/record-helpers";
-import { ListTypes } from "../constants/Enums";
+import orm from '../orm';
+import { selectPath } from './router';
+import { selectCurrentUserId } from './users';
+import { isLocalId } from '../utils/local-id';
+import { isListArchiveOrTrash } from '../utils/record-helpers';
+import { ListTypes } from '../constants/Enums';
 
 export const makeSelectBoardById = () =>
   createSelector(
@@ -28,7 +28,7 @@ export const makeSelectBoardById = () =>
         ...boardModel.ref,
         isPersisted: !isLocalId(boardModel.id),
       };
-    },
+    }
   );
 
 export const selectBoardById = makeSelectBoardById();
@@ -57,7 +57,7 @@ export const makeSelectCurrentUserMembershipByBoardId = () =>
       }
 
       return boardMembershipModel.ref;
-    },
+    }
   );
 
 const selectCurrentUserMembershipByBoardId =
@@ -76,7 +76,7 @@ export const makeSelectNotificationsTotalByBoardId = () =>
       }
 
       return boardModel.getUnreadNotificationsQuerySet().count();
-    },
+    }
   );
 
 export const selectNotificationsTotalByBoardId =
@@ -98,7 +98,7 @@ export const makeSelectNotificationServiceIdsByBoardId = () =>
         .getNotificationServicesQuerySet()
         .toRefArray()
         .map((notificationService) => notificationService.id);
-    },
+    }
   );
 
 export const selectNotificationServiceIdsByBoardId =
@@ -117,7 +117,7 @@ export const selectIsBoardWithIdAvailableForCurrentUser = createSelector(
 
     const currentUserModel = User.withId(currentUserId);
     return boardModel.isAvailableForUser(currentUserModel);
-  },
+  }
 );
 
 export const selectCurrentBoard = createSelector(
@@ -135,7 +135,7 @@ export const selectCurrentBoard = createSelector(
     }
 
     return boardModel.ref;
-  },
+  }
 );
 
 export const selectMembershipsForCurrentBoard = createSelector(
@@ -160,7 +160,7 @@ export const selectMembershipsForCurrentBoard = createSelector(
         isPersisted: !isLocalId(boardMembershipModel.id),
         user: boardMembershipModel.user.ref,
       }));
-  },
+  }
 );
 
 export const selectMemberUserIdsForCurrentBoard = createSelector(
@@ -181,7 +181,7 @@ export const selectMemberUserIdsForCurrentBoard = createSelector(
       .getMembershipsQuerySet()
       .toModelArray()
       .map((boardMembershipModel) => boardMembershipModel.user.id);
-  },
+  }
 );
 
 export const selectCurrentUserMembershipForCurrentBoard = createSelector(
@@ -207,7 +207,7 @@ export const selectCurrentUserMembershipForCurrentBoard = createSelector(
     }
 
     return boardMembershipModel.ref;
-  },
+  }
 );
 
 export const selectLabelsForCurrentBoard = createSelector(
@@ -225,7 +225,7 @@ export const selectLabelsForCurrentBoard = createSelector(
     }
 
     return boardModel.getLabelsQuerySet().toRefArray();
-  },
+  }
 );
 
 export const selectArchiveListIdForCurrentBoard = createSelector(
@@ -249,7 +249,7 @@ export const selectArchiveListIdForCurrentBoard = createSelector(
       .first();
 
     return listModel.id;
-  },
+  }
 );
 
 export const selectTrashListIdForCurrentBoard = createSelector(
@@ -273,7 +273,7 @@ export const selectTrashListIdForCurrentBoard = createSelector(
       .first();
 
     return listModel.id;
-  },
+  }
 );
 
 export const selectFiniteListIdsForCurrentBoard = createSelector(
@@ -294,7 +294,7 @@ export const selectFiniteListIdsForCurrentBoard = createSelector(
       .getFiniteListsQuerySet()
       .toRefArray()
       .map((list) => list.id);
-  },
+  }
 );
 
 // TODO: rename?
@@ -316,7 +316,7 @@ export const selectAvailableListsForCurrentBoard = createSelector(
       .getListsQuerySet()
       .toRefArray()
       .filter((list) => !isListArchiveOrTrash(list));
-  },
+  }
 );
 
 export const selectFilteredCardIdsForCurrentBoard = createSelector(
@@ -336,7 +336,7 @@ export const selectFilteredCardIdsForCurrentBoard = createSelector(
     return boardModel
       .getFilteredCardsModelArray()
       .map((cardModel) => cardModel.id);
-  },
+  }
 );
 
 export const selectCustomFieldGroupIdsForCurrentBoard = createSelector(
@@ -357,7 +357,7 @@ export const selectCustomFieldGroupIdsForCurrentBoard = createSelector(
       .getCustomFieldGroupsQuerySet()
       .toRefArray()
       .map((customFieldGroup) => customFieldGroup.id);
-  },
+  }
 );
 
 export const selectCustomFieldGroupsForCurrentBoard = createSelector(
@@ -387,7 +387,7 @@ export const selectCustomFieldGroupsForCurrentBoard = createSelector(
 
         return customFieldGroupModel.ref;
       });
-  },
+  }
 );
 
 export const selectActivityIdsForCurrentBoard = createSelector(
@@ -405,7 +405,7 @@ export const selectActivityIdsForCurrentBoard = createSelector(
     }
 
     return boardModel.getActivitiesModelArray().map((activity) => activity.id);
-  },
+  }
 );
 
 export const selectFilterUserIdsForCurrentBoard = createSelector(
@@ -423,7 +423,7 @@ export const selectFilterUserIdsForCurrentBoard = createSelector(
     }
 
     return boardModel.filterUsers.toRefArray().map((user) => user.id);
-  },
+  }
 );
 
 export const selectFilterLabelIdsForCurrentBoard = createSelector(
@@ -441,13 +441,13 @@ export const selectFilterLabelIdsForCurrentBoard = createSelector(
     }
 
     return boardModel.filterLabels.toRefArray().map((label) => label.id);
-  },
+  }
 );
 
 export const selectIsBoardWithIdExists = createSelector(
   orm,
   (_, id) => id,
-  ({ Board }, id) => Board.idExists(id),
+  ({ Board }, id) => Board.idExists(id)
 );
 
 export default {

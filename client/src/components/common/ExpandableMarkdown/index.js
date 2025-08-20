@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ExpandableMarkdown from "./ExpandableMarkdown";
+import ExpandableMarkdown from './ExpandableMarkdown';
 
 export default ExpandableMarkdown;

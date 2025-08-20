@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select, take } from "redux-saga/effects";
-import { push } from "../../../lib/redux-router";
+import { call, put, select, take } from 'redux-saga/effects';
+import { push } from '../../../lib/redux-router';
 
-import { logout } from "./core";
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { getAccessToken } from "../../../utils/access-token-storage";
-import mergeRecords from "../../../utils/merge-records";
-import ActionTypes from "../../../constants/ActionTypes";
-import Paths from "../../../constants/Paths";
+import { logout } from './core';
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { getAccessToken } from '../../../utils/access-token-storage';
+import mergeRecords from '../../../utils/merge-records';
+import ActionTypes from '../../../constants/ActionTypes';
+import Paths from '../../../constants/Paths';
 
 export function* goTo(pathname) {
   yield put(push(pathname));
@@ -25,15 +25,15 @@ export function* goToRoot() {
 }
 
 export function* goToProject(projectId) {
-  yield call(goTo, Paths.PROJECTS.replace(":id", projectId));
+  yield call(goTo, Paths.PROJECTS.replace(':id', projectId));
 }
 
 export function* goToBoard(boardId) {
-  yield call(goTo, Paths.BOARDS.replace(":id", boardId));
+  yield call(goTo, Paths.BOARDS.replace(':id', boardId));
 }
 
 export function* goToCard(cardId) {
-  yield call(goTo, Paths.CARDS.replace(":id", cardId));
+  yield call(goTo, Paths.CARDS.replace(':id', cardId));
 }
 
 export function* handleLocationChange() {
@@ -148,7 +148,7 @@ export function* handleLocationChange() {
       break;
     case Paths.CARDS:
       ({ cardId: currentCardId, boardId: currentBoardId } = yield select(
-        selectors.selectPath,
+        selectors.selectPath
       ));
 
       if (!currentCardId) {
@@ -213,7 +213,7 @@ export function* handleLocationChange() {
       if (currentCardId) {
         const notificationIds = yield select(
           selectors.selectNotificationIdsByCardId,
-          currentCardId,
+          currentCardId
         );
 
         if (notificationIds.length > 0) {
@@ -252,8 +252,8 @@ export function* handleLocationChange() {
       mergeRecords(customFieldGroups1, customFieldGroups2),
       mergeRecords(customFields1, customFields2),
       mergeRecords(customFieldValues1, customFieldValues2),
-      notificationsToDelete,
-    ),
+      notificationsToDelete
+    )
   );
 }
 

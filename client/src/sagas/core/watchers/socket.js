@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { eventChannel } from "redux-saga";
-import { all, call, cancelled, put, take, takeEvery } from "redux-saga/effects";
+import { eventChannel } from 'redux-saga';
+import { all, call, cancelled, put, take, takeEvery } from 'redux-saga/effects';
 
-import services from "../services";
-import entryActions from "../../../entry-actions";
-import api, { socket } from "../../../api";
-import EntryActionTypes from "../../../constants/EntryActionTypes";
+import services from '../services';
+import entryActions from '../../../entry-actions';
+import api, { socket } from '../../../api';
+import EntryActionTypes from '../../../constants/EntryActionTypes';
 
 const createSocketEventsChannel = () =>
   eventChannel((emit) => {
@@ -127,7 +127,7 @@ const createSocketEventsChannel = () =>
     const handleListDelete = api.makeHandleListDelete(
       ({ item, included: { cards } }) => {
         emit(entryActions.handleListDelete(item, cards));
-      },
+      }
     );
 
     const handleLabelCreate = ({ item }) => {
@@ -145,7 +145,7 @@ const createSocketEventsChannel = () =>
     const handleCardsUpdate = api.makeHandleCardsUpdate(
       ({ items, included: { activities } = {} }) => {
         emit(entryActions.handleCardsUpdate(items, activities));
-      },
+      }
     );
 
     const handleCardCreate = api.makeHandleCardCreate(({ item }) => {
@@ -203,19 +203,19 @@ const createSocketEventsChannel = () =>
     const handleAttachmentCreate = api.makeHandleAttachmentCreate(
       ({ item, requestId }) => {
         emit(entryActions.handleAttachmentCreate(item, requestId));
-      },
+      }
     );
 
     const handleAttachmentUpdate = api.makeHandleAttachmentUpdate(
       ({ item }) => {
         emit(entryActions.handleAttachmentUpdate(item));
-      },
+      }
     );
 
     const handleAttachmentDelete = api.makeHandleAttachmentDelete(
       ({ item }) => {
         emit(entryActions.handleAttachmentDelete(item));
-      },
+      }
     );
 
     const handleCustomFieldGroupCreate = ({ item }) => {
@@ -253,7 +253,7 @@ const createSocketEventsChannel = () =>
     const handleCommentCreate = api.makeHandleCommentCreate(
       ({ item, included: { users } }) => {
         emit(entryActions.handleCommentCreate(item, users));
-      },
+      }
     );
 
     const handleCommentUpdate = api.makeHandleCommentUpdate(({ item }) => {
@@ -271,13 +271,13 @@ const createSocketEventsChannel = () =>
     const handleNotificationCreate = api.makeHandleNotificationCreate(
       ({ item, included: { users } }) => {
         emit(entryActions.handleNotificationCreate(item, users));
-      },
+      }
     );
 
     const handleNotificationUpdate = api.makeHandleNotificationUpdate(
       ({ item }) => {
         emit(entryActions.handleNotificationDelete(item));
-      },
+      }
     );
 
     const handleNotificationServiceCreate = ({ item }) => {
@@ -292,203 +292,203 @@ const createSocketEventsChannel = () =>
       emit(entryActions.handleNotificationServiceDelete(item));
     };
 
-    socket.on("disconnect", handleDisconnect);
-    socket.on("reconnect", handleReconnect);
+    socket.on('disconnect', handleDisconnect);
+    socket.on('reconnect', handleReconnect);
 
-    socket.on("logout", handleLogout);
+    socket.on('logout', handleLogout);
 
-    socket.on("configUpdate", handleConfigUpdate);
+    socket.on('configUpdate', handleConfigUpdate);
 
-    socket.on("userCreate", handleUserCreate);
-    socket.on("userUpdate", handleUserUpdate);
-    socket.on("userDelete", handleUserDelete);
+    socket.on('userCreate', handleUserCreate);
+    socket.on('userUpdate', handleUserUpdate);
+    socket.on('userDelete', handleUserDelete);
 
-    socket.on("projectCreate", handleProjectCreate);
-    socket.on("projectUpdate", handleProjectUpdate);
-    socket.on("projectDelete", handleProjectDelete);
+    socket.on('projectCreate', handleProjectCreate);
+    socket.on('projectUpdate', handleProjectUpdate);
+    socket.on('projectDelete', handleProjectDelete);
 
-    socket.on("projectManagerCreate", handleProjectManagerCreate);
-    socket.on("projectManagerDelete", handleProjectManagerDelete);
+    socket.on('projectManagerCreate', handleProjectManagerCreate);
+    socket.on('projectManagerDelete', handleProjectManagerDelete);
 
-    socket.on("backgroundImageCreate", handleBackgroundImageCreate);
-    socket.on("backgroundImageDelete", handleBackgroundImageDelete);
+    socket.on('backgroundImageCreate', handleBackgroundImageCreate);
+    socket.on('backgroundImageDelete', handleBackgroundImageDelete);
 
-    socket.on("baseCustomFieldGroupCreate", handleBaseCustomFieldGroupCreate);
-    socket.on("baseCustomFieldGroupUpdate", handleBaseCustomFieldGroupUpdate);
-    socket.on("baseCustomFieldGroupDelete", handleBaseCustomFieldGroupDelete);
+    socket.on('baseCustomFieldGroupCreate', handleBaseCustomFieldGroupCreate);
+    socket.on('baseCustomFieldGroupUpdate', handleBaseCustomFieldGroupUpdate);
+    socket.on('baseCustomFieldGroupDelete', handleBaseCustomFieldGroupDelete);
 
-    socket.on("boardCreate", handleBoardCreate);
-    socket.on("boardUpdate", handleBoardUpdate);
-    socket.on("boardDelete", handleBoardDelete);
+    socket.on('boardCreate', handleBoardCreate);
+    socket.on('boardUpdate', handleBoardUpdate);
+    socket.on('boardDelete', handleBoardDelete);
 
-    socket.on("boardMembershipCreate", handleBoardMembershipCreate);
-    socket.on("boardMembershipUpdate", handleBoardMembershipUpdate);
-    socket.on("boardMembershipDelete", handleBoardMembershipDelete);
+    socket.on('boardMembershipCreate', handleBoardMembershipCreate);
+    socket.on('boardMembershipUpdate', handleBoardMembershipUpdate);
+    socket.on('boardMembershipDelete', handleBoardMembershipDelete);
 
-    socket.on("listCreate", handleListCreate);
-    socket.on("listUpdate", handleListUpdate);
-    socket.on("listClear", handleListClear);
-    socket.on("listDelete", handleListDelete);
+    socket.on('listCreate', handleListCreate);
+    socket.on('listUpdate', handleListUpdate);
+    socket.on('listClear', handleListClear);
+    socket.on('listDelete', handleListDelete);
 
-    socket.on("labelCreate", handleLabelCreate);
-    socket.on("labelUpdate", handleLabelUpdate);
-    socket.on("labelDelete", handleLabelDelete);
+    socket.on('labelCreate', handleLabelCreate);
+    socket.on('labelUpdate', handleLabelUpdate);
+    socket.on('labelDelete', handleLabelDelete);
 
-    socket.on("cardsUpdate", handleCardsUpdate);
-    socket.on("cardCreate", handleCardCreate);
-    socket.on("cardUpdate", handleCardUpdate);
-    socket.on("cardDelete", handleCardDelete);
+    socket.on('cardsUpdate', handleCardsUpdate);
+    socket.on('cardCreate', handleCardCreate);
+    socket.on('cardUpdate', handleCardUpdate);
+    socket.on('cardDelete', handleCardDelete);
 
-    socket.on("cardMembershipCreate", handleUserToCardAdd);
-    socket.on("cardMembershipDelete", handleUserFromCardRemove);
+    socket.on('cardMembershipCreate', handleUserToCardAdd);
+    socket.on('cardMembershipDelete', handleUserFromCardRemove);
 
-    socket.on("cardLabelCreate", handleLabelToCardAdd);
-    socket.on("cardLabelDelete", handleLabelFromCardRemove);
+    socket.on('cardLabelCreate', handleLabelToCardAdd);
+    socket.on('cardLabelDelete', handleLabelFromCardRemove);
 
-    socket.on("taskListCreate", handleTaskListCreate);
-    socket.on("taskListUpdate", handleTaskListUpdate);
-    socket.on("taskListDelete", handleTaskListDelete);
+    socket.on('taskListCreate', handleTaskListCreate);
+    socket.on('taskListUpdate', handleTaskListUpdate);
+    socket.on('taskListDelete', handleTaskListDelete);
 
-    socket.on("taskCreate", handleTaskCreate);
-    socket.on("taskUpdate", handleTaskUpdate);
-    socket.on("taskDelete", handleTaskDelete);
+    socket.on('taskCreate', handleTaskCreate);
+    socket.on('taskUpdate', handleTaskUpdate);
+    socket.on('taskDelete', handleTaskDelete);
 
-    socket.on("attachmentCreate", handleAttachmentCreate);
-    socket.on("attachmentUpdate", handleAttachmentUpdate);
-    socket.on("attachmentDelete", handleAttachmentDelete);
+    socket.on('attachmentCreate', handleAttachmentCreate);
+    socket.on('attachmentUpdate', handleAttachmentUpdate);
+    socket.on('attachmentDelete', handleAttachmentDelete);
 
-    socket.on("customFieldGroupCreate", handleCustomFieldGroupCreate);
-    socket.on("customFieldGroupUpdate", handleCustomFieldGroupUpdate);
-    socket.on("customFieldGroupDelete", handleCustomFieldGroupDelete);
+    socket.on('customFieldGroupCreate', handleCustomFieldGroupCreate);
+    socket.on('customFieldGroupUpdate', handleCustomFieldGroupUpdate);
+    socket.on('customFieldGroupDelete', handleCustomFieldGroupDelete);
 
-    socket.on("customFieldCreate", handleCustomFieldCreate);
-    socket.on("customFieldUpdate", handleCustomFieldUpdate);
-    socket.on("customFieldDelete", handleCustomFieldDelete);
+    socket.on('customFieldCreate', handleCustomFieldCreate);
+    socket.on('customFieldUpdate', handleCustomFieldUpdate);
+    socket.on('customFieldDelete', handleCustomFieldDelete);
 
-    socket.on("customFieldValueUpdate", handleCustomFieldValueUpdate);
-    socket.on("customFieldValueDelete", handleCustomFieldValueDelete);
+    socket.on('customFieldValueUpdate', handleCustomFieldValueUpdate);
+    socket.on('customFieldValueDelete', handleCustomFieldValueDelete);
 
-    socket.on("commentCreate", handleCommentCreate);
-    socket.on("commentUpdate", handleCommentUpdate);
-    socket.on("commentDelete", handleCommentDelete);
+    socket.on('commentCreate', handleCommentCreate);
+    socket.on('commentUpdate', handleCommentUpdate);
+    socket.on('commentDelete', handleCommentDelete);
 
-    socket.on("actionCreate", handleActivityCreate);
+    socket.on('actionCreate', handleActivityCreate);
 
-    socket.on("notificationCreate", handleNotificationCreate);
-    socket.on("notificationUpdate", handleNotificationUpdate);
+    socket.on('notificationCreate', handleNotificationCreate);
+    socket.on('notificationUpdate', handleNotificationUpdate);
 
-    socket.on("notificationServiceCreate", handleNotificationServiceCreate);
-    socket.on("notificationServiceUpdate", handleNotificationServiceUpdate);
-    socket.on("notificationServiceDelete", handleNotificationServiceDelete);
+    socket.on('notificationServiceCreate', handleNotificationServiceCreate);
+    socket.on('notificationServiceUpdate', handleNotificationServiceUpdate);
+    socket.on('notificationServiceDelete', handleNotificationServiceDelete);
 
     return () => {
-      socket.off("disconnect", handleDisconnect);
-      socket.off("reconnect", handleReconnect);
+      socket.off('disconnect', handleDisconnect);
+      socket.off('reconnect', handleReconnect);
 
-      socket.off("logout", handleLogout);
+      socket.off('logout', handleLogout);
 
-      socket.off("configUpdate", handleConfigUpdate);
+      socket.off('configUpdate', handleConfigUpdate);
 
-      socket.off("userCreate", handleUserCreate);
-      socket.off("userUpdate", handleUserUpdate);
-      socket.off("userDelete", handleUserDelete);
+      socket.off('userCreate', handleUserCreate);
+      socket.off('userUpdate', handleUserUpdate);
+      socket.off('userDelete', handleUserDelete);
 
-      socket.off("projectCreate", handleProjectCreate);
-      socket.off("projectUpdate", handleProjectUpdate);
-      socket.off("projectDelete", handleProjectDelete);
+      socket.off('projectCreate', handleProjectCreate);
+      socket.off('projectUpdate', handleProjectUpdate);
+      socket.off('projectDelete', handleProjectDelete);
 
-      socket.off("projectManagerCreate", handleProjectManagerCreate);
-      socket.off("projectManagerDelete", handleProjectManagerDelete);
+      socket.off('projectManagerCreate', handleProjectManagerCreate);
+      socket.off('projectManagerDelete', handleProjectManagerDelete);
 
-      socket.off("backgroundImageCreate", handleBackgroundImageCreate);
-      socket.off("backgroundImageDelete", handleBackgroundImageDelete);
+      socket.off('backgroundImageCreate', handleBackgroundImageCreate);
+      socket.off('backgroundImageDelete', handleBackgroundImageDelete);
 
       socket.off(
-        "baseCustomFieldGroupCreate",
-        handleBaseCustomFieldGroupCreate,
+        'baseCustomFieldGroupCreate',
+        handleBaseCustomFieldGroupCreate
       );
       socket.off(
-        "baseCustomFieldGroupUpdate",
-        handleBaseCustomFieldGroupUpdate,
+        'baseCustomFieldGroupUpdate',
+        handleBaseCustomFieldGroupUpdate
       );
       socket.off(
-        "baseCustomFieldGroupDelete",
-        handleBaseCustomFieldGroupDelete,
+        'baseCustomFieldGroupDelete',
+        handleBaseCustomFieldGroupDelete
       );
 
-      socket.off("boardCreate", handleBoardCreate);
-      socket.off("boardUpdate", handleBoardUpdate);
-      socket.off("boardDelete", handleBoardDelete);
+      socket.off('boardCreate', handleBoardCreate);
+      socket.off('boardUpdate', handleBoardUpdate);
+      socket.off('boardDelete', handleBoardDelete);
 
-      socket.off("boardMembershipCreate", handleBoardMembershipCreate);
-      socket.off("boardMembershipUpdate", handleBoardMembershipUpdate);
-      socket.off("boardMembershipDelete", handleBoardMembershipDelete);
+      socket.off('boardMembershipCreate', handleBoardMembershipCreate);
+      socket.off('boardMembershipUpdate', handleBoardMembershipUpdate);
+      socket.off('boardMembershipDelete', handleBoardMembershipDelete);
 
-      socket.off("listCreate", handleListCreate);
-      socket.off("listUpdate", handleListUpdate);
-      socket.off("listClear", handleListClear);
-      socket.off("listDelete", handleListDelete);
+      socket.off('listCreate', handleListCreate);
+      socket.off('listUpdate', handleListUpdate);
+      socket.off('listClear', handleListClear);
+      socket.off('listDelete', handleListDelete);
 
-      socket.off("labelCreate", handleLabelCreate);
-      socket.off("labelUpdate", handleLabelUpdate);
-      socket.off("labelDelete", handleLabelDelete);
+      socket.off('labelCreate', handleLabelCreate);
+      socket.off('labelUpdate', handleLabelUpdate);
+      socket.off('labelDelete', handleLabelDelete);
 
-      socket.off("cardsUpdate", handleCardsUpdate);
-      socket.off("cardCreate", handleCardCreate);
-      socket.off("cardUpdate", handleCardUpdate);
-      socket.off("cardDelete", handleCardDelete);
+      socket.off('cardsUpdate', handleCardsUpdate);
+      socket.off('cardCreate', handleCardCreate);
+      socket.off('cardUpdate', handleCardUpdate);
+      socket.off('cardDelete', handleCardDelete);
 
-      socket.off("cardMembershipCreate", handleUserToCardAdd);
-      socket.off("cardMembershipDelete", handleUserFromCardRemove);
+      socket.off('cardMembershipCreate', handleUserToCardAdd);
+      socket.off('cardMembershipDelete', handleUserFromCardRemove);
 
-      socket.off("cardLabelCreate", handleLabelToCardAdd);
-      socket.off("cardLabelDelete", handleLabelFromCardRemove);
+      socket.off('cardLabelCreate', handleLabelToCardAdd);
+      socket.off('cardLabelDelete', handleLabelFromCardRemove);
 
-      socket.off("taskListCreate", handleTaskListCreate);
-      socket.off("taskListUpdate", handleTaskListUpdate);
-      socket.off("taskListDelete", handleTaskListDelete);
+      socket.off('taskListCreate', handleTaskListCreate);
+      socket.off('taskListUpdate', handleTaskListUpdate);
+      socket.off('taskListDelete', handleTaskListDelete);
 
-      socket.off("taskCreate", handleTaskCreate);
-      socket.off("taskUpdate", handleTaskUpdate);
-      socket.off("taskDelete", handleTaskDelete);
+      socket.off('taskCreate', handleTaskCreate);
+      socket.off('taskUpdate', handleTaskUpdate);
+      socket.off('taskDelete', handleTaskDelete);
 
-      socket.off("attachmentCreate", handleAttachmentCreate);
-      socket.off("attachmentUpdate", handleAttachmentUpdate);
-      socket.off("attachmentDelete", handleAttachmentDelete);
+      socket.off('attachmentCreate', handleAttachmentCreate);
+      socket.off('attachmentUpdate', handleAttachmentUpdate);
+      socket.off('attachmentDelete', handleAttachmentDelete);
 
-      socket.off("customFieldGroupCreate", handleCustomFieldGroupCreate);
-      socket.off("customFieldGroupUpdate", handleCustomFieldGroupUpdate);
-      socket.off("customFieldGroupDelete", handleCustomFieldGroupDelete);
+      socket.off('customFieldGroupCreate', handleCustomFieldGroupCreate);
+      socket.off('customFieldGroupUpdate', handleCustomFieldGroupUpdate);
+      socket.off('customFieldGroupDelete', handleCustomFieldGroupDelete);
 
-      socket.off("customFieldCreate", handleCustomFieldCreate);
-      socket.off("customFieldUpdate", handleCustomFieldUpdate);
-      socket.off("customFieldDelete", handleCustomFieldDelete);
+      socket.off('customFieldCreate', handleCustomFieldCreate);
+      socket.off('customFieldUpdate', handleCustomFieldUpdate);
+      socket.off('customFieldDelete', handleCustomFieldDelete);
 
-      socket.off("customFieldValueUpdate", handleCustomFieldValueUpdate);
-      socket.off("customFieldValueDelete", handleCustomFieldValueDelete);
+      socket.off('customFieldValueUpdate', handleCustomFieldValueUpdate);
+      socket.off('customFieldValueDelete', handleCustomFieldValueDelete);
 
-      socket.off("commentCreate", handleCommentCreate);
-      socket.off("commentUpdate", handleCommentUpdate);
-      socket.off("commentDelete", handleCommentDelete);
+      socket.off('commentCreate', handleCommentCreate);
+      socket.off('commentUpdate', handleCommentUpdate);
+      socket.off('commentDelete', handleCommentDelete);
 
-      socket.off("actionCreate", handleActivityCreate);
+      socket.off('actionCreate', handleActivityCreate);
 
-      socket.off("notificationCreate", handleNotificationCreate);
-      socket.off("notificationUpdate", handleNotificationUpdate);
+      socket.off('notificationCreate', handleNotificationCreate);
+      socket.off('notificationUpdate', handleNotificationUpdate);
 
-      socket.off("notificationServiceCreate", handleNotificationServiceCreate);
-      socket.off("notificationServiceUpdate", handleNotificationServiceUpdate);
-      socket.off("notificationServiceDelete", handleNotificationServiceDelete);
+      socket.off('notificationServiceCreate', handleNotificationServiceCreate);
+      socket.off('notificationServiceUpdate', handleNotificationServiceUpdate);
+      socket.off('notificationServiceDelete', handleNotificationServiceDelete);
     };
   });
 
 export default function* socketWatchers() {
   yield all([
     yield takeEvery(EntryActionTypes.SOCKET_DISCONNECT_HANDLE, () =>
-      services.handleSocketDisconnect(),
+      services.handleSocketDisconnect()
     ),
     yield takeEvery(EntryActionTypes.SOCKET_RECONNECT_HANDLE, () =>
-      services.handleSocketReconnect(),
+      services.handleSocketReconnect()
     ),
   ]);
 

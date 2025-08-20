@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useLayoutEffect } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { Router } from "react-router-dom";
+import React, { useLayoutEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { Router } from 'react-router-dom';
 
-import { handleLocationChange } from "./actions";
+import { handleLocationChange } from './actions';
 
 function ReduxRouter({ children, history, selector, basename }) {
   const state = useSelector(selector);

@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useContext } from "react";
-import { usePopup } from "../lib/popup";
+import { useCallback, useContext } from 'react';
+import { usePopup } from '../lib/popup';
 
-import { ClosableContext } from "../contexts";
+import { ClosableContext } from '../contexts';
 
 export default (Step, { onOpen, onClose, ...props } = {}) => {
   const [activateClosable, deactivateClosable] = useContext(ClosableContext);

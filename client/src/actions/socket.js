@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ActionTypes from "../constants/ActionTypes";
+import ActionTypes from '../constants/ActionTypes';
 
 const handleSocketDisconnect = () => ({
   type: ActionTypes.SOCKET_DISCONNECT_HANDLE,
@@ -33,7 +33,7 @@ const handleSocketReconnect = (
   customFields,
   customFieldValues,
   notifications,
-  notificationServices,
+  notificationServices
 ) => ({
   type: ActionTypes.SOCKET_RECONNECT_HANDLE,
   payload: {

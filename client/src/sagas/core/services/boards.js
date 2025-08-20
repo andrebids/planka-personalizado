@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, fork, put, select, take } from "redux-saga/effects";
+import { call, fork, put, select, take } from 'redux-saga/effects';
 
-import { goToBoard, goToProject } from "./router";
-import { openModal } from "./modals";
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
-import ActionTypes from "../../../constants/ActionTypes";
-import ModalTypes from "../../../constants/ModalTypes";
+import { goToBoard, goToProject } from './router';
+import { openModal } from './modals';
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
+import ActionTypes from '../../../constants/ActionTypes';
+import ModalTypes from '../../../constants/ModalTypes';
 
 export function* createBoard(projectId, { import: boardImport, ...data }) {
   const localId = yield call(createLocalId);
@@ -28,14 +28,14 @@ export function* createBoard(projectId, { import: boardImport, ...data }) {
       ...nextData,
       projectId,
       id: localId,
-    }),
+    })
   );
 
   // TODO: use race instead
   const watchForCreateBoardActionTask = yield fork(
     function* watchForCreateBoardAction() {
       yield take(ActionTypes.BOARD_CREATE);
-    },
+    }
   );
 
   let board;
@@ -55,7 +55,7 @@ export function* createBoard(projectId, { import: boardImport, ...data }) {
             importType: boardImport.type,
             importFile: boardImport.file,
           },
-          localId,
+          localId
         )
       : call(request, api.createBoard, projectId, nextData));
   } catch (error) {
@@ -148,8 +148,8 @@ export function* fetchBoard(id) {
       attachments,
       customFieldGroups,
       customFields,
-      customFieldValues,
-    ),
+      customFieldValues
+    )
   );
 }
 
@@ -183,7 +183,7 @@ export function* moveBoard(id, index) {
     selectors.selectNextBoardPosition,
     projectId,
     index,
-    id,
+    id
   );
 
   yield call(updateBoard, id, {
@@ -205,7 +205,7 @@ export function* updateBoardView(id, value) {
   yield put(
     actions.updateBoard(id, {
       view: value,
-    }),
+    })
   );
 }
 

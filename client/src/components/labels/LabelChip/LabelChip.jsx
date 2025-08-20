@@ -3,22 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import camelCase from "lodash/camelCase";
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
+import upperFirst from 'lodash/upperFirst';
+import camelCase from 'lodash/camelCase';
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
-import selectors from "../../../selectors";
+import selectors from '../../../selectors';
 
-import styles from "./LabelChip.module.scss";
-import globalStyles from "../../../styles.module.scss";
+import styles from './LabelChip.module.scss';
+import globalStyles from '../../../styles.module.scss';
 
 const Sizes = {
-  TINY: "tiny",
-  SMALL: "small",
-  MEDIUM: "medium",
+  TINY: 'tiny',
+  SMALL: 'small',
+  MEDIUM: 'medium',
 };
 
 const LabelChip = React.memo(({ id, size, onClick }) => {
@@ -34,10 +34,10 @@ const LabelChip = React.memo(({ id, size, onClick }) => {
         !label.name && styles.wrapperNameless,
         styles[`wrapper${upperFirst(size)}`],
         onClick && styles.wrapperHoverable,
-        globalStyles[`background${upperFirst(camelCase(label.color))}`],
+        globalStyles[`background${upperFirst(camelCase(label.color))}`]
       )}
     >
-      {label.name || "\u00A0"}
+      {label.name || '\u00A0'}
     </span>
   );
 

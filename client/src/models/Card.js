@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk, many, oneToOne } from "redux-orm";
+import { attr, fk, many, oneToOne } from 'redux-orm';
 
-import BaseModel from "./BaseModel";
-import ActionTypes from "../constants/ActionTypes";
-import Config from "../constants/Config";
+import BaseModel from './BaseModel';
+import ActionTypes from '../constants/ActionTypes';
+import Config from '../constants/Config';
 
 export default class extends BaseModel {
-  static modelName = "Card";
+  static modelName = 'Card';
 
   static fields = {
     id: attr(),
@@ -51,32 +51,32 @@ export default class extends BaseModel {
       getDefault: () => null,
     }),
     boardId: fk({
-      to: "Board",
-      as: "board",
-      relatedName: "cards",
+      to: 'Board',
+      as: 'board',
+      relatedName: 'cards',
     }),
     listId: fk({
-      to: "List",
-      as: "list",
-      relatedName: "cards",
+      to: 'List',
+      as: 'list',
+      relatedName: 'cards',
     }),
     creatorUserId: fk({
-      to: "User",
-      as: "creatorUser",
-      relatedName: "createdCards",
+      to: 'User',
+      as: 'creatorUser',
+      relatedName: 'createdCards',
     }),
     prevListId: fk({
-      to: "List",
-      as: "prevList",
-      relatedName: "prevCards",
+      to: 'List',
+      as: 'prevList',
+      relatedName: 'prevCards',
     }),
     coverAttachmentId: oneToOne({
-      to: "Attachment",
-      as: "coverAttachment",
-      relatedName: "coveredCard",
+      to: 'Attachment',
+      as: 'coverAttachment',
+      relatedName: 'coveredCard',
     }),
-    users: many("User", "cards"),
-    labels: many("Label", "cards"),
+    users: many('User', 'cards'),
+    labels: many('Label', 'cards'),
   };
 
   static reducer({ type, payload }, Card) {
@@ -146,7 +146,7 @@ export default class extends BaseModel {
       case ActionTypes.USER_TO_CARD_ADD_HANDLE:
         try {
           Card.withId(payload.cardMembership.cardId).users.add(
-            payload.cardMembership.userId,
+            payload.cardMembership.userId
           );
         } catch {
           /* empty */
@@ -161,7 +161,7 @@ export default class extends BaseModel {
       case ActionTypes.USER_FROM_CARD_REMOVE_HANDLE:
         try {
           Card.withId(payload.cardMembership.cardId).users.remove(
-            payload.cardMembership.userId,
+            payload.cardMembership.userId
           );
         } catch {
           /* empty */
@@ -206,7 +206,7 @@ export default class extends BaseModel {
       case ActionTypes.LABEL_TO_CARD_ADD_HANDLE:
         try {
           Card.withId(payload.cardLabel.cardId).labels.add(
-            payload.cardLabel.labelId,
+            payload.cardLabel.labelId
           );
         } catch {
           /* empty */
@@ -221,7 +221,7 @@ export default class extends BaseModel {
       case ActionTypes.LABEL_FROM_CARD_REMOVE_HANDLE:
         try {
           Card.withId(payload.cardLabel.cardId).labels.remove(
-            payload.cardLabel.labelId,
+            payload.cardLabel.labelId
           );
         } catch {
           /* empty */
@@ -458,23 +458,23 @@ export default class extends BaseModel {
   }
 
   getTaskListsQuerySet() {
-    return this.taskLists.orderBy(["position", "id.length", "id"]);
+    return this.taskLists.orderBy(['position', 'id.length', 'id']);
   }
 
   getAttachmentsQuerySet() {
-    return this.attachments.orderBy(["id.length", "id"], ["desc", "desc"]);
+    return this.attachments.orderBy(['id.length', 'id'], ['desc', 'desc']);
   }
 
   getCustomFieldGroupsQuerySet() {
-    return this.customFieldGroups.orderBy(["position", "id.length", "id"]);
+    return this.customFieldGroups.orderBy(['position', 'id.length', 'id']);
   }
 
   getCommentsQuerySet() {
-    return this.comments.orderBy(["id.length", "id"], ["desc", "desc"]);
+    return this.comments.orderBy(['id.length', 'id'], ['desc', 'desc']);
   }
 
   getActivitiesQuerySet() {
-    return this.activities.orderBy(["id.length", "id"], ["desc", "desc"]);
+    return this.activities.orderBy(['id.length', 'id'], ['desc', 'desc']);
   }
 
   getUnreadNotificationsQuerySet() {
@@ -600,7 +600,7 @@ export default class extends BaseModel {
         {
           cardId: cardModel.id,
         },
-        rootId,
+        rootId
       );
     });
 

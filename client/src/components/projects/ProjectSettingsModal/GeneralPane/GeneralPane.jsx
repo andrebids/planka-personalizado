@@ -3,28 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Divider, Header, Radio, Tab } from "semantic-ui-react";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Divider, Header, Radio, Tab } from 'semantic-ui-react';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import { usePopupInClosableContext } from "../../../../hooks";
-import EditInformation from "./EditInformation";
-import ConfirmationStep from "../../../common/ConfirmationStep";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import { usePopupInClosableContext } from '../../../../hooks';
+import EditInformation from './EditInformation';
+import ConfirmationStep from '../../../common/ConfirmationStep';
 
-import styles from "./GeneralPane.module.scss";
+import styles from './GeneralPane.module.scss';
 
 const GeneralPane = React.memo(() => {
   const project = useSelector(selectors.selectCurrentProject);
 
   const hasBoards = useSelector(
-    (state) => selectors.selectBoardIdsForCurrentProject(state).length > 0,
+    (state) => selectors.selectBoardIdsForCurrentProject(state).length > 0
   );
 
   const canEdit = useSelector(
-    selectors.selectIsCurrentUserManagerForCurrentProject,
+    selectors.selectIsCurrentUserManagerForCurrentProject
   );
 
   const dispatch = useDispatch();
@@ -35,10 +35,10 @@ const GeneralPane = React.memo(() => {
       dispatch(
         entryActions.updateCurrentProject({
           [fieldName]: checked,
-        }),
+        })
       );
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleDeleteConfirm = useCallback(() => {
@@ -54,8 +54,8 @@ const GeneralPane = React.memo(() => {
           <EditInformation />
           <Divider horizontal section>
             <Header as="h4">
-              {t("common.display", {
-                context: "title",
+              {t('common.display', {
+                context: 'title',
               })}
             </Header>
           </Divider>
@@ -65,7 +65,7 @@ const GeneralPane = React.memo(() => {
         toggle
         name="isHidden"
         checked={project.isHidden}
-        label={t("common.hideFromProjectListAndFavorites")}
+        label={t('common.hideFromProjectListAndFavorites')}
         className={styles.radio}
         onChange={handleToggleChange}
       />
@@ -73,8 +73,8 @@ const GeneralPane = React.memo(() => {
         <>
           <Divider horizontal section>
             <Header as="h4">
-              {t("common.dangerZone", {
-                context: "title",
+              {t('common.dangerZone', {
+                context: 'title',
               })}
             </Header>
           </Divider>
@@ -87,9 +87,9 @@ const GeneralPane = React.memo(() => {
             >
               <Button disabled={hasBoards} className={styles.actionButton}>
                 {hasBoards
-                  ? t("common.deleteAllBoardsToBeAbleToDeleteThisProject")
-                  : t("action.deleteProject", {
-                      context: "title",
+                  ? t('common.deleteAllBoardsToBeAbleToDeleteThisProject')
+                  : t('action.deleteProject', {
+                      context: 'title',
                     })}
               </Button>
             </ConfirmationPopup>

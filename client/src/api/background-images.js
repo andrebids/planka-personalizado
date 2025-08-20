@@ -3,8 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import http from "./http";
-import socket from "./socket";
+import http from './http';
+import socket from './socket';
 
 /* Actions */
 
@@ -12,7 +12,7 @@ const createBackgroundImage = (
   projectId,
   { file, ...data },
   requestId,
-  headers,
+  headers
 ) =>
   http.post(
     `/projects/${projectId}/background-images?requestId=${requestId}`,
@@ -20,7 +20,7 @@ const createBackgroundImage = (
       ...data,
       file,
     },
-    headers,
+    headers
   );
 
 const deleteBackgroundImage = (id, headers) =>

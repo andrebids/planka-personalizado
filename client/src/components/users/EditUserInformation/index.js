@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import EditUserInformation from "./EditUserInformation";
+import EditUserInformation from './EditUserInformation';
 
 export default EditUserInformation;

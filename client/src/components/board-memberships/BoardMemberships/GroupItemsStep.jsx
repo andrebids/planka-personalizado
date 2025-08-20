@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 
-import { useSteps } from "../../../hooks";
-import ActionsStep from "./ActionsStep";
-import PureBoardMembershipsStep from "../PureBoardMembershipsStep";
+import { useSteps } from '../../../hooks';
+import ActionsStep from './ActionsStep';
+import PureBoardMembershipsStep from '../PureBoardMembershipsStep';
 
 const StepTypes = {
-  SELECT: "SELECT",
+  SELECT: 'SELECT',
 };
 
 const GroupItemsStep = React.memo(({ items, title, onClose }) => {
@@ -23,12 +23,12 @@ const GroupItemsStep = React.memo(({ items, title, onClose }) => {
         userId,
       });
     },
-    [openStep],
+    [openStep]
   );
 
   if (step && step.type === StepTypes.SELECT) {
     const currentItem = items.find(
-      (item) => item.userId === step.params.userId,
+      (item) => item.userId === step.params.userId
     );
 
     if (currentItem) {

@@ -3,63 +3,63 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { Icon } from "semantic-ui-react";
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { Icon } from 'semantic-ui-react';
 
-import selectors from "../../../selectors";
-import markdownToText from "../../../utils/markdown-to-text";
-import { BoardViews, ListTypes } from "../../../constants/Enums";
-import LabelChip from "../../labels/LabelChip";
-import CustomFieldValueChip from "../../custom-field-values/CustomFieldValueChip";
+import selectors from '../../../selectors';
+import markdownToText from '../../../utils/markdown-to-text';
+import { BoardViews, ListTypes } from '../../../constants/Enums';
+import LabelChip from '../../labels/LabelChip';
+import CustomFieldValueChip from '../../custom-field-values/CustomFieldValueChip';
 
-import styles from "./StoryContent.module.scss";
+import styles from './StoryContent.module.scss';
 
 const StoryContent = React.memo(({ cardId }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
   const selectLabelIdsByCardId = useMemo(
     () => selectors.makeSelectLabelIdsByCardId(),
-    [],
+    []
   );
 
   const selectAttachmentsTotalByCardId = useMemo(
     () => selectors.makeSelectAttachmentsTotalByCardId(),
-    [],
+    []
   );
 
   const selectShownOnFrontOfCardCustomFieldValueIdsByCardId = useMemo(
     () => selectors.makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId(),
-    [],
+    []
   );
 
   const selectNotificationsTotalByCardId = useMemo(
     () => selectors.makeSelectNotificationsTotalByCardId(),
-    [],
+    []
   );
 
   const selectAttachmentById = useMemo(
     () => selectors.makeSelectAttachmentById(),
-    [],
+    []
   );
 
   const card = useSelector((state) => selectCardById(state, cardId));
   const list = useSelector((state) => selectListById(state, card.listId));
   const labelIds = useSelector((state) =>
-    selectLabelIdsByCardId(state, cardId),
+    selectLabelIdsByCardId(state, cardId)
   );
   const attachmentsTotal = useSelector((state) =>
-    selectAttachmentsTotalByCardId(state, cardId),
+    selectAttachmentsTotalByCardId(state, cardId)
   );
 
   const customFieldValueIds = useSelector((state) =>
-    selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId),
+    selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId)
   );
 
   const notificationsTotal = useSelector((state) =>
-    selectNotificationsTotalByCardId(state, cardId),
+    selectNotificationsTotalByCardId(state, cardId)
   );
 
   const listName = useSelector((state) => {
@@ -83,7 +83,7 @@ const StoryContent = React.memo(({ cardId }) => {
 
   const descriptionText = useMemo(
     () => card.description && markdownToText(card.description),
-    [card.description],
+    [card.description]
   );
 
   const isInClosedList = list.type === ListTypes.CLOSED;
@@ -123,7 +123,7 @@ const StoryContent = React.memo(({ cardId }) => {
         <div
           className={classNames(
             styles.name,
-            isInClosedList && styles.nameClosed,
+            isInClosedList && styles.nameClosed
           )}
         >
           {card.name}
@@ -138,7 +138,7 @@ const StoryContent = React.memo(({ cardId }) => {
                 className={classNames(
                   styles.attachment,
                   styles.attachmentLeft,
-                  styles.notification,
+                  styles.notification
                 )}
               >
                 {notificationsTotal}

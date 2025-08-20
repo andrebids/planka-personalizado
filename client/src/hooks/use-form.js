@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 export default (initialData) => {
   const [data, setData] = useState(initialData);
@@ -12,10 +12,10 @@ export default (initialData) => {
     (_, { type, name: fieldName, value, checked }) => {
       setData((prevData) => ({
         ...prevData,
-        [fieldName]: type === "radio" ? checked : value,
+        [fieldName]: type === 'radio' ? checked : value,
       }));
     },
-    [],
+    []
   );
 
   return [data, handleFieldChange, setData];

@@ -3,20 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from "lodash/upperFirst";
-import React, { useCallback, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { useForceUpdate, usePrevious } from "../../../lib/hooks";
+import upperFirst from 'lodash/upperFirst';
+import React, { useCallback, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { useForceUpdate, usePrevious } from '../../../lib/hooks';
 
-import { formatStopwatch } from "../../../utils/stopwatch";
+import { formatStopwatch } from '../../../utils/stopwatch';
 
-import styles from "./StopwatchChip.module.scss";
+import styles from './StopwatchChip.module.scss';
 
 const Sizes = {
-  TINY: "tiny",
-  SMALL: "small",
-  MEDIUM: "medium",
+  TINY: 'tiny',
+  SMALL: 'small',
+  MEDIUM: 'medium',
 };
 
 const StopwatchChip = React.memo(({ value, as, size, isDisabled, onClick }) => {
@@ -49,7 +49,7 @@ const StopwatchChip = React.memo(({ value, as, size, isDisabled, onClick }) => {
     () => () => {
       onStop();
     },
-    [onStop],
+    [onStop]
   );
 
   const contentNode = (
@@ -58,7 +58,7 @@ const StopwatchChip = React.memo(({ value, as, size, isDisabled, onClick }) => {
         styles.wrapper,
         styles[`wrapper${upperFirst(size)}`],
         value.startedAt && styles.wrapperActive,
-        onClick && styles.wrapperHoverable,
+        onClick && styles.wrapperHoverable
       )}
     >
       {formatStopwatch(value)}
@@ -90,7 +90,7 @@ StopwatchChip.propTypes = {
 };
 
 StopwatchChip.defaultProps = {
-  as: "button",
+  as: 'button',
   size: Sizes.MEDIUM,
   isDisabled: false,
   onClick: undefined,

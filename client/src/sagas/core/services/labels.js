@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* createLabel(boardId, data) {
   const localId = yield call(createLocalId);
@@ -24,7 +24,7 @@ export function* createLabel(boardId, data) {
       ...nextData,
       boardId,
       id: localId,
-    }),
+    })
   );
 
   let label;
@@ -58,7 +58,7 @@ export function* createLabelFromCard(cardId, data) {
       ...nextData,
       boardId,
       id: localId,
-    }),
+    })
   );
 
   let label;
@@ -110,7 +110,7 @@ export function* moveLabel(id, index) {
     selectors.selectNextLabelPosition,
     boardId,
     index,
-    id,
+    id
   );
 
   yield call(updateLabel, id, {
@@ -171,7 +171,7 @@ export function* removeLabelFromCard(id, cardId) {
       request,
       api.deleteCardLabel,
       cardId,
-      id,
+      id
     ));
   } catch (error) {
     yield put(actions.removeLabelFromCard.failure(id, cardId, error));

@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select } from 'redux-saga/effects';
 
-import request from "../request";
-import selectors from "../../../selectors";
-import actions from "../../../actions";
-import api from "../../../api";
-import { createLocalId } from "../../../utils/local-id";
+import request from '../request';
+import selectors from '../../../selectors';
+import actions from '../../../actions';
+import api from '../../../api';
+import { createLocalId } from '../../../utils/local-id';
 
 export function* createTask(taskListId, data) {
   const localId = yield call(createLocalId);
@@ -24,7 +24,7 @@ export function* createTask(taskListId, data) {
       ...nextData,
       taskListId,
       id: localId,
-    }),
+    })
   );
 
   let task;
@@ -33,7 +33,7 @@ export function* createTask(taskListId, data) {
       request,
       api.createTask,
       taskListId,
-      nextData,
+      nextData
     ));
   } catch (error) {
     yield put(actions.createTask.failure(localId, error));
@@ -70,7 +70,7 @@ export function* moveTask(id, taskListId, index) {
     selectors.selectNextTaskPosition,
     taskListId,
     index,
-    id,
+    id
   );
 
   yield call(updateTask, id, {

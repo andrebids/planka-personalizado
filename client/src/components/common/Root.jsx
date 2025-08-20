@@ -3,26 +3,26 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import { Provider } from "react-redux";
-import { Route, Routes } from "react-router-dom";
-import { ThemeProvider, ToasterProvider } from "@gravity-ui/uikit";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { ThemeProvider, ToasterProvider } from '@gravity-ui/uikit';
 // eslint-disable-next-line import/no-unresolved
-import { toaster } from "@gravity-ui/uikit/toaster-singleton";
-import { ReduxRouter } from "../../lib/redux-router";
+import { toaster } from '@gravity-ui/uikit/toaster-singleton';
+import { ReduxRouter } from '../../lib/redux-router';
 
-import Paths from "../../constants/Paths";
-import Login from "./Login";
-import Core from "./Core";
-import NotFound from "./NotFound";
+import Paths from '../../constants/Paths';
+import Login from './Login';
+import Core from './Core';
+import NotFound from './NotFound';
 
-import "react-datepicker/dist/react-datepicker.css";
-import "photoswipe/dist/photoswipe.css";
-import "@gravity-ui/uikit/styles/styles.css";
-import "../../lib/custom-ui/styles.css";
+import 'react-datepicker/dist/react-datepicker.css';
+import 'photoswipe/dist/photoswipe.css';
+import '@gravity-ui/uikit/styles/styles.css';
+import '../../lib/custom-ui/styles.css';
 
-import "../../styles.module.scss";
+import '../../styles.module.scss';
 
 function Root({ store, history }) {
   return (
@@ -35,7 +35,7 @@ function Root({ store, history }) {
               xmlns="http://www.w3.org/2000/svg"
               width="0"
               height="0"
-              style={{ position: "absolute", overflow: "hidden" }}
+              style={{ position: 'absolute', overflow: 'hidden' }}
               aria-hidden="true"
               focusable="false"
             >

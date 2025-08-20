@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import NotificationsStep from "./NotificationsStep";
+import NotificationsStep from './NotificationsStep';
 
 export default NotificationsStep;

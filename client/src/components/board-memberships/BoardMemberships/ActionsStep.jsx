@@ -3,50 +3,49 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Button, Icon } from "semantic-ui-react";
-import { Popup } from "../../../lib/custom-ui";
+import React, { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button, Icon } from 'semantic-ui-react';
+import { Popup } from '../../../lib/custom-ui';
 
-import selectors from "../../../selectors";
-import entryActions from "../../../entry-actions";
-import { useSteps } from "../../../hooks";
-import SelectPermissionsStep from "./SelectPermissionsStep";
-import ConfirmationStep from "../../common/ConfirmationStep";
-import UserAvatar from "../../users/UserAvatar";
+import selectors from '../../../selectors';
+import entryActions from '../../../entry-actions';
+import { useSteps } from '../../../hooks';
+import SelectPermissionsStep from './SelectPermissionsStep';
+import ConfirmationStep from '../../common/ConfirmationStep';
+import UserAvatar from '../../users/UserAvatar';
 
-import styles from "./ActionsStep.module.scss";
+import styles from './ActionsStep.module.scss';
 
 const StepTypes = {
-  EDIT_PERMISSIONS: "EDIT_PERMISSIONS",
-  DELETE: "DELETE",
+  EDIT_PERMISSIONS: 'EDIT_PERMISSIONS',
+  DELETE: 'DELETE',
 };
 
 const ActionsStep = React.memo(
   ({ boardMembershipId, title, onBack, onClose }) => {
     const selectBoardMembershipById = useMemo(
       () => selectors.makeSelectBoardMembershipById(),
-      [],
+      []
     );
     const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
     const boardMembership = useSelector((state) =>
-      selectBoardMembershipById(state, boardMembershipId),
+      selectBoardMembershipById(state, boardMembershipId)
     );
 
     const user = useSelector((state) =>
-      selectUserById(state, boardMembership.userId),
+      selectUserById(state, boardMembership.userId)
     );
 
     const isCurrentUser = useSelector(
-      (state) =>
-        boardMembership.userId === selectors.selectCurrentUserId(state),
+      (state) => boardMembership.userId === selectors.selectCurrentUserId(state)
     );
 
     const canEdit = useSelector(
-      selectors.selectIsCurrentUserManagerForCurrentProject,
+      selectors.selectIsCurrentUserManagerForCurrentProject
     );
 
     const dispatch = useDispatch();
@@ -57,7 +56,7 @@ const ActionsStep = React.memo(
       (data) => {
         dispatch(entryActions.updateBoardMembership(boardMembershipId, data));
       },
-      [boardMembershipId, dispatch],
+      [boardMembershipId, dispatch]
     );
 
     const handleDeleteConfirm = useCallback(() => {
@@ -67,10 +66,7 @@ const ActionsStep = React.memo(
 
     const handleFilterClick = useCallback(() => {
       dispatch(
-        entryActions.addUserToFilterInCurrentBoard(
-          boardMembership.userId,
-          true,
-        ),
+        entryActions.addUserToFilterInCurrentBoard(boardMembership.userId, true)
       );
       onClose();
     }, [onClose, boardMembership.userId, dispatch]);
@@ -100,7 +96,7 @@ const ActionsStep = React.memo(
           return (
             <ConfirmationStep
               title={
-                isCurrentUser ? `common.leaveBoard` : "common.removeMember"
+                isCurrentUser ? `common.leaveBoard` : 'common.removeMember'
               }
               content={
                 isCurrentUser
@@ -108,7 +104,7 @@ const ActionsStep = React.memo(
                   : `common.areYouSureYouWantToRemoveThisMemberFromBoard`
               }
               buttonContent={
-                isCurrentUser ? `action.leaveBoard` : "action.removeMember"
+                isCurrentUser ? `action.leaveBoard` : 'action.removeMember'
               }
               onConfirm={handleDeleteConfirm}
               onBack={handleBack}
@@ -147,7 +143,7 @@ const ActionsStep = React.memo(
         )}
         <Button
           basic
-          content={t("action.showCardsWithThisUser")}
+          content={t('action.showCardsWithThisUser')}
           icon="filter"
           size="tiny"
           className={styles.filterButton}
@@ -159,7 +155,7 @@ const ActionsStep = React.memo(
             {canEdit && (
               <Button
                 fluid
-                content={t("action.editPermissions")}
+                content={t('action.editPermissions')}
                 className={styles.button}
                 onClick={handleEditPermissionsClick}
               />
@@ -188,7 +184,7 @@ const ActionsStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: "title",
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>{contentNode}</Popup.Content>
@@ -196,7 +192,7 @@ const ActionsStep = React.memo(
     ) : (
       contentNode
     );
-  },
+  }
 );
 
 ActionsStep.propTypes = {
@@ -207,7 +203,7 @@ ActionsStep.propTypes = {
 };
 
 ActionsStep.defaultProps = {
-  title: "common.memberActions",
+  title: 'common.memberActions',
   onBack: undefined,
 };
 

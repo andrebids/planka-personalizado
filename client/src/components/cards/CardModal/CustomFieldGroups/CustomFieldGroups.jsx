@@ -3,26 +3,26 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { closePopup } from "../../../../lib/popup";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { closePopup } from '../../../../lib/popup';
 
-import selectors from "../../../../selectors";
-import entryActions from "../../../../entry-actions";
-import DroppableTypes from "../../../../constants/DroppableTypes";
-import Item from "./Item";
-import DraggableItem from "./DraggableItem";
+import selectors from '../../../../selectors';
+import entryActions from '../../../../entry-actions';
+import DroppableTypes from '../../../../constants/DroppableTypes';
+import Item from './Item';
+import DraggableItem from './DraggableItem';
 
-import styles from "./CustomFieldGroups.module.scss";
-import globalStyles from "../../../../styles.module.scss";
+import styles from './CustomFieldGroups.module.scss';
+import globalStyles from '../../../../styles.module.scss';
 
 const CustomFieldGroups = React.memo(() => {
   const boardCustomFieldGroupIds = useSelector(
-    selectors.selectCustomFieldGroupIdsForCurrentBoard,
+    selectors.selectCustomFieldGroupIdsForCurrentBoard
   );
   const cardCustomFieldGroupIds = useSelector(
-    selectors.selectCustomFieldGroupIdsForCurrentCard,
+    selectors.selectCustomFieldGroupIdsForCurrentCard
   );
 
   const dispatch = useDispatch();
@@ -41,10 +41,10 @@ const CustomFieldGroups = React.memo(() => {
       }
 
       dispatch(
-        entryActions.moveCustomFieldGroup(draggableId, destination.index),
+        entryActions.moveCustomFieldGroup(draggableId, destination.index)
       );
     },
-    [dispatch],
+    [dispatch]
   );
 
   return (

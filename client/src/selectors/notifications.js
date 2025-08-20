@@ -3,9 +3,9 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
+import orm from '../orm';
 
 export const makeSelectNotificationById = () =>
   createSelector(
@@ -19,7 +19,7 @@ export const makeSelectNotificationById = () =>
       }
 
       return notificationModel.ref;
-    },
+    }
   );
 
 export const selectNotificationById = makeSelectNotificationById();
@@ -33,7 +33,7 @@ export const makeSelectNotificationIdsByCardId = () =>
         cardId: id,
       })
         .toRefArray()
-        .map((notification) => notification.id),
+        .map((notification) => notification.id)
   );
 
 export const selectNotificationIdsByCardId =

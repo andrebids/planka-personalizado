@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from "redux-orm";
+import { createSelector } from 'redux-orm';
 
-import orm from "../orm";
-import { isLocalId } from "../utils/local-id";
+import orm from '../orm';
+import { isLocalId } from '../utils/local-id';
 
 export const makeSelectTaskListById = () =>
   createSelector(
@@ -23,7 +23,7 @@ export const makeSelectTaskListById = () =>
         ...taskListModel.ref,
         isPersisted: !isLocalId(taskListModel.id),
       };
-    },
+    }
   );
 
 export const selectTaskListById = makeSelectTaskListById();
@@ -40,7 +40,7 @@ export const makeSelectTasksByTaskListId = () =>
       }
 
       return taskListModel.getTasksQuerySet().toRefArray();
-    },
+    }
   );
 
 export const selectTasksByTaskListId = makeSelectTasksByTaskListId();

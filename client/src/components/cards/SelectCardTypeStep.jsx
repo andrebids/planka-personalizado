@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
-import { Button, Form } from "semantic-ui-react";
-import { Popup } from "../../lib/custom-ui";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import { Button, Form } from 'semantic-ui-react';
+import { Popup } from '../../lib/custom-ui';
 
-import SelectCardType from "./SelectCardType";
+import SelectCardType from './SelectCardType';
 
 const SelectCardTypeStep = React.memo(
   ({
@@ -36,7 +36,7 @@ const SelectCardTypeStep = React.memo(
           onClose();
         }
       },
-      [defaultValue, withButton, onSelect, onClose],
+      [defaultValue, withButton, onSelect, onClose]
     );
 
     const handleSubmit = useCallback(() => {
@@ -51,7 +51,7 @@ const SelectCardTypeStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: "title",
+            context: 'title',
           })}
         </Popup.Header>
         <Popup.Content>
@@ -62,7 +62,7 @@ const SelectCardTypeStep = React.memo(
         </Popup.Content>
       </>
     );
-  },
+  }
 );
 
 SelectCardTypeStep.propTypes = {
@@ -76,9 +76,9 @@ SelectCardTypeStep.propTypes = {
 };
 
 SelectCardTypeStep.defaultProps = {
-  title: "common.selectType",
+  title: 'common.selectType',
   withButton: false,
-  buttonContent: "action.selectType",
+  buttonContent: 'action.selectType',
   onBack: undefined,
 };
 

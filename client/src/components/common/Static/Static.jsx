@@ -3,27 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useRef } from "react";
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { useTranslation, Trans } from "react-i18next";
-import { Icon, Loader } from "semantic-ui-react";
-import { useTransitioning } from "../../../lib/hooks";
+import React, { useRef } from 'react';
+import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { useTranslation, Trans } from 'react-i18next';
+import { Icon, Loader } from 'semantic-ui-react';
+import { useTransitioning } from '../../../lib/hooks';
 
-import selectors from "../../../selectors";
-import { selectIsSidebarExpanded } from "../../../selectors/sidebarSelectors";
-import { BoardViews } from "../../../constants/Enums";
-import Home from "../Home";
-import Board from "../../boards/Board";
+import selectors from '../../../selectors';
+import { selectIsSidebarExpanded } from '../../../selectors/sidebarSelectors';
+import { BoardViews } from '../../../constants/Enums';
+import Home from '../Home';
+import Board from '../../boards/Board';
 
-import styles from "./Static.module.scss";
+import styles from './Static.module.scss';
 
 const Static = React.memo(() => {
   const { cardId, projectId } = useSelector(selectors.selectPath);
   const board = useSelector(selectors.selectCurrentBoard);
   const isFetching = useSelector(selectors.selectIsContentFetching);
   const isFavoritesActive = useSelector(
-    selectors.selectIsFavoritesActiveForCurrentUser,
+    selectors.selectIsFavoritesActiveForCurrentUser
   );
   const isSidebarExpanded = useSelector(selectIsSidebarExpanded);
 
@@ -34,7 +34,7 @@ const Static = React.memo(() => {
   const handleTransitionEnd = useTransitioning(
     wrapperRef,
     styles.wrapperTransitioning,
-    [isFavoritesActive],
+    [isFavoritesActive]
   );
 
   let wrapperClassNames;
@@ -58,8 +58,8 @@ const Static = React.memo(() => {
     contentNode = (
       <div className={styles.message}>
         <h1>
-          {t("common.cardNotFound", {
-            context: "title",
+          {t('common.cardNotFound', {
+            context: 'title',
           })}
         </h1>
       </div>
@@ -73,8 +73,8 @@ const Static = React.memo(() => {
     contentNode = (
       <div className={styles.message}>
         <h1>
-          {t("common.boardNotFound", {
-            context: "title",
+          {t('common.boardNotFound', {
+            context: 'title',
           })}
         </h1>
       </div>
@@ -88,8 +88,8 @@ const Static = React.memo(() => {
     contentNode = (
       <div className={styles.message}>
         <h1>
-          {t("common.projectNotFound", {
-            context: "title",
+          {t('common.projectNotFound', {
+            context: 'title',
           })}
         </h1>
       </div>
@@ -111,8 +111,8 @@ const Static = React.memo(() => {
           className={styles.messageIcon}
         />
         <h1 className={styles.messageTitle}>
-          {t("common.openBoard", {
-            context: "title",
+          {t('common.openBoard', {
+            context: 'title',
           })}
         </h1>
         <div className={styles.messageContent}>
