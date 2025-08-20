@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import HomeActions from './HomeActions';
+import HomeActions from "./HomeActions";
 
 export default HomeActions;

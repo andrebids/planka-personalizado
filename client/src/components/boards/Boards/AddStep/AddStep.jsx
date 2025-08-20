@@ -3,23 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form, Icon } from 'semantic-ui-react';
-import { useDidUpdate, useToggle } from '../../../../lib/hooks';
-import { Input, Popup } from '../../../../lib/custom-ui';
+import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form, Icon } from "semantic-ui-react";
+import { useDidUpdate, useToggle } from "../../../../lib/hooks";
+import { Input, Popup } from "../../../../lib/custom-ui";
 
-import entryActions from '../../../../entry-actions';
-import { useForm, useNestedRef, useSteps } from '../../../../hooks';
-import ImportStep from './ImportStep';
+import entryActions from "../../../../entry-actions";
+import { useForm, useNestedRef, useSteps } from "../../../../hooks";
+import ImportStep from "./ImportStep";
 
-import styles from './AddStep.module.scss';
+import styles from "./AddStep.module.scss";
 
 const StepTypes = {
-  IMPORT: 'IMPORT',
+  IMPORT: "IMPORT",
 };
 
 const AddStep = React.memo(({ onClose }) => {
@@ -27,14 +27,14 @@ const AddStep = React.memo(({ onClose }) => {
   const [t] = useTranslation();
 
   const [data, handleFieldChange, setData] = useForm({
-    name: '',
+    name: "",
     import: null,
   });
 
   const [step, openStep, handleBack] = useSteps();
   const [focusNameFieldState, focusNameField] = useToggle();
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
 
   const handleSubmit = useCallback(() => {
     const cleanData = {
@@ -81,19 +81,21 @@ const AddStep = React.memo(({ onClose }) => {
   }, [focusNameFieldState]);
 
   if (step && step.type === StepTypes.IMPORT) {
-    return <ImportStep onSelect={handleImportSelect} onBack={handleImportBack} />;
+    return (
+      <ImportStep onSelect={handleImportSelect} onBack={handleImportBack} />
+    );
   }
 
   return (
     <>
       <Popup.Header>
-        {t('common.createBoard', {
-          context: 'title',
+        {t("common.createBoard", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t('common.title')}</div>
+          <div className={styles.text}>{t("common.title")}</div>
           <Input
             fluid
             ref={handleNameFieldRef}
@@ -104,17 +106,21 @@ const AddStep = React.memo(({ onClose }) => {
             onChange={handleFieldChange}
           />
           <div className={styles.controls}>
-            <Button positive content={t('action.createBoard')} className={styles.button} />
+            <Button
+              positive
+              content={t("action.createBoard")}
+              className={styles.button}
+            />
             <Button
               type="button"
               className={classNames(styles.button, styles.importButton)}
               onClick={handleImportClick}
             >
               <Icon
-                name={data.import ? data.import.type : 'arrow down'}
+                name={data.import ? data.import.type : "arrow down"}
                 className={styles.importButtonIcon}
               />
-              {data.import ? data.import.file.name : t('action.import')}
+              {data.import ? data.import.file.name : t("action.import")}
             </Button>
           </div>
         </Form>

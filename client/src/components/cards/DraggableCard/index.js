@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import DraggableCard from './DraggableCard';
+import DraggableCard from "./DraggableCard";
 
 export default DraggableCard;

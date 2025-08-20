@@ -3,28 +3,34 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Droppable } from 'react-beautiful-dnd';
-import { Progress } from 'semantic-ui-react';
-import { useDidUpdate } from '../../../lib/hooks';
+import React, { useCallback, useContext, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Droppable } from "react-beautiful-dnd";
+import { Progress } from "semantic-ui-react";
+import { useDidUpdate } from "../../../lib/hooks";
 
-import selectors from '../../../selectors';
-import { isListArchiveOrTrash } from '../../../utils/record-helpers';
-import DroppableTypes from '../../../constants/DroppableTypes';
-import { BoardMembershipRoles } from '../../../constants/Enums';
-import { ClosableContext } from '../../../contexts';
-import Task from './Task';
-import AddTask from './AddTask';
+import selectors from "../../../selectors";
+import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import DroppableTypes from "../../../constants/DroppableTypes";
+import { BoardMembershipRoles } from "../../../constants/Enums";
+import { ClosableContext } from "../../../contexts";
+import Task from "./Task";
+import AddTask from "./AddTask";
 
-import styles from './TaskList.module.scss';
+import styles from "./TaskList.module.scss";
 
 const TaskList = React.memo(({ id }) => {
-  const selectTaskListById = useMemo(() => selectors.makeSelectTaskListById(), []);
+  const selectTaskListById = useMemo(
+    () => selectors.makeSelectTaskListById(),
+    [],
+  );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
-  const selectTasksByTaskListId = useMemo(() => selectors.makeSelectTasksByTaskListId(), []);
+  const selectTasksByTaskListId = useMemo(
+    () => selectors.makeSelectTasksByTaskListId(),
+    [],
+  );
 
   const taskList = useSelector((state) => selectTaskListById(state, id));
   const tasks = useSelector((state) => selectTasksByTaskListId(state, id));
@@ -37,8 +43,11 @@ const TaskList = React.memo(({ id }) => {
       return false;
     }
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   const [t] = useTranslation();
@@ -47,7 +56,11 @@ const TaskList = React.memo(({ id }) => {
 
   // TODO: move to selector?
   const completedTasksTotal = useMemo(
-    () => tasks.reduce((result, task) => (task.isCompleted ? result + 1 : result), 0),
+    () =>
+      tasks.reduce(
+        (result, task) => (task.isCompleted ? result + 1 : result),
+        0,
+      ),
     [tasks],
   );
 
@@ -98,7 +111,11 @@ const TaskList = React.memo(({ id }) => {
         )}
       </Droppable>
       {canEdit && (
-        <AddTask taskListId={id} isOpened={isAddOpened} onClose={handleAddClose}>
+        <AddTask
+          taskListId={id}
+          isOpened={isAddOpened}
+          onClose={handleAddClose}
+        >
           <button
             type="button"
             disabled={!taskList.isPersisted}
@@ -106,7 +123,9 @@ const TaskList = React.memo(({ id }) => {
             onClick={handleAddClick}
           >
             <span className={styles.taskButtonText}>
-              {tasks.length > 0 ? t('action.addAnotherTask') : t('action.addTask')}
+              {tasks.length > 0
+                ? t("action.addAnotherTask")
+                : t("action.addTask")}
             </span>
           </button>
         </AddTask>

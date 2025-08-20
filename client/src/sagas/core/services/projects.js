@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from 'lodash/omit';
-import { call, put, select } from 'redux-saga/effects';
+import omit from "lodash/omit";
+import { call, put, select } from "redux-saga/effects";
 
-import { goToProject, goToRoot } from './router';
-import request from '../request';
-import requests from '../requests';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import mergeRecords from '../../../utils/merge-records';
-import { UserRoles } from '../../../constants/Enums';
+import { goToProject, goToRoot } from "./router";
+import request from "../request";
+import requests from "../requests";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import mergeRecords from "../../../utils/merge-records";
+import { UserRoles } from "../../../constants/Enums";
 
 export function* searchProjects(value) {
   yield put(actions.searchProjects(value));
@@ -38,7 +38,7 @@ export function* toggleHiddenProjects(isVisible) {
 }
 
 export function* createProject(data) {
-  yield put(actions.createProject(omit(data, 'type')));
+  yield put(actions.createProject(omit(data, "type")));
 
   let project;
   let projectManagers;
@@ -104,7 +104,9 @@ export function* handleProjectCreate({ id }) {
 export function* updateProject(id, data) {
   yield put(actions.updateProject(id, data));
 
-  const isAvailableForCurrentUser = yield select(selectors.isCurrentModalAvailableForCurrentUser);
+  const isAvailableForCurrentUser = yield select(
+    selectors.isCurrentModalAvailableForCurrentUser,
+  );
 
   if (!isAvailableForCurrentUser) {
     yield put(actions.closeModal());
@@ -131,7 +133,8 @@ export function* handleProjectUpdate(project) {
   const prevProject = yield select(selectors.selectProjectById, project.id);
 
   const isChangedToShared =
-    (!prevProject || !!prevProject.ownerProjectManagerId) && !project.ownerProjectManagerId;
+    (!prevProject || !!prevProject.ownerProjectManagerId) &&
+    !project.ownerProjectManagerId;
 
   const currentUser = yield select(selectors.selectCurrentUser);
   const isCurrentUserAdmin = currentUser.role === UserRoles.ADMIN;
@@ -165,7 +168,11 @@ export function* handleProjectUpdate(project) {
   let notificationsToDelete;
   let notificationServices;
 
-  if (isCurrentUserAdmin && isChangedToShared && !isExternalAccessibleForCurrentUser) {
+  if (
+    isCurrentUserAdmin &&
+    isChangedToShared &&
+    !isExternalAccessibleForCurrentUser
+  ) {
     const { boardId } = yield select(selectors.selectPath);
 
     try {
@@ -213,13 +220,19 @@ export function* handleProjectUpdate(project) {
         } = body);
 
         if (body.card) {
-          notificationsToDelete = yield select(selectors.selectNotificationsByCardId, body.card.id);
+          notificationsToDelete = yield select(
+            selectors.selectNotificationsByCardId,
+            body.card.id,
+          );
         }
       }
     }
   }
 
-  const boardIds = yield select(selectors.selectBoardIdsByProjectId, project.id);
+  const boardIds = yield select(
+    selectors.selectBoardIdsByProjectId,
+    project.id,
+  );
 
   const isAvailable = yield select(
     selectors.selectIsProjectWithIdAvailableForCurrentUser,
@@ -254,7 +267,9 @@ export function* handleProjectUpdate(project) {
     ),
   );
 
-  const isAvailableForCurrentUser = yield select(selectors.isCurrentModalAvailableForCurrentUser);
+  const isAvailableForCurrentUser = yield select(
+    selectors.isCurrentModalAvailableForCurrentUser,
+  );
 
   if (!isAvailableForCurrentUser) {
     yield put(actions.closeModal());

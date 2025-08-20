@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from 'lodash/omit';
+import omit from "lodash/omit";
 
-import socket from './socket';
-import { transformAttachment } from './attachments';
-import { transformActivity } from './activities';
-import { transformNotification } from './notifications';
+import socket from "./socket";
+import { transformAttachment } from "./attachments";
+import { transformActivity } from "./activities";
+import { transformNotification } from "./notifications";
 
 /* Transformers */
 
@@ -61,10 +61,12 @@ const getCards = (listId, data, headers) =>
   }));
 
 const createCard = (listId, data, headers) =>
-  socket.post(`/lists/${listId}/cards`, transformCardData(data), headers).then((body) => ({
-    ...body,
-    item: transformCard(body.item),
-  }));
+  socket
+    .post(`/lists/${listId}/cards`, transformCardData(data), headers)
+    .then((body) => ({
+      ...body,
+      item: transformCard(body.item),
+    }));
 
 const getCard = (id, headers) =>
   socket.get(`/cards/${id}`, undefined, headers).then((body) => ({
@@ -77,10 +79,12 @@ const getCard = (id, headers) =>
   }));
 
 const updateCard = (id, data, headers) =>
-  socket.patch(`/cards/${id}`, transformCardData(data), headers).then((body) => ({
-    ...body,
-    item: transformCard(body.item),
-  }));
+  socket
+    .patch(`/cards/${id}`, transformCardData(data), headers)
+    .then((body) => ({
+      ...body,
+      item: transformCard(body.item),
+    }));
 
 const duplicateCard = (id, data, headers) =>
   socket.post(`/cards/${id}/duplicate`, data, headers).then((body) => ({
@@ -93,14 +97,16 @@ const duplicateCard = (id, data, headers) =>
   }));
 
 const readCardNotifications = (id, headers) =>
-  socket.post(`/cards/${id}/read-notifications`, undefined, headers).then((body) => ({
-    ...body,
-    item: transformCard(body.item),
-    included: {
-      ...body.included,
-      notifications: body.included.notifications.map(transformNotification),
-    },
-  }));
+  socket
+    .post(`/cards/${id}/read-notifications`, undefined, headers)
+    .then((body) => ({
+      ...body,
+      item: transformCard(body.item),
+      included: {
+        ...body.included,
+        notifications: body.included.notifications.map(transformNotification),
+      },
+    }));
 
 const deleteCard = (id, headers) =>
   socket.delete(`/cards/${id}`, undefined, headers).then((body) => ({
@@ -115,7 +121,7 @@ const makeHandleCardsUpdate = (next) => (body) => {
     ...body,
     items: body.items.map(transformCard),
     included: body.included && {
-      ...omit(body.included, 'actions'),
+      ...omit(body.included, "actions"),
       activities: body.included.actions.map(transformActivity),
     },
   });

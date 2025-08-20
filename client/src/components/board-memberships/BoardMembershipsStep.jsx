@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-import selectors from '../../selectors';
-import PureBoardMembershipsStep from './PureBoardMembershipsStep';
+import selectors from "../../selectors";
+import PureBoardMembershipsStep from "./PureBoardMembershipsStep";
 
 const BoardMembershipsStep = React.memo(
   ({
@@ -20,7 +20,9 @@ const BoardMembershipsStep = React.memo(
     onClear,
     onBack,
   }) => {
-    const boardMemberships = useSelector(selectors.selectMembershipsForCurrentBoard);
+    const boardMemberships = useSelector(
+      selectors.selectMembershipsForCurrentBoard,
+    );
 
     return (
       <PureBoardMembershipsStep

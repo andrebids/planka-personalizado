@@ -3,27 +3,35 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from 'lodash/upperFirst';
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import upperFirst from "lodash/upperFirst";
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
 
-import selectors from '../../../selectors';
+import selectors from "../../../selectors";
 
-import styles from './CustomFieldValueChip.module.scss';
+import styles from "./CustomFieldValueChip.module.scss";
 
 const Sizes = {
-  TINY: 'tiny',
-  SMALL: 'small',
-  MEDIUM: 'medium',
+  TINY: "tiny",
+  SMALL: "small",
+  MEDIUM: "medium",
 };
 
 const CustomFieldValueChip = React.memo(({ id, size, onClick }) => {
-  const selectCustomFieldValueById = useMemo(() => selectors.makeSelectCustomFieldValueById(), []);
-  const selectCustomFieldById = useMemo(() => selectors.makeSelectCustomFieldById(), []);
+  const selectCustomFieldValueById = useMemo(
+    () => selectors.makeSelectCustomFieldValueById(),
+    [],
+  );
+  const selectCustomFieldById = useMemo(
+    () => selectors.makeSelectCustomFieldById(),
+    [],
+  );
 
-  const customFieldValue = useSelector((state) => selectCustomFieldValueById(state, id));
+  const customFieldValue = useSelector((state) =>
+    selectCustomFieldValueById(state, id),
+  );
 
   const customField = useSelector((state) =>
     selectCustomFieldById(state, customFieldValue.customFieldId),
@@ -38,7 +46,8 @@ const CustomFieldValueChip = React.memo(({ id, size, onClick }) => {
         onClick && styles.wrapperHoverable,
       )}
     >
-      {!Number.isNaN(parseFloat(customFieldValue.content)) && `${customField.name}: `}
+      {!Number.isNaN(parseFloat(customFieldValue.content)) &&
+        `${customField.name}: `}
       {customFieldValue.content}
     </span>
   );

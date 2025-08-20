@@ -3,26 +3,35 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Loader } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "semantic-ui-react";
 
-import selectors from '../../../../../selectors';
-import entryActions from '../../../../../entry-actions';
-import { ProjectBackgroundTypes } from '../../../../../constants/Enums';
-import Image from '../Image';
+import selectors from "../../../../../selectors";
+import entryActions from "../../../../../entry-actions";
+import { ProjectBackgroundTypes } from "../../../../../constants/Enums";
+import Image from "../Image";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id }) => {
-  const selectBackgroundImageById = useMemo(() => selectors.makeSelectBackgroundImageById(), []);
+  const selectBackgroundImageById = useMemo(
+    () => selectors.makeSelectBackgroundImageById(),
+    [],
+  );
 
-  const backgroundImage = useSelector((state) => selectBackgroundImageById(state, id));
+  const backgroundImage = useSelector((state) =>
+    selectBackgroundImageById(state, id),
+  );
 
   const isActive = useSelector((state) => {
-    const { backgroundType, backgroundImageId } = selectors.selectCurrentProject(state);
-    return backgroundType === ProjectBackgroundTypes.IMAGE && id === backgroundImageId;
+    const { backgroundType, backgroundImageId } =
+      selectors.selectCurrentProject(state);
+    return (
+      backgroundType === ProjectBackgroundTypes.IMAGE &&
+      id === backgroundImageId
+    );
   });
 
   const dispatch = useDispatch();

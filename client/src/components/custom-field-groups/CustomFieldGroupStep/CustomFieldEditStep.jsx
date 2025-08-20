@@ -3,28 +3,31 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from 'dequal';
-import React, { useCallback, useMemo, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'semantic-ui-react';
-import { Popup } from '../../../lib/custom-ui';
+import { dequal } from "dequal";
+import React, { useCallback, useMemo, useRef } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form } from "semantic-ui-react";
+import { Popup } from "../../../lib/custom-ui";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useForm, useSteps } from '../../../hooks';
-import CustomFieldEditor from './CustomFieldEditor';
-import ConfirmationStep from '../../common/ConfirmationStep';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useForm, useSteps } from "../../../hooks";
+import CustomFieldEditor from "./CustomFieldEditor";
+import ConfirmationStep from "../../common/ConfirmationStep";
 
-import styles from './CustomFieldEditStep.module.scss';
+import styles from "./CustomFieldEditStep.module.scss";
 
 const StepTypes = {
-  DELETE: 'DELETE',
+  DELETE: "DELETE",
 };
 
 const CustomFieldEditStep = React.memo(({ id, onBack }) => {
-  const selectCustomFieldById = useMemo(() => selectors.makeSelectCustomFieldById(), []);
+  const selectCustomFieldById = useMemo(
+    () => selectors.makeSelectCustomFieldById(),
+    [],
+  );
 
   const customField = useSelector((state) => selectCustomFieldById(state, id));
 
@@ -40,7 +43,7 @@ const CustomFieldEditStep = React.memo(({ id, onBack }) => {
   );
 
   const [data, handleFieldChange] = useForm(() => ({
-    name: '',
+    name: "",
     showOnFrontOfCard: false,
     ...defaultData,
   }));
@@ -91,8 +94,8 @@ const CustomFieldEditStep = React.memo(({ id, onBack }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t('common.editCustomField', {
-          context: 'title',
+        {t("common.editCustomField", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
@@ -102,10 +105,14 @@ const CustomFieldEditStep = React.memo(({ id, onBack }) => {
             data={data}
             onFieldChange={handleFieldChange}
           />
-          <Button positive content={t('action.save')} className={styles.submitButton} />
+          <Button
+            positive
+            content={t("action.save")}
+            className={styles.submitButton}
+          />
         </Form>
         <Button
-          content={t('action.delete')}
+          content={t("action.delete")}
           className={styles.deleteButton}
           onClick={handleDeleteClick}
         />

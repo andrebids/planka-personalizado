@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import AddCard from './AddCard';
+import AddCard from "./AddCard";
 
 export default AddCard;

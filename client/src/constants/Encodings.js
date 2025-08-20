@@ -3,8 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-const BINARY = 'binary';
-const UTF8 = 'utf8';
+const BINARY = "binary";
+const UTF8 = "utf8";
 
 export default {
   BINARY,

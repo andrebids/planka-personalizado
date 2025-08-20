@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import TaskList from './TaskList';
+import TaskList from "./TaskList";
 
 export default TaskList;

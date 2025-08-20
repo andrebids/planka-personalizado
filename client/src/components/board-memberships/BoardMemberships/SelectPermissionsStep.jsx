@@ -3,23 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from 'dequal';
-import omit from 'lodash/omit';
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Button, Form, Icon, Menu, Radio, Segment } from 'semantic-ui-react';
-import { Popup } from '../../../lib/custom-ui';
+import { dequal } from "dequal";
+import omit from "lodash/omit";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { Button, Form, Icon, Menu, Radio, Segment } from "semantic-ui-react";
+import { Popup } from "../../../lib/custom-ui";
 
-import { useForm } from '../../../hooks';
-import { BoardMembershipRoles } from '../../../constants/Enums';
-import { BoardMembershipRoleIcons } from '../../../constants/Icons';
+import { useForm } from "../../../hooks";
+import { BoardMembershipRoles } from "../../../constants/Enums";
+import { BoardMembershipRoleIcons } from "../../../constants/Icons";
 
-import styles from './SelectPermissionsStep.module.scss';
+import styles from "./SelectPermissionsStep.module.scss";
 
 const DESCRIPTION_BY_ROLE = {
-  [BoardMembershipRoles.EDITOR]: 'common.canEditBoardLayoutAndAssignMembersToCards',
-  [BoardMembershipRoles.VIEWER]: 'common.canOnlyViewBoard',
+  [BoardMembershipRoles.EDITOR]:
+    "common.canEditBoardLayoutAndAssignMembersToCards",
+  [BoardMembershipRoles.VIEWER]: "common.canOnlyViewBoard",
 };
 
 const SelectPermissionsStep = React.memo(
@@ -43,7 +44,11 @@ const SelectPermissionsStep = React.memo(
 
     const handleSubmit = useCallback(() => {
       if (!dequal(data, defaultData)) {
-        onSelect(data.role === BoardMembershipRoles.EDITOR ? omit(data, 'canComment') : data);
+        onSelect(
+          data.role === BoardMembershipRoles.EDITOR
+            ? omit(data, "canComment")
+            : data,
+        );
       }
 
       onClose();
@@ -54,7 +59,8 @@ const SelectPermissionsStep = React.memo(
         setData((prevData) => ({
           ...prevData,
           role,
-          canComment: role === BoardMembershipRoles.EDITOR ? null : !!prevData.canComment,
+          canComment:
+            role === BoardMembershipRoles.EDITOR ? null : !!prevData.canComment,
         }));
       },
       [setData],
@@ -64,25 +70,34 @@ const SelectPermissionsStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: 'title',
+            context: "title",
           })}
         </Popup.Header>
         <Popup.Content>
           <Form onSubmit={handleSubmit}>
             <Menu secondary vertical className={styles.menu}>
-              {[BoardMembershipRoles.EDITOR, BoardMembershipRoles.VIEWER].map((role) => (
-                <Menu.Item
-                  key={role}
-                  value={role}
-                  active={role === data.role}
-                  className={styles.menuItem}
-                  onClick={handleSelectRoleClick}
-                >
-                  <Icon name={BoardMembershipRoleIcons[role]} className={styles.menuItemIcon} />
-                  <div className={styles.menuItemTitle}>{t(`common.${role}`)}</div>
-                  <p className={styles.menuItemDescription}>{t(DESCRIPTION_BY_ROLE[role])}</p>
-                </Menu.Item>
-              ))}
+              {[BoardMembershipRoles.EDITOR, BoardMembershipRoles.VIEWER].map(
+                (role) => (
+                  <Menu.Item
+                    key={role}
+                    value={role}
+                    active={role === data.role}
+                    className={styles.menuItem}
+                    onClick={handleSelectRoleClick}
+                  >
+                    <Icon
+                      name={BoardMembershipRoleIcons[role]}
+                      className={styles.menuItemIcon}
+                    />
+                    <div className={styles.menuItemTitle}>
+                      {t(`common.${role}`)}
+                    </div>
+                    <p className={styles.menuItemDescription}>
+                      {t(DESCRIPTION_BY_ROLE[role])}
+                    </p>
+                  </Menu.Item>
+                ),
+              )}
             </Menu>
             {data.role !== BoardMembershipRoles.EDITOR && (
               <Segment basic className={styles.settings}>
@@ -90,7 +105,7 @@ const SelectPermissionsStep = React.memo(
                   toggle
                   name="canComment"
                   checked={data.canComment}
-                  label={t('common.canComment')}
+                  label={t("common.canComment")}
                   className={styles.fieldRadio}
                   onChange={handleFieldChange}
                 />
@@ -115,8 +130,8 @@ SelectPermissionsStep.propTypes = {
 
 SelectPermissionsStep.defaultProps = {
   boardMembership: undefined,
-  title: 'common.selectPermissions',
-  buttonContent: 'action.selectPermissions',
+  title: "common.selectPermissions",
+  buttonContent: "action.selectPermissions",
 };
 
 export default SelectPermissionsStep;

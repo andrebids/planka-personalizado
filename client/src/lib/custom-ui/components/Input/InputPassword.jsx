@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import zxcvbn from 'zxcvbn';
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { Icon, Input, Progress } from 'semantic-ui-react';
-import { useToggle } from '../../../hooks';
+import zxcvbn from "zxcvbn";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { Icon, Input, Progress } from "semantic-ui-react";
+import { useToggle } from "../../../hooks";
 
-import styles from './InputPassword.module.css';
+import styles from "./InputPassword.module.css";
 
-const STRENGTH_SCORE_COLORS = ['red', 'orange', 'yellow', 'olive', 'green'];
+const STRENGTH_SCORE_COLORS = ["red", "orange", "yellow", "olive", "green"];
 
 const InputPassword = React.forwardRef(
   ({ value, withStrengthBar, minStrengthScore, className, ...props }, ref) => {
@@ -32,8 +32,14 @@ const InputPassword = React.forwardRef(
     const inputProps = {
       ...props,
       ref,
-      type: isVisible ? 'text' : 'password',
-      icon: <Icon link name={isVisible ? 'eye' : 'eye slash'} onClick={handleToggleClick} />,
+      type: isVisible ? "text" : "password",
+      icon: (
+        <Icon
+          link
+          name={isVisible ? "eye" : "eye slash"}
+          onClick={handleToggleClick}
+        />
+      ),
     };
 
     if (!withStrengthBar) {

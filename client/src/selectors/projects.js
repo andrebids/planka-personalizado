@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
-import { selectPath } from './router';
-import { selectCurrentUserId } from './users';
-import { isLocalId } from '../utils/local-id';
+import orm from "../orm";
+import { selectPath } from "./router";
+import { selectCurrentUserId } from "./users";
+import { isLocalId } from "../utils/local-id";
 
 export const makeSelectProjectById = () =>
   createSelector(
@@ -66,13 +66,15 @@ export const makeSelectFirstBoardIdByProjectId = () =>
       }
 
       const currentUserModel = User.withId(currentUserId);
-      const boardsModels = projectModel.getBoardsModelArrayAvailableForUser(currentUserModel);
+      const boardsModels =
+        projectModel.getBoardsModelArrayAvailableForUser(currentUserModel);
 
       return boardsModels[0] && boardsModels[0].id;
     },
   );
 
-export const selectFirstBoardIdByProjectId = makeSelectFirstBoardIdByProjectId();
+export const selectFirstBoardIdByProjectId =
+  makeSelectFirstBoardIdByProjectId();
 
 export const makeSelectNotificationsTotalByProjectId = () =>
   createSelector(
@@ -87,16 +89,19 @@ export const makeSelectNotificationsTotalByProjectId = () =>
       }
 
       const currentUserModel = User.withId(currentUserId);
-      const boardsModels = projectModel.getBoardsModelArrayAvailableForUser(currentUserModel);
+      const boardsModels =
+        projectModel.getBoardsModelArrayAvailableForUser(currentUserModel);
 
       return boardsModels.reduce(
-        (result, boardModel) => result + boardModel.getUnreadNotificationsQuerySet().count(),
+        (result, boardModel) =>
+          result + boardModel.getUnreadNotificationsQuerySet().count(),
         0,
       );
     },
   );
 
-export const selectNotificationsTotalByProjectId = makeSelectNotificationsTotalByProjectId();
+export const selectNotificationsTotalByProjectId =
+  makeSelectNotificationsTotalByProjectId();
 
 export const makeSelectIsProjectWithIdAvailableForCurrentUser = () =>
   createSelector(

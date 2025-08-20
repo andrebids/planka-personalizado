@@ -3,18 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, fork, join, put, race, select, take } from 'redux-saga/effects';
-import { LOCATION_CHANGE_HANDLE } from '../../../lib/redux-router';
+import { call, fork, join, put, race, select, take } from "redux-saga/effects";
+import { LOCATION_CHANGE_HANDLE } from "../../../lib/redux-router";
 
-import { goToBoard, goToCard } from './router';
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
-import { isListArchiveOrTrash, isListFinite } from '../../../utils/record-helpers';
-import ActionTypes from '../../../constants/ActionTypes';
-import { BoardViews, ListTypes, AttachmentTypes } from '../../../constants/Enums';
+import { goToBoard, goToCard } from "./router";
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
+import {
+  isListArchiveOrTrash,
+  isListFinite,
+} from "../../../utils/record-helpers";
+import ActionTypes from "../../../constants/ActionTypes";
+import {
+  BoardViews,
+  ListTypes,
+  AttachmentTypes,
+} from "../../../constants/Enums";
 
 // eslint-disable-next-line no-underscore-dangle
 const _preloadImage = (url) =>
@@ -30,8 +37,12 @@ const _preloadImage = (url) =>
 export function* fetchCards(listId) {
   const { boardId, lastCard } = yield select(selectors.selectListById, listId);
   const { search } = yield select(selectors.selectBoardById, boardId);
-  const filterUserIds = yield select(selectors.selectFilterUserIdsForCurrentBoard);
-  const filterLabelIds = yield select(selectors.selectFilterLabelIdsForCurrentBoard);
+  const filterUserIds = yield select(
+    selectors.selectFilterUserIdsForCurrentBoard,
+  );
+  const filterLabelIds = yield select(
+    selectors.selectFilterLabelIdsForCurrentBoard,
+  );
 
   function* getCardsRequest() {
     const response = {};
@@ -39,8 +50,10 @@ export function* fetchCards(listId) {
     try {
       response.body = yield call(request, api.getCards, listId, {
         search: (search && search.trim()) || undefined,
-        filterUserIds: filterUserIds.length > 0 ? filterUserIds.join(',') : undefined,
-        filterLabelIds: filterLabelIds.length > 0 ? filterLabelIds.join(',') : undefined,
+        filterUserIds:
+          filterUserIds.length > 0 ? filterUserIds.join(",") : undefined,
+        filterLabelIds:
+          filterLabelIds.length > 0 ? filterLabelIds.join(",") : undefined,
         before: lastCard || undefined,
       });
     } catch (error) {
@@ -56,7 +69,11 @@ export function* fetchCards(listId) {
 
   const [response] = yield race([
     join(getCardsRequestTask),
-    take((action) => action.type === ActionTypes.CARDS_FETCH && action.payload.listId === listId),
+    take(
+      (action) =>
+        action.type === ActionTypes.CARDS_FETCH &&
+        action.payload.listId === listId,
+    ),
   ]);
 
   if (!response) {
@@ -145,9 +162,14 @@ export function* createCard(listId, data, autoOpen) {
   // TODO: use race instead
   let watchForCreateCardActionTask;
   if (autoOpen) {
-    watchForCreateCardActionTask = yield fork(function* watchForCreateCardAction() {
-      yield take((action) => action.type === ActionTypes.CARD_CREATE && action.payload.autoOpen);
-    });
+    watchForCreateCardActionTask = yield fork(
+      function* watchForCreateCardAction() {
+        yield take(
+          (action) =>
+            action.type === ActionTypes.CARD_CREATE && action.payload.autoOpen,
+        );
+      },
+    );
   }
 
   let card;
@@ -160,7 +182,10 @@ export function* createCard(listId, data, autoOpen) {
 
   yield put(actions.createCard.success(localId, card));
 
-  if (watchForCreateCardActionTask && watchForCreateCardActionTask.isRunning()) {
+  if (
+    watchForCreateCardActionTask &&
+    watchForCreateCardActionTask.isRunning()
+  ) {
     yield call(goToCard, card.id);
   }
 }
@@ -178,12 +203,15 @@ export function* createCardInFirstFiniteList(data, autoOpen) {
 }
 
 export function* createCardWithAttachment(listId, cardData, attachmentFile) {
-  console.log('🚀 Saga createCardWithAttachment iniciada');
-  console.log('📋 ListId:', listId);
-  console.log('📋 Dados do card:', cardData);
-  console.log('📎 Arquivo:', attachmentFile);
-  console.log('📎 Nome do arquivo:', attachmentFile ? attachmentFile.name : 'undefined');
-  
+  console.log("🚀 Saga createCardWithAttachment iniciada");
+  console.log("📋 ListId:", listId);
+  console.log("📋 Dados do card:", cardData);
+  console.log("📎 Arquivo:", attachmentFile);
+  console.log(
+    "📎 Nome do arquivo:",
+    attachmentFile ? attachmentFile.name : "undefined",
+  );
+
   const localId = yield call(createLocalId);
   const list = yield select(selectors.selectListById, listId);
 
@@ -197,14 +225,17 @@ export function* createCardWithAttachment(listId, cardData, attachmentFile) {
   };
 
   if (isListFinite(list)) {
-    nextCardData.position = yield select(selectors.selectNextCardPosition, listId);
+    nextCardData.position = yield select(
+      selectors.selectNextCardPosition,
+      listId,
+    );
   }
 
-  console.log('🎴 Criando card no servidor...');
-  console.log('🎴 Local ID:', localId);
-  console.log('🎴 Board ID:', list.boardId);
-  console.log('🎴 Creator User ID:', currentUserMembership.userId);
-  
+  console.log("🎴 Criando card no servidor...");
+  console.log("🎴 Local ID:", localId);
+  console.log("🎴 Board ID:", list.boardId);
+  console.log("🎴 Creator User ID:", currentUserMembership.userId);
+
   // Criar o card primeiro
   yield put(
     actions.createCard(
@@ -222,37 +253,42 @@ export function* createCardWithAttachment(listId, cardData, attachmentFile) {
   let card;
   try {
     // Criar o card no servidor
-    console.log('🎴 Chamando API createCard...');
-    ({ item: card } = yield call(request, api.createCard, listId, nextCardData));
-    console.log('✅ Card criado com sucesso:', card);
+    console.log("🎴 Chamando API createCard...");
+    ({ item: card } = yield call(
+      request,
+      api.createCard,
+      listId,
+      nextCardData,
+    ));
+    console.log("✅ Card criado com sucesso:", card);
   } catch (error) {
-    console.error('❌ Erro ao criar card:', error);
-    console.error('❌ Detalhes do erro:', error.message);
+    console.error("❌ Erro ao criar card:", error);
+    console.error("❌ Detalhes do erro:", error.message);
     yield put(actions.createCard.failure(localId, error));
     return;
   }
 
   yield put(actions.createCard.success(localId, card));
-  console.log('✅ Card criado e action de sucesso disparada');
+  console.log("✅ Card criado e action de sucesso disparada");
 
   // Agora criar o anexo
-  console.log('📎 Criando anexo...');
-  console.log('📎 Card ID:', card.id);
-  console.log('📎 AttachmentTypes.FILE:', AttachmentTypes.FILE);
-  
+  console.log("📎 Criando anexo...");
+  console.log("📎 Card ID:", card.id);
+  console.log("📎 AttachmentTypes.FILE:", AttachmentTypes.FILE);
+
   try {
     const attachmentData = {
       name: attachmentFile.name,
       type: AttachmentTypes.FILE,
     };
-    
-    console.log('📎 Dados do anexo:', attachmentData);
+
+    console.log("📎 Dados do anexo:", attachmentData);
 
     const requestId = yield call(createLocalId);
-    console.log('📎 Request ID:', requestId);
-    
+    console.log("📎 Request ID:", requestId);
+
     let attachment;
-    console.log('📎 Chamando API createAttachmentWithFile...');
+    console.log("📎 Chamando API createAttachmentWithFile...");
     ({ item: attachment } = yield call(
       request,
       api.createAttachmentWithFile,
@@ -262,15 +298,15 @@ export function* createCardWithAttachment(listId, cardData, attachmentFile) {
     ));
 
     // O anexo será processado automaticamente pelo sistema de eventos
-    console.log('✅ Anexo criado com sucesso:', attachment);
+    console.log("✅ Anexo criado com sucesso:", attachment);
   } catch (error) {
-    console.error('❌ Erro ao criar anexo:', error);
-    console.error('❌ Detalhes do erro:', error.message);
-    console.error('❌ Stack trace:', error.stack);
+    console.error("❌ Erro ao criar anexo:", error);
+    console.error("❌ Detalhes do erro:", error.message);
+    console.error("❌ Stack trace:", error.stack);
     // Não fazer rollback do card, apenas logar o erro
   }
-  
-  console.log('✅ Saga createCardWithAttachment finalizada');
+
+  console.log("✅ Saga createCardWithAttachment finalizada");
 }
 
 export function* handleCardCreate(card) {
@@ -439,7 +475,12 @@ export function* moveCard(id, listId, index) {
   const list = yield select(selectors.selectListById, listId);
 
   if (isListFinite(list)) {
-    data.position = yield select(selectors.selectNextCardPosition, listId, index, id);
+    data.position = yield select(
+      selectors.selectNextCardPosition,
+      listId,
+      index,
+      id,
+    );
   }
 
   yield call(updateCard, id, data);
@@ -456,13 +497,17 @@ export function* moveCurrentCard(listId, index, autoClose) {
 }
 
 export function* moveCardToArchive(id) {
-  const archiveListId = yield select(selectors.selectArchiveListIdForCurrentBoard);
+  const archiveListId = yield select(
+    selectors.selectArchiveListIdForCurrentBoard,
+  );
 
   yield call(moveCard, id, archiveListId);
 }
 
 export function* moveCurrentCardToArchive() {
-  const archiveListId = yield select(selectors.selectArchiveListIdForCurrentBoard);
+  const archiveListId = yield select(
+    selectors.selectArchiveListIdForCurrentBoard,
+  );
 
   yield call(moveCurrentCard, archiveListId, undefined, true);
 }
@@ -480,7 +525,9 @@ export function* moveCurrentCardToTrash() {
 }
 
 export function* transferCard(id, boardId, listId, index) {
-  const { cardId: currentCardId, boardId: currentBoardId } = yield select(selectors.selectPath);
+  const { cardId: currentCardId, boardId: currentBoardId } = yield select(
+    selectors.selectPath,
+  );
 
   // TODO: hack?
   if (id === currentCardId) {
@@ -495,7 +542,12 @@ export function* transferCard(id, boardId, listId, index) {
   };
 
   if (isListFinite(list)) {
-    data.position = yield select(selectors.selectNextCardPosition, listId, index, id);
+    data.position = yield select(
+      selectors.selectNextCardPosition,
+      listId,
+      index,
+      id,
+    );
   }
 
   yield call(updateCard, id, data);
@@ -599,25 +651,37 @@ export function* goToAdjacentCard(direction) {
     const { view } = yield select(selectors.selectCurrentBoard);
 
     if (view === BoardViews.KANBAN) {
-      cardIds = yield select(selectors.selectFilteredCardIdsByListId, card.listId);
+      cardIds = yield select(
+        selectors.selectFilteredCardIdsByListId,
+        card.listId,
+      );
     } else {
       cardIds = yield select(selectors.selectFilteredCardIdsForCurrentBoard);
     }
   } else {
-    cardIds = yield select(selectors.selectFilteredCardIdsByListId, card.listId);
+    cardIds = yield select(
+      selectors.selectFilteredCardIdsByListId,
+      card.listId,
+    );
 
     if (direction === 1 && card.id === cardIds[cardIds.length - 1]) {
       if (list.isCardsFetching || list.isAllCardsFetched) {
         return;
       }
 
-      const [, cancelled] = yield race([call(fetchCards, list.id), take(LOCATION_CHANGE_HANDLE)]);
+      const [, cancelled] = yield race([
+        call(fetchCards, list.id),
+        take(LOCATION_CHANGE_HANDLE),
+      ]);
 
       if (cancelled) {
         return;
       }
 
-      cardIds = yield select(selectors.selectFilteredCardIdsByListId, card.listId);
+      cardIds = yield select(
+        selectors.selectFilteredCardIdsByListId,
+        card.listId,
+      );
     }
   }
 

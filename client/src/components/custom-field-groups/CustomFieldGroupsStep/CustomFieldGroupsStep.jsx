@@ -3,36 +3,38 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Button } from 'semantic-ui-react';
-import { Input, Popup } from '../../../lib/custom-ui';
+import React, { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Button } from "semantic-ui-react";
+import { Input, Popup } from "../../../lib/custom-ui";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useField, useNestedRef, useSteps } from '../../../hooks';
-import DroppableTypes from '../../../constants/DroppableTypes';
-import Item from './Item';
-import CustomFieldGroupStep from '../CustomFieldGroupStep';
-import AddCustomFieldGroupStep from '../AddCustomFieldGroupStep';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useField, useNestedRef, useSteps } from "../../../hooks";
+import DroppableTypes from "../../../constants/DroppableTypes";
+import Item from "./Item";
+import CustomFieldGroupStep from "../CustomFieldGroupStep";
+import AddCustomFieldGroupStep from "../AddCustomFieldGroupStep";
 
-import styles from './CustomFieldGroupsStep.module.scss';
+import styles from "./CustomFieldGroupsStep.module.scss";
 
 const StepTypes = {
-  ADD: 'ADD',
-  EDIT: 'EDIT',
+  ADD: "ADD",
+  EDIT: "EDIT",
 };
 
 const CustomFieldGroupsStep = React.memo(({ onBack }) => {
-  const customFieldGroups = useSelector(selectors.selectCustomFieldGroupsForCurrentBoard);
+  const customFieldGroups = useSelector(
+    selectors.selectCustomFieldGroupsForCurrentBoard,
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
   const [step, openStep, handleBack] = useSteps();
-  const [search, handleSearchChange] = useField('');
+  const [search, handleSearchChange] = useField("");
   const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
   const filteredCustomFieldGroups = useMemo(
@@ -43,7 +45,7 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
     [customFieldGroups, cleanSearch],
   );
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
 
   const handleCreate = useCallback(
     (data) => {
@@ -58,7 +60,9 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
         return;
       }
 
-      dispatch(entryActions.moveCustomFieldGroup(draggableId, destination.index));
+      dispatch(
+        entryActions.moveCustomFieldGroup(draggableId, destination.index),
+      );
     },
     [dispatch],
   );
@@ -118,8 +122,8 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t('common.customFieldGroups', {
-          context: 'title',
+        {t("common.customFieldGroups", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
@@ -127,14 +131,17 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
           fluid
           ref={handleSearchFieldRef}
           value={search}
-          placeholder={t('common.searchCustomFieldGroups')}
+          placeholder={t("common.searchCustomFieldGroups")}
           maxLength={128}
           icon="search"
           onChange={handleSearchChange}
         />
         {filteredCustomFieldGroups.length > 0 && (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="customFieldGroups" type={DroppableTypes.CUSTOM_FIELD_GROUP}>
+            <Droppable
+              droppableId="customFieldGroups"
+              type={DroppableTypes.CUSTOM_FIELD_GROUP}
+            >
               {({ innerRef, droppableProps, placeholder }) => (
                 <div
                   {...droppableProps} // eslint-disable-line react/jsx-props-no-spreading
@@ -171,7 +178,7 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
         )}
         <Button
           fluid
-          content={t('action.addCustomFieldGroup')}
+          content={t("action.addCustomFieldGroup")}
           className={styles.actionButton}
           onClick={handleAddClick}
         />

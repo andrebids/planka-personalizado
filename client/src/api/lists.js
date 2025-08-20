@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from 'lodash/omit';
+import omit from "lodash/omit";
 
-import socket from './socket';
-import { transformCard } from './cards';
-import { transformAttachment } from './attachments';
-import { transformActivity } from './activities';
+import socket from "./socket";
+import { transformCard } from "./cards";
+import { transformAttachment } from "./attachments";
+import { transformActivity } from "./activities";
 
 /* Actions */
 
@@ -25,7 +25,8 @@ const getList = (id, headers) =>
     },
   }));
 
-const updateList = (id, data, headers) => socket.patch(`/lists/${id}`, data, headers);
+const updateList = (id, data, headers) =>
+  socket.patch(`/lists/${id}`, data, headers);
 
 const sortList = (id, data, headers) =>
   socket.post(`/lists/${id}/sort`, data, headers).then((body) => ({
@@ -40,13 +41,14 @@ const moveListCards = (id, data, headers) =>
   socket.post(`/lists/${id}/move-cards`, data, headers).then((body) => ({
     ...body,
     included: {
-      ...omit(body.included, 'actions'),
+      ...omit(body.included, "actions"),
       cards: body.included.cards.map(transformCard),
       activities: body.included.actions.map(transformActivity),
     },
   }));
 
-const clearList = (id, headers) => socket.post(`/lists/${id}/clear`, undefined, headers);
+const clearList = (id, headers) =>
+  socket.post(`/lists/${id}/clear`, undefined, headers);
 
 const deleteList = (id, headers) =>
   socket.delete(`/lists/${id}`, undefined, headers).then((body) => ({

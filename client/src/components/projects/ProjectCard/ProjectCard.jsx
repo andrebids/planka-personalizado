@@ -3,33 +3,44 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from 'lodash/upperFirst';
-import camelCase from 'lodash/camelCase';
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import upperFirst from "lodash/upperFirst";
+import camelCase from "lodash/camelCase";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Button, Icon } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import Paths from '../../../constants/Paths';
-import { ProjectBackgroundTypes } from '../../../constants/Enums';
-import UserAvatar from '../../users/UserAvatar';
-import NotificationIndicator from './NotificationIndicator';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import Paths from "../../../constants/Paths";
+import { ProjectBackgroundTypes } from "../../../constants/Enums";
+import UserAvatar from "../../users/UserAvatar";
+import NotificationIndicator from "./NotificationIndicator";
 
-import styles from './ProjectCard.module.scss';
-import globalStyles from '../../../styles.module.scss';
+import styles from "./ProjectCard.module.scss";
+import globalStyles from "../../../styles.module.scss";
 
 const Sizes = {
-  SMALL: 'small',
-  LARGE: 'large',
+  SMALL: "small",
+  LARGE: "large",
 };
 
 const ProjectCard = React.memo(
-  ({ id, size, isActive, withDescription, withTypeIndicator, withFavoriteButton, className }) => {
-    const selectProjectById = useMemo(() => selectors.makeSelectProjectById(), []);
+  ({
+    id,
+    size,
+    isActive,
+    withDescription,
+    withTypeIndicator,
+    withFavoriteButton,
+    className,
+  }) => {
+    const selectProjectById = useMemo(
+      () => selectors.makeSelectProjectById(),
+      [],
+    );
 
     const selectFirstBoardIdByProjectId = useMemo(
       () => selectors.makeSelectFirstBoardIdByProjectId(),
@@ -41,11 +52,19 @@ const ProjectCard = React.memo(
       [],
     );
 
-    const selectProjectManagerById = useMemo(() => selectors.makeSelectProjectManagerById(), []);
-    const selectBackgroundImageById = useMemo(() => selectors.makeSelectBackgroundImageById(), []);
+    const selectProjectManagerById = useMemo(
+      () => selectors.makeSelectProjectManagerById(),
+      [],
+    );
+    const selectBackgroundImageById = useMemo(
+      () => selectors.makeSelectBackgroundImageById(),
+      [],
+    );
 
     const project = useSelector((state) => selectProjectById(state, id));
-    const firstBoardId = useSelector((state) => selectFirstBoardIdByProjectId(state, id));
+    const firstBoardId = useSelector((state) =>
+      selectFirstBoardIdByProjectId(state, id),
+    );
 
     const notificationsTotal = useSelector((state) =>
       selectNotificationsTotalByProjectId(state, id),
@@ -58,11 +77,17 @@ const ProjectCard = React.memo(
     );
 
     const backgroundImageUrl = useSelector((state) => {
-      if (!project.backgroundType || project.backgroundType !== ProjectBackgroundTypes.IMAGE) {
+      if (
+        !project.backgroundType ||
+        project.backgroundType !== ProjectBackgroundTypes.IMAGE
+      ) {
         return null;
       }
 
-      const backgroundImage = selectBackgroundImageById(state, project.backgroundImageId);
+      const backgroundImage = selectBackgroundImageById(
+        state,
+        project.backgroundImageId,
+      );
 
       if (!backgroundImage) {
         return null;
@@ -81,7 +106,8 @@ const ProjectCard = React.memo(
       );
     }, [project, dispatch]);
 
-    const withSidebar = withTypeIndicator || (withFavoriteButton && !project.isHidden);
+    const withSidebar =
+      withTypeIndicator || (withFavoriteButton && !project.isHidden);
 
     return (
       <div
@@ -95,8 +121,8 @@ const ProjectCard = React.memo(
         <Link
           to={
             firstBoardId
-              ? Paths.BOARDS.replace(':id', firstBoardId)
-              : Paths.PROJECTS.replace(':id', id)
+              ? Paths.BOARDS.replace(":id", firstBoardId)
+              : Paths.PROJECTS.replace(":id", id)
           }
           className={styles.content}
         >
@@ -104,10 +130,14 @@ const ProjectCard = React.memo(
             className={classNames(
               styles.cover,
               project.backgroundType === ProjectBackgroundTypes.GRADIENT &&
-                globalStyles[`background${upperFirst(camelCase(project.backgroundGradient))}`],
+                globalStyles[
+                  `background${upperFirst(camelCase(project.backgroundGradient))}`
+                ],
             )}
             style={{
-              background: backgroundImageUrl && `url("${backgroundImageUrl}") center / cover`,
+              background:
+                backgroundImageUrl &&
+                `url("${backgroundImageUrl}") center / cover`,
             }}
           />
           {notificationsTotal > 0 && (
@@ -116,7 +146,10 @@ const ProjectCard = React.memo(
             </div>
           )}
           <div
-            className={classNames(styles.information, withSidebar && styles.informationWithSidebar)}
+            className={classNames(
+              styles.information,
+              withSidebar && styles.informationWithSidebar,
+            )}
           >
             <div
               className={classNames(
@@ -160,7 +193,7 @@ const ProjectCard = React.memo(
           >
             <Icon
               fitted
-              name={project.isFavorite ? 'star' : 'star outline'}
+              name={project.isFavorite ? "star" : "star outline"}
               className={classNames(styles.icon, styles.favoriteButtonIcon)}
             />
           </Button>

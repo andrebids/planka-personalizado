@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
-import { selectPath } from './router';
-import { isLocalId } from '../utils/local-id';
-import { BoardContexts, ListTypes } from '../constants/Enums';
+import orm from "../orm";
+import { selectPath } from "./router";
+import { isLocalId } from "../utils/local-id";
+import { BoardContexts, ListTypes } from "../constants/Enums";
 
 export const makeSelectListById = () =>
   createSelector(
@@ -58,11 +58,14 @@ export const makeSelectFilteredCardIdsByListId = () =>
         return listModel;
       }
 
-      return listModel.getFilteredCardsModelArray().map((cardModel) => cardModel.id);
+      return listModel
+        .getFilteredCardsModelArray()
+        .map((cardModel) => cardModel.id);
     },
   );
 
-export const selectFilteredCardIdsByListId = makeSelectFilteredCardIdsByListId();
+export const selectFilteredCardIdsByListId =
+  makeSelectFilteredCardIdsByListId();
 
 export const selectCurrentListId = createSelector(
   orm,
@@ -143,7 +146,9 @@ export const selectFilteredCardIdsForCurrentList = createSelector(
       return listModel;
     }
 
-    return listModel.getFilteredCardsModelArray().map((cardModel) => cardModel.id);
+    return listModel
+      .getFilteredCardsModelArray()
+      .map((cardModel) => cardModel.id);
   },
 );
 

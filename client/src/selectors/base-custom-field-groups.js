@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
-import { isLocalId } from '../utils/local-id';
+import orm from "../orm";
+import { isLocalId } from "../utils/local-id";
 
 export const makeSelectBaseCustomFieldGroupById = () =>
   createSelector(
@@ -26,7 +26,8 @@ export const makeSelectBaseCustomFieldGroupById = () =>
     },
   );
 
-export const selectBaseCustomFieldGroupById = makeSelectBaseCustomFieldGroupById();
+export const selectBaseCustomFieldGroupById =
+  makeSelectBaseCustomFieldGroupById();
 
 export const makeSelectCustomFieldsByBaseGroupId = () =>
   createSelector(
@@ -47,7 +48,8 @@ export const makeSelectCustomFieldsByBaseGroupId = () =>
     },
   );
 
-export const selectCustomFieldsByBaseGroupId = makeSelectCustomFieldsByBaseGroupId();
+export const selectCustomFieldsByBaseGroupId =
+  makeSelectCustomFieldsByBaseGroupId();
 
 export default {
   makeSelectBaseCustomFieldGroupById,

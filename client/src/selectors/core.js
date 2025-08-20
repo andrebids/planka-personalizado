@@ -3,24 +3,30 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-export const selectIsContentFetching = ({ core: { isContentFetching } }) => isContentFetching;
+export const selectIsContentFetching = ({ core: { isContentFetching } }) =>
+  isContentFetching;
 
 export const selectIsLogouting = ({ core: { isLogouting } }) => isLogouting;
 
-export const selectIsFavoritesEnabled = ({ core: { isFavoritesEnabled } }) => isFavoritesEnabled;
+export const selectIsFavoritesEnabled = ({ core: { isFavoritesEnabled } }) =>
+  isFavoritesEnabled;
 
-export const selectIsEditModeEnabled = ({ core: { isEditModeEnabled } }) => isEditModeEnabled;
+export const selectIsEditModeEnabled = ({ core: { isEditModeEnabled } }) =>
+  isEditModeEnabled;
 
 export const selectRecentCardId = ({ core: { recentCardId } }) => recentCardId;
 
 export const selectHomeView = ({ core: { homeView } }) => homeView;
 
-export const selectProjectsSearch = ({ core: { projectsSearch } }) => projectsSearch;
+export const selectProjectsSearch = ({ core: { projectsSearch } }) =>
+  projectsSearch;
 
-export const selectProjectsOrder = ({ core: { projectsOrder } }) => projectsOrder;
+export const selectProjectsOrder = ({ core: { projectsOrder } }) =>
+  projectsOrder;
 
-export const selectIsHiddenProjectsVisible = ({ core: { isHiddenProjectsVisible } }) =>
-  isHiddenProjectsVisible;
+export const selectIsHiddenProjectsVisible = ({
+  core: { isHiddenProjectsVisible },
+}) => isHiddenProjectsVisible;
 
 export default {
   selectIsContentFetching,

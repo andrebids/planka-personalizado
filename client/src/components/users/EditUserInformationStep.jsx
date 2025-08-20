@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Popup } from '../../lib/custom-ui';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { Popup } from "../../lib/custom-ui";
 
-import EditUserInformation from './EditUserInformation';
+import EditUserInformation from "./EditUserInformation";
 
 const EditUserInformationStep = React.memo(({ id, onBack, onClose }) => {
   const [t] = useTranslation();
@@ -20,8 +20,8 @@ const EditUserInformationStep = React.memo(({ id, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t('common.editInformation', {
-          context: 'title',
+        {t("common.editInformation", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>

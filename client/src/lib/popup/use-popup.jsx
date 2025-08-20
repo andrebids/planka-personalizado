@@ -3,12 +3,12 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { ResizeObserver } from '@juggle/resize-observer';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, Popup as SemanticUIPopup } from 'semantic-ui-react';
+import { ResizeObserver } from "@juggle/resize-observer";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { Button, Popup as SemanticUIPopup } from "semantic-ui-react";
 
-import styles from './Popup.module.css';
+import styles from "./Popup.module.css";
 
 export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
   return useMemo(() => {
@@ -77,7 +77,7 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
         onClick: handleTriggerClick,
       });
 
-      const variantName = variantClass || 'glass';
+      const variantName = variantClass || "glass";
 
       return (
         <SemanticUIPopup
@@ -87,10 +87,10 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
           trigger={tigger}
           on="click"
           open={isOpened}
-          position={position || 'bottom left'}
+          position={position || "bottom left"}
           popperModifiers={[
             {
-              name: 'preventOverflow',
+              name: "preventOverflow",
               enabled: true,
               options: {
                 altAxis: true,
@@ -98,7 +98,7 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
               },
             },
           ]}
-          className={`${styles.wrapper} ${styles[variantName] || ''}`}
+          className={`${styles.wrapper} ${styles[variantName] || ""}`}
           onOpen={handleOpen}
           onClose={handleClose}
           onUnmount={onClose}
@@ -106,7 +106,11 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
           onClick={handleClick}
         >
           <div ref={handleContentRef}>
-            <Button icon="close" onClick={handleClose} className={styles.closeButton} />
+            <Button
+              icon="close"
+              onClick={handleClose}
+              className={styles.closeButton}
+            />
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Step {...stepProps} onClose={handleClose} />
           </div>

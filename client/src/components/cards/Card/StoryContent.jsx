@@ -3,24 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import { Icon } from 'semantic-ui-react';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { Icon } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import markdownToText from '../../../utils/markdown-to-text';
-import { BoardViews, ListTypes } from '../../../constants/Enums';
-import LabelChip from '../../labels/LabelChip';
-import CustomFieldValueChip from '../../custom-field-values/CustomFieldValueChip';
+import selectors from "../../../selectors";
+import markdownToText from "../../../utils/markdown-to-text";
+import { BoardViews, ListTypes } from "../../../constants/Enums";
+import LabelChip from "../../labels/LabelChip";
+import CustomFieldValueChip from "../../custom-field-values/CustomFieldValueChip";
 
-import styles from './StoryContent.module.scss';
+import styles from "./StoryContent.module.scss";
 
 const StoryContent = React.memo(({ cardId }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
-  const selectLabelIdsByCardId = useMemo(() => selectors.makeSelectLabelIdsByCardId(), []);
+  const selectLabelIdsByCardId = useMemo(
+    () => selectors.makeSelectLabelIdsByCardId(),
+    [],
+  );
 
   const selectAttachmentsTotalByCardId = useMemo(
     () => selectors.makeSelectAttachmentsTotalByCardId(),
@@ -37,12 +40,19 @@ const StoryContent = React.memo(({ cardId }) => {
     [],
   );
 
-  const selectAttachmentById = useMemo(() => selectors.makeSelectAttachmentById(), []);
+  const selectAttachmentById = useMemo(
+    () => selectors.makeSelectAttachmentById(),
+    [],
+  );
 
   const card = useSelector((state) => selectCardById(state, cardId));
   const list = useSelector((state) => selectListById(state, card.listId));
-  const labelIds = useSelector((state) => selectLabelIdsByCardId(state, cardId));
-  const attachmentsTotal = useSelector((state) => selectAttachmentsTotalByCardId(state, cardId));
+  const labelIds = useSelector((state) =>
+    selectLabelIdsByCardId(state, cardId),
+  );
+  const attachmentsTotal = useSelector((state) =>
+    selectAttachmentsTotalByCardId(state, cardId),
+  );
 
   const customFieldValueIds = useSelector((state) =>
     selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId),
@@ -89,7 +99,10 @@ const StoryContent = React.memo(({ cardId }) => {
         {labelIds.length > 0 && (
           <span className={styles.labels}>
             {labelIds.map((labelId) => (
-              <span key={labelId} className={classNames(styles.attachment, styles.attachmentLeft)}>
+              <span
+                key={labelId}
+                className={classNames(styles.attachment, styles.attachmentLeft)}
+              >
                 <LabelChip id={labelId} size="tiny" />
               </span>
             ))}
@@ -107,10 +120,17 @@ const StoryContent = React.memo(({ cardId }) => {
             ))}
           </span>
         )}
-        <div className={classNames(styles.name, isInClosedList && styles.nameClosed)}>
+        <div
+          className={classNames(
+            styles.name,
+            isInClosedList && styles.nameClosed,
+          )}
+        >
           {card.name}
         </div>
-        {card.description && <div className={styles.descriptionText}>{descriptionText}</div>}
+        {card.description && (
+          <div className={styles.descriptionText}>{descriptionText}</div>
+        )}
         {(attachmentsTotal > 0 || notificationsTotal > 0 || listName) && (
           <span className={styles.attachments}>
             {notificationsTotal > 0 && (
@@ -125,7 +145,9 @@ const StoryContent = React.memo(({ cardId }) => {
               </span>
             )}
             {listName && (
-              <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+              <span
+                className={classNames(styles.attachment, styles.attachmentLeft)}
+              >
                 <span className={styles.attachmentContent}>
                   <Icon name="columns" />
                   {listName}
@@ -133,7 +155,9 @@ const StoryContent = React.memo(({ cardId }) => {
               </span>
             )}
             {attachmentsTotal > 0 && (
-              <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+              <span
+                className={classNames(styles.attachment, styles.attachmentLeft)}
+              >
                 <span className={styles.attachmentContent}>
                   <Icon name="attach" />
                   {attachmentsTotal}

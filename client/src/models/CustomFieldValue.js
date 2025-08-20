@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
 
 export const buildCustomFieldValueId = (customFieldValue) =>
   JSON.stringify({
@@ -21,25 +21,25 @@ const prepareCustomFieldValue = (customFieldValue) => ({
 });
 
 export default class extends BaseModel {
-  static modelName = 'CustomFieldValue';
+  static modelName = "CustomFieldValue";
 
   static fields = {
     id: attr(),
     content: attr(),
     cardId: fk({
-      to: 'Card',
-      as: 'card',
-      relatedName: 'customFieldValues',
+      to: "Card",
+      as: "card",
+      relatedName: "customFieldValues",
     }),
     customFieldGroupId: fk({
-      to: 'CustomFieldGroup',
-      as: 'customFieldGroup',
-      relatedName: 'customFieldValues',
+      to: "CustomFieldGroup",
+      as: "customFieldGroup",
+      relatedName: "customFieldValues",
     }),
     customFieldId: fk({
-      to: 'CustomField',
-      as: 'customField',
-      relatedName: 'customFieldValues',
+      to: "CustomField",
+      as: "customField",
+      relatedName: "customFieldValues",
     }),
   };
 
@@ -81,7 +81,9 @@ export default class extends BaseModel {
       case ActionTypes.CUSTOM_FIELD_VALUE_UPDATE:
       case ActionTypes.CUSTOM_FIELD_VALUE_UPDATE__SUCCESS:
       case ActionTypes.CUSTOM_FIELD_VALUE_UPDATE_HANDLE:
-        CustomFieldValue.upsert(prepareCustomFieldValue(payload.customFieldValue));
+        CustomFieldValue.upsert(
+          prepareCustomFieldValue(payload.customFieldValue),
+        );
 
         break;
       case ActionTypes.CUSTOM_FIELD_VALUE_DELETE: {

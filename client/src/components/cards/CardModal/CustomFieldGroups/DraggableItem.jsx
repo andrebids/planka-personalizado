@@ -3,25 +3,30 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
+import React, { useMemo } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
 
-import classNames from 'classnames';
-import selectors from '../../../../selectors';
-import { isListArchiveOrTrash } from '../../../../utils/record-helpers';
-import { BoardMembershipRoles } from '../../../../constants/Enums';
-import Item from './Item';
+import classNames from "classnames";
+import selectors from "../../../../selectors";
+import { isListArchiveOrTrash } from "../../../../utils/record-helpers";
+import { BoardMembershipRoles } from "../../../../constants/Enums";
+import Item from "./Item";
 
-import styles from './DraggableItem.module.scss';
+import styles from "./DraggableItem.module.scss";
 
 const DraggableItem = React.memo(({ id, index, className, ...props }) => {
-  const selectCustomFieldGroupById = useMemo(() => selectors.makeSelectCustomFieldGroupById(), []);
+  const selectCustomFieldGroupById = useMemo(
+    () => selectors.makeSelectCustomFieldGroupById(),
+    [],
+  );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const customFieldGroup = useSelector((state) => selectCustomFieldGroupById(state, id));
+  const customFieldGroup = useSelector((state) =>
+    selectCustomFieldGroupById(state, id),
+  );
 
   const canEdit = useSelector((state) => {
     if (customFieldGroup.boardId) {
@@ -35,8 +40,11 @@ const DraggableItem = React.memo(({ id, index, className, ...props }) => {
       return false;
     }
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   return (
@@ -57,7 +65,9 @@ const DraggableItem = React.memo(({ id, index, className, ...props }) => {
           </div>
         );
 
-        return isDragging ? ReactDOM.createPortal(contentNode, document.body) : contentNode;
+        return isDragging
+          ? ReactDOM.createPortal(contentNode, document.body)
+          : contentNode;
       }}
     </Draggable>
   );

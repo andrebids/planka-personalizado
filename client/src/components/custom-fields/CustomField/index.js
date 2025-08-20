@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import CustomField from './CustomField';
+import CustomField from "./CustomField";
 
 export default CustomField;

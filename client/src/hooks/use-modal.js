@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 // TODO: rename?
 export default (initialParams) => {

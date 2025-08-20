@@ -3,28 +3,37 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
-import { Button } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
+import { Button } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
+import selectors from "../../../selectors";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id, index, onEdit }) => {
-  const selectCustomFieldGroupById = useMemo(() => selectors.makeSelectCustomFieldGroupById(), []);
+  const selectCustomFieldGroupById = useMemo(
+    () => selectors.makeSelectCustomFieldGroupById(),
+    [],
+  );
 
-  const customFieldGroup = useSelector((state) => selectCustomFieldGroupById(state, id));
+  const customFieldGroup = useSelector((state) =>
+    selectCustomFieldGroupById(state, id),
+  );
 
   const handleEditClick = useCallback(() => {
     onEdit(id);
   }, [id, onEdit]);
 
   return (
-    <Draggable draggableId={id} index={index} isDragDisabled={!customFieldGroup.isPersisted}>
+    <Draggable
+      draggableId={id}
+      index={index}
+      isDragDisabled={!customFieldGroup.isPersisted}
+    >
       {({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => {
         const contentNode = (
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -46,7 +55,9 @@ const Item = React.memo(({ id, index, onEdit }) => {
           </div>
         );
 
-        return isDragging ? ReactDOM.createPortal(contentNode, document.body) : contentNode;
+        return isDragging
+          ? ReactDOM.createPortal(contentNode, document.body)
+          : contentNode;
       }}
     </Draggable>
   );

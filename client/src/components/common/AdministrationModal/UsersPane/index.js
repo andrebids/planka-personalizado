@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import UsersPane from './UsersPane';
+import UsersPane from "./UsersPane";
 
 export default UsersPane;

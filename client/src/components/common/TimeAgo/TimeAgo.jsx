@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import ReactTimeAgo from 'react-time-ago';
-import TimeAgo from 'javascript-time-ago';
+import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "javascript-time-ago";
 
-import getDateFormat from '../../../utils/get-date-format';
-import ExpirableTime from './ExpirableTime';
+import getDateFormat from "../../../utils/get-date-format";
+import ExpirableTime from "./ExpirableTime";
 
 // Importar as nossas traduções personalizadas
-import ptPTLocale from '../../../locales/pt-PT/core';
+import ptPTLocale from "../../../locales/pt-PT/core";
 
 const TimeAgoComponent = React.memo(({ date, withExpiration }) => {
   const [t, i18n] = useTranslation();
@@ -22,15 +22,18 @@ const TimeAgoComponent = React.memo(({ date, withExpiration }) => {
   useEffect(() => {
     // Forçar o registo das nossas traduções personalizadas para pt-PT
     // Importante: registar com o locale correto 'pt-PT' para que funcione
-    console.log('Registando traduções personalizadas pt-PT:', ptPTLocale.timeAgo);
+    console.log(
+      "Registando traduções personalizadas pt-PT:",
+      ptPTLocale.timeAgo,
+    );
     TimeAgo.addLocale(ptPTLocale.timeAgo);
   }, []);
 
   // Registar o locale personalizado quando o componente for montado
   useEffect(() => {
     // Garantir que o locale pt-PT seja carregado sempre
-    if (i18n.resolvedLanguage === 'pt-PT') {
-      i18n.loadCoreLocale('pt-PT').then(() => {
+    if (i18n.resolvedLanguage === "pt-PT") {
+      i18n.loadCoreLocale("pt-PT").then(() => {
         // Forçar o registo das nossas traduções personalizadas
         TimeAgo.addLocale(ptPTLocale.timeAgo);
       });
@@ -41,7 +44,7 @@ const TimeAgoComponent = React.memo(({ date, withExpiration }) => {
     (value) =>
       t(`format:${getDateFormat(value)}`, {
         value,
-        postProcess: 'formatDate',
+        postProcess: "formatDate",
       }),
     [t],
   );
@@ -54,7 +57,7 @@ const TimeAgoComponent = React.memo(({ date, withExpiration }) => {
       component={withExpiration ? ExpirableTime : undefined}
       formatVerboseDate={verboseDateFormatter}
       onError={(error) => {
-        console.error('Erro no ReactTimeAgo:', error);
+        console.error("Erro no ReactTimeAgo:", error);
       }}
     />
   );

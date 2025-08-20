@@ -9,8 +9,8 @@ export const focusEnd = (element) => {
 };
 
 export const isActiveTextElement = (element) =>
-  ['input', 'textarea'].includes(element.tagName.toLowerCase()) &&
+  ["input", "textarea"].includes(element.tagName.toLowerCase()) &&
   element === document.activeElement;
 
 export const isUsableMarkdownElement = (element) =>
-  !!element.closest('.yfm a, .yfm-clipboard-button, .yfm-cut-title');
+  !!element.closest(".yfm a, .yfm-clipboard-button, .yfm-cut-title");

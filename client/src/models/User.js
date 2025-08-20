@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { orderBy } from 'lodash';
-import { attr } from 'redux-orm';
+import { orderBy } from "lodash";
+import { attr } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import buildSearchParts from '../utils/build-search-parts';
-import ActionTypes from '../constants/ActionTypes';
-import { UserRoles } from '../constants/Enums';
+import BaseModel from "./BaseModel";
+import buildSearchParts from "../utils/build-search-parts";
+import ActionTypes from "../constants/ActionTypes";
+import { UserRoles } from "../constants/Enums";
 
 const DEFAULT_EMAIL_UPDATE_FORM = {
   data: {
-    email: '',
-    currentPassword: '',
+    email: "",
+    currentPassword: "",
   },
   isSubmitting: false,
   error: null,
@@ -22,8 +22,8 @@ const DEFAULT_EMAIL_UPDATE_FORM = {
 
 const DEFAULT_PASSWORD_UPDATE_FORM = {
   data: {
-    password: '',
-    currentPassword: '',
+    password: "",
+    currentPassword: "",
   },
   isSubmitting: false,
   error: null,
@@ -31,8 +31,8 @@ const DEFAULT_PASSWORD_UPDATE_FORM = {
 
 const DEFAULT_USERNAME_UPDATE_FORM = {
   data: {
-    username: '',
-    currentPassword: '',
+    username: "",
+    currentPassword: "",
   },
   isSubmitting: false,
   error: null,
@@ -47,7 +47,9 @@ const filterProjectModels = (projectModels, search, isHidden) => {
     const searchParts = buildSearchParts(search);
 
     filteredProjectModels = filteredProjectModels.filter((projectModel) =>
-      searchParts.every((searchPart) => projectModel.name.toLowerCase().includes(searchPart)),
+      searchParts.every((searchPart) =>
+        projectModel.name.toLowerCase().includes(searchPart),
+      ),
     );
   }
 
@@ -55,7 +57,7 @@ const filterProjectModels = (projectModels, search, isHidden) => {
 };
 
 export default class extends BaseModel {
-  static modelName = 'User';
+  static modelName = "User";
 
   static fields = {
     id: attr(),
@@ -308,21 +310,21 @@ export default class extends BaseModel {
   }
 
   static getAllQuerySet() {
-    return this.orderBy([({ name }) => name.toLowerCase(), 'id.length', 'id']);
+    return this.orderBy([({ name }) => name.toLowerCase(), "id.length", "id"]);
   }
 
   static getActiveQuerySet() {
     return this.filter({
       isDeactivated: false,
-    }).orderBy([({ name }) => name.toLowerCase(), 'id.length', 'id']);
+    }).orderBy([({ name }) => name.toLowerCase(), "id.length", "id"]);
   }
 
   getProjectManagersQuerySet() {
-    return this.projectManagers.orderBy(['id.length', 'id']);
+    return this.projectManagers.orderBy(["id.length", "id"]);
   }
 
   getBoardMembershipsQuerySet() {
-    return this.boardMemberships.orderBy(['id.length', 'id']);
+    return this.boardMemberships.orderBy(["id.length", "id"]);
   }
 
   getUnreadNotificationsQuerySet() {
@@ -330,11 +332,11 @@ export default class extends BaseModel {
       .filter({
         isRead: false,
       })
-      .orderBy(['id.length', 'id'], ['desc', 'desc']);
+      .orderBy(["id.length", "id"], ["desc", "desc"]);
   }
 
   getNotificationServicesQuerySet() {
-    return this.notificationServices.orderBy(['id.length', 'id']);
+    return this.notificationServices.orderBy(["id.length", "id"]);
   }
 
   getManagerProjectsModelArray() {
@@ -361,21 +363,22 @@ export default class extends BaseModel {
   getSeparatedProjectsModelArray() {
     const projectIds = [];
 
-    const managerProjectModels = this.getManagerProjectsModelArray().map((projectModel) => {
-      projectIds.push(projectModel.id);
-      return projectModel;
-    });
-
-    const membershipProjectModels = this.getMembershipProjectsModelArray().flatMap(
+    const managerProjectModels = this.getManagerProjectsModelArray().map(
       (projectModel) => {
+        projectIds.push(projectModel.id);
+        return projectModel;
+      },
+    );
+
+    const membershipProjectModels =
+      this.getMembershipProjectsModelArray().flatMap((projectModel) => {
         if (projectIds.includes(projectModel.id)) {
           return [];
         }
 
         projectIds.push(projectModel.id);
         return projectModel;
-      },
-    );
+      });
 
     let adminProjectModels = [];
     if (this.role === UserRoles.ADMIN) {
@@ -403,10 +406,17 @@ export default class extends BaseModel {
   }
 
   getProjectsModelArray() {
-    const { managerProjectModels, membershipProjectModels, adminProjectModels } =
-      this.getSeparatedProjectsModelArray();
+    const {
+      managerProjectModels,
+      membershipProjectModels,
+      adminProjectModels,
+    } = this.getSeparatedProjectsModelArray();
 
-    return [...managerProjectModels, ...membershipProjectModels, ...adminProjectModels];
+    return [
+      ...managerProjectModels,
+      ...membershipProjectModels,
+      ...adminProjectModels,
+    ];
   }
 
   getFavoriteProjectsModelArray(orderByArgs) {
@@ -426,18 +436,28 @@ export default class extends BaseModel {
   getFilteredSeparatedProjectsModelArray(search, isHidden, orderByArgs) {
     const separatedProjectModels = this.getSeparatedProjectsModelArray();
 
-    return Object.entries(separatedProjectModels).reduce((result, [key, projectModels]) => {
-      let filteredProjectModels = filterProjectModels(projectModels, search, isHidden);
+    return Object.entries(separatedProjectModels).reduce(
+      (result, [key, projectModels]) => {
+        let filteredProjectModels = filterProjectModels(
+          projectModels,
+          search,
+          isHidden,
+        );
 
-      if (orderByArgs) {
-        filteredProjectModels = orderBy(filteredProjectModels, ...orderByArgs);
-      }
+        if (orderByArgs) {
+          filteredProjectModels = orderBy(
+            filteredProjectModels,
+            ...orderByArgs,
+          );
+        }
 
-      return {
-        ...result,
-        [key]: filteredProjectModels,
-      };
-    }, {});
+        return {
+          ...result,
+          [key]: filteredProjectModels,
+        };
+      },
+      {},
+    );
   }
 
   getFilteredProjectsModelArray(search, isHidden, orderByArgs) {

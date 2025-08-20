@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, many, oneToOne } from 'redux-orm';
+import { attr, many, oneToOne } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
-import { UserRoles } from '../constants/Enums';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
+import { UserRoles } from "../constants/Enums";
 
 export default class extends BaseModel {
-  static modelName = 'Project';
+  static modelName = "Project";
 
   static fields = {
     id: attr(),
@@ -23,19 +23,19 @@ export default class extends BaseModel {
       getDefault: () => false,
     }),
     ownerProjectManagerId: oneToOne({
-      to: 'ProjectManager',
-      as: 'ownerProjectManager',
-      relatedName: 'ownedProject',
+      to: "ProjectManager",
+      as: "ownerProjectManager",
+      relatedName: "ownedProject",
     }),
     backgroundImageId: oneToOne({
-      to: 'BackgroundImage',
-      as: 'backgroundImage',
-      relatedName: 'backgroundedProject', // TODO: rename?
+      to: "BackgroundImage",
+      as: "backgroundImage",
+      relatedName: "backgroundedProject", // TODO: rename?
     }),
     managerUsers: many({
-      to: 'User',
-      through: 'ProjectManager',
-      relatedName: 'managerProjects',
+      to: "User",
+      through: "ProjectManager",
+      relatedName: "managerProjects",
     }),
   };
 
@@ -150,7 +150,9 @@ export default class extends BaseModel {
       }
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (!payload.isProjectAvailable) {
-          const projectModel = Project.withId(payload.boardMembership.projectId);
+          const projectModel = Project.withId(
+            payload.boardMembership.projectId,
+          );
 
           if (projectModel) {
             projectModel.deleteWithRelated();
@@ -169,23 +171,23 @@ export default class extends BaseModel {
   static getSharedQuerySet() {
     return this.filter({
       ownerProjectManagerId: null,
-    }).orderBy(['id.length', 'id']);
+    }).orderBy(["id.length", "id"]);
   }
 
   getManagersQuerySet() {
-    return this.managers.orderBy(['id.length', 'id']);
+    return this.managers.orderBy(["id.length", "id"]);
   }
 
   getBackgroundImagesQuerySet() {
-    return this.backgroundImages.orderBy(['id.length', 'id']);
+    return this.backgroundImages.orderBy(["id.length", "id"]);
   }
 
   getBaseCustomFieldGroupsQuerySet() {
-    return this.baseCustomFieldGroups.orderBy(['id.length', 'id']);
+    return this.baseCustomFieldGroups.orderBy(["id.length", "id"]);
   }
 
   getBoardsQuerySet() {
-    return this.boards.orderBy(['position', 'id.length', 'id']);
+    return this.boards.orderBy(["position", "id.length", "id"]);
   }
 
   getBoardsModelArrayForUserWithId(userId) {
@@ -238,9 +240,11 @@ export default class extends BaseModel {
       backgroundImageModel.deleteWithRelated();
     });
 
-    this.baseCustomFieldGroups.toModelArray().forEach((baseCustomFieldGroupModel) => {
-      baseCustomFieldGroupModel.deleteWithRelated();
-    });
+    this.baseCustomFieldGroups
+      .toModelArray()
+      .forEach((baseCustomFieldGroupModel) => {
+        baseCustomFieldGroupModel.deleteWithRelated();
+      });
 
     this.boards.toModelArray().forEach((boardModel) => {
       boardModel.deleteWithRelated();

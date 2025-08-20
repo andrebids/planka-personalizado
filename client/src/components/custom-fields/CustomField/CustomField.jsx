@@ -3,23 +3,29 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Icon } from 'semantic-ui-react';
+import React, { useCallback, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Icon } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { buildCustomFieldValueId } from '../../../models/CustomFieldValue';
-import { isListArchiveOrTrash } from '../../../utils/record-helpers';
-import { BoardMembershipRoles } from '../../../constants/Enums';
-import ValueField from './ValueField';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { buildCustomFieldValueId } from "../../../models/CustomFieldValue";
+import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import { BoardMembershipRoles } from "../../../constants/Enums";
+import ValueField from "./ValueField";
 
-import styles from './CustomField.module.scss';
+import styles from "./CustomField.module.scss";
 
 const CustomField = React.memo(({ id, customFieldGroupId }) => {
-  const selectCustomFieldById = useMemo(() => selectors.makeSelectCustomFieldById(), []);
-  const selectCustomFieldValueById = useMemo(() => selectors.makeSelectCustomFieldValueById(), []);
+  const selectCustomFieldById = useMemo(
+    () => selectors.makeSelectCustomFieldById(),
+    [],
+  );
+  const selectCustomFieldValueById = useMemo(
+    () => selectors.makeSelectCustomFieldValueById(),
+    [],
+  );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const { cardId } = useSelector(selectors.selectPath);
@@ -44,8 +50,11 @@ const CustomField = React.memo(({ id, customFieldGroupId }) => {
       return false;
     }
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   const dispatch = useDispatch();
@@ -60,7 +69,9 @@ const CustomField = React.memo(({ id, customFieldGroupId }) => {
           }),
         );
       } else {
-        dispatch(entryActions.deleteCustomFieldValue(cardId, customFieldGroupId, id));
+        dispatch(
+          entryActions.deleteCustomFieldValue(cardId, customFieldGroupId, id),
+        );
       }
     },
     [id, customFieldGroupId, cardId, dispatch],
@@ -91,12 +102,12 @@ const CustomField = React.memo(({ id, customFieldGroupId }) => {
           />
         ) : (
           <div className={styles.value}>
-            {customFieldValue ? customFieldValue.content : '\u00A0'}
+            {customFieldValue ? customFieldValue.content : "\u00A0"}
           </div>
         )}
         {customFieldValue && customFieldValue.content && (
           <Button className={styles.copyButton} onClick={handleCopyClick}>
-            <Icon fitted name={isCopied ? 'check' : 'copy'} />
+            <Icon fitted name={isCopied ? "check" : "copy"} />
           </Button>
         )}
       </div>

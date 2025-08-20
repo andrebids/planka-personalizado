@@ -3,33 +3,33 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from 'lodash/upperFirst';
-import camelCase from 'lodash/camelCase';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { Button, Icon } from 'semantic-ui-react';
-import { useDidUpdate, useTransitioning } from '../../../lib/hooks';
-import { usePopup } from '../../../lib/popup';
+import upperFirst from "lodash/upperFirst";
+import camelCase from "lodash/camelCase";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Button, Icon } from "semantic-ui-react";
+import { useDidUpdate, useTransitioning } from "../../../lib/hooks";
+import { usePopup } from "../../../lib/popup";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import DroppableTypes from '../../../constants/DroppableTypes';
-import { BoardMembershipRoles, ListTypes } from '../../../constants/Enums';
-import { ListTypeIcons } from '../../../constants/Icons';
-import EditName from './EditName';
-import ActionsStep from './ActionsStep';
-import DraggableCard from '../../cards/DraggableCard';
-import AddCard from '../../cards/AddCard';
-import ArchiveCardsStep from '../../cards/ArchiveCardsStep';
-import PlusMathIcon from '../../../assets/images/plus-math-icon.svg?react';
-import { processSupportedFiles } from '../../../utils/file-helpers';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import DroppableTypes from "../../../constants/DroppableTypes";
+import { BoardMembershipRoles, ListTypes } from "../../../constants/Enums";
+import { ListTypeIcons } from "../../../constants/Icons";
+import EditName from "./EditName";
+import ActionsStep from "./ActionsStep";
+import DraggableCard from "../../cards/DraggableCard";
+import AddCard from "../../cards/AddCard";
+import ArchiveCardsStep from "../../cards/ArchiveCardsStep";
+import PlusMathIcon from "../../../assets/images/plus-math-icon.svg?react";
+import { processSupportedFiles } from "../../../utils/file-helpers";
 
-import styles from './List.module.scss';
-import globalStyles from '../../../styles.module.scss';
+import styles from "./List.module.scss";
+import globalStyles from "../../../styles.module.scss";
 
 const List = React.memo(({ id, index }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
@@ -39,23 +39,33 @@ const List = React.memo(({ id, index }) => {
     [],
   );
 
-  const isFavoritesActive = useSelector(selectors.selectIsFavoritesActiveForCurrentUser);
+  const isFavoritesActive = useSelector(
+    selectors.selectIsFavoritesActiveForCurrentUser,
+  );
   const list = useSelector((state) => selectListById(state, id));
-  const cardIds = useSelector((state) => selectFilteredCardIdsByListId(state, id));
+  const cardIds = useSelector((state) =>
+    selectFilteredCardIdsByListId(state, id),
+  );
 
-  const { canEdit, canArchiveCards, canAddCard, canDropCard } = useSelector((state) => {
-    const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
+  const { canEdit, canArchiveCards, canAddCard, canDropCard } = useSelector(
+    (state) => {
+      const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    const isEditor = !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+      const boardMembership =
+        selectors.selectCurrentUserMembershipForCurrentBoard(state);
+      const isEditor =
+        !!boardMembership &&
+        boardMembership.role === BoardMembershipRoles.EDITOR;
 
-    return {
-      canEdit: isEditModeEnabled && isEditor,
-      canArchiveCards: list.type === ListTypes.CLOSED && isEditor,
-      canAddCard: isEditor,
-      canDropCard: isEditor,
-    };
-  }, shallowEqual);
+      return {
+        canEdit: isEditModeEnabled && isEditor,
+        canArchiveCards: list.type === ListTypes.CLOSED && isEditor,
+        canAddCard: isEditor,
+        canDropCard: isEditor,
+      };
+    },
+    shallowEqual,
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -76,7 +86,9 @@ const List = React.memo(({ id, index }) => {
 
   const handleCardCreateWithAttachment = useCallback(
     (cardData, attachmentFile) => {
-      dispatch(entryActions.createCardWithAttachment(id, cardData, attachmentFile));
+      dispatch(
+        entryActions.createCardWithAttachment(id, cardData, attachmentFile),
+      );
     },
     [id, dispatch],
   );
@@ -117,41 +129,55 @@ const List = React.memo(({ id, index }) => {
     setIsDragOver(false);
   }, []);
 
-  const handleDrop = useCallback((event) => {
-    event.preventDefault();
-    setIsDragOver(false);
+  const handleDrop = useCallback(
+    (event) => {
+      event.preventDefault();
+      setIsDragOver(false);
 
-    const files = Array.from(event.dataTransfer.files);
-    if (files.length === 0) return;
+      const files = Array.from(event.dataTransfer.files);
+      if (files.length === 0) return;
 
-    const processedFiles = processSupportedFiles(files);
-    if (processedFiles.length === 0) return;
+      const processedFiles = processSupportedFiles(files);
+      if (processedFiles.length === 0) return;
 
-    console.log('Processando arquivos:', processedFiles);
+      console.log("Processando arquivos:", processedFiles);
 
-    setIsProcessing(true);
+      setIsProcessing(true);
 
-    try {
-      // Usar a nova saga para criar cards com anexos
-      processedFiles.forEach((fileData) => {
-        const cardData = {
-          name: fileData.name,
-          type: 'story', // Adicionar tipo padrão
-        };
-        console.log('Criando card com anexo:', cardData);
-        console.log('📄 Tipo de arquivo:', fileData.isImage ? 'Imagem (capa)' : 'Anexo');
-        console.log('📄 Arquivo:', fileData.file);
-        console.log('📄 Nome do arquivo:', fileData.file ? fileData.file.name : 'undefined');
-        console.log('📄 Tamanho do arquivo:', fileData.file ? fileData.file.size : 'undefined');
-        dispatch(entryActions.createCardWithAttachment(id, cardData, fileData.file));
-      });
-    } catch (error) {
-      console.error('Erro ao processar arquivos:', error);
+      try {
+        // Usar a nova saga para criar cards com anexos
+        processedFiles.forEach((fileData) => {
+          const cardData = {
+            name: fileData.name,
+            type: "story", // Adicionar tipo padrão
+          };
+          console.log("Criando card com anexo:", cardData);
+          console.log(
+            "📄 Tipo de arquivo:",
+            fileData.isImage ? "Imagem (capa)" : "Anexo",
+          );
+          console.log("📄 Arquivo:", fileData.file);
+          console.log(
+            "📄 Nome do arquivo:",
+            fileData.file ? fileData.file.name : "undefined",
+          );
+          console.log(
+            "📄 Tamanho do arquivo:",
+            fileData.file ? fileData.file.size : "undefined",
+          );
+          dispatch(
+            entryActions.createCardWithAttachment(id, cardData, fileData.file),
+          );
+        });
+      } catch (error) {
+        console.error("Erro ao processar arquivos:", error);
       } finally {
         setIsProcessing(false);
-        console.log('✅ Processamento finalizado');
+        console.log("✅ Processamento finalizado");
       }
-    }, [id, dispatch]);
+    },
+    [id, dispatch],
+  );
 
   const handleWrapperTransitionEnd = useTransitioning(
     wrapperRef,
@@ -179,7 +205,12 @@ const List = React.memo(({ id, index }) => {
         <div {...droppableProps} ref={innerRef}>
           <div className={styles.cards}>
             {cardIds.map((cardId, cardIndex) => (
-              <DraggableCard key={cardId} id={cardId} index={cardIndex} className={styles.card} />
+              <DraggableCard
+                key={cardId}
+                id={cardId}
+                index={cardIndex}
+                className={styles.card}
+              />
             ))}
             {placeholder}
             {canAddCard && (
@@ -214,7 +245,8 @@ const List = React.memo(({ id, index }) => {
             ref={wrapperRef}
             className={classNames(
               styles.outerWrapper,
-              list.color && styles[`outerWrapper${upperFirst(camelCase(list.color))}`],
+              list.color &&
+                styles[`outerWrapper${upperFirst(camelCase(list.color))}`],
               isFavoritesActive && styles.outerWrapperWithFavorites,
             )}
             onTransitionEnd={handleWrapperTransitionEnd}
@@ -223,28 +255,35 @@ const List = React.memo(({ id, index }) => {
                                          jsx-a11y/no-static-element-interactions */}
             <div
               {...dragHandleProps} // eslint-disable-line react/jsx-props-no-spreading
-              className={classNames(styles.header, canEdit && styles.headerEditable)}
+              className={classNames(
+                styles.header,
+                canEdit && styles.headerEditable,
+              )}
               onClick={handleHeaderClick}
             >
               {isEditNameOpened ? (
                 <EditName listId={id} onClose={handleEditNameClose} />
               ) : (
-                <div className={styles.headerName}>
-                  {list.name}
-                </div>
+                <div className={styles.headerName}>{list.name}</div>
               )}
               {list.type !== ListTypes.ACTIVE && (
                 <Icon
                   name={ListTypeIcons[list.type]}
                   className={classNames(
                     styles.headerIcon,
-                    list.isPersisted && (canEdit || canArchiveCards) && styles.headerIconHidable,
+                    list.isPersisted &&
+                      (canEdit || canArchiveCards) &&
+                      styles.headerIconHidable,
                   )}
                 />
               )}
               {list.isPersisted &&
                 (canEdit ? (
-                  <ActionsPopup listId={id} onNameEdit={handleNameEdit} onCardAdd={handleCardAdd}>
+                  <ActionsPopup
+                    listId={id}
+                    onNameEdit={handleNameEdit}
+                    onCardAdd={handleCardAdd}
+                  >
                     <Button className={styles.headerButton}>
                       <Icon fitted name="pencil" size="small" />
                     </Button>
@@ -268,7 +307,8 @@ const List = React.memo(({ id, index }) => {
                 disabled={!list.isPersisted || isProcessing}
                 className={classNames(
                   styles.addCardButton,
-                  list.color && styles[`addCardButton${upperFirst(camelCase(list.color))}`],
+                  list.color &&
+                    styles[`addCardButton${upperFirst(camelCase(list.color))}`],
                   isDragOver && styles.addCardButtonDragOver,
                   isProcessing && styles.addCardButtonProcessing,
                 )}
@@ -280,23 +320,23 @@ const List = React.memo(({ id, index }) => {
                 <PlusMathIcon className={styles.addCardButtonIcon} />
                 <span className={styles.addCardButtonText}>
                   {isDragOver
-                    ? t('common.dropFilesHere')
+                    ? t("common.dropFilesHere")
                     : isProcessing
-                    ? t('common.processingFiles')
-                    : cardIds.length > 0
-                    ? t('action.addAnotherCard')
-                    : t('action.addCard')}
+                      ? t("common.processingFiles")
+                      : cardIds.length > 0
+                        ? t("action.addAnotherCard")
+                        : t("action.addCard")}
                 </span>
                 {isDragOver && (
                   <div className={styles.dragOverlay}>
                     <Icon name="upload" size="large" />
-                    <span>{t('common.dropFilesHere')}</span>
+                    <span>{t("common.dropFilesHere")}</span>
                   </div>
                 )}
                 {isProcessing && (
                   <div className={styles.processingOverlay}>
                     <Icon name="spinner" loading size="large" />
-                    <span>{t('common.processingFiles')}</span>
+                    <span>{t("common.processingFiles")}</span>
                   </div>
                 )}
               </button>

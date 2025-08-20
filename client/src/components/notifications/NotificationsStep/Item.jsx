@@ -3,37 +3,47 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import truncate from 'lodash/truncate';
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation, Trans } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
+import truncate from "lodash/truncate";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation, Trans } from "react-i18next";
+import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { formatTextWithMentions } from '../../../utils/mentions';
-import Paths from '../../../constants/Paths';
-import { StaticUserIds } from '../../../constants/StaticUsers';
-import { NotificationTypes } from '../../../constants/Enums';
-import TimeAgo from '../../common/TimeAgo';
-import UserAvatar from '../../users/UserAvatar';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { formatTextWithMentions } from "../../../utils/mentions";
+import Paths from "../../../constants/Paths";
+import { StaticUserIds } from "../../../constants/StaticUsers";
+import { NotificationTypes } from "../../../constants/Enums";
+import TimeAgo from "../../common/TimeAgo";
+import UserAvatar from "../../users/UserAvatar";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id, onClose }) => {
-  const selectNotificationById = useMemo(() => selectors.makeSelectNotificationById(), []);
-  const selectCreatorUserById = useMemo(() => selectors.makeSelectUserById(), []);
+  const selectNotificationById = useMemo(
+    () => selectors.makeSelectNotificationById(),
+    [],
+  );
+  const selectCreatorUserById = useMemo(
+    () => selectors.makeSelectUserById(),
+    [],
+  );
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
-  const notification = useSelector((state) => selectNotificationById(state, id));
+  const notification = useSelector((state) =>
+    selectNotificationById(state, id),
+  );
 
   const creatorUser = useSelector((state) =>
     selectCreatorUserById(state, notification.creatorUserId),
   );
 
-  const card = useSelector((state) => selectCardById(state, notification.cardId));
+  const card = useSelector((state) =>
+    selectCardById(state, notification.cardId),
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -45,7 +55,7 @@ const Item = React.memo(({ id, onClose }) => {
   const creatorUserName =
     creatorUser.id === StaticUserIds.DELETED
       ? t(`common.${creatorUser.name}`, {
-          context: 'title',
+          context: "title",
         })
       : creatorUser.name;
 
@@ -70,13 +80,16 @@ const Item = React.memo(({ id, onClose }) => {
           }}
         >
           <span className={styles.author}>{creatorUserName}</span>
-          {' moved '}
-          <Link to={Paths.CARDS.replace(':id', notification.cardId)} onClick={onClose}>
+          {" moved "}
+          <Link
+            to={Paths.CARDS.replace(":id", notification.cardId)}
+            onClick={onClose}
+          >
             {cardName}
           </Link>
-          {' from '}
+          {" from "}
           {fromListName}
-          {' to '}
+          {" to "}
           {toListName}
         </Trans>
       );
@@ -84,7 +97,9 @@ const Item = React.memo(({ id, onClose }) => {
       break;
     }
     case NotificationTypes.COMMENT_CARD: {
-      const commentText = truncate(formatTextWithMentions(notification.data.text));
+      const commentText = truncate(
+        formatTextWithMentions(notification.data.text),
+      );
 
       contentNode = (
         <Trans
@@ -97,7 +112,10 @@ const Item = React.memo(({ id, onClose }) => {
         >
           <span className={styles.author}>{creatorUserName}</span>
           {` left a new comment «${commentText}» to `}
-          <Link to={Paths.CARDS.replace(':id', notification.cardId)} onClick={onClose}>
+          <Link
+            to={Paths.CARDS.replace(":id", notification.cardId)}
+            onClick={onClose}
+          >
             {cardName}
           </Link>
         </Trans>
@@ -116,7 +134,10 @@ const Item = React.memo(({ id, onClose }) => {
         >
           <span className={styles.author}>{creatorUserName}</span>
           {` added you to `}
-          <Link to={Paths.CARDS.replace(':id', notification.cardId)} onClick={onClose}>
+          <Link
+            to={Paths.CARDS.replace(":id", notification.cardId)}
+            onClick={onClose}
+          >
             {cardName}
           </Link>
         </Trans>
@@ -124,7 +145,9 @@ const Item = React.memo(({ id, onClose }) => {
 
       break;
     case NotificationTypes.MENTION_IN_COMMENT: {
-      const commentText = truncate(formatTextWithMentions(notification.data.text));
+      const commentText = truncate(
+        formatTextWithMentions(notification.data.text),
+      );
 
       contentNode = (
         <Trans
@@ -137,7 +160,10 @@ const Item = React.memo(({ id, onClose }) => {
         >
           <span className={styles.author}>{creatorUserName}</span>
           {` mentioned you in «${commentText}» on `}
-          <Link to={Paths.CARDS.replace(':id', notification.cardId)} onClick={onClose}>
+          <Link
+            to={Paths.CARDS.replace(":id", notification.cardId)}
+            onClick={onClose}
+          >
             {cardName}
           </Link>
         </Trans>

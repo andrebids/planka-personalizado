@@ -8,9 +8,9 @@
  */
 
 // Tipos de ficheiros suportados para preview
-const SUPPORTED_IMAGE_TYPES = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
-const SUPPORTED_DOCUMENT_TYPES = ['pdf', 'doc', 'docx', 'txt'];
-const SUPPORTED_ARCHIVE_TYPES = ['zip', 'rar', '7z'];
+const SUPPORTED_IMAGE_TYPES = ["jpg", "jpeg", "png", "gif", "webp", "svg"];
+const SUPPORTED_DOCUMENT_TYPES = ["pdf", "doc", "docx", "txt"];
+const SUPPORTED_ARCHIVE_TYPES = ["zip", "rar", "7z"];
 
 /**
  * Extrai a extensão de um nome de ficheiro
@@ -18,10 +18,10 @@ const SUPPORTED_ARCHIVE_TYPES = ['zip', 'rar', '7z'];
  * @returns {string} Extensão em minúsculas
  */
 export const getFileExtension = (filename) => {
-  if (!filename || typeof filename !== 'string') {
-    return '';
+  if (!filename || typeof filename !== "string") {
+    return "";
   }
-  return filename.split('.').pop().toLowerCase();
+  return filename.split(".").pop().toLowerCase();
 };
 
 /**
@@ -31,16 +31,17 @@ export const getFileExtension = (filename) => {
  */
 export const getFileType = (filename) => {
   const extension = getFileExtension(filename);
-  
+
   return {
     extension,
     isImage: SUPPORTED_IMAGE_TYPES.includes(extension),
-    isPdf: extension === 'pdf',
+    isPdf: extension === "pdf",
     isDocument: SUPPORTED_DOCUMENT_TYPES.includes(extension),
     isArchive: SUPPORTED_ARCHIVE_TYPES.includes(extension),
-    isPreviewable: SUPPORTED_IMAGE_TYPES.includes(extension) || 
-                   SUPPORTED_DOCUMENT_TYPES.includes(extension),
-    mimeType: getMimeType(extension)
+    isPreviewable:
+      SUPPORTED_IMAGE_TYPES.includes(extension) ||
+      SUPPORTED_DOCUMENT_TYPES.includes(extension),
+    mimeType: getMimeType(extension),
   };
 };
 
@@ -52,26 +53,26 @@ export const getFileType = (filename) => {
 export const getMimeType = (extension) => {
   const mimeTypes = {
     // Imagens
-    jpg: 'image/jpeg',
-    jpeg: 'image/jpeg',
-    png: 'image/png',
-    gif: 'image/gif',
-    webp: 'image/webp',
-    svg: 'image/svg+xml',
-    
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    png: "image/png",
+    gif: "image/gif",
+    webp: "image/webp",
+    svg: "image/svg+xml",
+
     // Documentos
-    pdf: 'application/pdf',
-    doc: 'application/msword',
-    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    txt: 'text/plain',
-    
+    pdf: "application/pdf",
+    doc: "application/msword",
+    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    txt: "text/plain",
+
     // Arquivos
-    zip: 'application/zip',
-    rar: 'application/vnd.rar',
-    '7z': 'application/x-7z-compressed'
+    zip: "application/zip",
+    rar: "application/vnd.rar",
+    "7z": "application/x-7z-compressed",
   };
-  
-  return mimeTypes[extension] || 'application/octet-stream';
+
+  return mimeTypes[extension] || "application/octet-stream";
 };
 
 /**
@@ -83,21 +84,21 @@ export const canPreviewFile = (attachment) => {
   if (!attachment || !attachment.name) {
     return false;
   }
-  
+
   const fileType = getFileType(attachment.name);
-  
+
   // Para imagens, verificar se tem thumbnail
   if (fileType.isImage) {
-    return attachment.data && 
-           attachment.data.image && 
-           attachment.data.thumbnailUrls;
+    return (
+      attachment.data && attachment.data.image && attachment.data.thumbnailUrls
+    );
   }
-  
+
   // Para documentos, verificar se tem URL
   if (fileType.isDocument) {
     return attachment.data && attachment.data.url;
   }
-  
+
   return false;
 };
 
@@ -110,21 +111,23 @@ export const getPreviewUrl = (attachment) => {
   if (!canPreviewFile(attachment)) {
     return null;
   }
-  
+
   const fileType = getFileType(attachment.name);
-  
+
   if (fileType.isImage) {
     // Para imagens, usar a URL original ou a maior thumbnail disponível
-    return attachment.data.url || 
-           attachment.data.thumbnailUrls?.outside720 ||
-           attachment.data.thumbnailUrls?.outside360;
+    return (
+      attachment.data.url ||
+      attachment.data.thumbnailUrls?.outside720 ||
+      attachment.data.thumbnailUrls?.outside360
+    );
   }
-  
+
   if (fileType.isDocument) {
     // Para documentos, usar a URL do ficheiro
     return attachment.data.url;
   }
-  
+
   return null;
 };
 
@@ -135,22 +138,22 @@ export const getPreviewUrl = (attachment) => {
  */
 export const getFileIcon = (filename) => {
   const fileType = getFileType(filename);
-  
+
   if (fileType.isImage) {
-    return 'image';
+    return "image";
   }
-  
+
   if (fileType.isPdf) {
-    return 'file pdf outline';
+    return "file pdf outline";
   }
-  
+
   if (fileType.isDocument) {
-    return 'file text outline';
+    return "file text outline";
   }
-  
+
   if (fileType.isArchive) {
-    return 'archive';
+    return "archive";
   }
-  
-  return 'file outline';
+
+  return "file outline";
 };

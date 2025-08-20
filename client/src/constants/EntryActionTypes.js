@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-const PREFIX = '@entry';
+const PREFIX = "@entry";
 
 export default {
   PREFIX,

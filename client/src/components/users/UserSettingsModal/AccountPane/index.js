@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import AccountPane from './AccountPane';
+import AccountPane from "./AccountPane";
 
 export default AccountPane;

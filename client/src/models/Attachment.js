@@ -3,20 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
-import { AttachmentTypes } from '../constants/Enums';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
+import { AttachmentTypes } from "../constants/Enums";
 
 const prepareAttachment = (attachment) => {
   if (attachment.type !== AttachmentTypes.FILE || !attachment.data) {
     return attachment;
   }
 
-  const filename = attachment.data.url.split('/').pop().toLowerCase();
+  const filename = attachment.data.url.split("/").pop().toLowerCase();
 
-  let extension = filename.slice((Math.max(0, filename.lastIndexOf('.')) || Infinity) + 1);
+  let extension = filename.slice(
+    (Math.max(0, filename.lastIndexOf(".")) || Infinity) + 1,
+  );
   extension = extension ? extension.toLowerCase() : null;
 
   return {
@@ -30,7 +32,7 @@ const prepareAttachment = (attachment) => {
 };
 
 export default class extends BaseModel {
-  static modelName = 'Attachment';
+  static modelName = "Attachment";
 
   static fields = {
     id: attr(),
@@ -41,14 +43,14 @@ export default class extends BaseModel {
       getDefault: () => new Date(),
     }),
     cardId: fk({
-      to: 'Card',
-      as: 'card',
-      relatedName: 'attachments',
+      to: "Card",
+      as: "card",
+      relatedName: "attachments",
     }),
     creatorUserId: fk({
-      to: 'User',
-      as: 'creatorUser',
-      relatedName: 'createdAttachments',
+      to: "User",
+      as: "creatorUser",
+      relatedName: "createdAttachments",
     }),
   };
 

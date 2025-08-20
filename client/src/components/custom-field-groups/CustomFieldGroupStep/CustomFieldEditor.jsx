@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Radio } from 'semantic-ui-react';
-import { Input } from '../../../lib/custom-ui';
+import React, { useCallback, useEffect, useImperativeHandle } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useTranslation } from "react-i18next";
+import { Radio } from "semantic-ui-react";
+import { Input } from "../../../lib/custom-ui";
 
-import { useNestedRef } from '../../../hooks';
+import { useNestedRef } from "../../../hooks";
 
-import styles from './CustomFieldEditor.module.scss';
+import styles from "./CustomFieldEditor.module.scss";
 
 const CustomFieldEditor = React.forwardRef(({ data, onFieldChange }, ref) => {
   const [t] = useTranslation();
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
 
   const selectNameField = useCallback(() => {
     nameFieldRef.current.select();
@@ -37,7 +37,7 @@ const CustomFieldEditor = React.forwardRef(({ data, onFieldChange }, ref) => {
 
   return (
     <>
-      <div className={styles.text}>{t('common.title')}</div>
+      <div className={styles.text}>{t("common.title")}</div>
       <Input
         fluid
         ref={handleNameFieldRef}
@@ -51,7 +51,7 @@ const CustomFieldEditor = React.forwardRef(({ data, onFieldChange }, ref) => {
         toggle
         name="showOnFrontOfCard"
         checked={data.showOnFrontOfCard}
-        label={t('common.showOnFrontOfCard')}
+        label={t("common.showOnFrontOfCard")}
         className={classNames(styles.field, styles.fieldRadio)}
         onChange={onFieldChange}
       />

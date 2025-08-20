@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Icon, Menu } from 'semantic-ui-react';
-import { Popup } from '../../../../lib/custom-ui';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { Icon, Menu } from "semantic-ui-react";
+import { Popup } from "../../../../lib/custom-ui";
 
-import { ProjectOrders } from '../../../../constants/Enums';
-import { ProjectOrderIcons } from '../../../../constants/Icons';
+import { ProjectOrders } from "../../../../constants/Enums";
+import { ProjectOrderIcons } from "../../../../constants/Icons";
 
-import styles from './SelectOrderStep.module.scss';
+import styles from "./SelectOrderStep.module.scss";
 
 const SelectOrderStep = React.memo(({ value, onSelect, onClose }) => {
   const [t] = useTranslation();
@@ -31,8 +31,8 @@ const SelectOrderStep = React.memo(({ value, onSelect, onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t('common.selectOrder', {
-          context: 'title',
+        {t("common.selectOrder", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
@@ -49,7 +49,10 @@ const SelectOrderStep = React.memo(({ value, onSelect, onClose }) => {
               className={styles.menuItem}
               onClick={handleSelectClick}
             >
-              <Icon name={ProjectOrderIcons[order]} className={styles.menuItemIcon} />
+              <Icon
+                name={ProjectOrderIcons[order]}
+                className={styles.menuItemIcon}
+              />
               {t(`common.${order}`)}
             </Menu.Item>
           ))}

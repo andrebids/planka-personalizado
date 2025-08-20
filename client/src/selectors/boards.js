@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
-import { selectPath } from './router';
-import { selectCurrentUserId } from './users';
-import { isLocalId } from '../utils/local-id';
-import { isListArchiveOrTrash } from '../utils/record-helpers';
-import { ListTypes } from '../constants/Enums';
+import orm from "../orm";
+import { selectPath } from "./router";
+import { selectCurrentUserId } from "./users";
+import { isLocalId } from "../utils/local-id";
+import { isListArchiveOrTrash } from "../utils/record-helpers";
+import { ListTypes } from "../constants/Enums";
 
 export const makeSelectBoardById = () =>
   createSelector(
@@ -49,7 +49,8 @@ export const makeSelectCurrentUserMembershipByBoardId = () =>
         return boardModel;
       }
 
-      const boardMembershipModel = boardModel.getMembershipModelByUserId(currentUserId);
+      const boardMembershipModel =
+        boardModel.getMembershipModelByUserId(currentUserId);
 
       if (!boardMembershipModel) {
         return boardMembershipModel;
@@ -59,7 +60,8 @@ export const makeSelectCurrentUserMembershipByBoardId = () =>
     },
   );
 
-const selectCurrentUserMembershipByBoardId = makeSelectCurrentUserMembershipByBoardId();
+const selectCurrentUserMembershipByBoardId =
+  makeSelectCurrentUserMembershipByBoardId();
 
 export const makeSelectNotificationsTotalByBoardId = () =>
   createSelector(
@@ -77,7 +79,8 @@ export const makeSelectNotificationsTotalByBoardId = () =>
     },
   );
 
-export const selectNotificationsTotalByBoardId = makeSelectNotificationsTotalByBoardId();
+export const selectNotificationsTotalByBoardId =
+  makeSelectNotificationsTotalByBoardId();
 
 export const makeSelectNotificationServiceIdsByBoardId = () =>
   createSelector(
@@ -98,7 +101,8 @@ export const makeSelectNotificationServiceIdsByBoardId = () =>
     },
   );
 
-export const selectNotificationServiceIdsByBoardId = makeSelectNotificationServiceIdsByBoardId();
+export const selectNotificationServiceIdsByBoardId =
+  makeSelectNotificationServiceIdsByBoardId();
 
 export const selectIsBoardWithIdAvailableForCurrentUser = createSelector(
   orm,
@@ -195,7 +199,8 @@ export const selectCurrentUserMembershipForCurrentBoard = createSelector(
       return boardModel;
     }
 
-    const boardMembershipModel = boardModel.getMembershipModelByUserId(currentUserId);
+    const boardMembershipModel =
+      boardModel.getMembershipModelByUserId(currentUserId);
 
     if (!boardMembershipModel) {
       return boardMembershipModel;
@@ -328,7 +333,9 @@ export const selectFilteredCardIdsForCurrentBoard = createSelector(
       return boardModel;
     }
 
-    return boardModel.getFilteredCardsModelArray().map((cardModel) => cardModel.id);
+    return boardModel
+      .getFilteredCardsModelArray()
+      .map((cardModel) => cardModel.id);
   },
 );
 

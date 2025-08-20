@@ -3,14 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
-import { resetProjectsOrder, resetFavoritesOrder } from '../../../actions/sidebarActions';
-import { selectProjectsOrder, selectFavoritesOrder } from '../../../selectors/sidebarSelectors';
+import {
+  resetProjectsOrder,
+  resetFavoritesOrder,
+} from "../../../actions/sidebarActions";
+import {
+  selectProjectsOrder,
+  selectFavoritesOrder,
+} from "../../../selectors/sidebarSelectors";
 
-import styles from './ProjectOrderControls.module.scss';
+import styles from "./ProjectOrderControls.module.scss";
 
 const ProjectOrderControls = React.memo(() => {
   const dispatch = useDispatch();
@@ -26,7 +32,9 @@ const ProjectOrderControls = React.memo(() => {
   };
 
   // Mostrar controles apenas quando houver ordenação personalizada a ser resetada
-  const hasAnyCustomOrder = (customOrder && customOrder.length > 0) || (customFavOrder && customFavOrder.length > 0);
+  const hasAnyCustomOrder =
+    (customOrder && customOrder.length > 0) ||
+    (customFavOrder && customFavOrder.length > 0);
   if (!hasAnyCustomOrder) {
     return null;
   }

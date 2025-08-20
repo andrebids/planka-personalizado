@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import styles from './NotificationIndicator.module.scss';
+import styles from "./NotificationIndicator.module.scss";
 
 /**
  * Componente de notificação azul para o sidebar - apenas uma bola pequena

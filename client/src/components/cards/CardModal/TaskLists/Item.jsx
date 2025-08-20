@@ -3,30 +3,36 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
-import { Button, Icon } from 'semantic-ui-react';
+import React, { useMemo } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
+import { Button, Icon } from "semantic-ui-react";
 
-import selectors from '../../../../selectors';
-import { usePopupInClosableContext } from '../../../../hooks';
-import { BoardMembershipRoles } from '../../../../constants/Enums';
-import EditStep from './EditStep';
-import TaskList from '../../../task-lists/TaskList';
+import selectors from "../../../../selectors";
+import { usePopupInClosableContext } from "../../../../hooks";
+import { BoardMembershipRoles } from "../../../../constants/Enums";
+import EditStep from "./EditStep";
+import TaskList from "../../../task-lists/TaskList";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id, index }) => {
-  const selectTaskListById = useMemo(() => selectors.makeSelectTaskListById(), []);
+  const selectTaskListById = useMemo(
+    () => selectors.makeSelectTaskListById(),
+    [],
+  );
 
   const taskList = useSelector((state) => selectTaskListById(state, id));
 
   const canEdit = useSelector((state) => {
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   const EditPopup = usePopupInClosableContext(EditStep);
@@ -61,7 +67,9 @@ const Item = React.memo(({ id, index }) => {
                       </Button>
                     </EditPopup>
                   )}
-                  <span className={styles.moduleHeaderTitle}>{taskList.name}</span>
+                  <span className={styles.moduleHeaderTitle}>
+                    {taskList.name}
+                  </span>
                 </div>
               </div>
               <TaskList id={id} />
@@ -69,7 +77,9 @@ const Item = React.memo(({ id, index }) => {
           </div>
         );
 
-        return isDragging ? ReactDOM.createPortal(contentNode, document.body) : contentNode;
+        return isDragging
+          ? ReactDOM.createPortal(contentNode, document.body)
+          : contentNode;
       }}
     </Draggable>
   );

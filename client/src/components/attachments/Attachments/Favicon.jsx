@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Icon } from 'semantic-ui-react';
+import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
+import { Icon } from "semantic-ui-react";
 
-import styles from './Favicon.module.scss';
+import styles from "./Favicon.module.scss";
 
 const Favicon = React.memo(({ url }) => {
   const [isImageError, setIsImageError] = useState(false);

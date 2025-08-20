@@ -1,8 +1,8 @@
-import login from './login';
+import login from "./login";
 
 export default {
-  language: 'ru-RU',
-  country: 'ru',
-  name: 'Русский',
+  language: "ru-RU",
+  country: "ru",
+  name: "Русский",
   embeddedLocale: login,
 };

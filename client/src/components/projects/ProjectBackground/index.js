@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ProjectBackground from './ProjectBackground';
+import ProjectBackground from "./ProjectBackground";
 
 export default ProjectBackground;

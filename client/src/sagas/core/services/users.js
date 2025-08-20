@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import { changeCoreLanguage, logout } from './core';
-import request from '../request';
-import requests from '../requests';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { setAccessToken } from '../../../utils/access-token-storage';
-import mergeRecords from '../../../utils/merge-records';
-import { isUserAdminOrProjectOwner } from '../../../utils/record-helpers';
-import { UserRoles } from '../../../constants/Enums';
+import { changeCoreLanguage, logout } from "./core";
+import request from "../request";
+import requests from "../requests";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { setAccessToken } from "../../../utils/access-token-storage";
+import mergeRecords from "../../../utils/merge-records";
+import { isUserAdminOrProjectOwner } from "../../../utils/record-helpers";
+import { UserRoles } from "../../../constants/Enums";
 
 export function* createUser(data) {
   yield put(actions.createUser(data));
@@ -62,7 +62,8 @@ export function* handleUserUpdate(user) {
   const prevUser = yield select(selectors.selectUserById, user.id);
 
   const isChangedToAdminOrProjectOwner =
-    (!prevUser || (prevUser.role !== user.role && prevUser.role !== UserRoles.ADMIN)) &&
+    (!prevUser ||
+      (prevUser.role !== user.role && prevUser.role !== UserRoles.ADMIN)) &&
     isUserAdminOrProjectOwner(user);
 
   const currentUser = yield select(selectors.selectCurrentUser);
@@ -188,7 +189,9 @@ export function* handleUserUpdate(user) {
   );
 
   if (isCurrentUser) {
-    const isAvailableForCurrentUser = yield select(selectors.isCurrentModalAvailableForCurrentUser);
+    const isAvailableForCurrentUser = yield select(
+      selectors.isCurrentModalAvailableForCurrentUser,
+    );
 
     if (!isAvailableForCurrentUser) {
       yield put(actions.closeModal());
@@ -366,9 +369,14 @@ export function* addUserToCard(id, cardId) {
 
   let cardMembership;
   try {
-    ({ item: cardMembership } = yield call(request, api.createCardMembership, cardId, {
-      userId: id,
-    }));
+    ({ item: cardMembership } = yield call(
+      request,
+      api.createCardMembership,
+      cardId,
+      {
+        userId: id,
+      },
+    ));
   } catch (error) {
     yield put(actions.addUserToCard.failure(id, cardId, error));
     return;
@@ -398,7 +406,12 @@ export function* removeUserFromCard(id, cardId) {
 
   let cardMembership;
   try {
-    ({ item: cardMembership } = yield call(request, api.deleteCardMembership, cardId, id));
+    ({ item: cardMembership } = yield call(
+      request,
+      api.deleteCardMembership,
+      cardId,
+      id,
+    ));
   } catch (error) {
     yield put(actions.removeUserFromCard.failure(id, cardId, error));
     return;

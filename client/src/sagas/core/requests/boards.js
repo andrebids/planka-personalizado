@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, select } from 'redux-saga/effects';
+import { call, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import api from '../../../api';
-import mergeRecords from '../../../utils/merge-records';
-import Paths from '../../../constants/Paths';
+import request from "../request";
+import selectors from "../../../selectors";
+import api from "../../../api";
+import mergeRecords from "../../../utils/merge-records";
+import Paths from "../../../constants/Paths";
 
 export function* fetchBoardByCurrentPath() {
   const pathsMatch = yield select(selectors.selectPathsMatch);

@@ -3,35 +3,43 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo, useState, useCallback, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { useTranslation, Trans } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Comment } from 'semantic-ui-react';
-import { Gallery, Item as GalleryItem } from 'react-photoswipe-gallery';
+import React, { useMemo, useState, useCallback, useContext } from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useTranslation, Trans } from "react-i18next";
+import { Link } from "react-router-dom";
+import { Comment } from "semantic-ui-react";
+import { Gallery, Item as GalleryItem } from "react-photoswipe-gallery";
 
-import selectors from '../../../selectors';
-import Paths from '../../../constants/Paths';
-import { StaticUserIds } from '../../../constants/StaticUsers';
-import { ActivityTypes, AttachmentTypes } from '../../../constants/Enums';
-import { canPreviewFile } from '../../../utils/fileTypeUtils';
-import { ClosableContext } from '../../../contexts';
-import TimeAgo from '../../common/TimeAgo';
-import UserAvatar from '../../users/UserAvatar';
+import selectors from "../../../selectors";
+import Paths from "../../../constants/Paths";
+import { StaticUserIds } from "../../../constants/StaticUsers";
+import { ActivityTypes, AttachmentTypes } from "../../../constants/Enums";
+import { canPreviewFile } from "../../../utils/fileTypeUtils";
+import { ClosableContext } from "../../../contexts";
+import TimeAgo from "../../common/TimeAgo";
+import UserAvatar from "../../users/UserAvatar";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id }) => {
-  const selectActivityById = useMemo(() => selectors.makeSelectActivityById(), []);
+  const selectActivityById = useMemo(
+    () => selectors.makeSelectActivityById(),
+    [],
+  );
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
-  const selectAttachmentsForCard = useMemo(() => selectors.makeSelectAttachmentsForCard(), []);
+  const selectAttachmentsForCard = useMemo(
+    () => selectors.makeSelectAttachmentsForCard(),
+    [],
+  );
 
   const activity = useSelector((state) => selectActivityById(state, id));
   const user = useSelector((state) => selectUserById(state, activity.userId));
   const card = useSelector((state) => selectCardById(state, activity.cardId));
-  const attachments = useSelector((state) => selectAttachmentsForCard(state, activity.cardId));
+  const attachments = useSelector((state) =>
+    selectAttachmentsForCard(state, activity.cardId),
+  );
 
   const [t] = useTranslation();
   const [activateClosable, deactivateClosable] = useContext(ClosableContext);
@@ -39,7 +47,7 @@ const Item = React.memo(({ id }) => {
   const handleBeforeGalleryOpen = useCallback(
     (gallery) => {
       activateClosable();
-      gallery.on('destroy', () => {
+      gallery.on("destroy", () => {
         deactivateClosable();
       });
     },
@@ -49,7 +57,7 @@ const Item = React.memo(({ id }) => {
   const userName =
     user.id === StaticUserIds.DELETED
       ? t(`common.${user.name}`, {
-          context: 'title',
+          context: "title",
         })
       : user.name;
 
@@ -61,14 +69,16 @@ const Item = React.memo(({ id }) => {
       attachment.type === AttachmentTypes.FILE &&
       attachment.data.image &&
       attachment.data.thumbnailUrls &&
-      canPreviewFile(attachment)
+      canPreviewFile(attachment),
   );
 
   // Mostrar apenas a primeira imagem (agora ocupa largura completa)
   // Não mostrar imagens quando se cria um cartão ou uma tarefa
-  const thumbnailAttachments = (activity.type === ActivityTypes.CREATE_CARD || activity.type === ActivityTypes.CREATE_TASK)
-    ? [] 
-    : imageAttachments.slice(0, 1);
+  const thumbnailAttachments =
+    activity.type === ActivityTypes.CREATE_CARD ||
+    activity.type === ActivityTypes.CREATE_TASK
+      ? []
+      : imageAttachments.slice(0, 1);
 
   let contentNode;
   switch (activity.type) {
@@ -86,9 +96,11 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' added '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
-          {' to '}
+          {" added "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
+          {" to "}
           {listName}
         </Trans>
       );
@@ -112,11 +124,13 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' moved '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
-          {' from '}
+          {" moved "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
+          {" from "}
           {fromListName}
-          {' to '}
+          {" to "}
           {toListName}
         </Trans>
       );
@@ -134,8 +148,10 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' joined '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+            {" joined "}
+            <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+              {cardName}
+            </Link>
           </Trans>
         ) : (
           <Trans
@@ -147,10 +163,12 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' added '}
+            {" added "}
             {activity.data.user.name}
-            {' to '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+            {" to "}
+            <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+              {cardName}
+            </Link>
           </Trans>
         );
 
@@ -166,10 +184,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' removed '}
+          {" removed "}
           {activity.data.user.name}
-          {' from '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" from "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -184,15 +204,17 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' added attachment to '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" added attachment to "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
       break;
     case ActivityTypes.SET_DUE_DATE: {
       const { oldDueDate, newDueDate } = activity.data;
-      
+
       const formatDate = (date) => {
         if (!date) return null;
         return new Date(date).toLocaleDateString();
@@ -213,10 +235,12 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' set due date to '}
+            {" set due date to "}
             <strong>{newDate}</strong>
-            {' for '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+            {" for "}
+            <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+              {cardName}
+            </Link>
           </Trans>
         );
       } else if (oldDueDate && !newDueDate) {
@@ -230,8 +254,10 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' removed due date from '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+            {" removed due date from "}
+            <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+              {cardName}
+            </Link>
           </Trans>
         );
       } else {
@@ -247,12 +273,14 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' changed due date from '}
+            {" changed due date from "}
             <strong>{oldDate}</strong>
-            {' to '}
+            {" to "}
             <strong>{newDate}</strong>
-            {' for '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+            {" for "}
+            <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+              {cardName}
+            </Link>
           </Trans>
         );
       }
@@ -273,10 +301,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' completou '}
+          {" completou "}
           <strong>{taskName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" em "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -296,10 +326,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' marcou '}
+          {" marcou "}
           <strong>{taskName}</strong>
-          {' como incompleta em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" como incompleta em "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -319,10 +351,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' criou '}
+          {" criou "}
           <strong>{taskName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" em "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -342,10 +376,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' excluiu '}
+          {" excluiu "}
           <strong>{taskName}</strong>
-          {' de '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" de "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -365,10 +401,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' atualizou '}
+          {" atualizou "}
           <strong>{taskName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" em "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -388,10 +426,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' criou lista de tarefas '}
+          {" criou lista de tarefas "}
           <strong>{taskListName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" em "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -411,10 +451,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' excluiu lista de tarefas '}
+          {" excluiu lista de tarefas "}
           <strong>{taskListName}</strong>
-          {' de '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" de "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -434,10 +476,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' criou anexo '}
+          {" criou anexo "}
           <strong>{attachmentName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" em "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -457,10 +501,12 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' excluiu anexo '}
+          {" excluiu anexo "}
           <strong>{attachmentName}</strong>
-          {' de '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>{cardName}</Link>
+          {" de "}
+          <Link to={Paths.CARDS.replace(":id", activity.cardId)}>
+            {cardName}
+          </Link>
         </Trans>
       );
 
@@ -495,15 +541,15 @@ const Item = React.memo(({ id }) => {
                 withDownloadButton
                 options={{
                   wheelToZoom: true,
-                  showHideAnimationType: 'none',
-                  closeTitle: '',
-                  zoomTitle: '',
-                  arrowPrevTitle: '',
-                  arrowNextTitle: '',
-                  errorMsg: '',
+                  showHideAnimationType: "none",
+                  closeTitle: "",
+                  zoomTitle: "",
+                  arrowPrevTitle: "",
+                  arrowNextTitle: "",
+                  errorMsg: "",
                 }}
                 onBeforeOpen={handleBeforeGalleryOpen}
-             >
+              >
                 {thumbnailAttachments.map((attachment) => (
                   <GalleryItem
                     key={attachment.id}
@@ -514,7 +560,10 @@ const Item = React.memo(({ id }) => {
                     {({ ref, open }) => (
                       <img
                         ref={ref}
-                        src={attachment.data.thumbnailUrls.outside720 || attachment.data.thumbnailUrls.outside360}
+                        src={
+                          attachment.data.thumbnailUrls.outside720 ||
+                          attachment.data.thumbnailUrls.outside360
+                        }
                         alt={attachment.name}
                         className={styles.thumbnail}
                         onClick={open}

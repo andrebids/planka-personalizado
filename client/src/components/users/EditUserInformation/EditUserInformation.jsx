@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from 'dequal';
-import omit from 'lodash/omit';
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form, Input } from 'semantic-ui-react';
+import { dequal } from "dequal";
+import omit from "lodash/omit";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form, Input } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useForm, useNestedRef } from '../../../hooks';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useForm, useNestedRef } from "../../../hooks";
 
-import styles from './EditUserInformation.module.scss';
+import styles from "./EditUserInformation.module.scss";
 
 const EditUserInformation = React.memo(({ id, onUpdate }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
@@ -35,10 +35,10 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
   );
 
   const [data, handleFieldChange] = useForm(() => ({
-    name: '',
+    name: "",
     ...defaultData,
-    phone: defaultData.phone || '',
-    organization: defaultData.organization || '',
+    phone: defaultData.phone || "",
+    organization: defaultData.organization || "",
   }));
 
   const cleanData = useMemo(
@@ -51,9 +51,9 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
     [data],
   );
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
 
-  const isNameEditable = !user.lockedFieldNames.includes('name');
+  const isNameEditable = !user.lockedFieldNames.includes("name");
 
   const handleSubmit = useCallback(() => {
     if (isNameEditable && !cleanData.name) {
@@ -61,7 +61,12 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
       return;
     }
 
-    dispatch(entryActions.updateUser(id, isNameEditable ? cleanData : omit(cleanData, 'name')));
+    dispatch(
+      entryActions.updateUser(
+        id,
+        isNameEditable ? cleanData : omit(cleanData, "name"),
+      ),
+    );
 
     if (onUpdate) {
       onUpdate();
@@ -70,7 +75,7 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div className={styles.text}>{t('common.name')}</div>
+      <div className={styles.text}>{t("common.name")}</div>
       <Input
         fluid
         ref={handleNameFieldRef}
@@ -81,7 +86,7 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
         className={styles.field}
         onChange={handleFieldChange}
       />
-      <div className={styles.text}>{t('common.phone')}</div>
+      <div className={styles.text}>{t("common.phone")}</div>
       <Input
         fluid
         name="phone"
@@ -90,7 +95,7 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
         className={styles.field}
         onChange={handleFieldChange}
       />
-      <div className={styles.text}>{t('common.organization')}</div>
+      <div className={styles.text}>{t("common.organization")}</div>
       <Input
         fluid
         name="organization"
@@ -99,7 +104,11 @@ const EditUserInformation = React.memo(({ id, onUpdate }) => {
         className={styles.field}
         onChange={handleFieldChange}
       />
-      <Button positive disabled={dequal(cleanData, defaultData)} content={t('action.save')} />
+      <Button
+        positive
+        disabled={dequal(cleanData, defaultData)}
+        content={t("action.save")}
+      />
     </Form>
   );
 });

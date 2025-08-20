@@ -3,32 +3,32 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
 
 export default class extends BaseModel {
-  static modelName = 'CustomFieldGroup';
+  static modelName = "CustomFieldGroup";
 
   static fields = {
     id: attr(),
     position: attr(),
     name: attr(),
     boardId: fk({
-      to: 'Board',
-      as: 'board',
-      relatedName: 'customFieldGroups',
+      to: "Board",
+      as: "board",
+      relatedName: "customFieldGroups",
     }),
     cardId: fk({
-      to: 'Card',
-      as: 'card',
-      relatedName: 'customFieldGroups',
+      to: "Card",
+      as: "card",
+      relatedName: "customFieldGroups",
     }),
     baseCustomFieldGroupId: fk({
-      to: 'BaseCustomFieldGroup',
-      as: 'baseCustomFieldGroup',
-      relatedName: 'customFieldGroups',
+      to: "BaseCustomFieldGroup",
+      as: "baseCustomFieldGroup",
+      relatedName: "customFieldGroups",
     }),
   };
 
@@ -93,7 +93,9 @@ export default class extends BaseModel {
         break;
       case ActionTypes.CUSTOM_FIELD_GROUP_DELETE__SUCCESS:
       case ActionTypes.CUSTOM_FIELD_GROUP_DELETE_HANDLE: {
-        const customFieldGroupModel = CustomFieldGroup.withId(payload.customFieldGroup.id);
+        const customFieldGroupModel = CustomFieldGroup.withId(
+          payload.customFieldGroup.id,
+        );
 
         if (customFieldGroupModel) {
           customFieldGroupModel.deleteWithRelated();
@@ -106,7 +108,7 @@ export default class extends BaseModel {
   }
 
   getCustomFieldsQuerySet() {
-    return this.customFields.orderBy(['position', 'id.length', 'id']);
+    return this.customFields.orderBy(["position", "id.length", "id"]);
   }
 
   getCustomFieldsModelArray() {

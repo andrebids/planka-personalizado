@@ -3,25 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useInView } from 'react-intersection-observer';
-import { Comment, Loader } from 'semantic-ui-react';
+import React, { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import { Comment, Loader } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { isListArchiveOrTrash } from '../../../utils/record-helpers';
-import { BoardMembershipRoles } from '../../../constants/Enums';
-import Item from './Item';
-import Add from './Add';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import { BoardMembershipRoles } from "../../../constants/Enums";
+import Item from "./Item";
+import Add from "./Add";
 
-import styles from './Comments.module.scss';
+import styles from "./Comments.module.scss";
 
 const Comments = React.memo(() => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const commentIds = useSelector(selectors.selectCommentIdsForCurrentCard);
-  const { isCommentsFetching, isAllCommentsFetched } = useSelector(selectors.selectCurrentCard);
+  const { isCommentsFetching, isAllCommentsFetched } = useSelector(
+    selectors.selectCurrentCard,
+  );
 
   const cadAdd = useSelector((state) => {
     const { listId } = selectors.selectCurrentCard(state);
@@ -31,7 +33,8 @@ const Comments = React.memo(() => {
       return false;
     }
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
 
     let isMember = false;
     let isEditor = false;
@@ -65,15 +68,16 @@ const Comments = React.memo(() => {
           ))}
         </Comment.Group>
       </div>
-      {isCommentsFetching !== undefined && isAllCommentsFetched !== undefined && (
-        <div className={styles.loaderWrapper}>
-          {isCommentsFetching ? (
-            <Loader active inverted inline="centered" size="small" />
-          ) : (
-            !isAllCommentsFetched && <div ref={inViewRef} />
-          )}
-        </div>
-      )}
+      {isCommentsFetching !== undefined &&
+        isAllCommentsFetched !== undefined && (
+          <div className={styles.loaderWrapper}>
+            {isCommentsFetching ? (
+              <Loader active inverted inline="centered" size="small" />
+            ) : (
+              !isAllCommentsFetched && <div ref={inViewRef} />
+            )}
+          </div>
+        )}
     </>
   );
 });

@@ -3,36 +3,36 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from 'lodash/upperFirst';
-import camelCase from 'lodash/camelCase';
-import initials from 'initials';
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import upperFirst from "lodash/upperFirst";
+import camelCase from "lodash/camelCase";
+import initials from "initials";
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
-import selectors from '../../../selectors';
-import { StaticUserIds } from '../../../constants/StaticUsers';
+import selectors from "../../../selectors";
+import { StaticUserIds } from "../../../constants/StaticUsers";
 
-import styles from './UserAvatar.module.scss';
+import styles from "./UserAvatar.module.scss";
 
 const Sizes = {
-  TINY: 'tiny',
-  SMALL: 'small',
-  MEDIUM: 'medium',
-  LARGE: 'large',
-  MASSIVE: 'massive',
+  TINY: "tiny",
+  SMALL: "small",
+  MEDIUM: "medium",
+  LARGE: "large",
+  MASSIVE: "massive",
 };
 
 const COLORS = [
-  'emerald',
-  'peter-river',
-  'wisteria',
-  'carrot',
-  'alizarin',
-  'turquoise',
-  'midnight-blue',
+  "emerald",
+  "peter-river",
+  "wisteria",
+  "carrot",
+  "alizarin",
+  "turquoise",
+  "midnight-blue",
 ];
 
 const getColor = (name) => {
@@ -57,7 +57,7 @@ const UserAvatar = React.memo(
         title={
           user.id === StaticUserIds.DELETED
             ? t(`common.${user.name}`, {
-                context: 'title',
+                context: "title",
               })
             : user.name
         }
@@ -65,14 +65,23 @@ const UserAvatar = React.memo(
           styles.wrapper,
           styles[`wrapper${upperFirst(size)}`],
           onClick && styles.wrapperHoverable,
-          !user.avatar && styles[`background${upperFirst(camelCase(getColor(user.name)))}`],
+          !user.avatar &&
+            styles[`background${upperFirst(camelCase(getColor(user.name)))}`],
         )}
         style={{
-          background: user.avatar && `url("${user.avatar.thumbnailUrls.cover180}") center / cover`,
+          background:
+            user.avatar &&
+            `url("${user.avatar.thumbnailUrls.cover180}") center / cover`,
         }}
       >
-        {!user.avatar && <span className={styles.initials}>{initials(user.name).slice(0, 2)}</span>}
-        {withCreatorIndicator && <span className={styles.creatorIndicator}>+</span>}
+        {!user.avatar && (
+          <span className={styles.initials}>
+            {initials(user.name).slice(0, 2)}
+          </span>
+        )}
+        {withCreatorIndicator && (
+          <span className={styles.creatorIndicator}>+</span>
+        )}
       </span>
     );
 

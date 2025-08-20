@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
 
-import selectors from '../../../selectors';
-import { BoardMembershipRoles } from '../../../constants/Enums';
-import Card from '../Card';
+import selectors from "../../../selectors";
+import { BoardMembershipRoles } from "../../../constants/Enums";
+import Card from "../Card";
 
-import styles from './DraggableCard.module.scss';
+import styles from "./DraggableCard.module.scss";
 
 const DraggableCard = React.memo(({ id, index, className, ...props }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
@@ -21,8 +21,11 @@ const DraggableCard = React.memo(({ id, index, className, ...props }) => {
   const card = useSelector((state) => selectCardById(state, id));
 
   const canDrag = useSelector((state) => {
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   return (

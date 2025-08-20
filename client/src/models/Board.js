@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk, many } from 'redux-orm';
+import { attr, fk, many } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import buildSearchParts from '../utils/build-search-parts';
-import { isListFinite } from '../utils/record-helpers';
-import ActionTypes from '../constants/ActionTypes';
-import Config from '../constants/Config';
-import { BoardContexts, BoardViews } from '../constants/Enums';
+import BaseModel from "./BaseModel";
+import buildSearchParts from "../utils/build-search-parts";
+import { isListFinite } from "../utils/record-helpers";
+import ActionTypes from "../constants/ActionTypes";
+import Config from "../constants/Config";
+import { BoardContexts, BoardViews } from "../constants/Enums";
 
 const prepareFetchedBoard = (board) => ({
   ...board,
   isFetching: false,
   context: BoardContexts.BOARD,
   view: board.defaultView,
-  search: '',
+  search: "",
 });
 
 export default class extends BaseModel {
-  static modelName = 'Board';
+  static modelName = "Board";
 
   static fields = {
     id: attr(),
@@ -50,17 +50,17 @@ export default class extends BaseModel {
       getDefault: () => null,
     }),
     projectId: fk({
-      to: 'Project',
-      as: 'project',
-      relatedName: 'boards',
+      to: "Project",
+      as: "project",
+      relatedName: "boards",
     }),
     memberUsers: many({
-      to: 'User',
-      through: 'BoardMembership',
-      relatedName: 'boards',
+      to: "User",
+      through: "BoardMembership",
+      relatedName: "boards",
     }),
-    filterUsers: many('User', 'filterBoards'),
-    filterLabels: many('Label', 'filterBoards'),
+    filterUsers: many("User", "filterBoards"),
+    filterLabels: many("Label", "filterBoards"),
   };
 
   static reducer({ type, payload }, Board) {
@@ -84,7 +84,10 @@ export default class extends BaseModel {
         Board.all()
           .toModelArray()
           .forEach((boardModel) => {
-            if (boardModel.isFetching === null || !boardIds.includes(boardModel.id)) {
+            if (
+              boardModel.isFetching === null ||
+              !boardIds.includes(boardModel.id)
+            ) {
               boardModel.deleteWithClearable();
             }
           });
@@ -219,7 +222,10 @@ export default class extends BaseModel {
 
         boardModel.update({
           context: payload.value,
-          view: payload.value === BoardContexts.BOARD ? boardModel.defaultView : BoardViews.LIST,
+          view:
+            payload.value === BoardContexts.BOARD
+              ? boardModel.defaultView
+              : BoardViews.LIST,
         });
 
         break;
@@ -261,9 +267,11 @@ export default class extends BaseModel {
       case ActionTypes.ACTIVITIES_IN_BOARD_FETCH__SUCCESS:
         Board.withId(payload.boardId).update({
           isActivitiesFetching: false,
-          isAllActivitiesFetched: payload.activities.length < Config.ACTIVITIES_LIMIT,
+          isAllActivitiesFetched:
+            payload.activities.length < Config.ACTIVITIES_LIMIT,
           ...(payload.activities.length > 0 && {
-            lastActivityId: payload.activities[payload.activities.length - 1].id,
+            lastActivityId:
+              payload.activities[payload.activities.length - 1].id,
           }),
         });
 
@@ -273,15 +281,15 @@ export default class extends BaseModel {
   }
 
   getMembershipsQuerySet() {
-    return this.memberships.orderBy(['id.length', 'id']);
+    return this.memberships.orderBy(["id.length", "id"]);
   }
 
   getLabelsQuerySet() {
-    return this.labels.orderBy(['position', 'id.length', 'id']);
+    return this.labels.orderBy(["position", "id.length", "id"]);
   }
 
   getListsQuerySet() {
-    return this.lists.orderBy(['position', 'id.length', 'id']);
+    return this.lists.orderBy(["position", "id.length", "id"]);
   }
 
   getFiniteListsQuerySet() {
@@ -289,11 +297,11 @@ export default class extends BaseModel {
   }
 
   getCustomFieldGroupsQuerySet() {
-    return this.customFieldGroups.orderBy(['position', 'id.length', 'id']);
+    return this.customFieldGroups.orderBy(["position", "id.length", "id"]);
   }
 
   getActivitiesQuerySet() {
-    return this.activities.orderBy(['id.length', 'id'], ['desc', 'desc']);
+    return this.activities.orderBy(["id.length", "id"], ["desc", "desc"]);
   }
 
   getUnreadNotificationsQuerySet() {
@@ -303,7 +311,7 @@ export default class extends BaseModel {
   }
 
   getNotificationServicesQuerySet() {
-    return this.notificationServices.orderBy(['id.length', 'id']);
+    return this.notificationServices.orderBy(["id.length", "id"]);
   }
 
   getMembershipModelByUserId(userId) {
@@ -328,10 +336,10 @@ export default class extends BaseModel {
     }
 
     if (this.search) {
-      if (this.search.startsWith('/')) {
+      if (this.search.startsWith("/")) {
         let searchRegex;
         try {
-          searchRegex = new RegExp(this.search.substring(1), 'i');
+          searchRegex = new RegExp(this.search.substring(1), "i");
         } catch {
           return [];
         }
@@ -346,11 +354,13 @@ export default class extends BaseModel {
 
         cardModels = cardModels.filter((cardModel) => {
           const name = cardModel.name.toLowerCase();
-          const description = cardModel.description && cardModel.description.toLowerCase();
+          const description =
+            cardModel.description && cardModel.description.toLowerCase();
 
           return searchParts.every(
             (searchPart) =>
-              name.includes(searchPart) || (description && description.includes(searchPart)),
+              name.includes(searchPart) ||
+              (description && description.includes(searchPart)),
           );
         });
       }
@@ -365,7 +375,9 @@ export default class extends BaseModel {
       });
     }
 
-    const filterLabelIds = this.filterLabels.toRefArray().map((label) => label.id);
+    const filterLabelIds = this.filterLabels
+      .toRefArray()
+      .map((label) => label.id);
 
     if (filterLabelIds.length > 0) {
       cardModels = cardModels.filter((cardModel) => {

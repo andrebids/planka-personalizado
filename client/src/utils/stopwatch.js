@@ -47,5 +47,8 @@ export const getStopwatchParts = (stopwatch) => {
 
 export const formatStopwatch = (stopwatch) => {
   const { hours, minutes, seconds } = getStopwatchParts(stopwatch);
-  return [hours, ...[minutes, seconds].map((part) => (part < 10 ? `0${part}` : part))].join(':');
+  return [
+    hours,
+    ...[minutes, seconds].map((part) => (part < 10 ? `0${part}` : part)),
+  ].join(":");
 };

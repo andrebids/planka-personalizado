@@ -1,8 +1,8 @@
-import login from './login';
+import login from "./login";
 
 export default {
-  language: 'pl-PL',
-  country: 'pl',
-  name: 'Polski',
+  language: "pl-PL",
+  country: "pl",
+  name: "Polski",
   embeddedLocale: login,
 };

@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-const EMPTY_TRASH = 'EMPTY_TRASH';
+const EMPTY_TRASH = "EMPTY_TRASH";
 
 export default {
   EMPTY_TRASH,

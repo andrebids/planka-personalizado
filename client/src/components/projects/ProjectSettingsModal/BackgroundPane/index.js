@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import BackgroundPane from './BackgroundPane';
+import BackgroundPane from "./BackgroundPane";
 
 export default BackgroundPane;

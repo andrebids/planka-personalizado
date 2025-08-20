@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import LinkifyReact from 'linkify-react';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import LinkifyReact from "linkify-react";
 
-import history from '../../history';
+import history from "../../history";
 
 const Linkify = React.memo(({ children, linkStopPropagation, ...props }) => {
   const handleLinkClick = useCallback(
@@ -16,7 +16,7 @@ const Linkify = React.memo(({ children, linkStopPropagation, ...props }) => {
         event.stopPropagation();
       }
 
-      if (!event.target.getAttribute('target')) {
+      if (!event.target.getAttribute("target")) {
         event.preventDefault();
         history.push(event.target.href);
       }
@@ -39,8 +39,8 @@ const Linkify = React.memo(({ children, linkStopPropagation, ...props }) => {
         <a
           {...linkProps} // eslint-disable-line react/jsx-props-no-spreading
           href={href}
-          target={isSameSite ? undefined : '_blank'}
-          rel={isSameSite ? undefined : 'noreferrer'}
+          target={isSameSite ? undefined : "_blank"}
+          rel={isSameSite ? undefined : "noreferrer"}
           onClick={handleLinkClick}
         >
           {isSameSite ? url.pathname : content}
@@ -54,7 +54,7 @@ const Linkify = React.memo(({ children, linkStopPropagation, ...props }) => {
     <LinkifyReact
       {...props} // eslint-disable-line react/jsx-props-no-spreading
       options={{
-        defaultProtocol: 'https',
+        defaultProtocol: "https",
         render: linkRenderer,
       }}
     >

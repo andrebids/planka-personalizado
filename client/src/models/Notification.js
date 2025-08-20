@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk, oneToOne } from 'redux-orm';
+import { attr, fk, oneToOne } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
 
 export default class extends BaseModel {
-  static modelName = 'Notification';
+  static modelName = "Notification";
 
   static fields = {
     id: attr(),
@@ -17,32 +17,32 @@ export default class extends BaseModel {
     data: attr(),
     isRead: attr(),
     userId: fk({
-      to: 'User',
-      as: 'user',
-      relatedName: 'notifications',
+      to: "User",
+      as: "user",
+      relatedName: "notifications",
     }),
     creatorUserId: fk({
-      to: 'User',
-      as: 'creatorUser',
-      relatedName: 'createdNotifications',
+      to: "User",
+      as: "creatorUser",
+      relatedName: "createdNotifications",
     }),
     boardId: fk({
-      to: 'Board',
-      as: 'board',
-      relatedName: 'notifications',
+      to: "Board",
+      as: "board",
+      relatedName: "notifications",
     }),
     cardId: fk({
-      to: 'Card',
-      as: 'card',
-      relatedName: 'notifications',
+      to: "Card",
+      as: "card",
+      relatedName: "notifications",
     }),
     commentId: oneToOne({
-      to: 'Comment',
-      as: 'comment',
+      to: "Comment",
+      as: "comment",
     }),
     activityId: oneToOne({
-      to: 'Activity',
-      as: 'activity',
+      to: "Activity",
+      as: "activity",
     }),
   };
 

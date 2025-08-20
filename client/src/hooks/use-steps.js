@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 const createStep = (type, params = {}) => {
   if (!type) {
@@ -17,7 +17,9 @@ const createStep = (type, params = {}) => {
 };
 
 export default (initialType, initialParams) => {
-  const [step, setStep] = useState(() => createStep(initialType, initialParams));
+  const [step, setStep] = useState(() =>
+    createStep(initialType, initialParams),
+  );
 
   const open = useCallback((type, params) => {
     setStep(createStep(type, params));

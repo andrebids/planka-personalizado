@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import buildSearchParts from '../utils/build-search-parts';
-import { isListFinite } from '../utils/record-helpers';
-import ActionTypes from '../constants/ActionTypes';
-import Config from '../constants/Config';
-import { ListSortFieldNames, ListTypes, SortOrders } from '../constants/Enums';
+import BaseModel from "./BaseModel";
+import buildSearchParts from "../utils/build-search-parts";
+import { isListFinite } from "../utils/record-helpers";
+import ActionTypes from "../constants/ActionTypes";
+import Config from "../constants/Config";
+import { ListSortFieldNames, ListTypes, SortOrders } from "../constants/Enums";
 
 const POSITION_BY_LIST_TYPE = {
   [ListTypes.ARCHIVE]: Number.MAX_SAFE_INTEGER - 1,
@@ -24,12 +24,13 @@ const prepareList = (list) => {
 
   return {
     ...list,
-    position: list.position === null ? POSITION_BY_LIST_TYPE[list.type] : list.position,
+    position:
+      list.position === null ? POSITION_BY_LIST_TYPE[list.type] : list.position,
   };
 };
 
 export default class extends BaseModel {
-  static modelName = 'List';
+  static modelName = "List";
 
   static fields = {
     id: attr(),
@@ -47,9 +48,9 @@ export default class extends BaseModel {
       getDefault: () => null,
     }),
     boardId: fk({
-      to: 'Board',
-      as: 'board',
-      relatedName: 'lists',
+      to: "Board",
+      as: "board",
+      relatedName: "lists",
     }),
   };
 
@@ -194,10 +195,10 @@ export default class extends BaseModel {
 
   getCardsQuerySet() {
     const orderByArgs = isListFinite(this)
-      ? [['position', 'id.length', 'id']]
+      ? [["position", "id.length", "id"]]
       : [
-          ['listChangedAt', 'id.length', 'id'],
-          ['desc', 'desc', 'desc'],
+          ["listChangedAt", "id.length", "id"],
+          ["desc", "desc", "desc"],
         ];
 
     return this.cards.orderBy(...orderByArgs);
@@ -245,10 +246,10 @@ export default class extends BaseModel {
     }
 
     if (this.board.search) {
-      if (this.board.search.startsWith('/')) {
+      if (this.board.search.startsWith("/")) {
         let searchRegex;
         try {
-          searchRegex = new RegExp(this.board.search.substring(1), 'i');
+          searchRegex = new RegExp(this.board.search.substring(1), "i");
         } catch {
           return [];
         }
@@ -257,7 +258,8 @@ export default class extends BaseModel {
           cardModels = cardModels.filter(
             (cardModel) =>
               searchRegex.test(cardModel.name) ||
-              (cardModel.description && searchRegex.test(cardModel.description)),
+              (cardModel.description &&
+                searchRegex.test(cardModel.description)),
           );
         }
       } else {
@@ -265,17 +267,21 @@ export default class extends BaseModel {
 
         cardModels = cardModels.filter((cardModel) => {
           const name = cardModel.name.toLowerCase();
-          const description = cardModel.description && cardModel.description.toLowerCase();
+          const description =
+            cardModel.description && cardModel.description.toLowerCase();
 
           return searchParts.every(
             (searchPart) =>
-              name.includes(searchPart) || (description && description.includes(searchPart)),
+              name.includes(searchPart) ||
+              (description && description.includes(searchPart)),
           );
         });
       }
     }
 
-    const filterUserIds = this.board.filterUsers.toRefArray().map((user) => user.id);
+    const filterUserIds = this.board.filterUsers
+      .toRefArray()
+      .map((user) => user.id);
 
     if (filterUserIds.length > 0) {
       cardModels = cardModels.filter((cardModel) => {
@@ -284,7 +290,9 @@ export default class extends BaseModel {
       });
     }
 
-    const filterLabelIds = this.board.filterLabels.toRefArray().map((label) => label.id);
+    const filterLabelIds = this.board.filterLabels
+      .toRefArray()
+      .map((label) => label.id);
 
     if (filterLabelIds.length > 0) {
       cardModels = cardModels.filter((cardModel) => {

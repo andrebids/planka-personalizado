@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import StopwatchChip from './StopwatchChip';
+import StopwatchChip from "./StopwatchChip";
 
 export default StopwatchChip;

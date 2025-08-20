@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import transform from '@diplodoc/transform';
-import { defaultOptions as defaultSanitizeOptions } from '@diplodoc/transform/lib/sanitize';
-import { colorClassName } from '@gravity-ui/markdown-editor';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import transform from "@diplodoc/transform";
+import { defaultOptions as defaultSanitizeOptions } from "@diplodoc/transform/lib/sanitize";
+import { colorClassName } from "@gravity-ui/markdown-editor";
 
-import plugins from '../../configs/markdown-plugins';
+import plugins from "../../configs/markdown-plugins";
 
 const Markdown = React.memo(({ children }) => {
   const html = useMemo(() => {
@@ -20,7 +20,7 @@ const Markdown = React.memo(({ children }) => {
         linkify: true,
         sanitizeOptions: {
           ...defaultSanitizeOptions,
-          allowedSchemesByTag: { img: ['http', 'https', 'data'] },
+          allowedSchemesByTag: { img: ["http", "https", "data"] },
         },
         defaultClassName: colorClassName,
       }).result.html;

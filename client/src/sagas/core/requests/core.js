@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call } from 'redux-saga/effects';
+import { call } from "redux-saga/effects";
 
-import { fetchBoardByCurrentPath } from './boards';
-import request from '../request';
-import api from '../../../api';
-import mergeRecords from '../../../utils/merge-records';
-import { isUserAdminOrProjectOwner } from '../../../utils/record-helpers';
+import { fetchBoardByCurrentPath } from "./boards";
+import request from "../request";
+import api from "../../../api";
+import mergeRecords from "../../../utils/merge-records";
+import { isUserAdminOrProjectOwner } from "../../../utils/record-helpers";
 
 export function* fetchCore() {
   const {
@@ -120,7 +120,10 @@ export function* fetchCore() {
     boardMemberships: mergeRecords(boardMemberships1, boardMemberships2),
     cards: mergeRecords(card && [card], cards1),
     customFields: mergeRecords(customFields1, customFields2),
-    notificationServices: mergeRecords(notificationServices1, notificationServices2),
+    notificationServices: mergeRecords(
+      notificationServices1,
+      notificationServices2,
+    ),
   };
 }
 

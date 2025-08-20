@@ -32,10 +32,10 @@ Category: graphics
 */
 
 const HLSL_NUMBER_RE =
-  '(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?([hHfFlL]?)|\\.\\d+)([eE][-+]?\\d+)?([hHfFlL]?))'; // 0x..., 0..., decimal, float, half, double
+  "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?([hHfFlL]?)|\\.\\d+)([eE][-+]?\\d+)?([hHfFlL]?))"; // 0x..., 0..., decimal, float, half, double
 
 const HLSL_NUMBER_MODE = {
-  className: 'number',
+  className: "number",
   begin: HLSL_NUMBER_RE,
   relevance: 0,
 };
@@ -43,35 +43,36 @@ const HLSL_NUMBER_MODE = {
 export default (hljs) => {
   const matrixBases =
     // eslint-disable-next-line no-useless-concat
-    'bool double float half int uint ' + 'min16float min10float min16int min12int min16uint';
+    "bool double float half int uint " +
+    "min16float min10float min16int min12int min16uint";
 
   const matrixSuffixes = [
-    '',
-    '1',
-    '2',
-    '3',
-    '4',
-    '1x1',
-    '1x2',
-    '1x3',
-    '1x4',
-    '2x1',
-    '2x2',
-    '2x3',
-    '2x4',
-    '3x1',
-    '3x2',
-    '3x3',
-    '3x4',
-    '4x1',
-    '4x2',
-    '4x3',
-    '4x4',
+    "",
+    "1",
+    "2",
+    "3",
+    "4",
+    "1x1",
+    "1x2",
+    "1x3",
+    "1x4",
+    "2x1",
+    "2x2",
+    "2x3",
+    "2x4",
+    "3x1",
+    "3x2",
+    "3x3",
+    "3x4",
+    "4x1",
+    "4x2",
+    "4x3",
+    "4x4",
   ];
 
   const matrixTypes = [];
   // eslint-disable-next-line no-restricted-syntax
-  for (const base of matrixBases.split(' ')) {
+  for (const base of matrixBases.split(" ")) {
     // eslint-disable-next-line no-restricted-syntax
     for (const suffix of matrixSuffixes) {
       matrixTypes.push(base + suffix);
@@ -79,20 +80,20 @@ export default (hljs) => {
   }
 
   const semanticsSV =
-    'SV_Coverage SV_Depth SV_DispatchThreadID SV_DomainLocation ' +
-    'SV_GroupID SV_GroupIndex SV_GroupThreadID SV_GSInstanceID SV_InnerCoverage SV_InsideTessFactor ' +
-    'SV_InstanceID SV_IsFrontFace SV_OutputControlPointID SV_Position SV_PrimitiveID ' +
-    'SV_RenderTargetArrayIndex SV_SampleIndex SV_StencilRef SV_TessFactor SV_VertexID ' +
-    'SV_ViewportArrayIndex, SV_ShadingRate';
+    "SV_Coverage SV_Depth SV_DispatchThreadID SV_DomainLocation " +
+    "SV_GroupID SV_GroupIndex SV_GroupThreadID SV_GSInstanceID SV_InnerCoverage SV_InsideTessFactor " +
+    "SV_InstanceID SV_IsFrontFace SV_OutputControlPointID SV_Position SV_PrimitiveID " +
+    "SV_RenderTargetArrayIndex SV_SampleIndex SV_StencilRef SV_TessFactor SV_VertexID " +
+    "SV_ViewportArrayIndex, SV_ShadingRate";
 
   const semanticsNum =
-    'BINORMAL BLENDINDICES BLENDWEIGHT COLOR NORMAL POSITION PSIZE TANGENT TEXCOORD TESSFACTOR DEPTH ' +
-    'SV_ClipDistance SV_CullDistance SV_DepthGreaterEqual SV_DepthLessEqual SV_Target ' +
-    'SV_CLIPDISTANCE SV_CULLDISTANCE SV_DEPTHGREATEREQUAL SV_DEPTHLESSEQUAL SV_TARGET';
+    "BINORMAL BLENDINDICES BLENDWEIGHT COLOR NORMAL POSITION PSIZE TANGENT TEXCOORD TESSFACTOR DEPTH " +
+    "SV_ClipDistance SV_CullDistance SV_DepthGreaterEqual SV_DepthLessEqual SV_Target " +
+    "SV_CLIPDISTANCE SV_CULLDISTANCE SV_DEPTHGREATEREQUAL SV_DEPTHLESSEQUAL SV_TARGET";
 
-  const semanticsTypes = semanticsNum.split(' ');
+  const semanticsTypes = semanticsNum.split(" ");
   // eslint-disable-next-line no-restricted-syntax
-  for (const s of semanticsNum.split(' ')) {
+  for (const s of semanticsNum.split(" ")) {
     // eslint-disable-next-line no-restricted-syntax
     for (const n of Array(16).keys()) {
       semanticsTypes.push(s + n.toString());
@@ -100,27 +101,27 @@ export default (hljs) => {
   }
 
   return {
-    name: 'HLSL',
+    name: "HLSL",
     keywords: {
       keyword:
-        'AppendStructuredBuffer asm asm_fragment BlendState break Buffer ByteAddressBuffer case ' +
-        'cbuffer centroid class column_major compile compile_fragment CompileShader const continue ' +
-        'ComputeShader ConsumeStructuredBuffer default DepthStencilState DepthStencilView discard do ' +
-        'DomainShader dword else export extern false for fxgroup GeometryShader groupshared ' +
-        'Hullshader if in inline inout InputPatch interface line lineadj linear LineStream ' +
-        'matrix namespace nointerpolation noperspective ' +
-        'NULL out OutputPatch packoffset pass pixelfragment PixelShader point PointStream precise ' +
-        'RasterizerState RenderTargetView return register row_major RWBuffer RWByteAddressBuffer ' +
-        'RWStructuredBuffer RWTexture1D RWTexture1DArray RWTexture2D RWTexture2DArray RWTexture3D sample ' +
-        'sampler SamplerState SamplerComparisonState shared snorm stateblock stateblock_state static string ' +
-        'struct switch StructuredBuffer tbuffer technique technique10 technique11 texture Texture1D ' +
-        'Texture1DArray Texture2D Texture2DArray Texture2DMS Texture2DMSArray Texture3D TextureCube ' +
-        'TextureCubeArray true typedef triangle triangleadj TriangleStream uint uniform unorm unsigned ' +
-        'vector vertexfragment VertexShader void volatile while',
+        "AppendStructuredBuffer asm asm_fragment BlendState break Buffer ByteAddressBuffer case " +
+        "cbuffer centroid class column_major compile compile_fragment CompileShader const continue " +
+        "ComputeShader ConsumeStructuredBuffer default DepthStencilState DepthStencilView discard do " +
+        "DomainShader dword else export extern false for fxgroup GeometryShader groupshared " +
+        "Hullshader if in inline inout InputPatch interface line lineadj linear LineStream " +
+        "matrix namespace nointerpolation noperspective " +
+        "NULL out OutputPatch packoffset pass pixelfragment PixelShader point PointStream precise " +
+        "RasterizerState RenderTargetView return register row_major RWBuffer RWByteAddressBuffer " +
+        "RWStructuredBuffer RWTexture1D RWTexture1DArray RWTexture2D RWTexture2DArray RWTexture3D sample " +
+        "sampler SamplerState SamplerComparisonState shared snorm stateblock stateblock_state static string " +
+        "struct switch StructuredBuffer tbuffer technique technique10 technique11 texture Texture1D " +
+        "Texture1DArray Texture2D Texture2DArray Texture2DMS Texture2DMSArray Texture3D TextureCube " +
+        "TextureCubeArray true typedef triangle triangleadj TriangleStream uint uniform unorm unsigned " +
+        "vector vertexfragment VertexShader void volatile while",
 
       type:
         // Data Types
-        `${matrixTypes.join(' ')} ` +
+        `${matrixTypes.join(" ")} ` +
         `Buffer vector matrix sampler SamplerState PixelShader VertexShader ` +
         `texture Texture1D Texture1DArray Texture2D Texture2DArray Texture2DMS Texture2DMSArray Texture3D ` +
         `TextureCube TextureCubeArray struct typedef`,
@@ -128,7 +129,7 @@ export default (hljs) => {
       built_in:
         // Semantics
         `POSITIONT FOG PSIZE VFACE VPOS ${semanticsTypes.join(
-          ' ',
+          " ",
         )} ${semanticsSV} ${semanticsSV.toUpperCase()} ` +
         // Functions
         `abort abs acos all AllMemoryBarrier AllMemoryBarrierWithGroupSync any asdouble asfloat asin asint asuint ` +
@@ -147,7 +148,7 @@ export default (hljs) => {
         `tex2Dlod tex2Dproj tex3D tex3Dbias tex3Dgrad tex3Dlod tex3Dproj texCUBE texCUBEbias texCUBEgrad texCUBElod ` +
         `texCUBEproj transpose trunc`,
 
-      literal: 'true false',
+      literal: "true false",
     },
     illegal: '"',
     contains: [
@@ -155,9 +156,9 @@ export default (hljs) => {
       hljs.C_BLOCK_COMMENT_MODE,
       HLSL_NUMBER_MODE,
       {
-        className: 'meta',
-        begin: '#',
-        end: '$',
+        className: "meta",
+        begin: "#",
+        end: "$",
       },
     ],
   };

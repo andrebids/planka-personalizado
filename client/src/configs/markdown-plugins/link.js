@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import history from '../../history';
+import history from "../../history";
 
-const SAME_SITE_CLASS = 'same-site';
+const SAME_SITE_CLASS = "same-site";
 
-document.addEventListener('click', (event) => {
+document.addEventListener("click", (event) => {
   const element = event.target.closest(`a.${SAME_SITE_CLASS}`);
 
   if (element) {
@@ -17,7 +17,7 @@ document.addEventListener('click', (event) => {
 });
 
 function process(token, nextToken) {
-  const href = token.attrGet('href');
+  const href = token.attrGet("href");
 
   if (!href) {
     return;
@@ -31,13 +31,14 @@ function process(token, nextToken) {
   }
 
   const isSameSite = url.origin === window.location.origin;
-  const trimOrigin = isSameSite && nextToken.type === 'text' && nextToken.content === href;
+  const trimOrigin =
+    isSameSite && nextToken.type === "text" && nextToken.content === href;
 
   if (isSameSite) {
-    token.attrSet('class', SAME_SITE_CLASS);
+    token.attrSet("class", SAME_SITE_CLASS);
   } else {
-    token.attrSet('target', '_blank');
-    token.attrSet('rel', 'noreferrer');
+    token.attrSet("target", "_blank");
+    token.attrSet("rel", "noreferrer");
   }
 
   if (trimOrigin) {
@@ -53,7 +54,7 @@ export default (md) => {
       }
 
       token.children.forEach((childrenToken, index) => {
-        if (childrenToken.type === 'link_open') {
+        if (childrenToken.type === "link_open") {
           process(childrenToken, token.children[index + 1]);
         }
       });
@@ -61,8 +62,8 @@ export default (md) => {
   };
 
   try {
-    md.core.ruler.before('includes', 'link', plugin);
+    md.core.ruler.before("includes", "link", plugin);
   } catch (error) {
-    md.core.ruler.push('link', plugin);
+    md.core.ruler.push("link", plugin);
   }
 };

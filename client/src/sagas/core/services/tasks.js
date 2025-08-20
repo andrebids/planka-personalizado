@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
 
 export function* createTask(taskListId, data) {
   const localId = yield call(createLocalId);
@@ -29,7 +29,12 @@ export function* createTask(taskListId, data) {
 
   let task;
   try {
-    ({ item: task } = yield call(request, api.createTask, taskListId, nextData));
+    ({ item: task } = yield call(
+      request,
+      api.createTask,
+      taskListId,
+      nextData,
+    ));
   } catch (error) {
     yield put(actions.createTask.failure(localId, error));
     return;
@@ -61,7 +66,12 @@ export function* handleTaskUpdate(task) {
 }
 
 export function* moveTask(id, taskListId, index) {
-  const position = yield select(selectors.selectNextTaskPosition, taskListId, index, id);
+  const position = yield select(
+    selectors.selectNextTaskPosition,
+    taskListId,
+    index,
+    id,
+  );
 
   yield call(updateTask, id, {
     taskListId,

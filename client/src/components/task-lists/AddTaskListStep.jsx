@@ -3,24 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'semantic-ui-react';
-import { Popup } from '../../lib/custom-ui';
+import React, { useCallback, useRef } from "react";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form } from "semantic-ui-react";
+import { Popup } from "../../lib/custom-ui";
 
-import entryActions from '../../entry-actions';
-import { useForm } from '../../hooks';
-import TaskListEditor from './TaskListEditor';
+import entryActions from "../../entry-actions";
+import { useForm } from "../../hooks";
+import TaskListEditor from "./TaskListEditor";
 
 const AddTaskListStep = React.memo(({ onClose }) => {
   const dispatch = useDispatch();
   const [t] = useTranslation();
 
   const [data, handleFieldChange] = useForm({
-    name: t('common.taskList', {
-      context: 'title',
+    name: t("common.taskList", {
+      context: "title",
     }),
     showOnFrontOfCard: true,
   });
@@ -46,14 +46,18 @@ const AddTaskListStep = React.memo(({ onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t('common.addTaskList', {
-          context: 'title',
+        {t("common.addTaskList", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
-          <TaskListEditor ref={taskListEditorRef} data={data} onFieldChange={handleFieldChange} />
-          <Button positive content={t('action.addTaskList')} />
+          <TaskListEditor
+            ref={taskListEditorRef}
+            data={data}
+            onFieldChange={handleFieldChange}
+          />
+          <Button positive content={t("action.addTaskList")} />
         </Form>
       </Popup.Content>
     </>

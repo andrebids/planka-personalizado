@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { useDropzone } from 'react-dropzone';
-import { closePopup } from '../../../../lib/popup';
+import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useDropzone } from "react-dropzone";
+import { closePopup } from "../../../../lib/popup";
 
-import entryActions from '../../../../entry-actions';
-import { useModal } from '../../../../hooks';
-import { isUrl } from '../../../../utils/validator';
-import { isActiveTextElement } from '../../../../utils/element-helpers';
-import { AttachmentTypes } from '../../../../constants/Enums';
-import AddTextFileModal from './AddTextFileModal';
+import entryActions from "../../../../entry-actions";
+import { useModal } from "../../../../hooks";
+import { isUrl } from "../../../../utils/validator";
+import { isActiveTextElement } from "../../../../utils/element-helpers";
+import { AttachmentTypes } from "../../../../constants/Enums";
+import AddTextFileModal from "./AddTextFileModal";
 
-import styles from './AddAttachmentZone.module.scss';
+import styles from "./AddAttachmentZone.module.scss";
 
 const AddAttachmentZone = React.memo(({ children }) => {
   const dispatch = useDispatch();
@@ -92,7 +92,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
         return;
       }
 
-      if (items[0].kind === 'string') {
+      if (items[0].kind === "string") {
         if (isActiveTextElement(event.target)) {
           return;
         }
@@ -113,7 +113,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
       }
 
       [...items].forEach((item) => {
-        if (item.kind !== 'file') {
+        if (item.kind !== "file") {
           return;
         }
 
@@ -121,10 +121,10 @@ const AddAttachmentZone = React.memo(({ children }) => {
       });
     };
 
-    window.addEventListener('paste', handlePaste);
+    window.addEventListener("paste", handlePaste);
 
     return () => {
-      window.removeEventListener('paste', handlePaste);
+      window.removeEventListener("paste", handlePaste);
     };
   }, [openModal, submitFile, submitLink]);
 
@@ -132,7 +132,9 @@ const AddAttachmentZone = React.memo(({ children }) => {
     <>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <div {...getRootProps()}>
-        {isDragActive && <div className={styles.dropzone}>{t('common.dropFileToUpload')}</div>}
+        {isDragActive && (
+          <div className={styles.dropzone}>{t("common.dropFileToUpload")}</div>
+        )}
         {children}
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <input {...getInputProps()} />

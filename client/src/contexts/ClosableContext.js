@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export default createContext([null, null, null]);

@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import requests from '../requests';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
+import request from "../request";
+import requests from "../requests";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
 
 export function* handleSocketDisconnect() {
   yield put(actions.handleSocketDisconnect());
@@ -104,7 +104,9 @@ export function* handleSocketReconnect() {
     ),
   );
 
-  const isAvailableForCurrentUser = yield select(selectors.isCurrentModalAvailableForCurrentUser);
+  const isAvailableForCurrentUser = yield select(
+    selectors.isCurrentModalAvailableForCurrentUser,
+  );
 
   if (!isAvailableForCurrentUser) {
     yield put(actions.closeModal());

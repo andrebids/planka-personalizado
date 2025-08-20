@@ -3,16 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { Modal } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { Modal } from "semantic-ui-react";
 
-import useClosable from './use-closable';
-import { ClosableContext } from '../contexts';
+import useClosable from "./use-closable";
+import { ClosableContext } from "../contexts";
 
 export default (initialClosableValue) => {
-  const [isClosableActiveRef, activateClosable, deactivateClosable, setIsClosableActive] =
-    useClosable(initialClosableValue);
+  const [
+    isClosableActiveRef,
+    activateClosable,
+    deactivateClosable,
+    setIsClosableActive,
+  ] = useClosable(initialClosableValue);
 
   const closableContextValue = useMemo(
     () => [activateClosable, deactivateClosable, setIsClosableActive],
@@ -25,8 +29,8 @@ export default (initialClosableValue) => {
       const handleClose = useCallback(
         (event) => {
           if (isClosableActiveRef.current) {
-            if (closeIcon && event.type === 'click') {
-              if (!event.currentTarget.classList.contains('close')) {
+            if (closeIcon && event.type === "click") {
+              if (!event.currentTarget.classList.contains("close")) {
                 return;
               }
             } else {
@@ -41,17 +45,19 @@ export default (initialClosableValue) => {
         [closeIcon, onClose],
       );
 
-      const mergedClassName = props.className ? props.className + ' glass' : 'glass';
+      const mergedClassName = props.className
+        ? props.className + " glass"
+        : "glass";
 
       return (
         <ClosableContext.Provider value={closableContextValue}>
-          <Modal 
-            open 
-            {...props} 
-            className={mergedClassName} 
-            closeIcon={closeIcon} 
+          <Modal
+            open
+            {...props}
+            className={mergedClassName}
+            closeIcon={closeIcon}
             onClose={handleClose}
-            dimmer={{ inverted: true, className: 'glass-dimmer' }}
+            dimmer={{ inverted: true, className: "glass-dimmer" }}
           />
         </ClosableContext.Provider>
       );

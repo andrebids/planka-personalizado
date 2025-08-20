@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
 
-import selectors from '../../../../selectors';
-import Linkify from '../../../common/Linkify';
+import selectors from "../../../../selectors";
+import Linkify from "../../../common/Linkify";
 
-import styles from './Task.module.scss';
+import styles from "./Task.module.scss";
 
 const Task = React.memo(({ id }) => {
   const selectTaskById = useMemo(() => selectors.makeSelectTaskById(), []);
@@ -19,7 +19,12 @@ const Task = React.memo(({ id }) => {
   const task = useSelector((state) => selectTaskById(state, id));
 
   return (
-    <li className={classNames(styles.wrapper, task.isCompleted && styles.wrapperCompleted)}>
+    <li
+      className={classNames(
+        styles.wrapper,
+        task.isCompleted && styles.wrapperCompleted,
+      )}
+    >
       <Linkify linkStopPropagation>{task.name}</Linkify>
     </li>
   );

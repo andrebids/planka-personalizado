@@ -3,12 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import http from './http';
-import socket from './socket';
+import http from "./http";
+import socket from "./socket";
 
 /* Actions */
 
-const createBackgroundImage = (projectId, { file, ...data }, requestId, headers) =>
+const createBackgroundImage = (
+  projectId,
+  { file, ...data },
+  requestId,
+  headers,
+) =>
   http.post(
     `/projects/${projectId}/background-images?requestId=${requestId}`,
     {

@@ -3,20 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
 
 export function* createCustomFieldGroupInBoard(boardId, data) {
   const localId = yield call(createLocalId);
 
   const nextData = {
     ...data,
-    position: yield select(selectors.selectNextCustomFieldGroupPositionInBoard, boardId),
+    position: yield select(
+      selectors.selectNextCustomFieldGroupPositionInBoard,
+      boardId,
+    ),
   };
 
   yield put(
@@ -54,7 +57,10 @@ export function* createCustomFieldGroupInCard(cardId, data) {
 
   const nextData = {
     ...data,
-    position: yield select(selectors.selectNextCustomFieldGroupPositionInCard, cardId),
+    position: yield select(
+      selectors.selectNextCustomFieldGroupPositionInCard,
+      cardId,
+    ),
   };
 
   yield put(
@@ -96,7 +102,12 @@ export function* updateCustomFieldGroup(id, data) {
 
   let customFieldGroup;
   try {
-    ({ item: customFieldGroup } = yield call(request, api.updateCustomFieldGroup, id, data));
+    ({ item: customFieldGroup } = yield call(
+      request,
+      api.updateCustomFieldGroup,
+      id,
+      data,
+    ));
   } catch (error) {
     yield put(actions.updateCustomFieldGroup.failure(id, error));
     return;
@@ -110,7 +121,10 @@ export function* handleCustomFieldGroupUpdate(customFieldGroup) {
 }
 
 export function* moveCustomFieldGroup(id, index) {
-  const customFieldGroup = yield select(selectors.selectCustomFieldGroupById, id);
+  const customFieldGroup = yield select(
+    selectors.selectCustomFieldGroupById,
+    id,
+  );
 
   let position;
   if (customFieldGroup.boardId) {
@@ -139,7 +153,11 @@ export function* deleteCustomFieldGroup(id) {
 
   let customFieldGroup;
   try {
-    ({ item: customFieldGroup } = yield call(request, api.deleteCustomFieldGroup, id));
+    ({ item: customFieldGroup } = yield call(
+      request,
+      api.deleteCustomFieldGroup,
+      id,
+    ));
   } catch (error) {
     yield put(actions.deleteCustomFieldGroup.failure(id, error));
     return;

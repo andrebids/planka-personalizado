@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import LabelsStep from './LabelsStep';
+import LabelsStep from "./LabelsStep";
 
 export default LabelsStep;

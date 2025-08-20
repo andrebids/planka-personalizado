@@ -3,19 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { BoardViews } from '../../../constants/Enums';
-import GridView from './GridView';
-import ListView from './ListView';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { BoardViews } from "../../../constants/Enums";
+import GridView from "./GridView";
+import ListView from "./ListView";
 
 const FiniteContent = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const cardIds = useSelector(selectors.selectFilteredCardIdsForCurrentBoard);
-  const hasAnyFiniteList = useSelector((state) => !!selectors.selectFirstFiniteListId(state));
+  const hasAnyFiniteList = useSelector(
+    (state) => !!selectors.selectFirstFiniteListId(state),
+  );
 
   const dispatch = useDispatch();
 
@@ -39,7 +41,12 @@ const FiniteContent = React.memo(() => {
     default:
   }
 
-  return <View cardIds={cardIds} onCardCreate={hasAnyFiniteList ? handleCardCreate : undefined} />;
+  return (
+    <View
+      cardIds={cardIds}
+      onCardCreate={hasAnyFiniteList ? handleCardCreate : undefined}
+    />
+  );
 });
 
 export default FiniteContent;

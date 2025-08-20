@@ -1,8 +1,8 @@
-import login from './login';
+import login from "./login";
 
 export default {
-  language: 'hu-HU',
-  country: 'hu',
-  name: 'Magyar',
+  language: "hu-HU",
+  country: "hu",
+  name: "Magyar",
   embeddedLocale: login,
 };

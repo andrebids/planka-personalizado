@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { ORM } from 'redux-orm';
+import { ORM } from "redux-orm";
 
 import {
   Activity,
@@ -26,7 +26,7 @@ import {
   Task,
   TaskList,
   User,
-} from './models';
+} from "./models";
 
 const orm = new ORM({
   stateSelector: (state) => state.orm,

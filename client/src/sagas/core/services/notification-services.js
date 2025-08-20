@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
 
 export function* createNotificationServiceInCurrentUser(data) {
   const localId = yield call(createLocalId);
@@ -36,7 +36,9 @@ export function* createNotificationServiceInCurrentUser(data) {
     return;
   }
 
-  yield put(actions.createNotificationService.success(localId, notificationService));
+  yield put(
+    actions.createNotificationService.success(localId, notificationService),
+  );
 }
 
 export function* createNotificationServiceInBoard(boardId, data) {
@@ -63,7 +65,9 @@ export function* createNotificationServiceInBoard(boardId, data) {
     return;
   }
 
-  yield put(actions.createNotificationService.success(localId, notificationService));
+  yield put(
+    actions.createNotificationService.success(localId, notificationService),
+  );
 }
 
 export function* handleNotificationServiceCreate(notificationService) {
@@ -75,7 +79,12 @@ export function* updateNotificationService(id, data) {
 
   let notificationService;
   try {
-    ({ item: notificationService } = yield call(request, api.updateNotificationService, id, data));
+    ({ item: notificationService } = yield call(
+      request,
+      api.updateNotificationService,
+      id,
+      data,
+    ));
   } catch (error) {
     yield put(actions.updateNotificationService.failure(id, error));
     return;
@@ -93,7 +102,11 @@ export function* testNotificationService(id) {
 
   let notificationService;
   try {
-    ({ item: notificationService } = yield call(request, api.testNotificationService, id));
+    ({ item: notificationService } = yield call(
+      request,
+      api.testNotificationService,
+      id,
+    ));
   } catch (error) {
     yield put(actions.testNotificationService.failure(id, error));
     return;
@@ -107,7 +120,11 @@ export function* deleteNotificationService(id) {
 
   let notificationService;
   try {
-    ({ item: notificationService } = yield call(request, api.deleteNotificationService, id));
+    ({ item: notificationService } = yield call(
+      request,
+      api.deleteNotificationService,
+      id,
+    ));
   } catch (error) {
     yield put(actions.deleteNotificationService.failure(id, error));
     return;

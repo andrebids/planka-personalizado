@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import upperFirst from 'lodash/upperFirst';
-import React, { useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import TextareaAutosize from 'react-textarea-autosize';
-import { TextArea } from 'semantic-ui-react';
-import { useDidUpdate, usePrevious, useToggle } from '../../../lib/hooks';
+import upperFirst from "lodash/upperFirst";
+import React, { useCallback, useRef } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import TextareaAutosize from "react-textarea-autosize";
+import { TextArea } from "semantic-ui-react";
+import { useDidUpdate, usePrevious, useToggle } from "../../../lib/hooks";
 
-import { useEscapeInterceptor, useField, useNestedRef } from '../../../hooks';
+import { useEscapeInterceptor, useField, useNestedRef } from "../../../hooks";
 
-import styles from './NameField.module.scss';
+import styles from "./NameField.module.scss";
 
 const Sizes = {
-  MEDIUM: 'medium',
-  LARGE: 'large',
+  MEDIUM: "medium",
+  LARGE: "large",
 };
 
 const NameField = React.memo(({ defaultValue, size, onUpdate }) => {
@@ -43,7 +43,7 @@ const NameField = React.memo(({ defaultValue, size, onUpdate }) => {
 
   const handleKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         event.preventDefault();
         fiedRef.current.blur();
       }

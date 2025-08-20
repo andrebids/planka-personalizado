@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { LOCATION_CHANGE_HANDLE } from '../../lib/redux-router';
+import { LOCATION_CHANGE_HANDLE } from "../../lib/redux-router";
 
-import ActionTypes from '../../constants/ActionTypes';
-import Paths from '../../constants/Paths';
+import ActionTypes from "../../constants/ActionTypes";
+import Paths from "../../constants/Paths";
 
 const initialState = {
   data: {
-    emailOrUsername: '',
-    password: '',
+    emailOrUsername: "",
+    password: "",
   },
   isSubmitting: false,
   isSubmittingWithOidc: false,

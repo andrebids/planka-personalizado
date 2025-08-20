@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from 'lodash/omit';
+import omit from "lodash/omit";
 
-import socket from './socket';
+import socket from "./socket";
 
 /* Transformers */
 
 export const transformNotification = (notification) => ({
   ...(notification.actionId
     ? {
-        ...omit(notification, 'actionId'),
+        ...omit(notification, "actionId"),
         activityId: notification.actionId,
       }
     : notification),
@@ -24,7 +24,7 @@ export const transformNotification = (notification) => ({
 /* Actions */
 
 const getNotifications = (headers) =>
-  socket.get('/notifications', undefined, headers).then((body) => ({
+  socket.get("/notifications", undefined, headers).then((body) => ({
     ...body,
     items: body.items.map(transformNotification),
   }));
@@ -45,7 +45,7 @@ const updateNotification = (id, data, headers) =>
   }));
 
 const readAllNotifications = (headers) =>
-  socket.post('/notifications/read-all', undefined, headers).then((body) => ({
+  socket.post("/notifications/read-all", undefined, headers).then((body) => ({
     ...body,
     items: body.items.map(transformNotification),
   }));

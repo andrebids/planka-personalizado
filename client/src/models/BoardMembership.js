@@ -3,27 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
 
 export default class extends BaseModel {
-  static modelName = 'BoardMembership';
+  static modelName = "BoardMembership";
 
   static fields = {
     id: attr(),
     role: attr(),
     canComment: attr(),
     boardId: fk({
-      to: 'Board',
-      as: 'board',
-      relatedName: 'memberships',
+      to: "Board",
+      as: "board",
+      relatedName: "memberships",
     }),
     userId: fk({
-      to: 'User',
-      as: 'user',
-      relatedName: 'boardMemberships',
+      to: "User",
+      as: "user",
+      relatedName: "boardMemberships",
     }),
   };
 
@@ -88,12 +88,16 @@ export default class extends BaseModel {
 
         break;
       case ActionTypes.BOARD_MEMBERSHIP_DELETE:
-        BoardMembership.withId(payload.id).deleteWithRelated(payload.isCurrentUser);
+        BoardMembership.withId(payload.id).deleteWithRelated(
+          payload.isCurrentUser,
+        );
 
         break;
       case ActionTypes.BOARD_MEMBERSHIP_DELETE__SUCCESS:
       case ActionTypes.BOARD_MEMBERSHIP_DELETE_HANDLE: {
-        const boardMembershipModel = BoardMembership.withId(payload.boardMembership.id);
+        const boardMembershipModel = BoardMembership.withId(
+          payload.boardMembership.id,
+        );
 
         if (boardMembershipModel) {
           boardMembershipModel.deleteWithRelated(payload.isCurrentUser);

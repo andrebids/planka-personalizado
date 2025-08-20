@@ -3,45 +3,55 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Menu } from 'semantic-ui-react';
-import { Popup } from '../../../lib/custom-ui';
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Menu } from "semantic-ui-react";
+import { Popup } from "../../../lib/custom-ui";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useSteps } from '../../../hooks';
-import { isListArchiveOrTrash } from '../../../utils/record-helpers';
-import { BoardMembershipRoles, CardTypes, ListTypes } from '../../../constants/Enums';
-import SelectCardTypeStep from '../SelectCardTypeStep';
-import EditDueDateStep from '../EditDueDateStep';
-import EditStopwatchStep from '../EditStopwatchStep';
-import MoveCardStep from '../MoveCardStep';
-import ConfirmationStep from '../../common/ConfirmationStep';
-import BoardMembershipsStep from '../../board-memberships/BoardMembershipsStep';
-import LabelsStep from '../../labels/LabelsStep';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useSteps } from "../../../hooks";
+import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import {
+  BoardMembershipRoles,
+  CardTypes,
+  ListTypes,
+} from "../../../constants/Enums";
+import SelectCardTypeStep from "../SelectCardTypeStep";
+import EditDueDateStep from "../EditDueDateStep";
+import EditStopwatchStep from "../EditStopwatchStep";
+import MoveCardStep from "../MoveCardStep";
+import ConfirmationStep from "../../common/ConfirmationStep";
+import BoardMembershipsStep from "../../board-memberships/BoardMembershipsStep";
+import LabelsStep from "../../labels/LabelsStep";
 
-import styles from './ActionsStep.module.scss';
+import styles from "./ActionsStep.module.scss";
 
 const StepTypes = {
-  EDIT_TYPE: 'EDIT_TYPE',
-  USERS: 'USERS',
-  LABELS: 'LABELS',
-  EDIT_DUE_DATE: 'EDIT_DUE_DATE',
-  EDIT_STOPWATCH: 'EDIT_STOPWATCH',
-  MOVE: 'MOVE',
-  ARCHIVE: 'ARCHIVE',
-  DELETE: 'DELETE',
+  EDIT_TYPE: "EDIT_TYPE",
+  USERS: "USERS",
+  LABELS: "LABELS",
+  EDIT_DUE_DATE: "EDIT_DUE_DATE",
+  EDIT_STOPWATCH: "EDIT_STOPWATCH",
+  MOVE: "MOVE",
+  ARCHIVE: "ARCHIVE",
+  DELETE: "DELETE",
 };
 
 const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
   const selectPrevListById = useMemo(() => selectors.makeSelectListById(), []);
-  const selectUserIdsByCardId = useMemo(() => selectors.makeSelectUserIdsByCardId(), []);
-  const selectLabelIdsByCardId = useMemo(() => selectors.makeSelectLabelIdsByCardId(), []);
+  const selectUserIdsByCardId = useMemo(
+    () => selectors.makeSelectUserIdsByCardId(),
+    [],
+  );
+  const selectLabelIdsByCardId = useMemo(
+    () => selectors.makeSelectLabelIdsByCardId(),
+    [],
+  );
 
   const board = useSelector(selectors.selectCurrentBoard);
   const card = useSelector((state) => selectCardById(state, cardId));
@@ -53,7 +63,9 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   );
 
   const userIds = useSelector((state) => selectUserIdsByCardId(state, cardId));
-  const labelIds = useSelector((state) => selectLabelIdsByCardId(state, cardId));
+  const labelIds = useSelector((state) =>
+    selectLabelIdsByCardId(state, cardId),
+  );
 
   const {
     canEditType,
@@ -68,8 +80,10 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
     canUseMembers,
     canUseLabels,
   } = useSelector((state) => {
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    const isEditor = !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    const isEditor =
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
 
     if (isListArchiveOrTrash(list)) {
       return {
@@ -120,8 +134,8 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   const handleDuplicateClick = useCallback(() => {
     dispatch(
       entryActions.duplicateCard(cardId, {
-        name: `${card.name} (${t('common.copy', {
-          context: 'inline',
+        name: `${card.name} (${t("common.copy", {
+          context: "inline",
         })})`,
       }),
     );
@@ -246,11 +260,25 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
           />
         );
       case StepTypes.EDIT_DUE_DATE:
-        return <EditDueDateStep cardId={cardId} onBack={handleBack} onClose={onClose} />;
+        return (
+          <EditDueDateStep
+            cardId={cardId}
+            onBack={handleBack}
+            onClose={onClose}
+          />
+        );
       case StepTypes.EDIT_STOPWATCH:
-        return <EditStopwatchStep cardId={cardId} onBack={handleBack} onClose={onClose} />;
+        return (
+          <EditStopwatchStep
+            cardId={cardId}
+            onBack={handleBack}
+            onClose={onClose}
+          />
+        );
       case StepTypes.MOVE:
-        return <MoveCardStep id={cardId} onBack={handleBack} onClose={onClose} />;
+        return (
+          <MoveCardStep id={cardId} onBack={handleBack} onClose={onClose} />
+        );
       case StepTypes.ARCHIVE:
         return (
           <ConfirmationStep
@@ -264,13 +292,17 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
       case StepTypes.DELETE:
         return (
           <ConfirmationStep
-            title={isInTrashList ? 'common.deleteCardForever' : 'common.deleteCard'}
+            title={
+              isInTrashList ? "common.deleteCardForever" : "common.deleteCard"
+            }
             content={
               isInTrashList
-                ? 'common.areYouSureYouWantToDeleteThisCardForever'
-                : 'common.areYouSureYouWantToDeleteThisCard'
+                ? "common.areYouSureYouWantToDeleteThisCardForever"
+                : "common.areYouSureYouWantToDeleteThisCard"
             }
-            buttonContent={isInTrashList ? 'action.deleteCardForever' : 'action.deleteCard'}
+            buttonContent={
+              isInTrashList ? "action.deleteCardForever" : "action.deleteCard"
+            }
             onConfirm={handleDeleteConfirm}
             onBack={handleBack}
           />
@@ -282,98 +314,113 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t('common.cardActions', {
-          context: 'title',
+        {t("common.cardActions", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
         <Menu secondary vertical className={styles.menu}>
           {canEditName && (
-            <Menu.Item className={styles.menuItem} onClick={handleEditNameClick}>
-              {t('action.editTitle', {
-                context: 'title',
+            <Menu.Item
+              className={styles.menuItem}
+              onClick={handleEditNameClick}
+            >
+              {t("action.editTitle", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {!board.limitCardTypesToDefaultOne && canEditType && (
-            <Menu.Item className={styles.menuItem} onClick={handleEditTypeClick}>
-              {t('action.editType', {
-                context: 'title',
+            <Menu.Item
+              className={styles.menuItem}
+              onClick={handleEditTypeClick}
+            >
+              {t("action.editType", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {card.type === CardTypes.PROJECT && canUseMembers && (
             <Menu.Item className={styles.menuItem} onClick={handleUsersClick}>
-              {t('common.members', {
-                context: 'title',
+              {t("common.members", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {canUseLabels && (
             <Menu.Item className={styles.menuItem} onClick={handleLabelsClick}>
-              {t('common.labels', {
-                context: 'title',
+              {t("common.labels", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {card.type === CardTypes.STORY && canUseMembers && (
             <Menu.Item className={styles.menuItem} onClick={handleUsersClick}>
-              {t('common.members', {
-                context: 'title',
+              {t("common.members", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {card.type === CardTypes.PROJECT && canEditDueDate && (
-            <Menu.Item className={styles.menuItem} onClick={handleEditDueDateClick}>
-              {t('action.editDueDate', {
-                context: 'title',
+            <Menu.Item
+              className={styles.menuItem}
+              onClick={handleEditDueDateClick}
+            >
+              {t("action.editDueDate", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {card.type === CardTypes.PROJECT && canEditStopwatch && (
-            <Menu.Item className={styles.menuItem} onClick={handleEditStopwatchClick}>
-              {t('action.editStopwatch', {
-                context: 'title',
+            <Menu.Item
+              className={styles.menuItem}
+              onClick={handleEditStopwatchClick}
+            >
+              {t("action.editStopwatch", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {canDuplicate && (
-            <Menu.Item className={styles.menuItem} onClick={handleDuplicateClick}>
-              {t('action.duplicateCard', {
-                context: 'title',
+            <Menu.Item
+              className={styles.menuItem}
+              onClick={handleDuplicateClick}
+            >
+              {t("action.duplicateCard", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {canMove && (
             <Menu.Item className={styles.menuItem} onClick={handleMoveClick}>
-              {t('action.moveCard', {
-                context: 'title',
+              {t("action.moveCard", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {prevList && canRestore && (
             <Menu.Item className={styles.menuItem} onClick={handleRestoreClick}>
-              {t('action.restoreToList', {
-                context: 'title',
+              {t("action.restoreToList", {
+                context: "title",
                 list: prevList.name || t(`common.${prevList.type}`),
               })}
             </Menu.Item>
           )}
           {list.type !== ListTypes.ARCHIVE && canArchive && (
             <Menu.Item className={styles.menuItem} onClick={handleArchiveClick}>
-              {t('action.archiveCard', {
-                context: 'title',
+              {t("action.archiveCard", {
+                context: "title",
               })}
             </Menu.Item>
           )}
           {canDelete && (
             <Menu.Item className={styles.menuItem} onClick={handleDeleteClick}>
               {isInTrashList
-                ? t('action.deleteForever', {
-                    context: 'title',
+                ? t("action.deleteForever", {
+                    context: "title",
                   })
-                : t('action.deleteCard', {
-                    context: 'title',
+                : t("action.deleteCard", {
+                    context: "title",
                   })}
             </Menu.Item>
           )}

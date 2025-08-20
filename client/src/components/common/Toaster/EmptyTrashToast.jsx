@@ -3,22 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-hot-toast';
-import { Button, Icon, Message } from 'semantic-ui-react';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-hot-toast";
+import { Button, Icon, Message } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { BoardContexts } from '../../../constants/Enums';
-import { BoardContextIcons } from '../../../constants/Icons';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { BoardContexts } from "../../../constants/Enums";
+import { BoardContextIcons } from "../../../constants/Icons";
 
-import styles from './EmptyTrashToast.module.scss';
+import styles from "./EmptyTrashToast.module.scss";
 
 const EmptyTrashToast = React.memo(({ id, listId }) => {
-  const isCurrentList = useSelector((state) => listId === selectors.selectCurrentListId(state));
+  const isCurrentList = useSelector(
+    (state) => listId === selectors.selectCurrentListId(state),
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -31,7 +33,7 @@ const EmptyTrashToast = React.memo(({ id, listId }) => {
   return (
     <Message visible positive size="tiny">
       <Icon name="checkmark" />
-      {t('common.trashHasBeenSuccessfullyEmptied')}
+      {t("common.trashHasBeenSuccessfullyEmptied")}
       {isCurrentList && (
         <Button
           content={t(`action.returnToBoard`)}

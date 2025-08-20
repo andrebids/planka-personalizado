@@ -3,19 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Item as GalleryItem } from 'react-photoswipe-gallery';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { Item as GalleryItem } from "react-photoswipe-gallery";
 
-import selectors from '../../../../selectors';
+import selectors from "../../../../selectors";
 
-import styles from './Thumbnail.module.scss';
+import styles from "./Thumbnail.module.scss";
 
 const Thumbnail = React.memo(({ attachmentId }) => {
-  const selectAttachmentById = useMemo(() => selectors.makeSelectAttachmentById(), []);
+  const selectAttachmentById = useMemo(
+    () => selectors.makeSelectAttachmentById(),
+    [],
+  );
 
-  const attachment = useSelector((state) => selectAttachmentById(state, attachmentId));
+  const attachment = useSelector((state) =>
+    selectAttachmentById(state, attachmentId),
+  );
 
   return (
     <GalleryItem

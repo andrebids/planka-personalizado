@@ -3,26 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import DatePicker from 'react-datepicker';
-import { Button, Form } from 'semantic-ui-react';
-import { useDidUpdate, useToggle } from '../../../lib/hooks';
-import { Input, Popup } from '../../../lib/custom-ui';
+import React, { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import DatePicker from "react-datepicker";
+import { Button, Form } from "semantic-ui-react";
+import { useDidUpdate, useToggle } from "../../../lib/hooks";
+import { Input, Popup } from "../../../lib/custom-ui";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useForm, useNestedRef } from '../../../hooks';
-import parseTime from '../../../utils/parse-time';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useForm, useNestedRef } from "../../../hooks";
+import parseTime from "../../../utils/parse-time";
 
-import styles from './EditDueDateStep.module.scss';
+import styles from "./EditDueDateStep.module.scss";
 
 const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
-  const defaultValue = useSelector((state) => selectCardById(state, cardId).dueDate);
+  const defaultValue = useSelector(
+    (state) => selectCardById(state, cardId).dueDate,
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -31,12 +33,12 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
     const date = defaultValue || new Date().setHours(12, 0, 0, 0);
 
     return {
-      date: t('format:date', {
-        postProcess: 'formatDate',
+      date: t("format:date", {
+        postProcess: "formatDate",
         value: date,
       }),
-      time: t('format:time', {
-        postProcess: 'formatDate',
+      time: t("format:time", {
+        postProcess: "formatDate",
         value: date,
       }),
     };
@@ -44,12 +46,12 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
 
   const [selectTimeFieldState, selectTimeField] = useToggle();
 
-  const [dateFieldRef, handleDateFieldRef] = useNestedRef('inputRef');
-  const [timeFieldRef, handleTimeFieldRef] = useNestedRef('inputRef');
+  const [dateFieldRef, handleDateFieldRef] = useNestedRef("inputRef");
+  const [timeFieldRef, handleTimeFieldRef] = useNestedRef("inputRef");
 
   const nullableDate = useMemo(() => {
-    const date = t('format:date', {
-      postProcess: 'parseDate',
+    const date = t("format:date", {
+      postProcess: "parseDate",
       value: data.date,
     });
 
@@ -66,8 +68,8 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
       return;
     }
 
-    let value = t('format:dateTime', {
-      postProcess: 'parseDate',
+    let value = t("format:dateTime", {
+      postProcess: "parseDate",
       value: `${data.date} ${data.time}`,
     });
 
@@ -89,7 +91,17 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
     }
 
     onClose();
-  }, [cardId, onClose, defaultValue, dispatch, t, data, dateFieldRef, timeFieldRef, nullableDate]);
+  }, [
+    cardId,
+    onClose,
+    defaultValue,
+    dispatch,
+    t,
+    data,
+    dateFieldRef,
+    timeFieldRef,
+    nullableDate,
+  ]);
 
   const handleClearClick = useCallback(() => {
     if (defaultValue) {
@@ -107,8 +119,8 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
     (date) => {
       setData((prevData) => ({
         ...prevData,
-        date: t('format:date', {
-          postProcess: 'formatDate',
+        date: t("format:date", {
+          postProcess: "formatDate",
           value: date,
         }),
       }));
@@ -128,15 +140,15 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t('common.editDueDate', {
-          context: 'title',
+        {t("common.editDueDate", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
           <div className={styles.fieldWrapper}>
             <div className={styles.fieldBox}>
-              <div className={styles.text}>{t('common.date')}</div>
+              <div className={styles.text}>{t("common.date")}</div>
               <Input
                 ref={handleDateFieldRef}
                 name="date"
@@ -146,7 +158,7 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
               />
             </div>
             <div className={styles.fieldBox}>
-              <div className={styles.text}>{t('common.time')}</div>
+              <div className={styles.text}>{t("common.time")}</div>
               <Input
                 ref={handleTimeFieldRef}
                 name="time"
@@ -162,11 +174,11 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
             selected={nullableDate}
             onChange={handleDatePickerChange}
           />
-          <Button positive content={t('action.save')} />
+          <Button positive content={t("action.save")} />
         </Form>
         <Button
           negative
-          content={t('action.remove')}
+          content={t("action.remove")}
           className={styles.deleteButton}
           onClick={handleClearClick}
         />

@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import PureBoardMembershipsStep from './PureBoardMembershipsStep';
+import PureBoardMembershipsStep from "./PureBoardMembershipsStep";
 
 export default PureBoardMembershipsStep;

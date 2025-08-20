@@ -3,26 +3,32 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Icon, Label, Loader } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Icon, Label, Loader } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { usePopupInClosableContext } from '../../../hooks';
-import { isListArchiveOrTrash } from '../../../utils/record-helpers';
-import { AttachmentTypes, BoardMembershipRoles } from '../../../constants/Enums';
-import EditStep from './EditStep';
-import Favicon from './Favicon';
-import TimeAgo from '../../common/TimeAgo';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { usePopupInClosableContext } from "../../../hooks";
+import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import {
+  AttachmentTypes,
+  BoardMembershipRoles,
+} from "../../../constants/Enums";
+import EditStep from "./EditStep";
+import Favicon from "./Favicon";
+import TimeAgo from "../../common/TimeAgo";
 
-import styles from './ItemContent.module.scss';
+import styles from "./ItemContent.module.scss";
 
 const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
-  const selectAttachmentById = useMemo(() => selectors.makeSelectAttachmentById(), []);
+  const selectAttachmentById = useMemo(
+    () => selectors.makeSelectAttachmentById(),
+    [],
+  );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const attachment = useSelector((state) => selectAttachmentById(state, id));
@@ -39,8 +45,11 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
       return false;
     }
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   const dispatch = useDispatch();
@@ -50,7 +59,7 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
     if (onOpen) {
       onOpen();
     } else {
-      window.open(attachment.data.url, '_blank');
+      window.open(attachment.data.url, "_blank");
     }
   }, [onOpen, attachment.data]);
 
@@ -58,10 +67,10 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
     (event) => {
       event.stopPropagation();
 
-      const linkElement = document.createElement('a');
+      const linkElement = document.createElement("a");
       linkElement.href = attachment.data.url;
       linkElement.download = attachment.data.filename;
-      linkElement.target = '_blank';
+      linkElement.target = "_blank";
       linkElement.click();
     },
     [attachment.data],
@@ -110,17 +119,21 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
                 corner="left"
                 size="mini"
                 icon={{
-                  name: 'checkmark',
-                  color: 'grey',
+                  name: "checkmark",
+                  color: "grey",
                   inverted: true,
                 }}
                 className={styles.thumbnailLabel}
               />
             )
           ) : (
-            <span className={styles.thumbnailExtension}>{attachment.data.extension || '-'}</span>
+            <span className={styles.thumbnailExtension}>
+              {attachment.data.extension || "-"}
+            </span>
           ))}
-        {attachment.type === AttachmentTypes.LINK && <Favicon url={attachment.data.faviconUrl} />}
+        {attachment.type === AttachmentTypes.LINK && (
+          <Favicon url={attachment.data.faviconUrl} />
+        )}
       </div>
       <div className={styles.details}>
         <span className={styles.name}>{attachment.name}</span>
@@ -129,12 +142,24 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
         </span>
         {attachment.type === AttachmentTypes.FILE && (
           <span className={styles.options}>
-            <button type="button" className={styles.option} onClick={handleDownloadClick}>
-              <Icon name="download" size="small" className={styles.optionIcon} />
+            <button
+              type="button"
+              className={styles.option}
+              onClick={handleDownloadClick}
+            >
+              <Icon
+                name="download"
+                size="small"
+                className={styles.optionIcon}
+              />
               <span className={styles.optionText}>Download</span>
             </button>
             {attachment.data.image && canEdit && (
-              <button type="button" className={styles.option} onClick={handleToggleCoverClick}>
+              <button
+                type="button"
+                className={styles.option}
+                onClick={handleToggleCoverClick}
+              >
                 <Icon
                   name="window maximize outline"
                   flipped="vertically"
@@ -143,11 +168,11 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
                 />
                 <span className={styles.optionText}>
                   {isCover
-                    ? t('action.removeCover', {
-                        context: 'title',
+                    ? t("action.removeCover", {
+                        context: "title",
                       })
-                    : t('action.makeCover', {
-                        context: 'title',
+                    : t("action.makeCover", {
+                        context: "title",
                       })}
                 </span>
               </button>

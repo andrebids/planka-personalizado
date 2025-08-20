@@ -3,23 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import TextareaAutosize from 'react-textarea-autosize';
-import { TextArea } from 'semantic-ui-react';
+import React, { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import TextareaAutosize from "react-textarea-autosize";
+import { TextArea } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useField, useNestedRef } from '../../../hooks';
-import { focusEnd } from '../../../utils/element-helpers';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useField, useNestedRef } from "../../../hooks";
+import { focusEnd } from "../../../utils/element-helpers";
 
-import styles from './EditName.module.scss';
+import styles from "./EditName.module.scss";
 
 const EditName = React.memo(({ listId, onClose }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const defaultValue = useSelector((state) => selectListById(state, listId).name);
+  const defaultValue = useSelector(
+    (state) => selectListById(state, listId).name,
+  );
 
   const dispatch = useDispatch();
   const [value, handleFieldChange] = useField(defaultValue);
@@ -47,12 +49,12 @@ const EditName = React.memo(({ listId, onClose }) => {
   const handleFieldKeyDown = useCallback(
     (event) => {
       switch (event.key) {
-        case 'Enter':
+        case "Enter":
           event.preventDefault();
           submit();
 
           break;
-        case 'Escape':
+        case "Escape":
           submit();
 
           break;

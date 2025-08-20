@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import http from './http';
-import socket from './socket';
-import { transformCard } from './cards';
-import { transformAttachment } from './attachments';
+import http from "./http";
+import socket from "./socket";
+import { transformCard } from "./cards";
+import { transformAttachment } from "./attachments";
 
 /* Actions */
 
@@ -14,11 +14,19 @@ const createBoard = (projectId, data, headers) =>
   socket.post(`/projects/${projectId}/boards`, data, headers);
 
 const createBoardWithImport = (projectId, data, requestId, headers) =>
-  http.post(`/projects/${projectId}/boards?requestId=${requestId}`, data, headers);
+  http.post(
+    `/projects/${projectId}/boards?requestId=${requestId}`,
+    data,
+    headers,
+  );
 
 const getBoard = (id, subscribe, headers) =>
   socket
-    .get(`/boards/${id}${subscribe ? '?subscribe=true' : ''}`, undefined, headers)
+    .get(
+      `/boards/${id}${subscribe ? "?subscribe=true" : ""}`,
+      undefined,
+      headers,
+    )
     .then((body) => ({
       ...body,
       included: {
@@ -28,9 +36,11 @@ const getBoard = (id, subscribe, headers) =>
       },
     }));
 
-const updateBoard = (id, data, headers) => socket.patch(`/boards/${id}`, data, headers);
+const updateBoard = (id, data, headers) =>
+  socket.patch(`/boards/${id}`, data, headers);
 
-const deleteBoard = (id, headers) => socket.delete(`/boards/${id}`, undefined, headers);
+const deleteBoard = (id, headers) =>
+  socket.delete(`/boards/${id}`, undefined, headers);
 
 export default {
   createBoard,

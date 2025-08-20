@@ -3,22 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import selectors from '../../../selectors';
-import ModalTypes from '../../../constants/ModalTypes';
-import { BoardContexts, BoardViews } from '../../../constants/Enums';
-import KanbanContent from './KanbanContent';
-import FiniteContent from './FiniteContent';
-import EndlessContent from './EndlessContent';
-import CardModal from '../../cards/CardModal';
-import BoardActivitiesModal from '../../activities/BoardActivitiesModal';
+import selectors from "../../../selectors";
+import ModalTypes from "../../../constants/ModalTypes";
+import { BoardContexts, BoardViews } from "../../../constants/Enums";
+import KanbanContent from "./KanbanContent";
+import FiniteContent from "./FiniteContent";
+import EndlessContent from "./EndlessContent";
+import CardModal from "../../cards/CardModal";
+import BoardActivitiesModal from "../../activities/BoardActivitiesModal";
 
 const Board = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const modal = useSelector(selectors.selectCurrentModal);
-  const isCardModalOpened = useSelector((state) => !!selectors.selectPath(state).cardId);
+  const isCardModalOpened = useSelector(
+    (state) => !!selectors.selectPath(state).cardId,
+  );
 
   let Content;
   if (board.view === BoardViews.KANBAN) {

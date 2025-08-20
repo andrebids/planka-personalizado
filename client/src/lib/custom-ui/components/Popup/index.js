@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Popup from './Popup';
+import Popup from "./Popup";
 
 export default Popup;

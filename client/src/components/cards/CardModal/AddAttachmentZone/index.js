@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import AddAttachmentZone from './AddAttachmentZone';
+import AddAttachmentZone from "./AddAttachmentZone";
 
 export default AddAttachmentZone;

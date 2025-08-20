@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Button, Menu } from 'semantic-ui-react';
-import { Input, Popup } from '../../../lib/custom-ui';
+import React, { useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { Button, Menu } from "semantic-ui-react";
+import { Input, Popup } from "../../../lib/custom-ui";
 
-import { useField, useNestedRef } from '../../../hooks';
-import Item from './Item';
+import { useField, useNestedRef } from "../../../hooks";
+import Item from "./Item";
 
-import styles from './PureBoardMembershipsStep.module.scss';
+import styles from "./PureBoardMembershipsStep.module.scss";
 
 const PureBoardMembershipsStep = React.memo(
   ({
@@ -26,7 +26,7 @@ const PureBoardMembershipsStep = React.memo(
     onBack,
   }) => {
     const [t] = useTranslation();
-    const [search, handleSearchChange] = useField('');
+    const [search, handleSearchChange] = useField("");
     const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
 
     const filteredItems = useMemo(
@@ -39,7 +39,7 @@ const PureBoardMembershipsStep = React.memo(
       [items, cleanSearch],
     );
 
-    const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
+    const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
 
     useEffect(() => {
       searchFieldRef.current.focus({
@@ -51,7 +51,7 @@ const PureBoardMembershipsStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: 'title',
+            context: "title",
           })}
         </Popup.Header>
         <Popup.Content>
@@ -59,7 +59,7 @@ const PureBoardMembershipsStep = React.memo(
             fluid
             ref={handleSearchFieldRef}
             value={search}
-            placeholder={t('common.searchMembers')}
+            placeholder={t("common.searchMembers")}
             maxLength={128}
             icon="search"
             onChange={handleSearchChange}
@@ -106,8 +106,8 @@ PureBoardMembershipsStep.propTypes = {
 
 PureBoardMembershipsStep.defaultProps = {
   currentUserIds: [],
-  title: 'common.members',
-  clearButtonContent: 'action.clear',
+  title: "common.members",
+  clearButtonContent: "action.clear",
   onUserDeselect: undefined,
   onClear: undefined,
   onBack: undefined,

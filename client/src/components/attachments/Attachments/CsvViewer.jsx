@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Papa from 'papaparse';
-import Frame from 'react-frame-component';
-import { Loader, Pagination, Table } from 'semantic-ui-react';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Papa from "papaparse";
+import Frame from "react-frame-component";
+import { Loader, Pagination, Table } from "semantic-ui-react";
 
-import styles from './CsvViewer.module.scss';
+import styles from "./CsvViewer.module.scss";
 
 const ROWS_PER_PAGE = 50;
 
@@ -23,12 +23,12 @@ const CsvViewer = React.memo(({ src, className }) => {
       ...Array.from(document.styleSheets).flatMap((styleSheet) =>
         Array.from(styleSheet.cssRules).map((cssRule) => cssRule.cssText),
       ),
-      'body{background:rgb(248,248,248);min-width:fit-content;overflow-x:visible}',
-      '.frame-content{padding:40px}',
-      '.frame-content>pre{margin:0}',
-      '.hljs{padding:0}',
-      '::-webkit-scrollbar{height:10px}',
-      '.ui.pagination.menu{display:flex;justify-content:center;margin-top:20px;padding:10px 0}',
+      "body{background:rgb(248,248,248);min-width:fit-content;overflow-x:visible}",
+      ".frame-content{padding:40px}",
+      ".frame-content>pre{margin:0}",
+      ".hljs{padding:0}",
+      "::-webkit-scrollbar{height:10px}",
+      ".ui.pagination.menu{display:flex;justify-content:center;margin-top:20px;padding:10px 0}",
     ],
     [],
   );
@@ -41,7 +41,7 @@ const CsvViewer = React.memo(({ src, className }) => {
     async function fetchFile() {
       try {
         const response = await fetch(src, {
-          credentials: 'include',
+          credentials: "include",
         });
 
         const text = await response.text();
@@ -71,7 +71,7 @@ const CsvViewer = React.memo(({ src, className }) => {
 
   return (
     <Frame
-      head={<style>{frameStyles.join('')}</style>}
+      head={<style>{frameStyles.join("")}</style>}
       className={classNames(styles.wrapper, className)}
     >
       <div>

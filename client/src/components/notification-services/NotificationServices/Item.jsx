@@ -3,24 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Dropdown, Form, Icon, Input } from 'semantic-ui-react';
-import { useDidUpdate, usePrevious, useToggle } from '../../../lib/hooks';
+import React, { useCallback, useMemo, useRef } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Dropdown, Form, Icon, Input } from "semantic-ui-react";
+import { useDidUpdate, usePrevious, useToggle } from "../../../lib/hooks";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
 import {
   useEscapeInterceptor,
   useForm,
   useNestedRef,
   usePopupInClosableContext,
-} from '../../../hooks';
-import { NotificationServiceFormats } from '../../../constants/Enums';
-import ConfirmationStep from '../../common/ConfirmationStep';
+} from "../../../hooks";
+import { NotificationServiceFormats } from "../../../constants/Enums";
+import ConfirmationStep from "../../common/ConfirmationStep";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id }) => {
   const selectNotificationServiceById = useMemo(
@@ -28,7 +28,9 @@ const Item = React.memo(({ id }) => {
     [],
   );
 
-  const notificationService = useSelector((state) => selectNotificationServiceById(state, id));
+  const notificationService = useSelector((state) =>
+    selectNotificationServiceById(state, id),
+  );
 
   const dispatch = useDispatch();
 
@@ -43,14 +45,14 @@ const Item = React.memo(({ id }) => {
   const prevDefaultData = usePrevious(defaultData);
 
   const [data, handleFieldChange, setData] = useForm(() => ({
-    url: '',
+    url: "",
     format: NotificationServiceFormats.MARKDOWN,
     ...defaultData,
   }));
 
   const [blurUrlFieldState, blurUrlField] = useToggle();
 
-  const [urlFieldRef, handleUrlFieldRef] = useNestedRef('inputRef');
+  const [urlFieldRef, handleUrlFieldRef] = useNestedRef("inputRef");
   const isUrlFocusedRef = useRef(false);
 
   const resetUrl = useCallback(() => {
@@ -186,7 +188,9 @@ const Item = React.memo(({ id }) => {
       <Button
         type="button"
         loading={notificationService.isTesting}
-        disabled={!notificationService.isPersisted || notificationService.isTesting}
+        disabled={
+          !notificationService.isPersisted || notificationService.isTesting
+        }
         className={styles.button}
         onClick={handleTestClick}
       >
@@ -198,7 +202,11 @@ const Item = React.memo(({ id }) => {
         buttonContent="action.deleteNotificationService"
         onConfirm={handleDeleteConfirm}
       >
-        <Button type="button" disabled={!notificationService.isPersisted} className={styles.button}>
+        <Button
+          type="button"
+          disabled={!notificationService.isPersisted}
+          className={styles.button}
+        >
           <Icon fitted name="trash alternate outline" />
         </Button>
       </ConfirmationPopup>

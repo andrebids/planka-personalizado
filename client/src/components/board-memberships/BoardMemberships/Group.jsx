@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Icon, Button } from 'semantic-ui-react';
-import { usePopup } from '../../../lib/popup';
+import React from "react";
+import PropTypes from "prop-types";
+import { Icon, Button } from "semantic-ui-react";
+import { usePopup } from "../../../lib/popup";
 
-import { BoardMembershipRoleIcons } from '../../../constants/Icons';
-import GroupItemsStep from './GroupItemsStep';
-import ActionsStep from './ActionsStep';
-import UserAvatar from '../../users/UserAvatar';
+import { BoardMembershipRoleIcons } from "../../../constants/Icons";
+import GroupItemsStep from "./GroupItemsStep";
+import ActionsStep from "./ActionsStep";
+import UserAvatar from "../../users/UserAvatar";
 
-import styles from './Group.module.scss';
+import styles from "./Group.module.scss";
 
 const MAX_MEMBERS = 6;
 
@@ -35,13 +35,19 @@ const Group = React.memo(({ items, role, groupsTotal }) => {
       {items.slice(0, visibleTotal).map((item) => (
         <span key={item.id} className={styles.user}>
           <ActionsPopup boardMembershipId={item.id}>
-            <UserAvatar id={item.user.id} size="large" isDisabled={!item.isPersisted} />
+            <UserAvatar
+              id={item.user.id}
+              size="large"
+              isDisabled={!item.isPersisted}
+            />
           </ActionsPopup>
         </span>
       ))}
       {hiddenTotal > 0 && (
         <GroupItemsPopup items={items} title={`common.${role}s`}>
-          <Button className={styles.othersButton}>+{hiddenTotal < 99 ? hiddenTotal : 99}</Button>
+          <Button className={styles.othersButton}>
+            +{hiddenTotal < 99 ? hiddenTotal : 99}
+          </Button>
         </GroupItemsPopup>
       )}
     </div>

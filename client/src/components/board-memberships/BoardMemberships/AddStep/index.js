@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import AddStep from './AddStep';
+import AddStep from "./AddStep";
 
 export default AddStep;

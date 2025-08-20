@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import CardActivities from './CardActivities';
+import CardActivities from "./CardActivities";
 
 export default CardActivities;

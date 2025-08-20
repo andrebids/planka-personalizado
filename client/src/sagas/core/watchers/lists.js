@@ -3,15 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { all, takeEvery } from 'redux-saga/effects';
+import { all, takeEvery } from "redux-saga/effects";
 
-import services from '../services';
-import EntryActionTypes from '../../../constants/EntryActionTypes';
+import services from "../services";
+import EntryActionTypes from "../../../constants/EntryActionTypes";
 
 export default function* listsWatchers() {
   yield all([
-    takeEvery(EntryActionTypes.LIST_IN_CURRENT_BOARD_CREATE, ({ payload: { data } }) =>
-      services.createListInCurrentBoard(data),
+    takeEvery(
+      EntryActionTypes.LIST_IN_CURRENT_BOARD_CREATE,
+      ({ payload: { data } }) => services.createListInCurrentBoard(data),
     ),
     takeEvery(EntryActionTypes.LIST_CREATE_HANDLE, ({ payload: { list } }) =>
       services.handleListCreate(list),
@@ -28,8 +29,9 @@ export default function* listsWatchers() {
     takeEvery(EntryActionTypes.LIST_SORT, ({ payload: { id, data } }) =>
       services.sortList(id, data),
     ),
-    takeEvery(EntryActionTypes.LIST_CARDS_TO_ARCHIVE_LIST_MOVE, ({ payload: { id } }) =>
-      services.moveListCardsToArchiveList(id),
+    takeEvery(
+      EntryActionTypes.LIST_CARDS_TO_ARCHIVE_LIST_MOVE,
+      ({ payload: { id } }) => services.moveListCardsToArchiveList(id),
     ),
     takeEvery(EntryActionTypes.TRASH_LIST_IN_CURRENT_BOARD_CLEAR, () =>
       services.clearTrashListInCurrentBoard(),
@@ -37,9 +39,12 @@ export default function* listsWatchers() {
     takeEvery(EntryActionTypes.LIST_CLEAR_HANDLE, ({ payload: { list } }) =>
       services.handleListClear(list),
     ),
-    takeEvery(EntryActionTypes.LIST_DELETE, ({ payload: { id } }) => services.deleteList(id)),
-    takeEvery(EntryActionTypes.LIST_DELETE_HANDLE, ({ payload: { list, cards } }) =>
-      services.handleListDelete(list, cards),
+    takeEvery(EntryActionTypes.LIST_DELETE, ({ payload: { id } }) =>
+      services.deleteList(id),
+    ),
+    takeEvery(
+      EntryActionTypes.LIST_DELETE_HANDLE,
+      ({ payload: { list, cards } }) => services.handleListDelete(list, cards),
     ),
   ]);
 }

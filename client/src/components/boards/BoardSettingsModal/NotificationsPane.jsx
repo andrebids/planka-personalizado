@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Tab } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Tab } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import NotificationServices from '../../notification-services/NotificationServices';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import NotificationServices from "../../notification-services/NotificationServices";
 
-import styles from './NotificationsPane.module.scss';
+import styles from "./NotificationsPane.module.scss";
 
 const NotificationsPane = React.memo(() => {
   const selectNotificationServiceIdsByBoardId = useMemo(
@@ -19,7 +19,9 @@ const NotificationsPane = React.memo(() => {
     [],
   );
 
-  const boardId = useSelector((state) => selectors.selectCurrentModal(state).params.id);
+  const boardId = useSelector(
+    (state) => selectors.selectCurrentModal(state).params.id,
+  );
 
   const notificationServiceIds = useSelector((state) =>
     selectNotificationServiceIdsByBoardId(state, boardId),
@@ -36,7 +38,10 @@ const NotificationsPane = React.memo(() => {
 
   return (
     <Tab.Pane attached={false} className={styles.wrapper}>
-      <NotificationServices ids={notificationServiceIds} onCreate={handleCreate} />
+      <NotificationServices
+        ids={notificationServiceIds}
+        onCreate={handleCreate}
+      />
     </Tab.Pane>
   );
 });

@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import EntryActionTypes from '../constants/EntryActionTypes';
+import EntryActionTypes from "../constants/EntryActionTypes";
 
 const createCustomFieldInBaseGroup = (baseCustomFieldGroupId, data) => ({
   type: EntryActionTypes.CUSTOM_FIELD_IN_BASE_GROUP_CREATE,

@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
 
 export function* createBaseCustomFieldGroup(projectId, data) {
   const localId = yield call(createLocalId);
@@ -35,7 +35,9 @@ export function* createBaseCustomFieldGroup(projectId, data) {
     return;
   }
 
-  yield put(actions.createBaseCustomFieldGroup.success(localId, baseCustomFieldGroup));
+  yield put(
+    actions.createBaseCustomFieldGroup.success(localId, baseCustomFieldGroup),
+  );
 }
 
 export function* createBaseCustomFieldGroupInCurrentProject(data) {
@@ -76,7 +78,11 @@ export function* deleteBaseCustomFieldGroup(id) {
 
   let baseCustomFieldGroup;
   try {
-    ({ item: baseCustomFieldGroup } = yield call(request, api.deleteBaseCustomFieldGroup, id));
+    ({ item: baseCustomFieldGroup } = yield call(
+      request,
+      api.deleteBaseCustomFieldGroup,
+      id,
+    ));
   } catch (error) {
     yield put(actions.deleteBaseCustomFieldGroup.failure(id, error));
     return;

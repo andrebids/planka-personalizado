@@ -3,17 +3,17 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import router from './router';
-import socket from './socket';
-import orm from './orm';
-import common from './common';
-import auth from './auth';
-import core from './core';
-import ui from './ui';
-import sidebar from './sidebarReducer';
-import timelinePanel from './timelinePanelReducer';
+import router from "./router";
+import socket from "./socket";
+import orm from "./orm";
+import common from "./common";
+import auth from "./auth";
+import core from "./core";
+import ui from "./ui";
+import sidebar from "./sidebarReducer";
+import timelinePanel from "./timelinePanelReducer";
 
 export default combineReducers({
   router,

@@ -3,31 +3,41 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { Icon } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Icon } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { startStopwatch, stopStopwatch } from '../../../utils/stopwatch';
-import { isListArchiveOrTrash } from '../../../utils/record-helpers';
-import { BoardMembershipRoles, BoardViews, ListTypes } from '../../../constants/Enums';
-import TaskList from './TaskList';
-import DueDateChip from '../DueDateChip';
-import StopwatchChip from '../StopwatchChip';
-import UserAvatar from '../../users/UserAvatar';
-import LabelChip from '../../labels/LabelChip';
-import CustomFieldValueChip from '../../custom-field-values/CustomFieldValueChip';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { startStopwatch, stopStopwatch } from "../../../utils/stopwatch";
+import { isListArchiveOrTrash } from "../../../utils/record-helpers";
+import {
+  BoardMembershipRoles,
+  BoardViews,
+  ListTypes,
+} from "../../../constants/Enums";
+import TaskList from "./TaskList";
+import DueDateChip from "../DueDateChip";
+import StopwatchChip from "../StopwatchChip";
+import UserAvatar from "../../users/UserAvatar";
+import LabelChip from "../../labels/LabelChip";
+import CustomFieldValueChip from "../../custom-field-values/CustomFieldValueChip";
 
-import styles from './ProjectContent.module.scss';
+import styles from "./ProjectContent.module.scss";
 
 const ProjectContent = React.memo(({ cardId }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
-  const selectUserIdsByCardId = useMemo(() => selectors.makeSelectUserIdsByCardId(), []);
-  const selectLabelIdsByCardId = useMemo(() => selectors.makeSelectLabelIdsByCardId(), []);
+  const selectUserIdsByCardId = useMemo(
+    () => selectors.makeSelectUserIdsByCardId(),
+    [],
+  );
+  const selectLabelIdsByCardId = useMemo(
+    () => selectors.makeSelectLabelIdsByCardId(),
+    [],
+  );
 
   const selectShownOnFrontOfCardTaskListIdsByCardId = useMemo(
     () => selectors.makeSelectShownOnFrontOfCardTaskListIdsByCardId(),
@@ -49,18 +59,25 @@ const ProjectContent = React.memo(({ cardId }) => {
     [],
   );
 
-  const selectAttachmentById = useMemo(() => selectors.makeSelectAttachmentById(), []);
+  const selectAttachmentById = useMemo(
+    () => selectors.makeSelectAttachmentById(),
+    [],
+  );
 
   const card = useSelector((state) => selectCardById(state, cardId));
   const list = useSelector((state) => selectListById(state, card.listId));
   const userIds = useSelector((state) => selectUserIdsByCardId(state, cardId));
-  const labelIds = useSelector((state) => selectLabelIdsByCardId(state, cardId));
+  const labelIds = useSelector((state) =>
+    selectLabelIdsByCardId(state, cardId),
+  );
 
   const taskListIds = useSelector((state) =>
     selectShownOnFrontOfCardTaskListIdsByCardId(state, cardId),
   );
 
-  const attachmentsTotal = useSelector((state) => selectAttachmentsTotalByCardId(state, cardId));
+  const attachmentsTotal = useSelector((state) =>
+    selectAttachmentsTotalByCardId(state, cardId),
+  );
 
   const customFieldValueIds = useSelector((state) =>
     selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId),
@@ -79,7 +96,8 @@ const ProjectContent = React.memo(({ cardId }) => {
     const board = selectors.selectCurrentBoard(state);
 
     return {
-      listName: list.name && (board.view === BoardViews.KANBAN ? null : list.name),
+      listName:
+        list.name && (board.view === BoardViews.KANBAN ? null : list.name),
       withCreator: board.alwaysDisplayCardCreator,
     };
   }, shallowEqual);
@@ -89,8 +107,11 @@ const ProjectContent = React.memo(({ cardId }) => {
       return false;
     }
 
-    const boardMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
-    return !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR;
+    const boardMembership =
+      selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    return (
+      !!boardMembership && boardMembership.role === BoardMembershipRoles.EDITOR
+    );
   });
 
   const dispatch = useDispatch();
@@ -131,14 +152,23 @@ const ProjectContent = React.memo(({ cardId }) => {
       <span className={classNames(styles.attachments, styles.attachmentsRight)}>
         {withCreator && (
           <>
-            <span className={classNames(styles.attachment, styles.attachmentRight)}>
-              <UserAvatar withCreatorIndicator id={card.creatorUserId} size="small" />
+            <span
+              className={classNames(styles.attachment, styles.attachmentRight)}
+            >
+              <UserAvatar
+                withCreatorIndicator
+                id={card.creatorUserId}
+                size="small"
+              />
             </span>
             {userIds.length > 0 && <span className={styles.creatorDivider} />}
           </>
         )}
         {userIds.map((userId) => (
-          <span key={userId} className={classNames(styles.attachment, styles.attachmentRight)}>
+          <span
+            key={userId}
+            className={classNames(styles.attachment, styles.attachmentRight)}
+          >
             <UserAvatar id={userId} size="small" />
           </span>
         ))}
@@ -147,7 +177,9 @@ const ProjectContent = React.memo(({ cardId }) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={classNames(styles.name, isInClosedList && styles.nameClosed)}>
+      <div
+        className={classNames(styles.name, isInClosedList && styles.nameClosed)}
+      >
         {card.name}
       </div>
       {coverUrl && (
@@ -156,16 +188,23 @@ const ProjectContent = React.memo(({ cardId }) => {
         </div>
       )}
       {labelIds.length > 0 && (
-        <span className={classNames(styles.labels, !isCompact && styles.labelsFull)}>
+        <span
+          className={classNames(styles.labels, !isCompact && styles.labelsFull)}
+        >
           {labelIds.map((labelId) => (
-            <span key={labelId} className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              key={labelId}
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <LabelChip id={labelId} size="tiny" />
             </span>
           ))}
         </span>
       )}
       {customFieldValueIds.length > 0 && (
-        <span className={classNames(styles.labels, !isCompact && styles.labelsFull)}>
+        <span
+          className={classNames(styles.labels, !isCompact && styles.labelsFull)}
+        >
           {customFieldValueIds.map((customFieldValueId) => (
             <span
               key={customFieldValueId}
@@ -184,13 +223,19 @@ const ProjectContent = React.memo(({ cardId }) => {
         <span className={styles.attachments}>
           {notificationsTotal > 0 && (
             <span
-              className={classNames(styles.attachment, styles.attachmentLeft, styles.notification)}
+              className={classNames(
+                styles.attachment,
+                styles.attachmentLeft,
+                styles.notification,
+              )}
             >
               {notificationsTotal}
             </span>
           )}
           {card.dueDate && (
-            <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <DueDateChip
                 value={card.dueDate}
                 size="tiny"
@@ -199,17 +244,23 @@ const ProjectContent = React.memo(({ cardId }) => {
             </span>
           )}
           {card.stopwatch && (
-            <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <StopwatchChip
                 value={card.stopwatch}
                 as="span"
                 size="tiny"
-                onClick={canEditStopwatch ? handleToggleStopwatchClick : undefined}
+                onClick={
+                  canEditStopwatch ? handleToggleStopwatchClick : undefined
+                }
               />
             </span>
           )}
           {listName && (
-            <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <span className={styles.attachmentContent}>
                 <Icon name="columns" />
                 {listName}
@@ -217,14 +268,18 @@ const ProjectContent = React.memo(({ cardId }) => {
             </span>
           )}
           {card.description && (
-            <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <span className={styles.attachmentContent}>
                 <Icon name="align left" />
               </span>
             </span>
           )}
           {attachmentsTotal > 0 && (
-            <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <span className={styles.attachmentContent}>
                 <Icon name="attach" />
                 {attachmentsTotal}
@@ -232,7 +287,9 @@ const ProjectContent = React.memo(({ cardId }) => {
             </span>
           )}
           {card.commentsTotal > 0 && (
-            <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+            <span
+              className={classNames(styles.attachment, styles.attachmentLeft)}
+            >
               <span className={styles.attachmentContent}>
                 <Icon name="comment outline" />
                 {card.commentsTotal}

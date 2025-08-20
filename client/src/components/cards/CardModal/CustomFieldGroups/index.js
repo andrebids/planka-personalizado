@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import CustomFieldGroups from './CustomFieldGroups';
+import CustomFieldGroups from "./CustomFieldGroups";
 
 export default CustomFieldGroups;

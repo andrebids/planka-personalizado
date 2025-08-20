@@ -3,30 +3,39 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Button, Form, Input } from 'semantic-ui-react';
-import { Popup } from '../../../lib/custom-ui';
+import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
+import { Button, Form, Input } from "semantic-ui-react";
+import { Popup } from "../../../lib/custom-ui";
 
-import { useForm, useNestedRef } from '../../../hooks';
+import { useForm, useNestedRef } from "../../../hooks";
 
-import styles from './ConfirmationStep.module.scss';
+import styles from "./ConfirmationStep.module.scss";
 
 const ButtonTypes = {
-  POSITIVE: 'positive',
-  NEGATIVE: 'negative',
+  POSITIVE: "positive",
+  NEGATIVE: "negative",
 };
 
 const ConfirmationStep = React.memo(
-  ({ title, content, buttonType, buttonContent, typeValue, typeContent, onConfirm, onBack }) => {
+  ({
+    title,
+    content,
+    buttonType,
+    buttonContent,
+    typeValue,
+    typeContent,
+    onConfirm,
+    onBack,
+  }) => {
     const [t] = useTranslation();
 
     const [data, handleFieldChange] = useForm({
-      typeValue: '',
+      typeValue: "",
     });
 
-    const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+    const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
 
     const handleSubmit = useCallback(() => {
       if (typeValue) {
@@ -54,12 +63,14 @@ const ConfirmationStep = React.memo(
       <>
         <Popup.Header onBack={onBack}>
           {t(title, {
-            context: 'title',
+            context: "title",
           })}
         </Popup.Header>
         <Popup.Content>
           <div className={styles.content}>{t(content)}</div>
-          {typeContent && <div className={styles.content}>{t(typeContent)}</div>}
+          {typeContent && (
+            <div className={styles.content}>{t(typeContent)}</div>
+          )}
           <Form onSubmit={handleSubmit}>
             {typeValue && (
               <Input

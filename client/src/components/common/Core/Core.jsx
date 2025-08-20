@@ -3,26 +3,28 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useTranslation, Trans } from 'react-i18next';
-import { Loader } from 'semantic-ui-react';
+import React, { useCallback, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation, Trans } from "react-i18next";
+import { Loader } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import version from '../../../version';
-import ModalTypes from '../../../constants/ModalTypes';
-import Message from './Message';
-import Toaster from '../Toaster';
-import Fixed from '../Fixed';
-import Static from '../Static';
-import AdministrationModal from '../AdministrationModal';
-import UserSettingsModal from '../../users/UserSettingsModal';
-import ProjectBackground from '../../projects/ProjectBackground';
-import AddProjectModal from '../../projects/AddProjectModal';
+import selectors from "../../../selectors";
+import version from "../../../version";
+import ModalTypes from "../../../constants/ModalTypes";
+import Message from "./Message";
+import Toaster from "../Toaster";
+import Fixed from "../Fixed";
+import Static from "../Static";
+import AdministrationModal from "../AdministrationModal";
+import UserSettingsModal from "../../users/UserSettingsModal";
+import ProjectBackground from "../../projects/ProjectBackground";
+import AddProjectModal from "../../projects/AddProjectModal";
 
 const Core = React.memo(() => {
   const isInitializing = useSelector(selectors.selectIsInitializing);
-  const isSocketDisconnected = useSelector(selectors.selectIsSocketDisconnected);
+  const isSocketDisconnected = useSelector(
+    selectors.selectIsSocketDisconnected,
+  );
   const modal = useSelector(selectors.selectCurrentModal);
   const project = useSelector(selectors.selectCurrentProject);
   const board = useSelector(selectors.selectCurrentBoard);
@@ -52,7 +54,10 @@ const Core = React.memo(() => {
       titleParts.push(project.name);
     }
 
-    document.title = titleParts.length === 0 ? defaultTitleRef.current : titleParts.join(' | ');
+    document.title =
+      titleParts.length === 0
+        ? defaultTitleRef.current
+        : titleParts.join(" | ");
   }, [project, board]);
 
   let modalNode = null;
@@ -79,7 +84,7 @@ const Core = React.memo(() => {
     messageNode = (
       <Message
         type="error"
-        header={t('common.noConnectionToServer')}
+        header={t("common.noConnectionToServer")}
         content={
           <Trans i18nKey="common.allChangesWillBeAutomaticallySavedAfterConnectionRestored">
             All changes will be automatically saved
@@ -93,13 +98,14 @@ const Core = React.memo(() => {
     messageNode = (
       <Message
         type="info"
-        header={t('common.newVersionAvailable')}
+        header={t("common.newVersionAvailable")}
         content={
           <Trans i18nKey="common.clickHereOrRefreshPageToUpdate">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,
                                          jsx-a11y/click-events-have-key-events,
                                          jsx-a11y/no-static-element-interactions */}
-            <a onClick={handleRefreshPageClick}>Click here</a> or refresh the page to update
+            <a onClick={handleRefreshPageClick}>Click here</a> or refresh the
+            page to update
           </Trans>
         }
       />

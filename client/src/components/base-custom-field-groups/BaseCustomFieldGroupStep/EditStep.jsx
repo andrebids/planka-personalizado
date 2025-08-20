@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from 'dequal';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'semantic-ui-react';
-import { Input, Popup } from '../../../lib/custom-ui';
+import { dequal } from "dequal";
+import React, { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form } from "semantic-ui-react";
+import { Input, Popup } from "../../../lib/custom-ui";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useForm, useNestedRef } from '../../../hooks';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useForm, useNestedRef } from "../../../hooks";
 
-import styles from './EditStep.module.scss';
+import styles from "./EditStep.module.scss";
 
 const EditStep = React.memo(({ baseCustomFieldGroupId, onBack, onClose }) => {
   const selectBaseCustomFieldGroupById = useMemo(
@@ -38,11 +38,11 @@ const EditStep = React.memo(({ baseCustomFieldGroupId, onBack, onClose }) => {
   );
 
   const [data, handleFieldChange] = useForm({
-    name: '',
+    name: "",
     ...defaultData,
   });
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
 
   const handleSubmit = useCallback(() => {
     const cleanData = {
@@ -56,11 +56,23 @@ const EditStep = React.memo(({ baseCustomFieldGroupId, onBack, onClose }) => {
     }
 
     if (!dequal(cleanData, defaultData)) {
-      dispatch(entryActions.updateBaseCustomFieldGroup(baseCustomFieldGroupId, cleanData));
+      dispatch(
+        entryActions.updateBaseCustomFieldGroup(
+          baseCustomFieldGroupId,
+          cleanData,
+        ),
+      );
     }
 
     onClose();
-  }, [baseCustomFieldGroupId, onClose, dispatch, defaultData, data, nameFieldRef]);
+  }, [
+    baseCustomFieldGroupId,
+    onClose,
+    dispatch,
+    defaultData,
+    data,
+    nameFieldRef,
+  ]);
 
   useEffect(() => {
     nameFieldRef.current.focus({
@@ -71,13 +83,13 @@ const EditStep = React.memo(({ baseCustomFieldGroupId, onBack, onClose }) => {
   return (
     <>
       <Popup.Header onBack={onBack}>
-        {t('common.editCustomFieldGroup', {
-          context: 'title',
+        {t("common.editCustomFieldGroup", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t('common.title')}</div>
+          <div className={styles.text}>{t("common.title")}</div>
           <Input
             fluid
             ref={handleNameFieldRef}
@@ -87,7 +99,7 @@ const EditStep = React.memo(({ baseCustomFieldGroupId, onBack, onClose }) => {
             className={styles.field}
             onChange={handleFieldChange}
           />
-          <Button positive content={t('action.save')} />
+          <Button positive content={t("action.save")} />
         </Form>
       </Popup.Content>
     </>

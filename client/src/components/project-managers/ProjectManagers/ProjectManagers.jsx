@@ -3,21 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Button } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import { usePopupInClosableContext } from '../../../hooks';
-import { isUserAdminOrProjectOwner } from '../../../utils/record-helpers';
-import AddStep from './AddStep';
-import ActionsStep from './ActionsStep';
-import UserAvatar from '../../users/UserAvatar';
+import selectors from "../../../selectors";
+import { usePopupInClosableContext } from "../../../hooks";
+import { isUserAdminOrProjectOwner } from "../../../utils/record-helpers";
+import AddStep from "./AddStep";
+import ActionsStep from "./ActionsStep";
+import UserAvatar from "../../users/UserAvatar";
 
-import styles from './ProjectManagers.module.scss';
+import styles from "./ProjectManagers.module.scss";
 
 const ProjectManagers = React.memo(() => {
-  const projectManagers = useSelector(selectors.selectManagersForCurrentProject);
+  const projectManagers = useSelector(
+    selectors.selectManagersForCurrentProject,
+  );
 
   const canAdd = useSelector((state) => {
     const user = selectors.selectCurrentUser(state);

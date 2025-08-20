@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useRef } from "react";
+import PropTypes from "prop-types";
 
-import styles from './FilePicker.module.css';
+import styles from "./FilePicker.module.css";
 
 const FilePicker = React.memo(({ children, accept, multiple, onSelect }) => {
   const fieldRef = useRef(null);

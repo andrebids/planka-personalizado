@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Tab } from 'semantic-ui-react';
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Tab } from "semantic-ui-react";
 
-import entryActions from '../../../entry-actions';
-import { useClosableModal } from '../../../hooks';
-import AccountPane from './AccountPane';
-import PreferencesPane from './PreferencesPane';
-import NotificationsPane from './NotificationsPane';
+import entryActions from "../../../entry-actions";
+import { useClosableModal } from "../../../hooks";
+import AccountPane from "./AccountPane";
+import PreferencesPane from "./PreferencesPane";
+import NotificationsPane from "./NotificationsPane";
 
 const UserSettingsModal = React.memo(() => {
   const dispatch = useDispatch();
@@ -26,31 +26,31 @@ const UserSettingsModal = React.memo(() => {
 
   const panes = [
     {
-      menuItem: t('common.preferences', {
-        context: 'title',
+      menuItem: t("common.preferences", {
+        context: "title",
       }),
       render: () => <PreferencesPane />,
     },
     {
-      menuItem: t('common.notifications', {
-        context: 'title',
+      menuItem: t("common.notifications", {
+        context: "title",
       }),
       render: () => <NotificationsPane />,
     },
     {
-      menuItem: t('common.account', {
-        context: 'title',
+      menuItem: t("common.account", {
+        context: "title",
       }),
       render: () => <AccountPane />,
     },
   ];
 
   return (
-    <ClosableModal 
-      open 
-      closeIcon 
-      size="small" 
-      centered={false} 
+    <ClosableModal
+      open
+      closeIcon
+      size="small"
+      centered={false}
       onClose={handleClose}
     >
       <ClosableModal.Content>

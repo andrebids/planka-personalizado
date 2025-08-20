@@ -3,19 +3,19 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import classNames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
-import { Icon } from 'semantic-ui-react';
-import { usePopup } from '../../../../lib/popup';
+import React, { useCallback } from "react";
+import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { Icon } from "semantic-ui-react";
+import { usePopup } from "../../../../lib/popup";
 
-import selectors from '../../../../selectors';
-import entryActions from '../../../../entry-actions';
-import { HomeViews } from '../../../../constants/Enums';
-import { HomeViewIcons, ProjectOrderIcons } from '../../../../constants/Icons';
-import SelectOrderStep from './SelectOrderStep';
+import selectors from "../../../../selectors";
+import entryActions from "../../../../entry-actions";
+import { HomeViews } from "../../../../constants/Enums";
+import { HomeViewIcons, ProjectOrderIcons } from "../../../../constants/Icons";
+import SelectOrderStep from "./SelectOrderStep";
 
-import styles from './RightSide.module.scss';
+import styles from "./RightSide.module.scss";
 
 const RightSide = React.memo(() => {
   const currentView = useSelector(selectors.selectHomeView); // TODO: rename?
@@ -42,7 +42,7 @@ const RightSide = React.memo(() => {
     dispatch(entryActions.toggleHiddenProjects(!isHiddenVisible));
   }, [isHiddenVisible, dispatch]);
 
-  const SelectOrderPopup = usePopup(SelectOrderStep, { variantClass: 'glass' });
+  const SelectOrderPopup = usePopup(SelectOrderStep, { variantClass: "glass" });
 
   return (
     <>
@@ -52,7 +52,7 @@ const RightSide = React.memo(() => {
           className={classNames(styles.button)}
           onClick={handleToggleHiddenClick}
         >
-          <Icon fitted name={isHiddenVisible ? 'eye slash' : 'eye'} />
+          <Icon fitted name={isHiddenVisible ? "eye slash" : "eye"} />
         </button>
       </div>
       <div className={styles.action}>

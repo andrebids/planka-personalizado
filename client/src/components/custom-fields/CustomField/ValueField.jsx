@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useDidUpdate, usePrevious, useToggle } from '../../../lib/hooks';
-import { Input } from '../../../lib/custom-ui';
+import React, { useCallback, useRef } from "react";
+import PropTypes from "prop-types";
+import { useDidUpdate, usePrevious, useToggle } from "../../../lib/hooks";
+import { Input } from "../../../lib/custom-ui";
 
-import { useEscapeInterceptor, useField, useNestedRef } from '../../../hooks';
+import { useEscapeInterceptor, useField, useNestedRef } from "../../../hooks";
 
-import styles from './ValueField.module.scss';
+import styles from "./ValueField.module.scss";
 
 const ValueField = React.memo(({ defaultValue, onUpdate, ...props }) => {
   const prevDefaultValue = usePrevious(defaultValue);
-  const [value, handleChange, setValue] = useField(defaultValue || '');
+  const [value, handleChange, setValue] = useField(defaultValue || "");
   const [blurFieldState, blurField] = useToggle();
 
-  const [fieldRef, handleFieldRef] = useNestedRef('inputRef');
+  const [fieldRef, handleFieldRef] = useNestedRef("inputRef");
   const isFocusedRef = useRef(false);
 
   const handleEscape = useCallback(() => {
-    setValue(defaultValue || '');
+    setValue(defaultValue || "");
     blurField();
   }, [defaultValue, setValue, blurField]);
 
@@ -35,7 +35,7 @@ const ValueField = React.memo(({ defaultValue, onUpdate, ...props }) => {
 
   const handleKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         event.preventDefault();
         fieldRef.current.blur();
       }
@@ -56,7 +56,7 @@ const ValueField = React.memo(({ defaultValue, onUpdate, ...props }) => {
 
   useDidUpdate(() => {
     if (!isFocusedRef.current && defaultValue !== prevDefaultValue) {
-      setValue(defaultValue || '');
+      setValue(defaultValue || "");
     }
   }, [defaultValue, prevDefaultValue]);
 

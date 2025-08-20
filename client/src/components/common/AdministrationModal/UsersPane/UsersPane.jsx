@@ -3,18 +3,22 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Divider, Tab, Table } from 'semantic-ui-react';
-import { Input } from '../../../../lib/custom-ui';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Divider, Tab, Table } from "semantic-ui-react";
+import { Input } from "../../../../lib/custom-ui";
 
-import selectors from '../../../../selectors';
-import { useField, useNestedRef, usePopupInClosableContext } from '../../../../hooks';
-import Item from './Item';
-import AddStep from './AddStep';
+import selectors from "../../../../selectors";
+import {
+  useField,
+  useNestedRef,
+  usePopupInClosableContext,
+} from "../../../../hooks";
+import Item from "./Item";
+import AddStep from "./AddStep";
 
-import styles from './UsersPane.module.scss';
+import styles from "./UsersPane.module.scss";
 
 const UsersPane = React.memo(() => {
   const activeUsersLimit = useSelector(selectors.selectActiveUsersLimit);
@@ -28,11 +32,11 @@ const UsersPane = React.memo(() => {
 
   const [t] = useTranslation();
 
-  const [search, handleSearchChange] = useField('');
+  const [search, handleSearchChange] = useField("");
   const cleanSearch = useMemo(() => search.trim().toLowerCase(), [search]);
   const [isDeactivatedVisible, setIsDeactivatedVisible] = useState(false); // TODO: refactor?
 
-  const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
+  const [searchFieldRef, handleSearchFieldRef] = useNestedRef("inputRef");
 
   const filteredUsers = useMemo(
     () =>
@@ -70,7 +74,7 @@ const UsersPane = React.memo(() => {
         fluid
         ref={handleSearchFieldRef}
         value={search}
-        placeholder={t('common.searchUsers')}
+        placeholder={t("common.searchUsers")}
         maxLength={256}
         icon="search"
         onChange={handleSearchChange}
@@ -81,10 +85,12 @@ const UsersPane = React.memo(() => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />
-              <Table.HeaderCell width={4}>{t('common.name')}</Table.HeaderCell>
-              <Table.HeaderCell width={4}>{t('common.username')}</Table.HeaderCell>
-              <Table.HeaderCell width={4}>{t('common.email')}</Table.HeaderCell>
-              <Table.HeaderCell>{t('common.role')}</Table.HeaderCell>
+              <Table.HeaderCell width={4}>{t("common.name")}</Table.HeaderCell>
+              <Table.HeaderCell width={4}>
+                {t("common.username")}
+              </Table.HeaderCell>
+              <Table.HeaderCell width={4}>{t("common.email")}</Table.HeaderCell>
+              <Table.HeaderCell>{t("common.role")}</Table.HeaderCell>
               <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
@@ -97,7 +103,11 @@ const UsersPane = React.memo(() => {
       </div>
       <div className={styles.actions}>
         <Button
-          content={isDeactivatedVisible ? t('action.showActive') : t('action.showDeactivated')}
+          content={
+            isDeactivatedVisible
+              ? t("action.showActive")
+              : t("action.showDeactivated")
+          }
           className={styles.toggleDeactivatedButton}
           onClick={handleToggleDeactivatedClick}
         />
@@ -106,10 +116,13 @@ const UsersPane = React.memo(() => {
           <AddPopup>
             <Button
               positive
-              disabled={activeUsersLimit !== null && activeUsersTotal >= activeUsersLimit}
+              disabled={
+                activeUsersLimit !== null &&
+                activeUsersTotal >= activeUsersLimit
+              }
               className={styles.addButton}
             >
-              {t('action.addUser')}
+              {t("action.addUser")}
               {activeUsersLimit !== null && (
                 <span className={styles.addButtonCounter}>
                   {activeUsersTotal}/{activeUsersLimit}

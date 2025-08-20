@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import KanbanContent from './KanbanContent';
+import KanbanContent from "./KanbanContent";
 
 export default KanbanContent;

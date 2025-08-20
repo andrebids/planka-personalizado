@@ -11,7 +11,7 @@ export {
   go,
   back,
   forward,
-} from './actions';
-export { default as createRouterReducer } from './create-router-reducer';
-export { default as createRouterMiddleware } from './create-router-middleware';
-export { default as ReduxRouter } from './ReduxRouter';
+} from "./actions";
+export { default as createRouterReducer } from "./create-router-reducer";
+export { default as createRouterMiddleware } from "./create-router-middleware";
+export { default as ReduxRouter } from "./ReduxRouter";

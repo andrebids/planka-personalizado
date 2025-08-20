@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select, take } from 'redux-saga/effects';
-import { push } from '../../../lib/redux-router';
+import { call, put, select, take } from "redux-saga/effects";
+import { push } from "../../../lib/redux-router";
 
-import { authenticateWithOidc, authenticateWithOidcCallback } from './login';
-import selectors from '../../../selectors';
-import ActionTypes from '../../../constants/ActionTypes';
-import Paths from '../../../constants/Paths';
+import { authenticateWithOidc, authenticateWithOidcCallback } from "./login";
+import selectors from "../../../selectors";
+import ActionTypes from "../../../constants/ActionTypes";
+import Paths from "../../../constants/Paths";
 
 export function* goTo(pathname) {
   yield put(push(pathname));
@@ -54,7 +54,7 @@ export function* handleLocationChange() {
       if (oidcConfig) {
         const params = new URLSearchParams(window.location.search);
 
-        if (params.has('authenticateWithOidc')) {
+        if (params.has("authenticateWithOidc")) {
           yield call(authenticateWithOidc);
         }
       }

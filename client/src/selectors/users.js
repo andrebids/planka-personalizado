@@ -3,23 +3,27 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
+import orm from "../orm";
 import {
   selectIsFavoritesEnabled,
   selectIsHiddenProjectsVisible,
   selectProjectsOrder,
   selectProjectsSearch,
-} from './core';
-import { isLocalId } from '../utils/local-id';
-import { isUserAdminOrProjectOwner } from '../utils/record-helpers';
-import { STATIC_USER_BY_ID } from '../constants/StaticUsers';
-import { BoardMembershipRoles, ProjectGroups, ProjectOrders } from '../constants/Enums';
+} from "./core";
+import { isLocalId } from "../utils/local-id";
+import { isUserAdminOrProjectOwner } from "../utils/record-helpers";
+import { STATIC_USER_BY_ID } from "../constants/StaticUsers";
+import {
+  BoardMembershipRoles,
+  ProjectGroups,
+  ProjectOrders,
+} from "../constants/Enums";
 
 const ORDER_BY_ARGS_BY_PROJECTS_ORDER = {
-  [ProjectOrders.ALPHABETICALLY]: [['name', 'id.length', 'id']],
-  [ProjectOrders.BY_CREATION_TIME]: [['id', 'id.length']],
+  [ProjectOrders.ALPHABETICALLY]: [["name", "id.length", "id"]],
+  [ProjectOrders.BY_CREATION_TIME]: [["id", "id.length"]],
 };
 
 export const selectCurrentUserId = ({ auth: { userId } }) => userId;
@@ -64,10 +68,12 @@ export const selectActiveUsersTotal = createSelector(orm, ({ User }) =>
   User.getActiveQuerySet().count(),
 );
 
-export const selectActiveAdminOrProjectOwnerUsers = createSelector(orm, ({ User }) =>
-  User.getActiveQuerySet()
-    .filter((user) => isUserAdminOrProjectOwner(user))
-    .toRefArray(),
+export const selectActiveAdminOrProjectOwnerUsers = createSelector(
+  orm,
+  ({ User }) =>
+    User.getActiveQuerySet()
+      .filter((user) => isUserAdminOrProjectOwner(user))
+      .toRefArray(),
 );
 
 export const selectCurrentUser = createSelector(
@@ -102,7 +108,9 @@ export const selectProjectIdsForCurrentUser = createSelector(
       return userModel;
     }
 
-    return userModel.getProjectsModelArray().map((projectModel) => projectModel.id);
+    return userModel
+      .getProjectsModelArray()
+      .map((projectModel) => projectModel.id);
   },
 );
 
@@ -150,16 +158,21 @@ export const selectFilteredProjctIdsByGroupForCurrentUser = createSelector(
       return userModel;
     }
 
-    const { managerProjectModels, membershipProjectModels, adminProjectModels } =
-      userModel.getFilteredSeparatedProjectsModelArray(
-        projectsSearch,
-        isHiddenProjectsVisible,
-        ORDER_BY_ARGS_BY_PROJECTS_ORDER[projectsOrder],
-      );
+    const {
+      managerProjectModels,
+      membershipProjectModels,
+      adminProjectModels,
+    } = userModel.getFilteredSeparatedProjectsModelArray(
+      projectsSearch,
+      isHiddenProjectsVisible,
+      ORDER_BY_ARGS_BY_PROJECTS_ORDER[projectsOrder],
+    );
 
     return managerProjectModels.reduce(
       (result, projectModel) => {
-        const group = projectModel.ownerProjectManager ? ProjectGroups.MY_OWN : ProjectGroups.TEAM;
+        const group = projectModel.ownerProjectManager
+          ? ProjectGroups.MY_OWN
+          : ProjectGroups.TEAM;
 
         result[group].push(projectModel.id);
         return result;
@@ -170,7 +183,9 @@ export const selectFilteredProjctIdsByGroupForCurrentUser = createSelector(
         [ProjectGroups.SHARED_WITH_ME]: membershipProjectModels.map(
           (projectModel) => projectModel.id,
         ),
-        [ProjectGroups.OTHERS]: adminProjectModels.map((projectModel) => projectModel.id),
+        [ProjectGroups.OTHERS]: adminProjectModels.map(
+          (projectModel) => projectModel.id,
+        ),
       },
     );
   },
@@ -192,48 +207,56 @@ export const selectFavoriteProjectIdsForCurrentUser = createSelector(
     }
 
     return userModel
-      .getFavoriteProjectsModelArray(ORDER_BY_ARGS_BY_PROJECTS_ORDER[projectsOrder])
+      .getFavoriteProjectsModelArray(
+        ORDER_BY_ARGS_BY_PROJECTS_ORDER[projectsOrder],
+      )
       .map((projectModel) => projectModel.id);
   },
 );
 
-export const selectProjectsToListsWithEditorRightsForCurrentUser = createSelector(
-  orm,
-  (state) => selectCurrentUserId(state),
-  ({ User }, id) => {
-    if (!id) {
-      return id;
-    }
+export const selectProjectsToListsWithEditorRightsForCurrentUser =
+  createSelector(
+    orm,
+    (state) => selectCurrentUserId(state),
+    ({ User }, id) => {
+      if (!id) {
+        return id;
+      }
 
-    const userModel = User.withId(id);
+      const userModel = User.withId(id);
 
-    if (!userModel) {
-      return userModel;
-    }
+      if (!userModel) {
+        return userModel;
+      }
 
-    return userModel.getMembershipProjectsModelArray().map((projectModel) => ({
-      ...projectModel.ref,
-      boards: projectModel.getBoardsModelArrayForUserWithId(id).flatMap((boardModel) => {
-        const boardMembersipModel = boardModel.getMembershipModelByUserId(id);
+      return userModel
+        .getMembershipProjectsModelArray()
+        .map((projectModel) => ({
+          ...projectModel.ref,
+          boards: projectModel
+            .getBoardsModelArrayForUserWithId(id)
+            .flatMap((boardModel) => {
+              const boardMembersipModel =
+                boardModel.getMembershipModelByUserId(id);
 
-        if (boardMembersipModel.role !== BoardMembershipRoles.EDITOR) {
-          return [];
-        }
+              if (boardMembersipModel.role !== BoardMembershipRoles.EDITOR) {
+                return [];
+              }
 
-        return {
-          ...boardModel.ref,
-          lists: boardModel
-            .getListsQuerySet()
-            .toRefArray()
-            .map((list) => ({
-              ...list,
-              isPersisted: !isLocalId(list.id),
-            })),
-        };
-      }),
-    }));
-  },
-);
+              return {
+                ...boardModel.ref,
+                lists: boardModel
+                  .getListsQuerySet()
+                  .toRefArray()
+                  .map((list) => ({
+                    ...list,
+                    isPersisted: !isLocalId(list.id),
+                  })),
+              };
+            }),
+        }));
+    },
+  );
 
 export const selectBoardIdsForCurrentUser = createSelector(
   orm,
@@ -317,7 +340,9 @@ export const selectIsFavoritesActiveForCurrentUser = createSelector(
     }
 
     // TODO: use selectFavoriteProjectIdsForCurrentUser instead
-    return isFavoritesEnabled && userModel.getFavoriteProjectsModelArray().length > 0;
+    return (
+      isFavoritesEnabled && userModel.getFavoriteProjectsModelArray().length > 0
+    );
   },
 );
 

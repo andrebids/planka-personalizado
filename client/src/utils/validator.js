@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import isURL from 'validator/lib/isURL';
-import zxcvbn from 'zxcvbn';
+import isURL from "validator/lib/isURL";
+import zxcvbn from "zxcvbn";
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]+((_|\.)?[a-zA-Z0-9])*$/;
 
 export const isUrl = (string) =>
   isURL(string, {
-    protocols: ['http', 'https'],
+    protocols: ["http", "https"],
     require_protocol: true,
     max_allowed_length: 2048,
   });

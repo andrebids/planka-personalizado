@@ -3,8 +3,8 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import EntryActionTypes from '../constants/EntryActionTypes';
-import ModalTypes from '../constants/ModalTypes';
+import EntryActionTypes from "../constants/EntryActionTypes";
+import ModalTypes from "../constants/ModalTypes";
 
 const openAdministrationModal = () => ({
   type: EntryActionTypes.MODAL_OPEN,

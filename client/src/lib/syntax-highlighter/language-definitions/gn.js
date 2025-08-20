@@ -38,18 +38,18 @@
 
 export default (hljs) => {
   const SUBST = {
-    className: 'subst',
+    className: "subst",
     relevance: 2,
     variants: [
       {
-        begin: '\\$[A-Za-z0-9_]+',
+        begin: "\\$[A-Za-z0-9_]+",
       },
       {
-        begin: '\\${',
-        end: '}',
+        begin: "\\${",
+        end: "}",
         contains: [
           {
-            className: 'variable',
+            className: "variable",
             begin: hljs.UNDERSCORE_IDENT_RE,
             relevance: 0,
           },
@@ -59,63 +59,63 @@ export default (hljs) => {
   };
 
   const LINK = {
-    className: 'link',
+    className: "link",
     relevance: 5,
-    begin: ':\\w+',
+    begin: ":\\w+",
   };
 
   const NUMBER = {
-    className: 'number',
+    className: "number",
     relevance: 0,
     begin: hljs.NUMBER_RE,
   };
 
   const STRING = {
-    className: 'string',
+    className: "string",
     relevance: 0,
     begin: '"',
     end: '"',
-    illegal: '\\n',
+    illegal: "\\n",
     contains: [hljs.BACKSLASH_ESCAPE, SUBST, LINK],
   };
 
   const KEYWORDS = {
-    keyword: 'if else',
+    keyword: "if else",
     literal:
-      'true false ' +
-      'current_cpu current_os current_toolchain ' +
-      'default_toolchain host_cpu host_os ' +
-      'root_build_dir root_gen_dir root_out_dir ' +
-      'target_cpu target_gen_dir target_out_dir ' +
-      'target_os target_name invoker',
+      "true false " +
+      "current_cpu current_os current_toolchain " +
+      "default_toolchain host_cpu host_os " +
+      "root_build_dir root_gen_dir root_out_dir " +
+      "target_cpu target_gen_dir target_out_dir " +
+      "target_os target_name invoker",
     type:
-      'action action_foreach copy executable group ' +
-      'shared_library source_set static_library ' +
-      'loadable_module generated_file',
+      "action action_foreach copy executable group " +
+      "shared_library source_set static_library " +
+      "loadable_module generated_file",
     built_in:
-      'assert config declare_args defined exec_script ' +
-      'foreach get_label_info get_path_info ' +
-      'get_target_outputs getenv import print ' +
-      'process_file_template read_file rebase_path ' +
-      'set_default_toolchain set_defaults ' +
-      'set_sources_assignment_filter template tool ' +
-      'toolchain toolchain_args propagates_configs ' +
-      'write_file forward_variables_from target ' +
-      'get_name_info not_needed',
+      "assert config declare_args defined exec_script " +
+      "foreach get_label_info get_path_info " +
+      "get_target_outputs getenv import print " +
+      "process_file_template read_file rebase_path " +
+      "set_default_toolchain set_defaults " +
+      "set_sources_assignment_filter template tool " +
+      "toolchain toolchain_args propagates_configs " +
+      "write_file forward_variables_from target " +
+      "get_name_info not_needed",
     symbol:
-      'all_dependent_configs allow_circular_includes_from ' +
-      'args asmflags cflags cflags_c cflags_cc cflags_objc ' +
-      'cflags_objcc check_includes complete_static_lib ' +
-      'configs data data_deps defines depfile deps ' +
-      'include_dirs inputs ldflags lib_dirs libs ' +
-      'output_extension output_name outputs public ' +
-      'public_configs public_deps script sources testonly ' +
-      'visibility contents output_conversion rebase ' +
-      'data_keys walk_keys',
+      "all_dependent_configs allow_circular_includes_from " +
+      "args asmflags cflags cflags_c cflags_cc cflags_objc " +
+      "cflags_objcc check_includes complete_static_lib " +
+      "configs data data_deps defines depfile deps " +
+      "include_dirs inputs ldflags lib_dirs libs " +
+      "output_extension output_name outputs public " +
+      "public_configs public_deps script sources testonly " +
+      "visibility contents output_conversion rebase " +
+      "data_keys walk_keys",
   };
 
   return {
-    aliases: ['gn', 'gni'],
+    aliases: ["gn", "gni"],
     keywords: KEYWORDS,
     contains: [NUMBER, STRING, hljs.HASH_COMMENT_MODE],
   };

@@ -3,9 +3,9 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef } from "react";
 
-export default (nestedRefName = 'ref') => {
+export default (nestedRefName = "ref") => {
   const ref = useRef(null);
 
   const handleRef = useCallback(

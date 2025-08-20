@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import Masonry from './Masonry';
+import Masonry from "./Masonry";
 
 export default Masonry;

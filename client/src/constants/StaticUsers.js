@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import deletedUserAvatar from '../assets/images/deleted-user.png';
+import deletedUserAvatar from "../assets/images/deleted-user.png";
 
 export const StaticUserIds = {
   DELETED: null,
@@ -11,7 +11,7 @@ export const StaticUserIds = {
 
 const DELETED = {
   id: StaticUserIds.DELETED,
-  name: 'deletedUser',
+  name: "deletedUser",
   avatar: {
     thumbnailUrls: {
       cover180: deletedUserAvatar,

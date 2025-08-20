@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import BoardActivitiesModal from './BoardActivitiesModal';
+import BoardActivitiesModal from "./BoardActivitiesModal";
 
 export default BoardActivitiesModal;

@@ -3,21 +3,23 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Radio, Segment } from 'semantic-ui-react';
+import React, { useCallback, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Radio, Segment } from "semantic-ui-react";
 
-import selectors from '../../../../selectors';
-import entryActions from '../../../../entry-actions';
-import SelectCardType from '../../../cards/SelectCardType';
+import selectors from "../../../../selectors";
+import entryActions from "../../../../entry-actions";
+import SelectCardType from "../../../cards/SelectCardType";
 
-import styles from './DefaultCardType.module.scss';
+import styles from "./DefaultCardType.module.scss";
 
 const DefaultCardType = React.memo(() => {
   const selectBoardById = useMemo(() => selectors.makeSelectBoardById(), []);
 
-  const boardId = useSelector((state) => selectors.selectCurrentModal(state).params.id);
+  const boardId = useSelector(
+    (state) => selectors.selectCurrentModal(state).params.id,
+  );
   const board = useSelector((state) => selectBoardById(state, boardId));
 
   const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const DefaultCardType = React.memo(() => {
           toggle
           name="limitCardTypesToDefaultOne"
           checked={board.limitCardTypesToDefaultOne}
-          label={t('common.limitCardTypesToDefaultOne')}
+          label={t("common.limitCardTypesToDefaultOne")}
           className={styles.radio}
           onChange={handleToggleChange}
         />

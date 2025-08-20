@@ -3,7 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-export default (date, longDateFormat = 'longDateTime', fullDateFormat = 'fullDateTime') => {
+export default (
+  date,
+  longDateFormat = "longDateTime",
+  fullDateFormat = "fullDateTime",
+) => {
   const year = date.getFullYear();
   const currentYear = new Date().getFullYear();
 

@@ -1,8 +1,8 @@
-import login from './login';
+import login from "./login";
 
 export default {
-  language: 'tr-TR',
-  country: 'tr',
-  name: 'Türkçe',
+  language: "tr-TR",
+  country: "tr",
+  name: "Türkçe",
   embeddedLocale: login,
 };

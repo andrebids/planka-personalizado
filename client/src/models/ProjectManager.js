@@ -3,25 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
 
 export default class extends BaseModel {
-  static modelName = 'ProjectManager';
+  static modelName = "ProjectManager";
 
   static fields = {
     id: attr(),
     projectId: fk({
-      to: 'Project',
-      as: 'project',
-      relatedName: 'managers',
+      to: "Project",
+      as: "project",
+      relatedName: "managers",
     }),
     userId: fk({
-      to: 'User',
-      as: 'user',
-      relatedName: 'projectManagers',
+      to: "User",
+      as: "user",
+      relatedName: "projectManagers",
     }),
   };
 
@@ -82,7 +82,9 @@ export default class extends BaseModel {
         break;
       case ActionTypes.PROJECT_MANAGER_DELETE__SUCCESS:
       case ActionTypes.PROJECT_MANAGER_DELETE_HANDLE: {
-        const projectManagerModel = ProjectManager.withId(payload.projectManager.id);
+        const projectManagerModel = ProjectManager.withId(
+          payload.projectManager.id,
+        );
 
         if (projectManagerModel) {
           projectManagerModel.delete();

@@ -3,29 +3,34 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { dequal } from 'dequal';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'semantic-ui-react';
-import { Input, Popup } from '../../../lib/custom-ui';
+import { dequal } from "dequal";
+import React, { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form } from "semantic-ui-react";
+import { Input, Popup } from "../../../lib/custom-ui";
 
-import selectors from '../../../selectors';
-import entryActions from '../../../entry-actions';
-import { useForm, useNestedRef, useSteps } from '../../../hooks';
-import ConfirmationStep from '../../common/ConfirmationStep';
+import selectors from "../../../selectors";
+import entryActions from "../../../entry-actions";
+import { useForm, useNestedRef, useSteps } from "../../../hooks";
+import ConfirmationStep from "../../common/ConfirmationStep";
 
-import styles from './EditStep.module.scss';
+import styles from "./EditStep.module.scss";
 
 const StepTypes = {
-  DELETE: 'DELETE',
+  DELETE: "DELETE",
 };
 
 const EditStep = React.memo(({ attachmentId, onClose }) => {
-  const selectAttachmentById = useMemo(() => selectors.makeSelectAttachmentById(), []);
+  const selectAttachmentById = useMemo(
+    () => selectors.makeSelectAttachmentById(),
+    [],
+  );
 
-  const attachment = useSelector((state) => selectAttachmentById(state, attachmentId));
+  const attachment = useSelector((state) =>
+    selectAttachmentById(state, attachmentId),
+  );
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -38,13 +43,13 @@ const EditStep = React.memo(({ attachmentId, onClose }) => {
   );
 
   const [data, handleFieldChange] = useForm(() => ({
-    name: '',
+    name: "",
     ...defaultData,
   }));
 
   const [step, openStep, handleBack] = useSteps();
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
 
   const handleSubmit = useCallback(() => {
     const cleanData = {
@@ -93,13 +98,13 @@ const EditStep = React.memo(({ attachmentId, onClose }) => {
   return (
     <>
       <Popup.Header>
-        {t('common.editAttachment', {
-          context: 'title',
+        {t("common.editAttachment", {
+          context: "title",
         })}
       </Popup.Header>
       <Popup.Content>
         <Form onSubmit={handleSubmit}>
-          <div className={styles.text}>{t('common.title')}</div>
+          <div className={styles.text}>{t("common.title")}</div>
           <Input
             fluid
             ref={handleNameFieldRef}
@@ -109,10 +114,10 @@ const EditStep = React.memo(({ attachmentId, onClose }) => {
             className={styles.field}
             onChange={handleFieldChange}
           />
-          <Button positive content={t('action.save')} />
+          <Button positive content={t("action.save")} />
         </Form>
         <Button
-          content={t('action.delete')}
+          content={t("action.delete")}
           className={styles.deleteButton}
           onClick={handleDeleteClick}
         />

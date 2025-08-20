@@ -3,10 +3,10 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
-import { isLocalId } from '../utils/local-id';
+import orm from "../orm";
+import { isLocalId } from "../utils/local-id";
 
 export const makeSelectNotificationServiceById = () =>
   createSelector(
@@ -26,7 +26,8 @@ export const makeSelectNotificationServiceById = () =>
     },
   );
 
-export const selectNotificationServiceById = makeSelectNotificationServiceById();
+export const selectNotificationServiceById =
+  makeSelectNotificationServiceById();
 
 export default {
   makeSelectNotificationServiceById,

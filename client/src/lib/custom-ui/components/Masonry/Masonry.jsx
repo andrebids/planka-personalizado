@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import React, { useCallback, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
-import styles from './Masonry.module.scss';
+import styles from "./Masonry.module.scss";
 
 const pixelsToNumber = (pixels) => {
-  return Number(pixels.replace('px', ''));
+  return Number(pixels.replace("px", ""));
 };
 
 const Masonry = React.memo(({ children, columns, spacing }) => {
@@ -24,7 +24,10 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
     const columnHeights = new Array(columns).fill(0);
 
     wrapperElement.childNodes.forEach((childElement) => {
-      if (childElement.nodeType !== Node.ELEMENT_NODE || childElement.dataset.lineBreak) {
+      if (
+        childElement.nodeType !== Node.ELEMENT_NODE ||
+        childElement.dataset.lineBreak
+      ) {
         return;
       }
 
@@ -82,16 +85,18 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
       }),
   );
 
-  const lineBreaks = [...Array(columns > 0 ? columns - 1 : 0)].map((_, index) => (
-    <span
-      data-line-break
-      key={index} // eslint-disable-line react/no-array-index-key
-      className={styles.lineBreak}
-      style={{
-        order: index + 1,
-      }}
-    />
-  ));
+  const lineBreaks = [...Array(columns > 0 ? columns - 1 : 0)].map(
+    (_, index) => (
+      <span
+        data-line-break
+        key={index} // eslint-disable-line react/no-array-index-key
+        className={styles.lineBreak}
+        style={{
+          order: index + 1,
+        }}
+      />
+    ),
+  );
 
   return (
     <div

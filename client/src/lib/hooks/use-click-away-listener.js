@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 export default (elementRefs, onAwayClick, onCancel) => {
   const pressedElement = useRef(null);
@@ -14,7 +14,9 @@ export default (elementRefs, onAwayClick, onCancel) => {
 
   useEffect(() => {
     const handleEvent = (event) => {
-      const element = elementRefs.find(({ current }) => current?.contains(event.target))?.current;
+      const element = elementRefs.find(({ current }) =>
+        current?.contains(event.target),
+      )?.current;
 
       if (element) {
         if (!pressedElement.current || pressedElement.current !== element) {
@@ -29,12 +31,12 @@ export default (elementRefs, onAwayClick, onCancel) => {
       pressedElement.current = null;
     };
 
-    document.addEventListener('mouseup', handleEvent, true);
-    document.addEventListener('touchend', handleEvent, true);
+    document.addEventListener("mouseup", handleEvent, true);
+    document.addEventListener("touchend", handleEvent, true);
 
     return () => {
-      document.removeEventListener('mouseup', handleEvent, true);
-      document.removeEventListener('touchend', handleEvent, true);
+      document.removeEventListener("mouseup", handleEvent, true);
+      document.removeEventListener("touchend", handleEvent, true);
     };
   }, [onAwayClick, onCancel]); // eslint-disable-line react-hooks/exhaustive-deps
 

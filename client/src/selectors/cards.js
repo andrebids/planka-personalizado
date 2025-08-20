@@ -3,14 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { createSelector } from 'redux-orm';
+import { createSelector } from "redux-orm";
 
-import orm from '../orm';
-import { selectRecentCardId } from './core';
-import { selectPath } from './router';
-import { selectCurrentUserId } from './users';
-import { buildCustomFieldValueId } from '../models/CustomFieldValue';
-import { isLocalId } from '../utils/local-id';
+import orm from "../orm";
+import { selectRecentCardId } from "./core";
+import { selectPath } from "./router";
+import { selectCurrentUserId } from "./users";
+import { buildCustomFieldValueId } from "../models/CustomFieldValue";
+import { isLocalId } from "../utils/local-id";
 
 export const makeSelectCardById = () =>
   createSelector(
@@ -96,7 +96,9 @@ export const makeSelectShownOnFrontOfCardTaskListIdsByCardId = () =>
         return cardModel;
       }
 
-      return cardModel.getShownOnFrontOfCardTaskListsModelArray().map((taskList) => taskList.id);
+      return cardModel
+        .getShownOnFrontOfCardTaskListsModelArray()
+        .map((taskList) => taskList.id);
     },
   );
 
@@ -118,7 +120,8 @@ export const makeSelectAttachmentsTotalByCardId = () =>
     },
   );
 
-export const selectAttachmentsTotalByCardId = makeSelectAttachmentsTotalByCardId();
+export const selectAttachmentsTotalByCardId =
+  makeSelectAttachmentsTotalByCardId();
 
 export const makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId = () =>
   createSelector(
@@ -211,7 +214,8 @@ export const makeSelectNotificationsTotalByCardId = () =>
     },
   );
 
-export const selectNotificationsTotalByCardId = makeSelectNotificationsTotalByCardId();
+export const selectNotificationsTotalByCardId =
+  makeSelectNotificationsTotalByCardId();
 
 export const makeSelectIsCardWithIdRecent = () =>
   createSelector(
@@ -360,14 +364,14 @@ export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
     return cardModel
       .getAttachmentsQuerySet()
       .toModelArray()
-      .filter(
-        (attachmentModel) => {
-          // Verificar se attachmentModel.data existe antes de acessar suas propriedades
-          return attachmentModel.data && 
-                 attachmentModel.data.image && 
-                 !attachmentModel.coveredCard;
-        },
-      )
+      .filter((attachmentModel) => {
+        // Verificar se attachmentModel.data existe antes de acessar suas propriedades
+        return (
+          attachmentModel.data &&
+          attachmentModel.data.image &&
+          !attachmentModel.coveredCard
+        );
+      })
       .map((attachmentModel) => attachmentModel.id);
   },
 );
@@ -409,8 +413,6 @@ export const selectAttachmentsForCurrentCard = createSelector(
   },
 );
 
-
-
 export const selectCustomFieldGroupIdsForCurrentCard = createSelector(
   orm,
   (state) => selectPath(state).cardId,
@@ -446,7 +448,9 @@ export const selectCommentIdsForCurrentCard = createSelector(
       return cardModel;
     }
 
-    return cardModel.getCommentsModelArray().map((commentModel) => commentModel.id);
+    return cardModel
+      .getCommentsModelArray()
+      .map((commentModel) => commentModel.id);
   },
 );
 

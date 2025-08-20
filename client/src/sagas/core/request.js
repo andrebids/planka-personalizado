@@ -3,11 +3,11 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, join, put, select, spawn, take } from 'redux-saga/effects';
+import { call, join, put, select, spawn, take } from "redux-saga/effects";
 
-import selectors from '../../selectors';
-import entryActions from '../../entry-actions';
-import ErrorCodes from '../../constants/ErrorCodes';
+import selectors from "../../selectors";
+import entryActions from "../../entry-actions";
+import ErrorCodes from "../../constants/ErrorCodes";
 
 let lastRequestTask;
 

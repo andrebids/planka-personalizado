@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import GeneralPane from './GeneralPane';
+import GeneralPane from "./GeneralPane";
 
 export default GeneralPane;

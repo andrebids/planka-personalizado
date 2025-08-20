@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import MoveCardStep from './MoveCardStep';
+import MoveCardStep from "./MoveCardStep";
 
 export default MoveCardStep;

@@ -3,25 +3,29 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form, Icon, Input } from 'semantic-ui-react';
-import { useClickAwayListener, useDidUpdate, useToggle } from '../../../../lib/hooks';
-import { usePopup } from '../../../../lib/popup';
+import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form, Icon, Input } from "semantic-ui-react";
+import {
+  useClickAwayListener,
+  useDidUpdate,
+  useToggle,
+} from "../../../../lib/hooks";
+import { usePopup } from "../../../../lib/popup";
 
-import entryActions from '../../../../entry-actions';
-import { useClosable, useForm, useNestedRef } from '../../../../hooks';
-import { ListTypes } from '../../../../constants/Enums';
-import { ListTypeIcons } from '../../../../constants/Icons';
-import SelectListTypeStep from '../../../lists/SelectListTypeStep';
+import entryActions from "../../../../entry-actions";
+import { useClosable, useForm, useNestedRef } from "../../../../hooks";
+import { ListTypes } from "../../../../constants/Enums";
+import { ListTypeIcons } from "../../../../constants/Icons";
+import SelectListTypeStep from "../../../lists/SelectListTypeStep";
 
-import styles from './AddList.module.scss';
+import styles from "./AddList.module.scss";
 
 const DEFAULT_DATA = {
-  name: '',
+  name: "",
   type: ListTypes.ACTIVE,
 };
 
@@ -30,9 +34,10 @@ const AddList = React.memo(({ onClose }) => {
   const [t] = useTranslation();
   const [data, handleFieldChange, setData] = useForm(DEFAULT_DATA);
   const [focusNameFieldState, focusNameField] = useToggle();
-  const [isClosableActiveRef, activateClosable, deactivateClosable] = useClosable();
+  const [isClosableActiveRef, activateClosable, deactivateClosable] =
+    useClosable();
 
-  const [nameFieldRef, handleNameFieldRef] = useNestedRef('inputRef');
+  const [nameFieldRef, handleNameFieldRef] = useNestedRef("inputRef");
   const [submitButtonRef, handleSubmitButtonRef] = useNestedRef();
   const [selectTypeButtonRef, handleSelectTypeButtonRef] = useNestedRef();
 
@@ -64,7 +69,7 @@ const AddList = React.memo(({ onClose }) => {
 
   const handleFieldKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     },
@@ -114,7 +119,7 @@ const AddList = React.memo(({ onClose }) => {
         ref={handleNameFieldRef}
         name="name"
         value={data.name}
-        placeholder={t('common.enterListTitle')}
+        placeholder={t("common.enterListTitle")}
         maxLength={128}
         className={styles.field}
         onKeyDown={handleFieldKeyDown}
@@ -125,17 +130,23 @@ const AddList = React.memo(({ onClose }) => {
           {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
           positive
           ref={handleSubmitButtonRef}
-          content={t('action.addList')}
+          content={t("action.addList")}
           className={styles.button}
         />
-        <SelectListTypePopup defaultValue={data.type} onSelect={handleTypeSelect}>
+        <SelectListTypePopup
+          defaultValue={data.type}
+          onSelect={handleTypeSelect}
+        >
           <Button
             {...clickAwayProps} // eslint-disable-line react/jsx-props-no-spreading
             ref={handleSelectTypeButtonRef}
             type="button"
             className={classNames(styles.button, styles.selectTypeButton)}
           >
-            <Icon name={ListTypeIcons[data.type]} className={styles.selectTypeButtonIcon} />
+            <Icon
+              name={ListTypeIcons[data.type]}
+              className={styles.selectTypeButtonIcon}
+            />
             {t(`common.${data.type}`)}
           </Button>
         </SelectListTypePopup>

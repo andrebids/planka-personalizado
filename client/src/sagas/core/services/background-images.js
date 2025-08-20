@@ -3,21 +3,21 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import omit from 'lodash/omit';
-import { call, put, select } from 'redux-saga/effects';
+import omit from "lodash/omit";
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
 
 export function* createBackgroundImage(projectId, data) {
   const localId = yield call(createLocalId);
 
   yield put(
     actions.createBackgroundImage({
-      ...omit(data, ['file', 'url']),
+      ...omit(data, ["file", "url"]),
       projectId,
       id: localId,
     }),
@@ -47,7 +47,10 @@ export function* createBackgroundImageInCurrentProject(data) {
 }
 
 export function* handleBackgroundImageCreate(backgroundImage, requestId) {
-  const isExists = yield select(selectors.selectIsBackgroundImageWithIdExists, requestId);
+  const isExists = yield select(
+    selectors.selectIsBackgroundImageWithIdExists,
+    requestId,
+  );
 
   if (!isExists) {
     yield put(actions.handleBackgroundImageCreate(backgroundImage));
@@ -59,7 +62,11 @@ export function* deleteBackgroundImage(id) {
 
   let backgroundImage;
   try {
-    ({ item: backgroundImage } = yield call(request, api.deleteBackgroundImage, id));
+    ({ item: backgroundImage } = yield call(
+      request,
+      api.deleteBackgroundImage,
+      id,
+    ));
   } catch (error) {
     yield put(actions.deleteBackgroundImage.failure(id, error));
     return;

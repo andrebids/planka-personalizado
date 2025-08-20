@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import request from '../request';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
+import request from "../request";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
 
 export function* createCustomFieldInBaseGroup(baseCustomFieldGroupId, data) {
   const localId = yield call(createLocalId);
@@ -51,7 +51,10 @@ export function* createCustomFieldInGroup(customFieldGroupId, data) {
 
   const nextData = {
     ...data,
-    position: yield select(selectors.selectNextCustomFieldPositionInGroup, customFieldGroupId),
+    position: yield select(
+      selectors.selectNextCustomFieldPositionInGroup,
+      customFieldGroupId,
+    ),
   };
 
   yield put(
@@ -87,7 +90,12 @@ export function* updateCustomField(id, data) {
 
   let customField;
   try {
-    ({ item: customField } = yield call(request, api.updateCustomField, id, data));
+    ({ item: customField } = yield call(
+      request,
+      api.updateCustomField,
+      id,
+      data,
+    ));
   } catch (error) {
     yield put(actions.updateCustomField.failure(id, error));
     return;

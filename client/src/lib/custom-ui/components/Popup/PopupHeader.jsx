@@ -3,15 +3,15 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Popup as SemanticUIPopup } from 'semantic-ui-react';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button, Popup as SemanticUIPopup } from "semantic-ui-react";
 
-import styles from './PopupHeader.module.css';
+import styles from "./PopupHeader.module.css";
 
 const PopupHeader = React.memo(({ children, onBack }) => (
   <SemanticUIPopup.Header
-    className={onBack ? styles.wrapper + ' ' + styles.withBack : styles.wrapper}
+    className={onBack ? styles.wrapper + " " + styles.withBack : styles.wrapper}
   >
     {onBack && (
       <Button

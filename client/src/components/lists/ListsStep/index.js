@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import ListsStep from './ListsStep';
+import ListsStep from "./ListsStep";
 
 export default ListsStep;

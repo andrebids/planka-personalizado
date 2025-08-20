@@ -3,20 +3,20 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Icon, Table } from 'semantic-ui-react';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Icon, Table } from "semantic-ui-react";
 
-import selectors from '../../../../selectors';
-import { usePopupInClosableContext } from '../../../../hooks';
-import { UserRoleIcons } from '../../../../constants/Icons';
-import ActionsStep from './ActionsStep';
-import UserAvatar from '../../../users/UserAvatar';
+import selectors from "../../../../selectors";
+import { usePopupInClosableContext } from "../../../../hooks";
+import { UserRoleIcons } from "../../../../constants/Icons";
+import ActionsStep from "./ActionsStep";
+import UserAvatar from "../../../users/UserAvatar";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
@@ -28,12 +28,14 @@ const Item = React.memo(({ id }) => {
   const ActionsPopup = usePopupInClosableContext(ActionsStep);
 
   return (
-    <Table.Row className={classNames(user.isDeactivated && styles.wrapperDeactivated)}>
+    <Table.Row
+      className={classNames(user.isDeactivated && styles.wrapperDeactivated)}
+    >
       <Table.Cell>
         <UserAvatar id={id} />
       </Table.Cell>
       <Table.Cell>{user.name}</Table.Cell>
-      <Table.Cell>{user.username || '-'}</Table.Cell>
+      <Table.Cell>{user.username || "-"}</Table.Cell>
       <Table.Cell>{user.email}</Table.Cell>
       <Table.Cell className={styles.roleCell}>
         <Icon name={UserRoleIcons[user.role]} className={styles.roleIcon} />

@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { closePopup } from '../../../../lib/popup';
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { closePopup } from "../../../../lib/popup";
 
-import selectors from '../../../../selectors';
-import entryActions from '../../../../entry-actions';
-import parseDndId from '../../../../utils/parse-dnd-id';
-import DroppableTypes from '../../../../constants/DroppableTypes';
-import Item from './Item';
+import selectors from "../../../../selectors";
+import entryActions from "../../../../entry-actions";
+import parseDndId from "../../../../utils/parse-dnd-id";
+import DroppableTypes from "../../../../constants/DroppableTypes";
+import Item from "./Item";
 
-import globalStyles from '../../../../styles.module.scss';
+import globalStyles from "../../../../styles.module.scss";
 
 const TaskLists = React.memo(() => {
   const taskListIds = useSelector(selectors.selectTaskListIdsForCurrentCard);
@@ -34,7 +34,10 @@ const TaskLists = React.memo(() => {
         return;
       }
 
-      if (source.droppableId === destination.droppableId && source.index === destination.index) {
+      if (
+        source.droppableId === destination.droppableId &&
+        source.index === destination.index
+      ) {
         return;
       }
 
@@ -47,7 +50,11 @@ const TaskLists = React.memo(() => {
           break;
         case DroppableTypes.TASK:
           dispatch(
-            entryActions.moveTask(id, parseDndId(destination.droppableId), destination.index),
+            entryActions.moveTask(
+              id,
+              parseDndId(destination.droppableId),
+              destination.index,
+            ),
           );
 
           break;
@@ -59,7 +66,11 @@ const TaskLists = React.memo(() => {
 
   return (
     <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <Droppable droppableId="card" type={DroppableTypes.TASK_LIST} direction="vertical">
+      <Droppable
+        droppableId="card"
+        type={DroppableTypes.TASK_LIST}
+        direction="vertical"
+      >
         {({ innerRef, droppableProps, placeholder }) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <div {...droppableProps} ref={innerRef}>

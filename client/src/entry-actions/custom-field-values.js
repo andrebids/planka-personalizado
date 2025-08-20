@@ -3,9 +3,14 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import EntryActionTypes from '../constants/EntryActionTypes';
+import EntryActionTypes from "../constants/EntryActionTypes";
 
-const updateCustomFieldValue = (cardId, customFieldGroupId, customFieldId, data) => ({
+const updateCustomFieldValue = (
+  cardId,
+  customFieldGroupId,
+  customFieldId,
+  data,
+) => ({
   type: EntryActionTypes.CUSTOM_FIELD_VALUE_UPDATE,
   payload: {
     cardId,

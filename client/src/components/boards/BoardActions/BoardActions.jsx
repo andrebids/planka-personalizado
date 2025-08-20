@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React from 'react';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import React from "react";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
 
-import selectors from '../../../selectors';
-import Filters from './Filters';
-import RightSide from './RightSide';
-import BoardMemberships from '../../board-memberships/BoardMemberships';
+import selectors from "../../../selectors";
+import Filters from "./Filters";
+import RightSide from "./RightSide";
+import BoardMemberships from "../../board-memberships/BoardMemberships";
 
-import styles from './BoardActions.module.scss';
+import styles from "./BoardActions.module.scss";
 
 const BoardActions = React.memo(() => {
   const withMemberships = useSelector((state) => {

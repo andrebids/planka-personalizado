@@ -1,1 +1,1 @@
-export { default } from './FilePreviewModal';
+export { default } from "./FilePreviewModal";

@@ -1,8 +1,8 @@
-import login from './login';
+import login from "./login";
 
 export default {
-  language: 'ro-RO',
-  country: 'ro',
-  name: 'Română',
+  language: "ro-RO",
+  country: "ro",
+  name: "Română",
   embeddedLocale: login,
 };

@@ -3,20 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useState, useMemo, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { useState, useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import ProjectItem from './ProjectItem';
+import ProjectItem from "./ProjectItem";
 import {
   selectSidebarFavoriteProjectsOrdered,
   selectSidebarOtherProjectsOrdered,
-} from '../../../selectors/sidebarSelectors';
-import { saveProjectsOrder, loadProjectsOrder, saveFavoritesOrder, loadFavoritesOrder } from '../../../actions/sidebarActions';
-import ActionTypes from '../../../constants/ActionTypes';
+} from "../../../selectors/sidebarSelectors";
+import {
+  saveProjectsOrder,
+  loadProjectsOrder,
+  saveFavoritesOrder,
+  loadFavoritesOrder,
+} from "../../../actions/sidebarActions";
+import ActionTypes from "../../../constants/ActionTypes";
 
-import styles from './ProjectList.module.scss';
+import styles from "./ProjectList.module.scss";
 
 const ProjectList = React.memo(() => {
   const dispatch = useDispatch();
@@ -26,24 +31,24 @@ const ProjectList = React.memo(() => {
 
   // Carregar ordenação na inicialização
   useEffect(() => {
-    const savedOrder = localStorage.getItem('planka_projects_order');
+    const savedOrder = localStorage.getItem("planka_projects_order");
     if (savedOrder) {
       try {
         const order = JSON.parse(savedOrder);
         dispatch(loadProjectsOrder(order));
       } catch (error) {
-        console.warn('Erro ao carregar ordenação:', error);
-        localStorage.removeItem('planka_projects_order');
+        console.warn("Erro ao carregar ordenação:", error);
+        localStorage.removeItem("planka_projects_order");
       }
     }
-    const savedFavOrder = localStorage.getItem('planka_favorites_order');
+    const savedFavOrder = localStorage.getItem("planka_favorites_order");
     if (savedFavOrder) {
       try {
         const order = JSON.parse(savedFavOrder);
         dispatch(loadFavoritesOrder(order));
       } catch (error) {
-        console.warn('Erro ao carregar ordenação de favoritos:', error);
-        localStorage.removeItem('planka_favorites_order');
+        console.warn("Erro ao carregar ordenação de favoritos:", error);
+        localStorage.removeItem("planka_favorites_order");
       }
     }
   }, [dispatch]);
@@ -63,14 +68,21 @@ const ProjectList = React.memo(() => {
       return;
     }
     const sourceId = result.source.droppableId;
-    if (sourceId === 'favorites') {
+    if (sourceId === "favorites") {
       var favItems = favoriteProjects.slice();
       var moved = favItems.splice(result.source.index, 1)[0];
       favItems.splice(result.destination.index, 0, moved);
       var favOrder = [];
-      for (var i = 0; i < favItems.length; i += 1) { favOrder.push(favItems[i].id); }
+      for (var i = 0; i < favItems.length; i += 1) {
+        favOrder.push(favItems[i].id);
+      }
       dispatch(saveFavoritesOrder(favOrder));
-      try { localStorage.setItem('planka_favorites_order', JSON.stringify(favOrder)); } catch (e) {}
+      try {
+        localStorage.setItem(
+          "planka_favorites_order",
+          JSON.stringify(favOrder),
+        );
+      } catch (e) {}
       return;
     }
 
@@ -78,9 +90,13 @@ const ProjectList = React.memo(() => {
     var reorderedItem = items.splice(result.source.index, 1)[0];
     items.splice(result.destination.index, 0, reorderedItem);
     var newOrder = [];
-    for (var j = 0; j < items.length; j += 1) { newOrder.push(items[j].id); }
+    for (var j = 0; j < items.length; j += 1) {
+      newOrder.push(items[j].id);
+    }
     dispatch(saveProjectsOrder(newOrder));
-    try { localStorage.setItem('planka_projects_order', JSON.stringify(newOrder)); } catch (e) {}
+    try {
+      localStorage.setItem("planka_projects_order", JSON.stringify(newOrder));
+    } catch (e) {}
   };
 
   if (favoriteProjects.length === 0 && otherProjects.length === 0) {
@@ -102,15 +118,23 @@ const ProjectList = React.memo(() => {
             <h3 className={styles.title}>FAVORITOS</h3>
             <Droppable droppableId="favorites" direction="vertical">
               {(provided) => (
-                <div className={styles.list} ref={provided.innerRef} {...provided.droppableProps}>
+                <div
+                  className={styles.list}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
                   {favoriteProjects.map((project, index) => (
-                    <Draggable key={project.id} draggableId={'fav_' + project.id.toString()} index={index}>
+                    <Draggable
+                      key={project.id}
+                      draggableId={"fav_" + project.id.toString()}
+                      index={index}
+                    >
                       {(provided2, snapshot2) => (
                         <div
                           ref={provided2.innerRef}
                           {...provided2.draggableProps}
                           {...provided2.dragHandleProps}
-                          className={`${styles.draggableItem} ${snapshot2.isDragging ? styles.dragging : ''}`}
+                          className={`${styles.draggableItem} ${snapshot2.isDragging ? styles.dragging : ""}`}
                         >
                           <ProjectItem project={project} />
                         </div>
@@ -145,7 +169,7 @@ const ProjectList = React.memo(() => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       className={`${styles.draggableItem} ${
-                        snapshot.isDragging ? styles.dragging : ''
+                        snapshot.isDragging ? styles.dragging : ""
                       }`}
                     >
                       <ProjectItem project={project} />
@@ -154,7 +178,7 @@ const ProjectList = React.memo(() => {
                 </Draggable>
               ))}
               {provided.placeholder}
-              
+
               {/* Indicador de mais projetos */}
               {hasMoreProjects && (
                 <div className={styles.moreProjects}>
@@ -163,7 +187,9 @@ const ProjectList = React.memo(() => {
                     onClick={() => setShowAll(!showAll)}
                     type="button"
                   >
-                    {showAll ? 'Mostrar menos' : `Mostrar mais ${otherProjects.length - displayedProjects.length} projetos`}
+                    {showAll
+                      ? "Mostrar menos"
+                      : `Mostrar mais ${otherProjects.length - displayedProjects.length} projetos`}
                   </button>
                 </div>
               )}

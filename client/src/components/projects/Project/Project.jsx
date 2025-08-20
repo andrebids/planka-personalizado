@@ -3,18 +3,18 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import selectors from '../../../selectors';
-import ModalTypes from '../../../constants/ModalTypes';
-import Paths from '../../../constants/Paths';
-import ProjectSettingsModal from '../ProjectSettingsModal';
-import Boards from '../../boards/Boards';
-import BoardSettingsModal from '../../boards/BoardSettingsModal';
+import selectors from "../../../selectors";
+import ModalTypes from "../../../constants/ModalTypes";
+import Paths from "../../../constants/Paths";
+import ProjectSettingsModal from "../ProjectSettingsModal";
+import Boards from "../../boards/Boards";
+import BoardSettingsModal from "../../boards/BoardSettingsModal";
 
-import styles from './Project.module.scss';
+import styles from "./Project.module.scss";
 
 const Project = React.memo(() => {
   const modal = useSelector(selectors.selectCurrentModal);
@@ -24,7 +24,7 @@ const Project = React.memo(() => {
     if (!project) return null;
     return selectors.selectFirstBoardIdByProjectId(state, project.id);
   });
-  
+
   const navigate = useNavigate();
 
   // Redirecionamento automático para o primeiro quadro
@@ -34,7 +34,7 @@ const Project = React.memo(() => {
     // 2. Não temos um quadro selecionado (estamos na página do projeto)
     // 3. Existe pelo menos um quadro no projeto
     if (project && !board && firstBoardId) {
-      navigate(Paths.BOARDS.replace(':id', firstBoardId));
+      navigate(Paths.BOARDS.replace(":id", firstBoardId));
     }
   }, [project, board, firstBoardId, navigate]);
 

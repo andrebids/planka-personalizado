@@ -3,6 +3,6 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import BoardSettingsModal from './BoardSettingsModal';
+import BoardSettingsModal from "./BoardSettingsModal";
 
 export default BoardSettingsModal;

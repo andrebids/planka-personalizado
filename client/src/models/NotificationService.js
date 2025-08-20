@@ -3,13 +3,13 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { attr, fk } from 'redux-orm';
+import { attr, fk } from "redux-orm";
 
-import BaseModel from './BaseModel';
-import ActionTypes from '../constants/ActionTypes';
+import BaseModel from "./BaseModel";
+import ActionTypes from "../constants/ActionTypes";
 
 export default class extends BaseModel {
-  static modelName = 'NotificationService';
+  static modelName = "NotificationService";
 
   static fields = {
     id: attr(),
@@ -19,14 +19,14 @@ export default class extends BaseModel {
       getDefault: () => false,
     }),
     userId: fk({
-      to: 'User',
-      as: 'user',
-      relatedName: 'notificationServices',
+      to: "User",
+      as: "user",
+      relatedName: "notificationServices",
     }),
     boardId: fk({
-      to: 'Board',
-      as: 'board',
-      relatedName: 'notificationServices',
+      to: "Board",
+      as: "board",
+      relatedName: "notificationServices",
     }),
   };
 
@@ -103,7 +103,9 @@ export default class extends BaseModel {
         break;
       case ActionTypes.NOTIFICATION_SERVICE_DELETE__SUCCESS:
       case ActionTypes.NOTIFICATION_SERVICE_DELETE_HANDLE: {
-        const notificationServiceModel = NotificationService.withId(payload.notificationService.id);
+        const notificationServiceModel = NotificationService.withId(
+          payload.notificationService.id,
+        );
 
         if (notificationServiceModel) {
           notificationServiceModel.delete();

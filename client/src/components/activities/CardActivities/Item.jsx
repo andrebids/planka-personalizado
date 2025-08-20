@@ -3,22 +3,25 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { useTranslation, Trans } from 'react-i18next';
-import { Comment } from 'semantic-ui-react';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useTranslation, Trans } from "react-i18next";
+import { Comment } from "semantic-ui-react";
 
-import selectors from '../../../selectors';
-import { StaticUserIds } from '../../../constants/StaticUsers';
-import { ActivityTypes } from '../../../constants/Enums';
-import TimeAgo from '../../common/TimeAgo';
-import UserAvatar from '../../users/UserAvatar';
+import selectors from "../../../selectors";
+import { StaticUserIds } from "../../../constants/StaticUsers";
+import { ActivityTypes } from "../../../constants/Enums";
+import TimeAgo from "../../common/TimeAgo";
+import UserAvatar from "../../users/UserAvatar";
 
-import styles from './Item.module.scss';
+import styles from "./Item.module.scss";
 
 const Item = React.memo(({ id }) => {
-  const selectActivityById = useMemo(() => selectors.makeSelectActivityById(), []);
+  const selectActivityById = useMemo(
+    () => selectors.makeSelectActivityById(),
+    [],
+  );
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
   const activity = useSelector((state) => selectActivityById(state, id));
@@ -29,7 +32,7 @@ const Item = React.memo(({ id }) => {
   const userName =
     user.id === StaticUserIds.DELETED
       ? t(`common.${user.name}`, {
-          context: 'title',
+          context: "title",
         })
       : user.name;
 
@@ -48,7 +51,7 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' added this card to '}
+          {" added this card to "}
           {listName}
         </Trans>
       );
@@ -71,9 +74,9 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' moved this card from '}
+          {" moved this card from "}
           {fromListName}
-          {' to '}
+          {" to "}
           {toListName}
         </Trans>
       );
@@ -90,7 +93,7 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' joined this card'}
+            {" joined this card"}
           </Trans>
         ) : (
           <Trans
@@ -101,9 +104,9 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' added '}
+            {" added "}
             {activity.data.user.name}
-            {' to this card'}
+            {" to this card"}
           </Trans>
         );
 
@@ -118,7 +121,7 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' left this card'}
+            {" left this card"}
           </Trans>
         ) : (
           <Trans
@@ -129,9 +132,9 @@ const Item = React.memo(({ id }) => {
             }}
           >
             <span className={styles.author}>{userName}</span>
-            {' removed '}
+            {" removed "}
             {activity.data.user.name}
-            {' from this card'}
+            {" from this card"}
           </Trans>
         );
 
@@ -146,9 +149,9 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' completed '}
+          {" completed "}
           {activity.data.task.name}
-          {' on this card'}
+          {" on this card"}
         </Trans>
       );
 
@@ -163,9 +166,9 @@ const Item = React.memo(({ id }) => {
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' marked '}
+          {" marked "}
           {activity.data.task.name}
-          {' incomplete on this card'}
+          {" incomplete on this card"}
         </Trans>
       );
 

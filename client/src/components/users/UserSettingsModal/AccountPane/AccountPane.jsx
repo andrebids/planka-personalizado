@@ -3,24 +3,24 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Divider, Dropdown, Header, Tab } from 'semantic-ui-react';
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Divider, Dropdown, Header, Tab } from "semantic-ui-react";
 
-import { usePopupInClosableContext } from '../../../../hooks';
-import locales from '../../../../locales';
-import EditAvatarStep from './EditAvatarStep';
-import EditUserInformation from '../../EditUserInformation';
-import EditUserUsernameStep from '../../EditUserUsernameStep';
-import EditUserEmailStep from '../../EditUserEmailStep';
-import EditUserPasswordStep from '../../EditUserPasswordStep';
-import UserAvatar from '../../UserAvatar';
+import { usePopupInClosableContext } from "../../../../hooks";
+import locales from "../../../../locales";
+import EditAvatarStep from "./EditAvatarStep";
+import EditUserInformation from "../../EditUserInformation";
+import EditUserUsernameStep from "../../EditUserUsernameStep";
+import EditUserEmailStep from "../../EditUserEmailStep";
+import EditUserPasswordStep from "../../EditUserPasswordStep";
+import UserAvatar from "../../UserAvatar";
 
-import selectors from '../../../../selectors';
-import entryActions from '../../../../entry-actions';
+import selectors from "../../../../selectors";
+import entryActions from "../../../../entry-actions";
 
-import styles from './AccountPane.module.scss';
+import styles from "./AccountPane.module.scss";
 
 const AccountPane = React.memo(() => {
   const user = useSelector(selectors.selectCurrentUser);
@@ -31,7 +31,9 @@ const AccountPane = React.memo(() => {
   const handleLanguageChange = useCallback(
     (_, { value }) => {
       // FIXME: hack
-      dispatch(entryActions.updateCurrentUserLanguage(value === 'auto' ? null : value));
+      dispatch(
+        entryActions.updateCurrentUserLanguage(value === "auto" ? null : value),
+      );
     },
     [dispatch],
   );
@@ -41,22 +43,26 @@ const AccountPane = React.memo(() => {
   const EditUserEmailPopup = usePopupInClosableContext(EditUserEmailStep);
   const EditUserPasswordPopup = usePopupInClosableContext(EditUserPasswordStep);
 
-  const isUsernameEditable = !user.lockedFieldNames.includes('username');
-  const isEmailEditable = !user.lockedFieldNames.includes('email');
-  const isPasswordEditable = !user.lockedFieldNames.includes('password');
+  const isUsernameEditable = !user.lockedFieldNames.includes("username");
+  const isEmailEditable = !user.lockedFieldNames.includes("email");
+  const isPasswordEditable = !user.lockedFieldNames.includes("password");
 
   return (
     <Tab.Pane attached={false} className={styles.wrapper}>
       <EditAvatarPopup>
-        <UserAvatar id={user.id} size="massive" isDisabled={user.isAvatarUpdating} />
+        <UserAvatar
+          id={user.id}
+          size="massive"
+          isDisabled={user.isAvatarUpdating}
+        />
       </EditAvatarPopup>
       <br />
       <br />
       <EditUserInformation id={user.id} />
       <Divider horizontal section>
         <Header as="h4">
-          {t('common.language', {
-            context: 'title',
+          {t("common.language", {
+            context: "title",
           })}
         </Header>
       </Divider>
@@ -65,8 +71,8 @@ const AccountPane = React.memo(() => {
         selection
         options={[
           {
-            value: 'auto',
-            text: t('common.detectAutomatically'),
+            value: "auto",
+            text: t("common.detectAutomatically"),
           },
           ...locales.map((locale) => ({
             value: locale.language,
@@ -74,24 +80,27 @@ const AccountPane = React.memo(() => {
             text: locale.name,
           })),
         ]}
-        value={user.language || 'auto'}
+        value={user.language || "auto"}
         onChange={handleLanguageChange}
       />
       {(isUsernameEditable || isEmailEditable || isPasswordEditable) && (
         <>
           <Divider horizontal section>
             <Header as="h4">
-              {t('common.authentication', {
-                context: 'title',
+              {t("common.authentication", {
+                context: "title",
               })}
             </Header>
           </Divider>
           {isUsernameEditable && (
             <div className={styles.action}>
-              <EditUserUsernamePopup id={user.id} withPasswordConfirmation={!user.isSsoUser}>
+              <EditUserUsernamePopup
+                id={user.id}
+                withPasswordConfirmation={!user.isSsoUser}
+              >
                 <Button className={styles.actionButton}>
-                  {t('action.editUsername', {
-                    context: 'title',
+                  {t("action.editUsername", {
+                    context: "title",
                   })}
                 </Button>
               </EditUserUsernamePopup>
@@ -99,10 +108,13 @@ const AccountPane = React.memo(() => {
           )}
           {isEmailEditable && (
             <div className={styles.action}>
-              <EditUserEmailPopup id={user.id} withPasswordConfirmation={!user.isSsoUser}>
+              <EditUserEmailPopup
+                id={user.id}
+                withPasswordConfirmation={!user.isSsoUser}
+              >
                 <Button className={styles.actionButton}>
-                  {t('action.editEmail', {
-                    context: 'title',
+                  {t("action.editEmail", {
+                    context: "title",
                   })}
                 </Button>
               </EditUserEmailPopup>
@@ -110,10 +122,13 @@ const AccountPane = React.memo(() => {
           )}
           {isPasswordEditable && (
             <div className={styles.action}>
-              <EditUserPasswordPopup id={user.id} withPasswordConfirmation={!user.isSsoUser}>
+              <EditUserPasswordPopup
+                id={user.id}
+                withPasswordConfirmation={!user.isSsoUser}
+              >
                 <Button className={styles.actionButton}>
-                  {t('action.editPassword', {
-                    context: 'title',
+                  {t("action.editPassword", {
+                    context: "title",
                   })}
                 </Button>
               </EditUserPasswordPopup>

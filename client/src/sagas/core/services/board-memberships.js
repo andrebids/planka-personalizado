@@ -3,16 +3,16 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
 
-import { goToProject } from './router';
-import request from '../request';
-import requests from '../requests';
-import selectors from '../../../selectors';
-import actions from '../../../actions';
-import api from '../../../api';
-import { createLocalId } from '../../../utils/local-id';
-import mergeRecords from '../../../utils/merge-records';
+import { goToProject } from "./router";
+import request from "../request";
+import requests from "../requests";
+import selectors from "../../../selectors";
+import actions from "../../../actions";
+import api from "../../../api";
+import { createLocalId } from "../../../utils/local-id";
+import mergeRecords from "../../../utils/merge-records";
 
 export function* createBoardMembership(boardId, data) {
   const localId = yield call(createLocalId);
@@ -27,7 +27,12 @@ export function* createBoardMembership(boardId, data) {
 
   let boardMembership;
   try {
-    ({ item: boardMembership } = yield call(request, api.createBoardMembership, boardId, data));
+    ({ item: boardMembership } = yield call(
+      request,
+      api.createBoardMembership,
+      boardId,
+      data,
+    ));
   } catch (error) {
     yield put(actions.createBoardMembership.failure(localId, error));
     return;
@@ -125,7 +130,10 @@ export function* handleBoardMembershipCreate(boardMembership, users) {
         } = body);
 
         if (body.card) {
-          notificationsToDelete = yield select(selectors.selectNotificationsByCardId, body.card.id);
+          notificationsToDelete = yield select(
+            selectors.selectNotificationsByCardId,
+            body.card.id,
+          );
         }
       }
     }
@@ -170,7 +178,12 @@ export function* updateBoardMembership(id, data) {
 
   let boardMembership;
   try {
-    ({ item: boardMembership } = yield call(request, api.updateBoardMembership, id, data));
+    ({ item: boardMembership } = yield call(
+      request,
+      api.updateBoardMembership,
+      id,
+      data,
+    ));
   } catch (error) {
     yield put(actions.updateBoardMembership.failure(id, error));
     return;
@@ -205,13 +218,19 @@ export function* deleteBoardMembership(id) {
   }
 
   try {
-    ({ item: boardMembership } = yield call(request, api.deleteBoardMembership, id));
+    ({ item: boardMembership } = yield call(
+      request,
+      api.deleteBoardMembership,
+      id,
+    ));
   } catch (error) {
     yield put(actions.deleteBoardMembership.failure(id, error));
     return;
   }
 
-  yield put(actions.deleteBoardMembership.success(boardMembership, isCurrentUser));
+  yield put(
+    actions.deleteBoardMembership.success(boardMembership, isCurrentUser),
+  );
 }
 
 export function* handleBoardMembershipDelete(boardMembership) {
@@ -220,7 +239,9 @@ export function* handleBoardMembershipDelete(boardMembership) {
   const currentUserId = yield select(selectors.selectCurrentUserId);
   const isCurrentUser = boardMembership.userId === currentUserId;
 
-  yield put(actions.handleBoardMembershipDelete(boardMembership, isCurrentUser));
+  yield put(
+    actions.handleBoardMembershipDelete(boardMembership, isCurrentUser),
+  );
 
   if (isCurrentUser && boardMembership.boardId === boardId) {
     const isAvailableForCurrentUser = yield select(
