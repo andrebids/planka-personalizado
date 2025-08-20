@@ -40833,3 +40833,9 @@ textarea {
 .ui.comments .comment .actions button:hover {
   color: rgba(0, 0, 0, 0.8);
 }
+
+/* Glass Dimmer */
+.glass-dimmer {
+  background: rgba(14, 17, 23, 0) !important;
+  backdrop-filter: blur(8px) !important;
+}

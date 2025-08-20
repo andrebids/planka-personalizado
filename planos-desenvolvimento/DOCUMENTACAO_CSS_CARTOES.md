@@ -333,112 +333,31 @@ Para encontrar outros estilos relacionados:
 
 ---
 
-## 🌑 **DIMMER DOS MODAIS (CONFIRMADO)**
+## 🌑 **DIMMER DOS MODAIS**
 
-### **🎯 Classes `dimmable dimmed` no `<body>`**
+**Arquivo:** `use-closable-modal.jsx` (linha 47)
+**Caminho:** `client/src/hooks/use-closable-modal.jsx`
 
-Quando um modal de cartão é aberto, as classes `dimmable dimmed` são automaticamente adicionadas ao elemento `<body>` pelo Semantic UI React.
-
-**Exemplo:**
-```html
-<body id="app" class="g-root g-root_theme_light dimmable dimmed scrolling">
-```
-
-### **📁 Localização do Controle:**
-
-#### **Arquivo Principal:** `use-closable-modal.jsx`
-**Caminho:** `DEV/planka-personalizado/client/src/hooks/use-closable-modal.jsx`
-
-**Seção Principal (linha 47):**
+**Controle:**
 ```jsx
-<Modal
-  open
-  {...props}
-  className={mergedClassName}
-  closeIcon={closeIcon}
-  onClose={handleClose}
-  dimmer={{ inverted: true, className: 'red-dimmer' }} // ← AQUI SE CONTROLA O DIMMER
-/>
+dimmer={{ inverted: true, className: 'custom-dimmer' }}
 ```
 
-### **🎨 Como Personalizar o Dimmer:**
+**Classes CSS automáticas:** `dimmable dimmed` no `<body>`
 
-#### **Opção 1: Via Props do Modal (Recomendado)**
-No arquivo `use-closable-modal.jsx`, modifique a prop `dimmer`:
-
+**Personalização:**
 ```jsx
-// Dimmer personalizado
-dimmer={{ 
-  inverted: true, 
-  className: 'custom-dimmer',
-  blurring: true 
-}}
+// Via props
+dimmer={{ inverted: true, className: 'glass-dimmer', blurring: true }}
 
-// Dimmer com cor personalizada
-dimmer={{ 
-  inverted: true, 
-  className: 'red-dimmer' 
-}}
-```
-
-#### **Opção 2: Via CSS Global**
-No arquivo `DEV/planka-personalizado/client/src/lib/custom-ui/styles.css`, adicione:
-
-```css
-/* Dimmer personalizado */
-.custom-dimmer {
-  background: rgba(0, 0, 0, 0.8) !important;
-}
-
-/* Dimmer vermelho para testes */
-.red-dimmer {
-  background: rgba(255, 0, 0, 0.5) !important;
-}
-```
-
-### **🔧 Propriedades Disponíveis do Dimmer:**
-
-- `inverted: true` - Dimmer escuro (padrão)
-- `inverted: false` - Dimmer claro
-- `blurring: true` - Efeito de blur no fundo
-- `className: 'custom-class'` - Classe CSS personalizada
-- `page: true` - Dimmer em toda a página
-- `closable: true` - Fechar ao clicar no dimmer
-
-### **📝 Notas Importantes:**
-
-1. **Semantic UI:** O dimmer é controlado pelo componente `Modal` do Semantic UI React
-2. **Automático:** As classes `dimmable dimmed` são adicionadas automaticamente
-3. **CSS Global:** Para estilos personalizados, use o arquivo `custom-ui/styles.css`
-4. **Prioridade:** Use `!important` para sobrescrever estilos do Semantic UI
-5. **Hook:** O `useClosableModal` é usado pelo `CardModal.jsx` para renderizar o modal
-
-### **🎯 Exemplo de Implementação:**
-
-```jsx
-// Em use-closable-modal.jsx
-<Modal
-  open
-  {...props}
-  className={mergedClassName}
-  closeIcon={closeIcon}
-  onClose={handleClose}
-  dimmer={{ 
-    inverted: true, 
-    className: 'glass-dimmer',
-    blurring: true 
-  }}
-/>
-```
-
-```css
-/* Em custom-ui/styles.css */
+// Via CSS
 .glass-dimmer {
   background: rgba(14, 17, 23, 0.75) !important;
   backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
 }
 ```
+
+**Props disponíveis:** `inverted`, `blurring`, `className`, `page`, `closable`
 
 ---
 

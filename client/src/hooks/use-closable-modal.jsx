@@ -45,8 +45,14 @@ export default (initialClosableValue) => {
 
       return (
         <ClosableContext.Provider value={closableContextValue}>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Modal open {...props} className={mergedClassName} closeIcon={closeIcon} onClose={handleClose} />
+          <Modal 
+            open 
+            {...props} 
+            className={mergedClassName} 
+            closeIcon={closeIcon} 
+            onClose={handleClose}
+            dimmer={{ inverted: true, className: 'glass-dimmer' }}
+          />
         </ClosableContext.Provider>
       );
     });
