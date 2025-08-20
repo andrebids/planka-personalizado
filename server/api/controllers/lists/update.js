@@ -49,13 +49,6 @@ module.exports = {
   },
 
   async fn(inputs) {
-    // Log temporário para debug
-    console.log('=== DEBUG LIST UPDATE ===');
-    console.log('Inputs recebidos:', JSON.stringify(inputs, null, 2));
-    console.log('Headers:', JSON.stringify(this.req.headers, null, 2));
-    console.log('Body:', JSON.stringify(this.req.body, null, 2));
-    console.log('========================');
-
     const { currentUser } = this.req;
 
     const pathToProject = await sails.helpers.lists
@@ -83,25 +76,6 @@ module.exports = {
     }
 
     const values = _.pick(inputs, ['type', 'position', 'name', 'color']);
-
-    // Log temporário para debug de validação
-    console.log('=== VALIDAÇÃO DE CAMPOS ===');
-    console.log('Values a serem validados:', JSON.stringify(values, null, 2));
-    if (values.name !== undefined) {
-      console.log('Name length:', values.name ? values.name.length : 'undefined');
-      console.log('Name trimmed length:', values.name ? values.name.trim().length : 'undefined');
-      console.log('Name is empty string:', values.name === '');
-      console.log('Name is only spaces:', values.name && values.name.trim().length === 0);
-    }
-    if (values.type !== undefined) {
-      console.log('Type value:', values.type);
-      console.log('Type is valid:', List.FINITE_TYPES.includes(values.type));
-    }
-    if (values.color !== undefined) {
-      console.log('Color value:', values.color);
-      console.log('Color is valid:', List.COLORS.includes(values.color));
-    }
-    console.log('==========================');
 
     list = await sails.helpers.lists.updateOne.with({
       values,
