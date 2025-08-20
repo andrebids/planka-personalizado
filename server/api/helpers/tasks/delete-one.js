@@ -43,7 +43,7 @@ module.exports = {
   },
 
   async fn(inputs) {
-    const task = await Task.qm.deleteOne(inputs.record.id);
+    const task = await sails.models.task.qm.deleteOne(inputs.record.id);
 
     if (task) {
       sails.sockets.broadcast(

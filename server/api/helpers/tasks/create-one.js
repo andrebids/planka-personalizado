@@ -41,7 +41,7 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
-    const tasks = await Task.qm.getByTaskListId(values.taskList.id);
+    const tasks = await sails.models.task.qm.getByTaskListId(values.taskList.id);
 
     const { position, repositions } = sails.helpers.utils.insertToPositionables(
       values.position,
@@ -51,7 +51,7 @@ module.exports = {
     // eslint-disable-next-line no-restricted-syntax
     for (const reposition of repositions) {
       // eslint-disable-next-line no-await-in-loop
-      await Task.qm.updateOne(
+      await sails.models.task.qm.updateOne(
         {
           id: reposition.record.id,
           taskListId: reposition.record.taskListId,
@@ -71,7 +71,7 @@ module.exports = {
       // TODO: send webhooks
     }
 
-    const task = await Task.qm.createOne({
+    const task = await sails.models.task.qm.createOne({
       ...values,
       position,
       taskListId: values.taskList.id,

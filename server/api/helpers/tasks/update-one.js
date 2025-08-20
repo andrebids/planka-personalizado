@@ -69,7 +69,7 @@ module.exports = {
     const taskList = values.taskList || inputs.taskList;
 
     if (!_.isUndefined(values.position)) {
-      const tasks = await Task.qm.getByTaskListId(taskList.id, {
+      const tasks = await sails.models.task.qm.getByTaskListId(taskList.id, {
         exceptIdOrIds: inputs.record.id,
       });
 
@@ -83,7 +83,7 @@ module.exports = {
       // eslint-disable-next-line no-restricted-syntax
       for (const reposition of repositions) {
         // eslint-disable-next-line no-await-in-loop
-        await Task.qm.updateOne(
+        await sails.models.task.qm.updateOne(
           {
             id: reposition.record.id,
             taskListId: reposition.record.taskListId,
@@ -104,7 +104,7 @@ module.exports = {
       }
     }
 
-    const task = await Task.qm.updateOne(inputs.record.id, values);
+    const task = await sails.models.task.qm.updateOne(inputs.record.id, values);
 
     if (task) {
       sails.sockets.broadcast(
