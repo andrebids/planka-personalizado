@@ -28,7 +28,7 @@ const EditStep = React.memo(({ attachmentId, onClose }) => {
     []
   );
 
-  const attachment = useSelector((state) =>
+  const attachment = useSelector(state =>
     selectAttachmentById(state, attachmentId)
   );
 

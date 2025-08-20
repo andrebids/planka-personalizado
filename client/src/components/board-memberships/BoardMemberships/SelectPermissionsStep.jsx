@@ -56,7 +56,7 @@ const SelectPermissionsStep = React.memo(
 
     const handleSelectRoleClick = useCallback(
       (_, { value: role }) => {
-        setData((prevData) => ({
+        setData(prevData => ({
           ...prevData,
           role,
           canComment:
@@ -77,7 +77,7 @@ const SelectPermissionsStep = React.memo(
           <Form onSubmit={handleSubmit}>
             <Menu secondary vertical className={styles.menu}>
               {[BoardMembershipRoles.EDITOR, BoardMembershipRoles.VIEWER].map(
-                (role) => (
+                role => (
                   <Menu.Item
                     key={role}
                     value={role}

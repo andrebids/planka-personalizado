@@ -33,17 +33,13 @@ const Item = React.memo(({ id, onClose }) => {
   );
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
-  const notification = useSelector((state) =>
-    selectNotificationById(state, id)
-  );
+  const notification = useSelector(state => selectNotificationById(state, id));
 
-  const creatorUser = useSelector((state) =>
+  const creatorUser = useSelector(state =>
     selectCreatorUserById(state, notification.creatorUserId)
   );
 
-  const card = useSelector((state) =>
-    selectCardById(state, notification.cardId)
-  );
+  const card = useSelector(state => selectCardById(state, notification.cardId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();

@@ -71,7 +71,7 @@ const SelectRoleStep = React.memo(
                 UserRoles.ADMIN,
                 UserRoles.PROJECT_OWNER,
                 UserRoles.BOARD_USER,
-              ].map((role) => (
+              ].map(role => (
                 <Menu.Item
                   key={role}
                   value={role}

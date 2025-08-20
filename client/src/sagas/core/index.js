@@ -13,7 +13,7 @@ import ActionTypes from '../../constants/ActionTypes';
 import Paths from '../../constants/Paths';
 
 export default function* coreSaga() {
-  yield all(watchers.map((watcher) => fork(watcher)));
+  yield all(watchers.map(watcher => fork(watcher)));
 
   yield apply(socket, socket.connect);
   yield fork(services.initializeCore);

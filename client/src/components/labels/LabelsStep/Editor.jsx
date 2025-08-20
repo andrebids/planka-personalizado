@@ -41,7 +41,7 @@ const Editor = React.memo(({ data, onFieldChange }) => {
       />
       <div className={styles.text}>{t('common.color')}</div>
       <div className={styles.colorButtons}>
-        {LABEL_COLORS.map((color) => (
+        {LABEL_COLORS.map(color => (
           <Button
             key={color}
             type="button"

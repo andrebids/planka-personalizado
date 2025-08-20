@@ -20,8 +20,8 @@ const AddAttachmentStep = React.memo(({ onClose }) => {
   const [t] = useTranslation();
 
   const handleFilesSelect = useCallback(
-    (files) => {
-      files.forEach((file) => {
+    files => {
+      files.forEach(file => {
         dispatch(
           entryActions.createAttachmentInCurrentCard({
             file,

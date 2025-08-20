@@ -51,7 +51,7 @@ const NotificationsStep = React.memo(({ onClose }) => {
           {notificationIds.length > 0 ? (
             <>
               <div className={styles.items}>
-                {notificationIds.map((notificationId) => (
+                {notificationIds.map(notificationId => (
                   <Item
                     key={notificationId}
                     id={notificationId}

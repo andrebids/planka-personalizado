@@ -35,7 +35,7 @@ const BackgroundPane = React.memo(() => {
   );
 
   const handleImageCreate = useCallback(
-    (file) => {
+    file => {
       dispatch(
         entryActions.createBackgroundImageInCurrentProject({
           file,
@@ -56,7 +56,7 @@ const BackgroundPane = React.memo(() => {
       <AddImageZone onCreate={handleImageCreate}>
         <Button.Group fluid basic className={styles.activeTypeButtonGroup}>
           {[ProjectBackgroundTypes.GRADIENT, ProjectBackgroundTypes.IMAGE].map(
-            (type) => (
+            type => (
               <Button
                 key={type}
                 type="button"

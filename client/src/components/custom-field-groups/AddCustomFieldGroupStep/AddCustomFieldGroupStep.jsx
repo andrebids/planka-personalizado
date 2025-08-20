@@ -35,7 +35,7 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
     }
 
     return baseCustomFieldGroups.find(
-      (baseCustomFieldGroup) =>
+      baseCustomFieldGroup =>
         baseCustomFieldGroup.id === data.baseCustomFieldGroupId
     );
   }, [baseCustomFieldGroups, data.baseCustomFieldGroupId]);
@@ -78,13 +78,13 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
 
   const handleBaseCustomFieldGroupIdChange = useCallback(
     (_, { value }) => {
-      setData((prevData) => {
+      setData(prevData => {
         const baseCustomFieldGroupId = value === 'without' ? null : value; // FIXME: hack
 
         const nextSelectedBaseCustomFieldGroup =
           baseCustomFieldGroupId &&
           baseCustomFieldGroups.find(
-            (baseCustomFieldGroup) =>
+            baseCustomFieldGroup =>
               baseCustomFieldGroup.id === baseCustomFieldGroupId
           );
 
@@ -125,7 +125,7 @@ const AddCustomFieldGroupStep = React.memo(({ onCreate, onBack, onClose }) => {
                 value: 'without',
                 text: t('common.withoutBaseGroup'),
               },
-              ...baseCustomFieldGroups.map((baseCustomFieldGroup) => ({
+              ...baseCustomFieldGroups.map(baseCustomFieldGroup => ({
                 value: baseCustomFieldGroup.id,
                 text: baseCustomFieldGroup.name,
                 disabled: !baseCustomFieldGroup.isPersisted,

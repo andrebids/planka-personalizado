@@ -38,7 +38,7 @@
  * Category: scripting
  */
 
-export default (hljs) => {
+export default hljs => {
   const NUMBERS = {
     className: 'number',
     begin: '\\b\\d+(\\.\\d+)?',

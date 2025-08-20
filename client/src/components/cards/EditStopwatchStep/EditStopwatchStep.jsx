@@ -25,7 +25,7 @@ import {
 
 import styles from './EditStopwatchStep.module.scss';
 
-const createData = (stopwatch) => {
+const createData = stopwatch => {
   if (!stopwatch) {
     return {
       hours: '0',
@@ -47,7 +47,7 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
   const defaultValue = useSelector(
-    (state) => selectCardById(state, cardId).stopwatch
+    state => selectCardById(state, cardId).stopwatch
   );
 
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const EditStopwatchStep = React.memo(({ cardId, onBack, onClose }) => {
   const [secondsFieldRef, handleSecondsFieldRef] = useNestedRef('inputRef');
 
   const update = useCallback(
-    (stopwatch) => {
+    stopwatch => {
       dispatch(
         entryActions.updateCard(cardId, {
           stopwatch,

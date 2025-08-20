@@ -24,7 +24,7 @@ const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const defaultValue = useSelector(
-    (state) => selectListById(state, listId).color
+    state => selectListById(state, listId).color
   );
 
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const EditColorStep = React.memo(({ listId, onBack, onClose }) => {
       </Popup.Header>
       <Popup.Content>
         <div className={styles.colorButtons}>
-          {LIST_COLORS.map((color) => (
+          {LIST_COLORS.map(color => (
             <Button
               key={color}
               type="button"

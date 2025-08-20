@@ -8,7 +8,7 @@ import ActionTypes from '../constants/ActionTypes';
 const STORAGE_KEY = 'planka_projects_order';
 const FAVORITES_STORAGE_KEY = 'planka_favorites_order';
 
-export const projectOrderMiddleware = (store) => (next) => (action) => {
+export const projectOrderMiddleware = store => next => action => {
   const result = next(action);
 
   switch (action.type) {

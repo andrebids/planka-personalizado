@@ -6,10 +6,10 @@
 import { useCallback, useState } from 'react';
 
 // TODO: rename?
-export default (initialParams) => {
+export default initialParams => {
   const [modal, setModal] = useState(() => initialParams);
 
-  const open = useCallback((params) => {
+  const open = useCallback(params => {
     setModal(params);
   }, []);
 

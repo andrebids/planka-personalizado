@@ -12,7 +12,7 @@ import api, { socket } from '../../../api';
 import EntryActionTypes from '../../../constants/EntryActionTypes';
 
 const createSocketEventsChannel = () =>
-  eventChannel((emit) => {
+  eventChannel(emit => {
     const handleDisconnect = () => {
       emit(entryActions.handleSocketDisconnect());
     };

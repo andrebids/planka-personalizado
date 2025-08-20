@@ -20,7 +20,7 @@ const updateCustomFieldValue = (
   },
 });
 
-const handleCustomFieldValueUpdate = (customFieldValue) => ({
+const handleCustomFieldValueUpdate = customFieldValue => ({
   type: EntryActionTypes.CUSTOM_FIELD_VALUE_UPDATE_HANDLE,
   payload: {
     customFieldValue,
@@ -36,7 +36,7 @@ const deleteCustomFieldValue = (cardId, customFieldGroupId, customFieldId) => ({
   },
 });
 
-const handleCustomFieldValueDelete = (customFieldValue) => ({
+const handleCustomFieldValueDelete = customFieldValue => ({
   type: EntryActionTypes.CUSTOM_FIELD_VALUE_DELETE_HANDLE,
   payload: {
     customFieldValue,

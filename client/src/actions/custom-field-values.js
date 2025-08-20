@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const updateCustomFieldValue = (customFieldValue) => ({
+const updateCustomFieldValue = customFieldValue => ({
   type: ActionTypes.CUSTOM_FIELD_VALUE_UPDATE,
   payload: {
     customFieldValue,
@@ -28,21 +28,21 @@ updateCustomFieldValue.failure = (localId, error) => ({
   },
 });
 
-const handleCustomFieldValueUpdate = (customFieldValue) => ({
+const handleCustomFieldValueUpdate = customFieldValue => ({
   type: ActionTypes.CUSTOM_FIELD_VALUE_UPDATE_HANDLE,
   payload: {
     customFieldValue,
   },
 });
 
-const deleteCustomFieldValue = (id) => ({
+const deleteCustomFieldValue = id => ({
   type: ActionTypes.CUSTOM_FIELD_VALUE_DELETE,
   payload: {
     id,
   },
 });
 
-deleteCustomFieldValue.success = (customFieldValue) => ({
+deleteCustomFieldValue.success = customFieldValue => ({
   type: ActionTypes.CUSTOM_FIELD_VALUE_DELETE__SUCCESS,
   payload: {
     customFieldValue,
@@ -57,7 +57,7 @@ deleteCustomFieldValue.failure = (id, error) => ({
   },
 });
 
-const handleCustomFieldValueDelete = (customFieldValue) => ({
+const handleCustomFieldValueDelete = customFieldValue => ({
   type: ActionTypes.CUSTOM_FIELD_VALUE_DELETE_HANDLE,
   payload: {
     customFieldValue,

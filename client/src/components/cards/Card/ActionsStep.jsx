@@ -54,18 +54,16 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   );
 
   const board = useSelector(selectors.selectCurrentBoard);
-  const card = useSelector((state) => selectCardById(state, cardId));
-  const list = useSelector((state) => selectListById(state, card.listId));
+  const card = useSelector(state => selectCardById(state, cardId));
+  const list = useSelector(state => selectListById(state, card.listId));
 
   // TODO: check availability?
   const prevList = useSelector(
-    (state) => card.prevListId && selectPrevListById(state, card.prevListId)
+    state => card.prevListId && selectPrevListById(state, card.prevListId)
   );
 
-  const userIds = useSelector((state) => selectUserIdsByCardId(state, cardId));
-  const labelIds = useSelector((state) =>
-    selectLabelIdsByCardId(state, cardId)
-  );
+  const userIds = useSelector(state => selectUserIdsByCardId(state, cardId));
+  const labelIds = useSelector(state => selectLabelIdsByCardId(state, cardId));
 
   const {
     canEditType,
@@ -79,7 +77,7 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
     canDelete,
     canUseMembers,
     canUseLabels,
-  } = useSelector((state) => {
+  } = useSelector(state => {
     const boardMembership =
       selectors.selectCurrentUserMembershipForCurrentBoard(state);
     const isEditor =
@@ -121,7 +119,7 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   const [step, openStep, handleBack] = useSteps();
 
   const handleTypeSelect = useCallback(
-    (type) => {
+    type => {
       dispatch(
         entryActions.updateCard(cardId, {
           type,
@@ -162,28 +160,28 @@ const ActionsStep = React.memo(({ cardId, onNameEdit, onClose }) => {
   }, [cardId, isInTrashList, dispatch]);
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.addUserToCard(userId, cardId));
     },
     [cardId, dispatch]
   );
 
   const handleUserDeselect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.removeUserFromCard(userId, cardId));
     },
     [cardId, dispatch]
   );
 
   const handleLabelSelect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.addLabelToCard(labelId, cardId));
     },
     [cardId, dispatch]
   );
 
   const handleLabelDeselect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.removeLabelFromCard(labelId, cardId));
     },
     [cardId, dispatch]

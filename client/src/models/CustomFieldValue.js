@@ -8,14 +8,14 @@ import { attr, fk } from 'redux-orm';
 import BaseModel from './BaseModel';
 import ActionTypes from '../constants/ActionTypes';
 
-export const buildCustomFieldValueId = (customFieldValue) =>
+export const buildCustomFieldValueId = customFieldValue =>
   JSON.stringify({
     cardId: customFieldValue.cardId,
     customFieldGroupId: customFieldValue.customFieldGroupId,
     customFieldId: customFieldValue.customFieldId,
   });
 
-const prepareCustomFieldValue = (customFieldValue) => ({
+const prepareCustomFieldValue = customFieldValue => ({
   ...customFieldValue,
   id: buildCustomFieldValueId(customFieldValue),
 });
@@ -53,7 +53,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE_HANDLE:
         if (payload.customFieldValues) {
-          payload.customFieldValues.forEach((customFieldValue) => {
+          payload.customFieldValues.forEach(customFieldValue => {
             CustomFieldValue.upsert(prepareCustomFieldValue(customFieldValue));
           });
         }
@@ -63,7 +63,7 @@ export default class extends BaseModel {
         CustomFieldValue.all().delete();
 
         if (payload.customFieldValues) {
-          payload.customFieldValues.forEach((customFieldValue) => {
+          payload.customFieldValues.forEach(customFieldValue => {
             CustomFieldValue.upsert(prepareCustomFieldValue(customFieldValue));
           });
         }
@@ -73,7 +73,7 @@ export default class extends BaseModel {
       case ActionTypes.CARDS_FETCH__SUCCESS:
       case ActionTypes.CARD_CREATE_HANDLE:
       case ActionTypes.CARD_DUPLICATE__SUCCESS:
-        payload.customFieldValues.forEach((customFieldValue) => {
+        payload.customFieldValues.forEach(customFieldValue => {
           CustomFieldValue.upsert(prepareCustomFieldValue(customFieldValue));
         });
 

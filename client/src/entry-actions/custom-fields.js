@@ -21,7 +21,7 @@ const createCustomFieldInGroup = (customFieldGroupId, data) => ({
   },
 });
 
-const handleCustomFieldCreate = (customField) => ({
+const handleCustomFieldCreate = customField => ({
   type: EntryActionTypes.CUSTOM_FIELD_CREATE_HANDLE,
   payload: {
     customField,
@@ -36,7 +36,7 @@ const updateCustomField = (id, data) => ({
   },
 });
 
-const handleCustomFieldUpdate = (customField) => ({
+const handleCustomFieldUpdate = customField => ({
   type: EntryActionTypes.CUSTOM_FIELD_UPDATE_HANDLE,
   payload: {
     customField,
@@ -51,14 +51,14 @@ const moveCustomField = (id, index) => ({
   },
 });
 
-const deleteCustomField = (id) => ({
+const deleteCustomField = id => ({
   type: EntryActionTypes.CUSTOM_FIELD_DELETE,
   payload: {
     id,
   },
 });
 
-const handleCustomFieldDelete = (customField) => ({
+const handleCustomFieldDelete = customField => ({
   type: EntryActionTypes.CUSTOM_FIELD_DELETE_HANDLE,
   payload: {
     customField,

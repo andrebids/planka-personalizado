@@ -20,7 +20,7 @@ const Project = React.memo(() => {
   const modal = useSelector(selectors.selectCurrentModal);
   const project = useSelector(selectors.selectCurrentProject);
   const board = useSelector(selectors.selectCurrentBoard);
-  const firstBoardId = useSelector((state) => {
+  const firstBoardId = useSelector(state => {
     if (!project) return null;
     return selectors.selectFirstBoardIdByProjectId(state, project.id);
   });

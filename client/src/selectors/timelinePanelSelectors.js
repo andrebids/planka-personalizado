@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-export const selectIsTimelinePanelExpanded = (state) =>
+export const selectIsTimelinePanelExpanded = state =>
   state.timelinePanel.isExpanded;
 
 export default {

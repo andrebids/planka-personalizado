@@ -19,7 +19,7 @@ import styles from './EmptyTrashToast.module.scss';
 
 const EmptyTrashToast = React.memo(({ id, listId }) => {
   const isCurrentList = useSelector(
-    (state) => listId === selectors.selectCurrentListId(state)
+    state => listId === selectors.selectCurrentListId(state)
   );
 
   const dispatch = useDispatch();

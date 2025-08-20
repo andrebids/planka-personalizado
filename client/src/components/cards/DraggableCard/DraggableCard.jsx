@@ -18,9 +18,9 @@ import styles from './DraggableCard.module.scss';
 const DraggableCard = React.memo(({ id, index, className, ...props }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
-  const card = useSelector((state) => selectCardById(state, id));
+  const card = useSelector(state => selectCardById(state, id));
 
-  const canDrag = useSelector((state) => {
+  const canDrag = useSelector(state => {
     const boardMembership =
       selectors.selectCurrentUserMembershipForCurrentBoard(state);
     return (

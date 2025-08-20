@@ -28,7 +28,7 @@ const Filters = React.memo(() => {
 
   const debouncedSearch = useMemo(
     () =>
-      debounce((nextSearch) => {
+      debounce(nextSearch => {
         dispatch(entryActions.searchProjects(nextSearch));
       }, 400),
     [dispatch]
@@ -56,7 +56,7 @@ const Filters = React.memo(() => {
   }, []);
 
   const handleSearchKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Escape') {
         cancelSearch();
       }

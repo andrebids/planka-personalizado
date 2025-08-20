@@ -16,7 +16,7 @@ export const makeSelectBoardById = () =>
   createSelector(
     orm,
     (_, id) => id,
-    (state) => selectPath(state).boardId,
+    state => selectPath(state).boardId,
     ({ Board }, id) => {
       const boardModel = Board.withId(id);
 
@@ -37,7 +37,7 @@ export const makeSelectCurrentUserMembershipByBoardId = () =>
   createSelector(
     orm,
     (_, id) => id,
-    (state) => selectCurrentUserId(state),
+    state => selectCurrentUserId(state),
     ({ Board }, id, currentUserId) => {
       if (!id) {
         return id;
@@ -67,7 +67,7 @@ export const makeSelectNotificationsTotalByBoardId = () =>
   createSelector(
     orm,
     (_, id) => id,
-    (state) => selectCurrentUserId(state),
+    state => selectCurrentUserId(state),
     ({ Board }, id) => {
       const boardModel = Board.withId(id);
 
@@ -86,7 +86,7 @@ export const makeSelectNotificationServiceIdsByBoardId = () =>
   createSelector(
     orm,
     (_, id) => id,
-    (state) => selectCurrentUserId(state),
+    state => selectCurrentUserId(state),
     ({ Board }, id) => {
       const boardModel = Board.withId(id);
 
@@ -97,7 +97,7 @@ export const makeSelectNotificationServiceIdsByBoardId = () =>
       return boardModel
         .getNotificationServicesQuerySet()
         .toRefArray()
-        .map((notificationService) => notificationService.id);
+        .map(notificationService => notificationService.id);
     }
   );
 
@@ -107,7 +107,7 @@ export const selectNotificationServiceIdsByBoardId =
 export const selectIsBoardWithIdAvailableForCurrentUser = createSelector(
   orm,
   (_, id) => id,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ Board, User }, id, currentUserId) => {
     const boardModel = Board.withId(id);
 
@@ -122,7 +122,7 @@ export const selectIsBoardWithIdAvailableForCurrentUser = createSelector(
 
 export const selectCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -140,7 +140,7 @@ export const selectCurrentBoard = createSelector(
 
 export const selectMembershipsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -155,7 +155,7 @@ export const selectMembershipsForCurrentBoard = createSelector(
     return boardModel
       .getMembershipsQuerySet()
       .toModelArray()
-      .map((boardMembershipModel) => ({
+      .map(boardMembershipModel => ({
         ...boardMembershipModel.ref,
         isPersisted: !isLocalId(boardMembershipModel.id),
         user: boardMembershipModel.user.ref,
@@ -165,7 +165,7 @@ export const selectMembershipsForCurrentBoard = createSelector(
 
 export const selectMemberUserIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -180,14 +180,14 @@ export const selectMemberUserIdsForCurrentBoard = createSelector(
     return boardModel
       .getMembershipsQuerySet()
       .toModelArray()
-      .map((boardMembershipModel) => boardMembershipModel.user.id);
+      .map(boardMembershipModel => boardMembershipModel.user.id);
   }
 );
 
 export const selectCurrentUserMembershipForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
-  (state) => selectCurrentUserId(state),
+  state => selectPath(state).boardId,
+  state => selectCurrentUserId(state),
   ({ Board }, id, currentUserId) => {
     if (!id) {
       return id;
@@ -212,7 +212,7 @@ export const selectCurrentUserMembershipForCurrentBoard = createSelector(
 
 export const selectLabelsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -230,7 +230,7 @@ export const selectLabelsForCurrentBoard = createSelector(
 
 export const selectArchiveListIdForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -254,7 +254,7 @@ export const selectArchiveListIdForCurrentBoard = createSelector(
 
 export const selectTrashListIdForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -278,7 +278,7 @@ export const selectTrashListIdForCurrentBoard = createSelector(
 
 export const selectFiniteListIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -293,14 +293,14 @@ export const selectFiniteListIdsForCurrentBoard = createSelector(
     return boardModel
       .getFiniteListsQuerySet()
       .toRefArray()
-      .map((list) => list.id);
+      .map(list => list.id);
   }
 );
 
 // TODO: rename?
 export const selectAvailableListsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -315,13 +315,13 @@ export const selectAvailableListsForCurrentBoard = createSelector(
     return boardModel
       .getListsQuerySet()
       .toRefArray()
-      .filter((list) => !isListArchiveOrTrash(list));
+      .filter(list => !isListArchiveOrTrash(list));
   }
 );
 
 export const selectFilteredCardIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -335,13 +335,13 @@ export const selectFilteredCardIdsForCurrentBoard = createSelector(
 
     return boardModel
       .getFilteredCardsModelArray()
-      .map((cardModel) => cardModel.id);
+      .map(cardModel => cardModel.id);
   }
 );
 
 export const selectCustomFieldGroupIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -356,13 +356,13 @@ export const selectCustomFieldGroupIdsForCurrentBoard = createSelector(
     return boardModel
       .getCustomFieldGroupsQuerySet()
       .toRefArray()
-      .map((customFieldGroup) => customFieldGroup.id);
+      .map(customFieldGroup => customFieldGroup.id);
   }
 );
 
 export const selectCustomFieldGroupsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -377,7 +377,7 @@ export const selectCustomFieldGroupsForCurrentBoard = createSelector(
     return boardModel
       .getCustomFieldGroupsQuerySet()
       .toModelArray()
-      .map((customFieldGroupModel) => {
+      .map(customFieldGroupModel => {
         if (!customFieldGroupModel.name) {
           return {
             ...customFieldGroupModel.ref,
@@ -392,7 +392,7 @@ export const selectCustomFieldGroupsForCurrentBoard = createSelector(
 
 export const selectActivityIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -404,13 +404,13 @@ export const selectActivityIdsForCurrentBoard = createSelector(
       return boardModel;
     }
 
-    return boardModel.getActivitiesModelArray().map((activity) => activity.id);
+    return boardModel.getActivitiesModelArray().map(activity => activity.id);
   }
 );
 
 export const selectFilterUserIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -422,13 +422,13 @@ export const selectFilterUserIdsForCurrentBoard = createSelector(
       return boardModel;
     }
 
-    return boardModel.filterUsers.toRefArray().map((user) => user.id);
+    return boardModel.filterUsers.toRefArray().map(user => user.id);
   }
 );
 
 export const selectFilterLabelIdsForCurrentBoard = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -440,7 +440,7 @@ export const selectFilterLabelIdsForCurrentBoard = createSelector(
       return boardModel;
     }
 
-    return boardModel.filterLabels.toRefArray().map((label) => label.id);
+    return boardModel.filterLabels.toRefArray().map(label => label.id);
   }
 );
 

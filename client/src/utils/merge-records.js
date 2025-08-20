@@ -16,9 +16,9 @@ const mergeRecords = (target, ...sources) => {
 
   const nextTarget = [...target];
 
-  source.forEach((sourceRecord) => {
+  source.forEach(sourceRecord => {
     const index = nextTarget.findIndex(
-      (targetRecord) => targetRecord.id === sourceRecord.id
+      targetRecord => targetRecord.id === sourceRecord.id
     );
 
     if (index >= 0) {

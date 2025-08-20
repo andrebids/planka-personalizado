@@ -56,28 +56,28 @@ const initializeCore = (
   },
 });
 
-initializeCore.fetchConfig = (config) => ({
+initializeCore.fetchConfig = config => ({
   type: ActionTypes.CORE_INITIALIZE__CONFIG_FETCH,
   payload: {
     config,
   },
 });
 
-const toggleFavorites = (isEnabled) => ({
+const toggleFavorites = isEnabled => ({
   type: ActionTypes.FAVORITES_TOGGLE,
   payload: {
     isEnabled,
   },
 });
 
-const toggleEditMode = (isEnabled) => ({
+const toggleEditMode = isEnabled => ({
   type: ActionTypes.EDIT_MODE_TOGGLE,
   payload: {
     isEnabled,
   },
 });
 
-const updateHomeView = (value) => ({
+const updateHomeView = value => ({
   type: ActionTypes.HOME_VIEW_UPDATE,
   payload: {
     value,

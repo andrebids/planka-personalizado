@@ -27,7 +27,7 @@ const StepTypes = {
 const EditStep = React.memo(({ labelId, onBack }) => {
   const selectLabelById = useMemo(() => selectors.makeSelectLabelById(), []);
 
-  const label = useSelector((state) => selectLabelById(state, labelId));
+  const label = useSelector(state => selectLabelById(state, labelId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();

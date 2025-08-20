@@ -7,7 +7,7 @@ import socket from './socket';
 
 /* Transformers */
 
-export const transformActivity = (activity) => ({
+export const transformActivity = activity => ({
   ...activity,
   ...(activity.createdAt && {
     createdAt: new Date(activity.createdAt),
@@ -17,20 +17,20 @@ export const transformActivity = (activity) => ({
 /* Actions */
 
 const getActivitiesInBoard = (boardId, data, headers) =>
-  socket.get(`/boards/${boardId}/actions`, data, headers).then((body) => ({
+  socket.get(`/boards/${boardId}/actions`, data, headers).then(body => ({
     ...body,
     items: body.items.map(transformActivity),
   }));
 
 const getActivitiesInCard = (cardId, data, headers) =>
-  socket.get(`/cards/${cardId}/actions`, data, headers).then((body) => ({
+  socket.get(`/cards/${cardId}/actions`, data, headers).then(body => ({
     ...body,
     items: body.items.map(transformActivity),
   }));
 
 /* Event handlers */
 
-const makeHandleActivityCreate = (next) => (body) => {
+const makeHandleActivityCreate = next => body => {
   next({
     ...body,
     item: transformActivity(body.item),

@@ -15,7 +15,7 @@ import BoardMemberships from '../../board-memberships/BoardMemberships';
 import styles from './BoardActions.module.scss';
 
 const BoardActions = React.memo(() => {
-  const withMemberships = useSelector((state) => {
+  const withMemberships = useSelector(state => {
     const boardMemberships = selectors.selectMembershipsForCurrentBoard(state);
 
     if (boardMemberships.length > 0) {

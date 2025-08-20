@@ -34,10 +34,10 @@ const Item = React.memo(({ id }) => {
     []
   );
 
-  const activity = useSelector((state) => selectActivityById(state, id));
-  const user = useSelector((state) => selectUserById(state, activity.userId));
-  const card = useSelector((state) => selectCardById(state, activity.cardId));
-  const attachments = useSelector((state) =>
+  const activity = useSelector(state => selectActivityById(state, id));
+  const user = useSelector(state => selectUserById(state, activity.userId));
+  const card = useSelector(state => selectCardById(state, activity.cardId));
+  const attachments = useSelector(state =>
     selectAttachmentsForCard(state, activity.cardId)
   );
 
@@ -45,7 +45,7 @@ const Item = React.memo(({ id }) => {
   const [activateClosable, deactivateClosable] = useContext(ClosableContext);
 
   const handleBeforeGalleryOpen = useCallback(
-    (gallery) => {
+    gallery => {
       activateClosable();
       gallery.on('destroy', () => {
         deactivateClosable();
@@ -65,7 +65,7 @@ const Item = React.memo(({ id }) => {
 
   // Filtrar anexos de imagem para mostrar thumbnails
   const imageAttachments = (attachments || []).filter(
-    (attachment) =>
+    attachment =>
       attachment.type === AttachmentTypes.FILE &&
       attachment.data.image &&
       attachment.data.thumbnailUrls &&
@@ -215,7 +215,7 @@ const Item = React.memo(({ id }) => {
     case ActivityTypes.SET_DUE_DATE: {
       const { oldDueDate, newDueDate } = activity.data;
 
-      const formatDate = (date) => {
+      const formatDate = date => {
         if (!date) return null;
         return new Date(date).toLocaleDateString();
       };
@@ -550,7 +550,7 @@ const Item = React.memo(({ id }) => {
                 }}
                 onBeforeOpen={handleBeforeGalleryOpen}
               >
-                {thumbnailAttachments.map((attachment) => (
+                {thumbnailAttachments.map(attachment => (
                   <GalleryItem
                     key={attachment.id}
                     {...attachment.data.image} // eslint-disable-line react/jsx-props-no-spreading

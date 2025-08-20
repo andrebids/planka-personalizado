@@ -29,9 +29,7 @@ const EditStep = React.memo(({ taskListId, onClose }) => {
     []
   );
 
-  const taskList = useSelector((state) =>
-    selectTaskListById(state, taskListId)
-  );
+  const taskList = useSelector(state => selectTaskListById(state, taskListId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();

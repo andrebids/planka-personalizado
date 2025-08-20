@@ -54,7 +54,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.notificationsToDelete) {
-          payload.notificationsToDelete.forEach((notification) => {
+          payload.notificationsToDelete.forEach(notification => {
             Notification.withId(notification.id).delete();
           });
         }
@@ -63,13 +63,13 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         Notification.all().delete();
 
-        payload.notifications.forEach((notification) => {
+        payload.notifications.forEach(notification => {
           Notification.upsert(notification);
         });
 
         break;
       case ActionTypes.CORE_INITIALIZE:
-        payload.notifications.forEach((notification) => {
+        payload.notifications.forEach(notification => {
           Notification.upsert(notification);
         });
 
@@ -79,7 +79,7 @@ export default class extends BaseModel {
 
         break;
       case ActionTypes.ALL_NOTIFICATIONS_DELETE__SUCCESS:
-        payload.notifications.forEach((notification) => {
+        payload.notifications.forEach(notification => {
           const notificationModel = Notification.withId(notification.id);
 
           if (notificationModel) {

@@ -38,7 +38,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE_HANDLE:
         if (payload.customFields) {
-          payload.customFields.forEach((customField) => {
+          payload.customFields.forEach(customField => {
             CustomField.upsert(customField);
           });
         }
@@ -48,7 +48,7 @@ export default class extends BaseModel {
         CustomField.all().delete();
 
         if (payload.customFields) {
-          payload.customFields.forEach((customField) => {
+          payload.customFields.forEach(customField => {
             CustomField.upsert(customField);
           });
         }
@@ -59,7 +59,7 @@ export default class extends BaseModel {
       case ActionTypes.CARDS_FETCH__SUCCESS:
       case ActionTypes.CARD_CREATE_HANDLE:
       case ActionTypes.CARD_DUPLICATE__SUCCESS:
-        payload.customFields.forEach((customField) => {
+        payload.customFields.forEach(customField => {
           CustomField.upsert(customField);
         });
 

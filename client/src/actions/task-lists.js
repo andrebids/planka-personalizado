@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createTaskList = (taskList) => ({
+const createTaskList = taskList => ({
   type: ActionTypes.TASK_LIST_CREATE,
   payload: {
     taskList,
@@ -28,7 +28,7 @@ createTaskList.failure = (localId, error) => ({
   },
 });
 
-const handleTaskListCreate = (taskList) => ({
+const handleTaskListCreate = taskList => ({
   type: ActionTypes.TASK_LIST_CREATE_HANDLE,
   payload: {
     taskList,
@@ -43,7 +43,7 @@ const updateTaskList = (id, data) => ({
   },
 });
 
-updateTaskList.success = (taskList) => ({
+updateTaskList.success = taskList => ({
   type: ActionTypes.TASK_LIST_UPDATE__SUCCESS,
   payload: {
     taskList,
@@ -58,21 +58,21 @@ updateTaskList.failure = (id, error) => ({
   },
 });
 
-const handleTaskListUpdate = (taskList) => ({
+const handleTaskListUpdate = taskList => ({
   type: ActionTypes.TASK_LIST_UPDATE_HANDLE,
   payload: {
     taskList,
   },
 });
 
-const deleteTaskList = (id) => ({
+const deleteTaskList = id => ({
   type: ActionTypes.TASK_LIST_DELETE,
   payload: {
     id,
   },
 });
 
-deleteTaskList.success = (taskList) => ({
+deleteTaskList.success = taskList => ({
   type: ActionTypes.TASK_LIST_DELETE__SUCCESS,
   payload: {
     taskList,
@@ -87,7 +87,7 @@ deleteTaskList.failure = (id, error) => ({
   },
 });
 
-const handleTaskListDelete = (taskList) => ({
+const handleTaskListDelete = taskList => ({
   type: ActionTypes.TASK_LIST_DELETE_HANDLE,
   payload: {
     taskList,

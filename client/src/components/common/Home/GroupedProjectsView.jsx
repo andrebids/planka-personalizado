@@ -30,7 +30,7 @@ const GroupedProjectsView = React.memo(() => {
     selectors.selectFilteredProjctIdsByGroupForCurrentUser
   );
 
-  const canAdd = useSelector((state) => {
+  const canAdd = useSelector(state => {
     const user = selectors.selectCurrentUser(state);
     return isUserAdminOrProjectOwner(user);
   });
@@ -38,7 +38,7 @@ const GroupedProjectsView = React.memo(() => {
   const dispatch = useDispatch();
 
   const handleAdd = useCallback(
-    (defaultType) => {
+    defaultType => {
       dispatch(entryActions.openAddProjectModal(defaultType));
     },
     [dispatch]
@@ -47,7 +47,7 @@ const GroupedProjectsView = React.memo(() => {
   return (
     <>
       {[ProjectGroups.MY_OWN, ProjectGroups.TEAM].map(
-        (group) =>
+        group =>
           (projectIdsByGroup[group].length > 0 || canAdd) && (
             <Projects
               key={group}
@@ -59,7 +59,7 @@ const GroupedProjectsView = React.memo(() => {
           )
       )}
       {[ProjectGroups.SHARED_WITH_ME, ProjectGroups.OTHERS].map(
-        (group) =>
+        group =>
           projectIdsByGroup[group].length > 0 && (
             <Projects
               withTypeIndicator

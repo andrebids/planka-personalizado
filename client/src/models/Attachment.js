@@ -9,7 +9,7 @@ import BaseModel from './BaseModel';
 import ActionTypes from '../constants/ActionTypes';
 import { AttachmentTypes } from '../constants/Enums';
 
-const prepareAttachment = (attachment) => {
+const prepareAttachment = attachment => {
   if (attachment.type !== AttachmentTypes.FILE || !attachment.data) {
     return attachment;
   }
@@ -64,7 +64,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE_HANDLE:
         if (payload.attachments) {
-          payload.attachments.forEach((attachment) => {
+          payload.attachments.forEach(attachment => {
             Attachment.upsert(prepareAttachment(attachment));
           });
         }
@@ -74,7 +74,7 @@ export default class extends BaseModel {
         Attachment.all().delete();
 
         if (payload.attachments) {
-          payload.attachments.forEach((attachment) => {
+          payload.attachments.forEach(attachment => {
             Attachment.upsert(prepareAttachment(attachment));
           });
         }
@@ -84,7 +84,7 @@ export default class extends BaseModel {
       case ActionTypes.CARDS_FETCH__SUCCESS:
       case ActionTypes.CARD_CREATE_HANDLE:
       case ActionTypes.CARD_DUPLICATE__SUCCESS:
-        payload.attachments.forEach((attachment) => {
+        payload.attachments.forEach(attachment => {
           Attachment.upsert(prepareAttachment(attachment));
         });
 

@@ -26,7 +26,7 @@ import { isUsername } from '../../../utils/validator';
 
 import styles from './Content.module.scss';
 
-const createMessage = (error) => {
+const createMessage = error => {
   if (!error) {
     return error;
   }
@@ -160,7 +160,7 @@ const Content = React.memo(() => {
 
           break;
         case 'Invalid password':
-          setData((prevData) => ({
+          setData(prevData => ({
             ...prevData,
             password: '',
           }));

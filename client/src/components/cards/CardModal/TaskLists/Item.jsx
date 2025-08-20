@@ -25,9 +25,9 @@ const Item = React.memo(({ id, index }) => {
     []
   );
 
-  const taskList = useSelector((state) => selectTaskListById(state, id));
+  const taskList = useSelector(state => selectTaskListById(state, id));
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     const boardMembership =
       selectors.selectCurrentUserMembershipForCurrentBoard(state);
     return (

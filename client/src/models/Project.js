@@ -43,7 +43,7 @@ export default class extends BaseModel {
     switch (type) {
       case ActionTypes.LOCATION_CHANGE_HANDLE:
         if (payload.projects) {
-          payload.projects.forEach((project) => {
+          payload.projects.forEach(project => {
             Project.upsert(project);
           });
         }
@@ -52,14 +52,14 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         Project.all().delete();
 
-        payload.projects.forEach((project) => {
+        payload.projects.forEach(project => {
           Project.upsert(project);
         });
 
         break;
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.BOARD_FETCH__SUCCESS:
-        payload.projects.forEach((project) => {
+        payload.projects.forEach(project => {
           Project.upsert(project);
         });
 
@@ -67,14 +67,14 @@ export default class extends BaseModel {
       case ActionTypes.USER_UPDATE_HANDLE:
         Project.all()
           .toModelArray()
-          .forEach((projectModel) => {
+          .forEach(projectModel => {
             if (!payload.projectIds.includes(projectModel.id)) {
               projectModel.deleteWithRelated();
             }
           });
 
         if (payload.projects) {
-          payload.projects.forEach((project) => {
+          payload.projects.forEach(project => {
             Project.upsert(project);
           });
         }
@@ -95,7 +95,7 @@ export default class extends BaseModel {
 
         if (projectModel) {
           if (payload.isAvailable) {
-            projectModel.boards.toModelArray().forEach((boardModel) => {
+            projectModel.boards.toModelArray().forEach(boardModel => {
               if (!payload.boardIds.includes(boardModel.id)) {
                 boardModel.deleteWithRelated();
               }
@@ -128,7 +128,7 @@ export default class extends BaseModel {
 
         if (projectModel) {
           if (payload.isProjectAvailable) {
-            projectModel.boards.toModelArray().forEach((boardModel) => {
+            projectModel.boards.toModelArray().forEach(boardModel => {
               if (payload.boardIds.includes(boardModel.id)) {
                 if (payload.isCurrentUser) {
                   boardModel.notificationServices.delete();
@@ -193,7 +193,7 @@ export default class extends BaseModel {
   getBoardsModelArrayForUserWithId(userId) {
     return this.getBoardsQuerySet()
       .toModelArray()
-      .filter((boardModel) => boardModel.hasMembershipWithUserId(userId));
+      .filter(boardModel => boardModel.hasMembershipWithUserId(userId));
   }
 
   getBoardsModelArrayAvailableForUser(userModel) {
@@ -215,7 +215,7 @@ export default class extends BaseModel {
   hasMembershipWithUserIdInAnyBoard(userId) {
     return this.boards
       .toModelArray()
-      .some((boardModel) => boardModel.hasMembershipWithUserId(userId));
+      .some(boardModel => boardModel.hasMembershipWithUserId(userId));
   }
 
   isExternalAccessibleForUser(userModel) {
@@ -236,17 +236,17 @@ export default class extends BaseModel {
   deleteRelated() {
     this.managers.delete();
 
-    this.backgroundImages.toModelArray().forEach((backgroundImageModel) => {
+    this.backgroundImages.toModelArray().forEach(backgroundImageModel => {
       backgroundImageModel.deleteWithRelated();
     });
 
     this.baseCustomFieldGroups
       .toModelArray()
-      .forEach((baseCustomFieldGroupModel) => {
+      .forEach(baseCustomFieldGroupModel => {
         baseCustomFieldGroupModel.deleteWithRelated();
       });
 
-    this.boards.toModelArray().forEach((boardModel) => {
+    this.boards.toModelArray().forEach(boardModel => {
       boardModel.deleteWithRelated();
     });
   }

@@ -24,7 +24,7 @@ const ExpandableMarkdown = React.memo(({ children }) => {
   const contentRef = useRef(null);
 
   const handleToggleExpandClick = useCallback(
-    (event) => {
+    event => {
       event.stopPropagation();
       event.target.blur();
 

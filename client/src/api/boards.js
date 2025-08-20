@@ -27,7 +27,7 @@ const getBoard = (id, subscribe, headers) =>
       undefined,
       headers
     )
-    .then((body) => ({
+    .then(body => ({
       ...body,
       included: {
         ...body.included,

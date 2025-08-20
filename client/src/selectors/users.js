@@ -51,7 +51,7 @@ export const selectUserById = makeSelectUserById();
 
 export const selectUsersExceptCurrent = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, id) =>
     User.getAllQuerySet()
       .exclude({
@@ -72,13 +72,13 @@ export const selectActiveAdminOrProjectOwnerUsers = createSelector(
   orm,
   ({ User }) =>
     User.getActiveQuerySet()
-      .filter((user) => isUserAdminOrProjectOwner(user))
+      .filter(user => isUserAdminOrProjectOwner(user))
       .toRefArray()
 );
 
 export const selectCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, id) => {
     if (!id) {
       return id;
@@ -96,7 +96,7 @@ export const selectCurrentUser = createSelector(
 
 export const selectProjectIdsForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, id) => {
     if (!id) {
       return id;
@@ -110,16 +110,16 @@ export const selectProjectIdsForCurrentUser = createSelector(
 
     return userModel
       .getProjectsModelArray()
-      .map((projectModel) => projectModel.id);
+      .map(projectModel => projectModel.id);
   }
 );
 
 export const selectFilteredProjectIdsForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
-  (state) => selectProjectsSearch(state),
-  (state) => selectIsHiddenProjectsVisible(state),
-  (state) => selectProjectsOrder(state),
+  state => selectCurrentUserId(state),
+  state => selectProjectsSearch(state),
+  state => selectIsHiddenProjectsVisible(state),
+  state => selectProjectsOrder(state),
   ({ User }, id, projectsSearch, isHiddenProjectsVisible, projectsOrder) => {
     if (!id) {
       return id;
@@ -137,16 +137,16 @@ export const selectFilteredProjectIdsForCurrentUser = createSelector(
         isHiddenProjectsVisible,
         ORDER_BY_ARGS_BY_PROJECTS_ORDER[projectsOrder]
       )
-      .map((projectModel) => projectModel.id);
+      .map(projectModel => projectModel.id);
   }
 );
 
 export const selectFilteredProjctIdsByGroupForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
-  (state) => selectProjectsSearch(state),
-  (state) => selectIsHiddenProjectsVisible(state),
-  (state) => selectProjectsOrder(state),
+  state => selectCurrentUserId(state),
+  state => selectProjectsSearch(state),
+  state => selectIsHiddenProjectsVisible(state),
+  state => selectProjectsOrder(state),
   ({ User }, id, projectsSearch, isHiddenProjectsVisible, projectsOrder) => {
     if (!id) {
       return id;
@@ -181,10 +181,10 @@ export const selectFilteredProjctIdsByGroupForCurrentUser = createSelector(
         [ProjectGroups.MY_OWN]: [],
         [ProjectGroups.TEAM]: [],
         [ProjectGroups.SHARED_WITH_ME]: membershipProjectModels.map(
-          (projectModel) => projectModel.id
+          projectModel => projectModel.id
         ),
         [ProjectGroups.OTHERS]: adminProjectModels.map(
-          (projectModel) => projectModel.id
+          projectModel => projectModel.id
         ),
       }
     );
@@ -193,8 +193,8 @@ export const selectFilteredProjctIdsByGroupForCurrentUser = createSelector(
 
 export const selectFavoriteProjectIdsForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
-  (state) => selectProjectsOrder(state),
+  state => selectCurrentUserId(state),
+  state => selectProjectsOrder(state),
   ({ User }, id, projectsOrder) => {
     if (!id) {
       return id;
@@ -210,14 +210,14 @@ export const selectFavoriteProjectIdsForCurrentUser = createSelector(
       .getFavoriteProjectsModelArray(
         ORDER_BY_ARGS_BY_PROJECTS_ORDER[projectsOrder]
       )
-      .map((projectModel) => projectModel.id);
+      .map(projectModel => projectModel.id);
   }
 );
 
 export const selectProjectsToListsWithEditorRightsForCurrentUser =
   createSelector(
     orm,
-    (state) => selectCurrentUserId(state),
+    state => selectCurrentUserId(state),
     ({ User }, id) => {
       if (!id) {
         return id;
@@ -229,38 +229,36 @@ export const selectProjectsToListsWithEditorRightsForCurrentUser =
         return userModel;
       }
 
-      return userModel
-        .getMembershipProjectsModelArray()
-        .map((projectModel) => ({
-          ...projectModel.ref,
-          boards: projectModel
-            .getBoardsModelArrayForUserWithId(id)
-            .flatMap((boardModel) => {
-              const boardMembersipModel =
-                boardModel.getMembershipModelByUserId(id);
+      return userModel.getMembershipProjectsModelArray().map(projectModel => ({
+        ...projectModel.ref,
+        boards: projectModel
+          .getBoardsModelArrayForUserWithId(id)
+          .flatMap(boardModel => {
+            const boardMembersipModel =
+              boardModel.getMembershipModelByUserId(id);
 
-              if (boardMembersipModel.role !== BoardMembershipRoles.EDITOR) {
-                return [];
-              }
+            if (boardMembersipModel.role !== BoardMembershipRoles.EDITOR) {
+              return [];
+            }
 
-              return {
-                ...boardModel.ref,
-                lists: boardModel
-                  .getListsQuerySet()
-                  .toRefArray()
-                  .map((list) => ({
-                    ...list,
-                    isPersisted: !isLocalId(list.id),
-                  })),
-              };
-            }),
-        }));
+            return {
+              ...boardModel.ref,
+              lists: boardModel
+                .getListsQuerySet()
+                .toRefArray()
+                .map(list => ({
+                  ...list,
+                  isPersisted: !isLocalId(list.id),
+                })),
+            };
+          }),
+      }));
     }
   );
 
 export const selectBoardIdsForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, id) => {
     if (!id) {
       return id;
@@ -274,17 +272,17 @@ export const selectBoardIdsForCurrentUser = createSelector(
 
     return userModel
       .getProjectsModelArray()
-      .flatMap((projectModel) =>
+      .flatMap(projectModel =>
         projectModel
           .getBoardsModelArrayAvailableForUser(userModel)
-          .map((boardModel) => boardModel.id)
+          .map(boardModel => boardModel.id)
       );
   }
 );
 
 export const selectNotificationIdsForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, id) => {
     if (!id) {
       return id;
@@ -299,13 +297,13 @@ export const selectNotificationIdsForCurrentUser = createSelector(
     return userModel
       .getUnreadNotificationsQuerySet()
       .toRefArray()
-      .map((notification) => notification.id);
+      .map(notification => notification.id);
   }
 );
 
 export const selectNotificationServiceIdsForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, id) => {
     if (!id) {
       return id;
@@ -320,14 +318,14 @@ export const selectNotificationServiceIdsForCurrentUser = createSelector(
     return userModel
       .getNotificationServicesQuerySet()
       .toRefArray()
-      .map((notificationService) => notificationService.id);
+      .map(notificationService => notificationService.id);
   }
 );
 
 export const selectIsFavoritesActiveForCurrentUser = createSelector(
   orm,
-  (state) => selectCurrentUserId(state),
-  (state) => selectIsFavoritesEnabled(state),
+  state => selectCurrentUserId(state),
+  state => selectIsFavoritesEnabled(state),
   ({ User }, id, isFavoritesEnabled) => {
     if (!id) {
       return false;

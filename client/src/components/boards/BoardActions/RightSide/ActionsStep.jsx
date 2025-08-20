@@ -32,7 +32,7 @@ const ActionsStep = React.memo(({ onClose }) => {
   const board = useSelector(selectors.selectCurrentBoard);
 
   const { withSubscribe, withCustomFieldGroups, withTrashEmptier } =
-    useSelector((state) => {
+    useSelector(state => {
       const isManager =
         selectors.selectIsCurrentUserManagerForCurrentProject(state);
       const boardMembership =
@@ -186,7 +186,7 @@ const ActionsStep = React.memo(({ onClose }) => {
               BoardContexts.BOARD,
               BoardContexts.ARCHIVE,
               BoardContexts.TRASH,
-            ].map((context) => (
+            ].map(context => (
               <Menu.Item
                 key={context}
                 value={context}

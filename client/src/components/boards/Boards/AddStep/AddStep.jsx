@@ -52,8 +52,8 @@ const AddStep = React.memo(({ onClose }) => {
   }, [onClose, dispatch, data, nameFieldRef]);
 
   const handleImportSelect = useCallback(
-    (nextImport) => {
-      setData((prevData) => ({
+    nextImport => {
+      setData(prevData => ({
         ...prevData,
         import: nextImport,
       }));

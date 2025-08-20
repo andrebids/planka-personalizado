@@ -73,7 +73,7 @@ const locales = [
 
 export default locales;
 
-export const languages = locales.map((locale) => locale.language);
+export const languages = locales.map(locale => locale.language);
 
 export const embeddedLocales = locales.reduce(
   (result, locale) => ({

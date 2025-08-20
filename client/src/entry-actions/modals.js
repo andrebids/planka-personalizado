@@ -20,7 +20,7 @@ const openUserSettingsModal = () => ({
   },
 });
 
-const openAddProjectModal = (defaultProjectType) => ({
+const openAddProjectModal = defaultProjectType => ({
   type: EntryActionTypes.MODAL_OPEN,
   payload: {
     type: ModalTypes.ADD_PROJECT,
@@ -37,7 +37,7 @@ const openProjectSettingsModal = () => ({
   },
 });
 
-const openBoardSettingsModal = (boardId) => ({
+const openBoardSettingsModal = boardId => ({
   type: EntryActionTypes.MODAL_OPEN,
   payload: {
     type: ModalTypes.BOARD_SETTINGS,

@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const fetchActivitiesInBoard = (boardId) => ({
+const fetchActivitiesInBoard = boardId => ({
   type: ActionTypes.ACTIVITIES_IN_BOARD_FETCH,
   payload: {
     boardId,
@@ -29,7 +29,7 @@ fetchActivitiesInBoard.failure = (boardId, error) => ({
   },
 });
 
-const fetchActivitiesInCard = (cardId) => ({
+const fetchActivitiesInCard = cardId => ({
   type: ActionTypes.ACTIVITIES_IN_CARD_FETCH,
   payload: {
     cardId,
@@ -53,7 +53,7 @@ fetchActivitiesInCard.failure = (cardId, error) => ({
   },
 });
 
-const handleActivityCreate = (activity) => ({
+const handleActivityCreate = activity => ({
   type: ActionTypes.ACTIVITY_CREATE_HANDLE,
   payload: {
     activity,

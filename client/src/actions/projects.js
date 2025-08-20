@@ -5,28 +5,28 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const searchProjects = (value) => ({
+const searchProjects = value => ({
   type: ActionTypes.PROJECTS_SEARCH,
   payload: {
     value,
   },
 });
 
-const updateProjectsOrder = (value) => ({
+const updateProjectsOrder = value => ({
   type: ActionTypes.PROJECTS_ORDER_UPDATE,
   payload: {
     value,
   },
 });
 
-const toggleHiddenProjects = (isVisible) => ({
+const toggleHiddenProjects = isVisible => ({
   type: ActionTypes.HIDDEN_PROJECTS_TOGGLE,
   payload: {
     isVisible,
   },
 });
 
-const createProject = (data) => ({
+const createProject = data => ({
   type: ActionTypes.PROJECT_CREATE,
   payload: {
     data,
@@ -41,7 +41,7 @@ createProject.success = (project, projectManagers) => ({
   },
 });
 
-createProject.failure = (error) => ({
+createProject.failure = error => ({
   type: ActionTypes.PROJECT_CREATE__FAILURE,
   payload: {
     error,
@@ -81,7 +81,7 @@ const updateProject = (id, data) => ({
   },
 });
 
-updateProject.success = (project) => ({
+updateProject.success = project => ({
   type: ActionTypes.PROJECT_UPDATE__SUCCESS,
   payload: {
     project,
@@ -149,14 +149,14 @@ const handleProjectUpdate = (
   },
 });
 
-const deleteProject = (id) => ({
+const deleteProject = id => ({
   type: ActionTypes.PROJECT_DELETE,
   payload: {
     id,
   },
 });
 
-deleteProject.success = (project) => ({
+deleteProject.success = project => ({
   type: ActionTypes.PROJECT_DELETE__SUCCESS,
   payload: {
     project,
@@ -171,7 +171,7 @@ deleteProject.failure = (id, error) => ({
   },
 });
 
-const handleProjectDelete = (project) => ({
+const handleProjectDelete = project => ({
   type: ActionTypes.PROJECT_DELETE_HANDLE,
   payload: {
     project,

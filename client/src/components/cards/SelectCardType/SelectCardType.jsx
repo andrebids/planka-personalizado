@@ -32,7 +32,7 @@ const SelectCardType = React.memo(({ value, onSelect }) => {
 
   return (
     <Menu secondary vertical className={styles.menu}>
-      {[CardTypes.PROJECT, CardTypes.STORY].map((type) => (
+      {[CardTypes.PROJECT, CardTypes.STORY].map(type => (
         <Menu.Item
           key={type}
           value={type}

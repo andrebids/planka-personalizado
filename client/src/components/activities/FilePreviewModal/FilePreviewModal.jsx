@@ -19,7 +19,7 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
 
   // Fechar modal com ESC
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = event => {
       if (event.key === 'Escape') {
         onClose();
       }
@@ -38,7 +38,7 @@ const FilePreviewModal = ({ file, isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   const handleBackdropClick = useCallback(
-    (event) => {
+    event => {
       if (event.target === event.currentTarget) {
         onClose();
       }

@@ -8,12 +8,12 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 export default (elementRefs, onAwayClick, onCancel) => {
   const pressedElement = useRef(null);
 
-  const handlePress = useCallback((event) => {
+  const handlePress = useCallback(event => {
     pressedElement.current = event.target;
   }, []);
 
   useEffect(() => {
-    const handleEvent = (event) => {
+    const handleEvent = event => {
       const element = elementRefs.find(({ current }) =>
         current?.contains(event.target)
       )?.current;

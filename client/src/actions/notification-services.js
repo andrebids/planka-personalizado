@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createNotificationService = (notificationService) => ({
+const createNotificationService = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_CREATE,
   payload: {
     notificationService,
@@ -28,7 +28,7 @@ createNotificationService.failure = (localId, error) => ({
   },
 });
 
-const handleNotificationServiceCreate = (notificationService) => ({
+const handleNotificationServiceCreate = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_CREATE_HANDLE,
   payload: {
     notificationService,
@@ -43,7 +43,7 @@ const updateNotificationService = (id, data) => ({
   },
 });
 
-updateNotificationService.success = (notificationService) => ({
+updateNotificationService.success = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_UPDATE__SUCCESS,
   payload: {
     notificationService,
@@ -58,21 +58,21 @@ updateNotificationService.failure = (id, error) => ({
   },
 });
 
-const handleNotificationServiceUpdate = (notificationService) => ({
+const handleNotificationServiceUpdate = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_UPDATE_HANDLE,
   payload: {
     notificationService,
   },
 });
 
-const testNotificationService = (id) => ({
+const testNotificationService = id => ({
   type: ActionTypes.NOTIFICATION_SERVICE_TEST,
   payload: {
     id,
   },
 });
 
-testNotificationService.success = (notificationService) => ({
+testNotificationService.success = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_TEST__SUCCESS,
   payload: {
     notificationService,
@@ -87,14 +87,14 @@ testNotificationService.failure = (id, error) => ({
   },
 });
 
-const deleteNotificationService = (id) => ({
+const deleteNotificationService = id => ({
   type: ActionTypes.NOTIFICATION_SERVICE_DELETE,
   payload: {
     id,
   },
 });
 
-deleteNotificationService.success = (notificationService) => ({
+deleteNotificationService.success = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_DELETE__SUCCESS,
   payload: {
     notificationService,
@@ -109,7 +109,7 @@ deleteNotificationService.failure = (id, error) => ({
   },
 });
 
-const handleNotificationServiceDelete = (notificationService) => ({
+const handleNotificationServiceDelete = notificationService => ({
   type: ActionTypes.NOTIFICATION_SERVICE_DELETE_HANDLE,
   payload: {
     notificationService,

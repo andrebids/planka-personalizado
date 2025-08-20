@@ -5,7 +5,7 @@
 
 import { LOCATION_CHANGE_HANDLE } from './actions';
 
-const createRouterReducer = (history) => {
+const createRouterReducer = history => {
   const initialState = {
     location: history.location,
     action: history.action,

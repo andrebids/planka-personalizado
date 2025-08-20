@@ -34,14 +34,14 @@ const Item = React.memo(({ id }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const comment = useSelector((state) => selectCommentById(state, id));
-  const user = useSelector((state) => selectUserById(state, comment.userId));
+  const comment = useSelector(state => selectCommentById(state, id));
+  const user = useSelector(state => selectUserById(state, comment.userId));
 
   const isCurrentUser = useSelector(
-    (state) => comment.userId === selectors.selectCurrentUserId(state)
+    state => comment.userId === selectors.selectCurrentUserId(state)
   );
 
-  const { canEdit, canDelete } = useSelector((state) => {
+  const { canEdit, canDelete } = useSelector(state => {
     const { listId } = selectors.selectCurrentCard(state);
     const list = selectListById(state, listId);
 

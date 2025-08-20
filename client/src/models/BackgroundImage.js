@@ -27,14 +27,14 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         BackgroundImage.all().delete();
 
-        payload.backgroundImages.forEach((backgroundImage) => {
+        payload.backgroundImages.forEach(backgroundImage => {
           BackgroundImage.upsert(backgroundImage);
         });
 
         break;
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.PROJECT_CREATE_HANDLE:
-        payload.backgroundImages.forEach((backgroundImage) => {
+        payload.backgroundImages.forEach(backgroundImage => {
           BackgroundImage.upsert(backgroundImage);
         });
 
@@ -44,7 +44,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.backgroundImages) {
-          payload.backgroundImages.forEach((backgroundImage) => {
+          payload.backgroundImages.forEach(backgroundImage => {
             BackgroundImage.upsert(backgroundImage);
           });
         }

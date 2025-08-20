@@ -34,7 +34,7 @@ const ValueField = React.memo(({ defaultValue, onUpdate, ...props }) => {
   }, [activateEscapeInterceptor]);
 
   const handleKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Enter') {
         event.preventDefault();
         fieldRef.current.blur();

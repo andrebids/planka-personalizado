@@ -42,10 +42,10 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
   );
 
   const baseCustomFieldGroupName = useSelector(
-    (state) => selectBaseCustomFieldGroupById(state, id).name
+    state => selectBaseCustomFieldGroupById(state, id).name
   );
 
-  const customFields = useSelector((state) =>
+  const customFields = useSelector(state =>
     selectCustomFieldsByBaseGroupId(state, id)
   );
 
@@ -57,7 +57,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
 
   const filteredCustomFields = useMemo(
     () =>
-      customFields.filter((customField) =>
+      customFields.filter(customField =>
         customField.name.toLowerCase().includes(cleanSearch)
       ),
     [customFields, cleanSearch]
@@ -93,7 +93,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
   }, [openStep]);
 
   const handleCustomFieldEdit = useCallback(
-    (customFieldId) => {
+    customFieldId => {
       openStep(StepTypes.EDIT_CUSTOM_FIELD, {
         id: customFieldId,
       });
@@ -142,7 +142,7 @@ const BaseCustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
         );
       case StepTypes.EDIT_CUSTOM_FIELD: {
         const currentCustomField = customFields.find(
-          (customField) => customField.id === step.params.id
+          customField => customField.id === step.params.id
         );
 
         if (currentCustomField) {

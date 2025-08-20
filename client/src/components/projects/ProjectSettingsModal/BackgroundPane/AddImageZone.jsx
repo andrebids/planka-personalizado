@@ -14,7 +14,7 @@ const AddImageZone = React.memo(({ children, onCreate }) => {
   const [t] = useTranslation();
 
   const handleDropAccepted = useCallback(
-    (files) => {
+    files => {
       onCreate(files[0]);
     },
     [onCreate]
@@ -31,7 +31,7 @@ const AddImageZone = React.memo(({ children, onCreate }) => {
   });
 
   useEffect(() => {
-    const handlePaste = (event) => {
+    const handlePaste = event => {
       if (!event.clipboardData) {
         return;
       }

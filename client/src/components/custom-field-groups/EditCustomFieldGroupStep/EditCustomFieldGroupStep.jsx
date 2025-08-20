@@ -30,7 +30,7 @@ const EditCustomFieldGroupStep = React.memo(
       []
     );
 
-    const customFieldGroup = useSelector((state) =>
+    const customFieldGroup = useSelector(state =>
       selectCustomFieldGroupById(state, id)
     );
 

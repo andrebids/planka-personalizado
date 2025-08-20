@@ -32,7 +32,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.labels) {
-          payload.labels.forEach((label) => {
+          payload.labels.forEach(label => {
             Label.upsert(label);
           });
         }
@@ -42,14 +42,14 @@ export default class extends BaseModel {
         Label.all().delete();
 
         if (payload.labels) {
-          payload.labels.forEach((label) => {
+          payload.labels.forEach(label => {
             Label.upsert(label);
           });
         }
 
         break;
       case ActionTypes.BOARD_FETCH__SUCCESS:
-        payload.labels.forEach((label) => {
+        payload.labels.forEach(label => {
           Label.upsert(label);
         });
 
@@ -96,7 +96,7 @@ export default class extends BaseModel {
   }
 
   deleteRelated() {
-    this.board.cards.toModelArray().forEach((cardModel) => {
+    this.board.cards.toModelArray().forEach(cardModel => {
       try {
         cardModel.labels.remove(this.id);
       } catch {

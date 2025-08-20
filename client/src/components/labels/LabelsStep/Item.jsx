@@ -23,9 +23,9 @@ const Item = React.memo(
   ({ id, index, isActive, onSelect, onDeselect, onEdit }) => {
     const selectLabelById = useMemo(() => selectors.makeSelectLabelById(), []);
 
-    const label = useSelector((state) => selectLabelById(state, id));
+    const label = useSelector(state => selectLabelById(state, id));
 
-    const canEdit = useSelector((state) => {
+    const canEdit = useSelector(state => {
       const boardMembership =
         selectors.selectCurrentUserMembershipForCurrentBoard(state);
       return (

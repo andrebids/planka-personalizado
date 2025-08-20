@@ -8,7 +8,7 @@ import Config from '../constants/Config';
 const http = {};
 
 // TODO: add all methods
-['GET', 'POST', 'DELETE'].forEach((method) => {
+['GET', 'POST', 'DELETE'].forEach(method => {
   http[method.toLowerCase()] = (url, data, headers) => {
     const formData =
       data &&
@@ -24,8 +24,8 @@ const http = {};
       body: formData,
       credentials: 'include',
     })
-      .then((response) =>
-        response.json().then((body) => ({
+      .then(response =>
+        response.json().then(body => ({
           body,
           isError: response.status !== 200,
         }))

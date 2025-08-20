@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createCustomField = (customField) => ({
+const createCustomField = customField => ({
   type: ActionTypes.CUSTOM_FIELD_CREATE,
   payload: {
     customField,
@@ -28,7 +28,7 @@ createCustomField.failure = (localId, error) => ({
   },
 });
 
-const handleCustomFieldCreate = (customField) => ({
+const handleCustomFieldCreate = customField => ({
   type: ActionTypes.CUSTOM_FIELD_CREATE_HANDLE,
   payload: {
     customField,
@@ -43,7 +43,7 @@ const updateCustomField = (id, data) => ({
   },
 });
 
-updateCustomField.success = (customField) => ({
+updateCustomField.success = customField => ({
   type: ActionTypes.CUSTOM_FIELD_UPDATE__SUCCESS,
   payload: {
     customField,
@@ -58,21 +58,21 @@ updateCustomField.failure = (id, error) => ({
   },
 });
 
-const handleCustomFieldUpdate = (customField) => ({
+const handleCustomFieldUpdate = customField => ({
   type: ActionTypes.CUSTOM_FIELD_UPDATE_HANDLE,
   payload: {
     customField,
   },
 });
 
-const deleteCustomField = (id) => ({
+const deleteCustomField = id => ({
   type: ActionTypes.CUSTOM_FIELD_DELETE,
   payload: {
     id,
   },
 });
 
-deleteCustomField.success = (customField) => ({
+deleteCustomField.success = customField => ({
   type: ActionTypes.CUSTOM_FIELD_DELETE__SUCCESS,
   payload: {
     customField,
@@ -87,7 +87,7 @@ deleteCustomField.failure = (id, error) => ({
   },
 });
 
-const handleCustomFieldDelete = (customField) => ({
+const handleCustomFieldDelete = customField => ({
   type: ActionTypes.CUSTOM_FIELD_DELETE_HANDLE,
   payload: {
     customField,

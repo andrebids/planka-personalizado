@@ -21,7 +21,7 @@ const ProjectManagers = React.memo(() => {
     selectors.selectManagersForCurrentProject
   );
 
-  const canAdd = useSelector((state) => {
+  const canAdd = useSelector(state => {
     const user = selectors.selectCurrentUser(state);
 
     if (!isUserAdminOrProjectOwner(user)) {
@@ -36,7 +36,7 @@ const ProjectManagers = React.memo(() => {
 
   return (
     <div className={styles.wrapper}>
-      {projectManagers.map((projectManager) => (
+      {projectManagers.map(projectManager => (
         <span key={projectManager.id} className={styles.user}>
           <ActionsPopup projectManagerId={projectManager.id}>
             <UserAvatar

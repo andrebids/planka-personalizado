@@ -17,9 +17,9 @@ const Others = React.memo(() => {
   const selectBoardById = useMemo(() => selectors.makeSelectBoardById(), []);
 
   const boardId = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.id
+    state => selectors.selectCurrentModal(state).params.id
   );
-  const board = useSelector((state) => selectBoardById(state, boardId));
+  const board = useSelector(state => selectBoardById(state, boardId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();

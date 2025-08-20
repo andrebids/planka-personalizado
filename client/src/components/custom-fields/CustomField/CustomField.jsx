@@ -29,9 +29,9 @@ const CustomField = React.memo(({ id, customFieldGroupId }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
   const { cardId } = useSelector(selectors.selectPath);
-  const customField = useSelector((state) => selectCustomFieldById(state, id));
+  const customField = useSelector(state => selectCustomFieldById(state, id));
 
-  const customFieldValue = useSelector((state) =>
+  const customFieldValue = useSelector(state =>
     selectCustomFieldValueById(
       state,
       buildCustomFieldValueId({
@@ -42,7 +42,7 @@ const CustomField = React.memo(({ id, customFieldGroupId }) => {
     )
   );
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     const { listId } = selectors.selectCurrentCard(state);
     const list = selectListById(state, listId);
 
@@ -61,7 +61,7 @@ const CustomField = React.memo(({ id, customFieldGroupId }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleValueUpdate = useCallback(
-    (content) => {
+    content => {
       if (content) {
         dispatch(
           entryActions.updateCustomFieldValue(cardId, customFieldGroupId, id, {

@@ -21,9 +21,7 @@ import styles from './EditName.module.scss';
 const EditName = React.memo(({ cardId, onClose }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
-  const defaultValue = useSelector(
-    (state) => selectCardById(state, cardId).name
-  );
+  const defaultValue = useSelector(state => selectCardById(state, cardId).name);
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -56,7 +54,7 @@ const EditName = React.memo(({ cardId, onClose }) => {
   }, [submit]);
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       switch (event.key) {
         case 'Enter':
           event.preventDefault();

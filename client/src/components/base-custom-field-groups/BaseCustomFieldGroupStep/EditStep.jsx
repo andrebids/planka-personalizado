@@ -23,7 +23,7 @@ const EditStep = React.memo(({ baseCustomFieldGroupId, onBack, onClose }) => {
     []
   );
 
-  const baseCustomFieldGroup = useSelector((state) =>
+  const baseCustomFieldGroup = useSelector(state =>
     selectBaseCustomFieldGroupById(state, baseCustomFieldGroupId)
   );
 

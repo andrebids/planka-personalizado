@@ -49,7 +49,7 @@ const STATUS_ICON_PROPS_BY_STATUS = {
   },
 };
 
-const getStatus = (date) => {
+const getStatus = date => {
   const secondsLeft = Math.floor(
     (date.getTime() - new Date().getTime()) / 1000
   );

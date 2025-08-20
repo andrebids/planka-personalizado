@@ -32,7 +32,7 @@ const Group = React.memo(({ items, role, groupsTotal }) => {
   return (
     <div className={styles.wrapper}>
       <Icon name={BoardMembershipRoleIcons[role]} className={styles.icon} />
-      {items.slice(0, visibleTotal).map((item) => (
+      {items.slice(0, visibleTotal).map(item => (
         <span key={item.id} className={styles.user}>
           <ActionsPopup boardMembershipId={item.id}>
             <UserAvatar

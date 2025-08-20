@@ -89,7 +89,7 @@ const Add = React.memo(() => {
   );
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       if (isModifierKeyPressed(event) && event.key === 'Enter') {
         submit();
       }

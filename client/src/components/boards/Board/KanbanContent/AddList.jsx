@@ -58,8 +58,8 @@ const AddList = React.memo(({ onClose }) => {
   }, [dispatch, data, setData, focusNameField, nameFieldRef]);
 
   const handleTypeSelect = useCallback(
-    (type) => {
-      setData((prevData) => ({
+    type => {
+      setData(prevData => ({
         ...prevData,
         type,
       }));
@@ -68,7 +68,7 @@ const AddList = React.memo(({ onClose }) => {
   );
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Escape') {
         onClose();
       }

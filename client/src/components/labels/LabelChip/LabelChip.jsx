@@ -24,7 +24,7 @@ const Sizes = {
 const LabelChip = React.memo(({ id, size, onClick }) => {
   const selectLabelById = useMemo(() => selectors.makeSelectLabelById(), []);
 
-  const label = useSelector((state) => selectLabelById(state, id));
+  const label = useSelector(state => selectLabelById(state, id));
 
   const contentNode = (
     <span

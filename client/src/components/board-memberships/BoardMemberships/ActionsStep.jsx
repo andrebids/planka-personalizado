@@ -32,16 +32,16 @@ const ActionsStep = React.memo(
     );
     const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-    const boardMembership = useSelector((state) =>
+    const boardMembership = useSelector(state =>
       selectBoardMembershipById(state, boardMembershipId)
     );
 
-    const user = useSelector((state) =>
+    const user = useSelector(state =>
       selectUserById(state, boardMembership.userId)
     );
 
     const isCurrentUser = useSelector(
-      (state) => boardMembership.userId === selectors.selectCurrentUserId(state)
+      state => boardMembership.userId === selectors.selectCurrentUserId(state)
     );
 
     const canEdit = useSelector(
@@ -53,7 +53,7 @@ const ActionsStep = React.memo(
     const [step, openStep, handleBack] = useSteps();
 
     const handleRoleSelect = useCallback(
-      (data) => {
+      data => {
         dispatch(entryActions.updateBoardMembership(boardMembershipId, data));
       },
       [boardMembershipId, dispatch]

@@ -21,9 +21,7 @@ import styles from './EditName.module.scss';
 const EditName = React.memo(({ taskId, onClose }) => {
   const selectTaskById = useMemo(() => selectors.makeSelectTaskById(), []);
 
-  const defaultValue = useSelector(
-    (state) => selectTaskById(state, taskId).name
-  );
+  const defaultValue = useSelector(state => selectTaskById(state, taskId).name);
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -51,7 +49,7 @@ const EditName = React.memo(({ taskId, onClose }) => {
   }, [submit]);
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Enter') {
         event.preventDefault();
         submit();

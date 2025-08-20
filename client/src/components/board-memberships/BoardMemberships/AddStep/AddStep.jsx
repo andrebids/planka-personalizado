@@ -23,7 +23,7 @@ const StepTypes = {
 };
 
 const AddStep = React.memo(({ onClose }) => {
-  const users = useSelector((state) => {
+  const users = useSelector(state => {
     const user = selectors.selectCurrentUser(state);
 
     if (!isUserAdminOrProjectOwner(user)) {
@@ -46,7 +46,7 @@ const AddStep = React.memo(({ onClose }) => {
   const filteredUsers = useMemo(
     () =>
       users.filter(
-        (user) =>
+        user =>
           user.name.toLowerCase().includes(cleanSearch) ||
           (user.username && user.username.includes(cleanSearch))
       ),
@@ -56,7 +56,7 @@ const AddStep = React.memo(({ onClose }) => {
   const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const handleRoleSelect = useCallback(
-    (data) => {
+    data => {
       dispatch(
         entryActions.createMembershipInCurrentBoard({
           ...data,
@@ -70,7 +70,7 @@ const AddStep = React.memo(({ onClose }) => {
   );
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       openStep(StepTypes.SELECT_PERMISSIONS, {
         userId,
       });
@@ -85,7 +85,7 @@ const AddStep = React.memo(({ onClose }) => {
   }, [searchFieldRef]);
 
   if (step && step.type === StepTypes.SELECT_PERMISSIONS) {
-    const currentUser = users.find((user) => user.id === step.params.userId);
+    const currentUser = users.find(user => user.id === step.params.userId);
 
     if (currentUser) {
       return (
@@ -120,7 +120,7 @@ const AddStep = React.memo(({ onClose }) => {
         />
         {filteredUsers.length > 0 && (
           <div className={styles.users}>
-            {filteredUsers.map((user) => (
+            {filteredUsers.map(user => (
               <User
                 key={user.id}
                 id={user.id}

@@ -37,10 +37,10 @@ const Card = React.memo(({ id, isInline }) => {
   );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const card = useSelector((state) => selectCardById(state, id));
-  const list = useSelector((state) => selectListById(state, card.listId));
+  const card = useSelector(state => selectCardById(state, id));
+  const list = useSelector(state => selectListById(state, card.listId));
 
-  const isHighlightedAsRecent = useSelector((state) => {
+  const isHighlightedAsRecent = useSelector(state => {
     const { turnOffRecentCardHighlighting } =
       selectors.selectCurrentUser(state);
 
@@ -51,7 +51,7 @@ const Card = React.memo(({ id, isInline }) => {
     return selectIsCardWithIdRecent(state, id);
   });
 
-  const canUseActions = useSelector((state) => {
+  const canUseActions = useSelector(state => {
     const boardMembership =
       selectors.selectCurrentUserMembershipForCurrentBoard(state);
     return (

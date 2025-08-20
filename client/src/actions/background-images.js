@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createBackgroundImage = (backgroundImage) => ({
+const createBackgroundImage = backgroundImage => ({
   type: ActionTypes.BACKGROUND_IMAGE_CREATE,
   payload: {
     backgroundImage,
@@ -28,21 +28,21 @@ createBackgroundImage.failure = (localId, error) => ({
   },
 });
 
-const handleBackgroundImageCreate = (backgroundImage) => ({
+const handleBackgroundImageCreate = backgroundImage => ({
   type: ActionTypes.BACKGROUND_IMAGE_CREATE_HANDLE,
   payload: {
     backgroundImage,
   },
 });
 
-const deleteBackgroundImage = (id) => ({
+const deleteBackgroundImage = id => ({
   type: ActionTypes.BACKGROUND_IMAGE_DELETE,
   payload: {
     id,
   },
 });
 
-deleteBackgroundImage.success = (backgroundImage) => ({
+deleteBackgroundImage.success = backgroundImage => ({
   type: ActionTypes.BACKGROUND_IMAGE_DELETE__SUCCESS,
   payload: {
     backgroundImage,
@@ -57,7 +57,7 @@ deleteBackgroundImage.failure = (id, error) => ({
   },
 });
 
-const handleBackgroundImageDelete = (backgroundImage) => ({
+const handleBackgroundImageDelete = backgroundImage => ({
   type: ActionTypes.BACKGROUND_IMAGE_DELETE_HANDLE,
   payload: {
     backgroundImage,

@@ -39,7 +39,7 @@ Description: A parallel language for productive programming at scale
 Website: https://chapel-lang.org
 */
 
-export default (hljs) => ({
+export default hljs => ({
   name: 'Chapel',
   aliases: ['chapel', 'chpl'],
   disableAutodetect: true,

@@ -41,7 +41,7 @@ export const makeSelectCardIdsByListId = () =>
         return listModel;
       }
 
-      return listModel.getCardsModelArray().map((cardModel) => cardModel.id);
+      return listModel.getCardsModelArray().map(cardModel => cardModel.id);
     }
   );
 
@@ -60,7 +60,7 @@ export const makeSelectFilteredCardIdsByListId = () =>
 
       return listModel
         .getFilteredCardsModelArray()
-        .map((cardModel) => cardModel.id);
+        .map(cardModel => cardModel.id);
     }
   );
 
@@ -69,7 +69,7 @@ export const selectFilteredCardIdsByListId =
 
 export const selectCurrentListId = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -97,7 +97,7 @@ export const selectCurrentListId = createSelector(
 
 export const selectCurrentList = createSelector(
   orm,
-  (state) => selectCurrentListId(state),
+  state => selectCurrentListId(state),
   ({ List }, id) => {
     if (!id) {
       return id;
@@ -115,7 +115,7 @@ export const selectCurrentList = createSelector(
 
 export const selectFirstFiniteListId = createSelector(
   orm,
-  (state) => selectPath(state).boardId,
+  state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
       return id;
@@ -134,7 +134,7 @@ export const selectFirstFiniteListId = createSelector(
 
 export const selectFilteredCardIdsForCurrentList = createSelector(
   orm,
-  (state) => selectCurrentListId(state),
+  state => selectCurrentListId(state),
   ({ List }, id) => {
     if (!id) {
       return id;
@@ -148,7 +148,7 @@ export const selectFilteredCardIdsForCurrentList = createSelector(
 
     return listModel
       .getFilteredCardsModelArray()
-      .map((cardModel) => cardModel.id);
+      .map(cardModel => cardModel.id);
   }
 );
 

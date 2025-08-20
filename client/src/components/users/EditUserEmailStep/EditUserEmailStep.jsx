@@ -18,7 +18,7 @@ import { useForm, useNestedRef } from '../../../hooks';
 
 import styles from './EditUserEmailStep.module.scss';
 
-const createMessage = (error) => {
+const createMessage = error => {
   if (!error) {
     return error;
   }
@@ -49,7 +49,7 @@ const EditUserEmailStep = React.memo(
     const {
       email,
       emailUpdateForm: { data: defaultData, isSubmitting, error },
-    } = useSelector((state) => selectUserById(state, id));
+    } = useSelector(state => selectUserById(state, id));
 
     const dispatch = useDispatch();
     const [t] = useTranslation();
@@ -125,7 +125,7 @@ const EditUserEmailStep = React.memo(
 
               break;
             case 'Invalid current password':
-              setData((prevData) => ({
+              setData(prevData => ({
                 ...prevData,
                 currentPassword: '',
               }));

@@ -18,13 +18,13 @@ const CustomFieldGroup = React.memo(({ id }) => {
     []
   );
 
-  const customFieldIds = useSelector((state) =>
+  const customFieldIds = useSelector(state =>
     selectCustomFieldIdsByGroupId(state, id)
   );
 
   return (
     <div className={styles.wrapper}>
-      {customFieldIds.map((customFieldId) => (
+      {customFieldIds.map(customFieldId => (
         <CustomField
           key={customFieldId}
           id={customFieldId}

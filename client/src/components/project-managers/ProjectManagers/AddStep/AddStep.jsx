@@ -30,7 +30,7 @@ const AddStep = React.memo(({ onClose }) => {
   const filteredUsers = useMemo(
     () =>
       users.filter(
-        (user) =>
+        user =>
           user.name.toLowerCase().includes(cleanSearch) ||
           (user.username && user.username.includes(cleanSearch))
       ),
@@ -40,7 +40,7 @@ const AddStep = React.memo(({ onClose }) => {
   const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(
         entryActions.createManagerInCurrentProject({
           userId,
@@ -77,7 +77,7 @@ const AddStep = React.memo(({ onClose }) => {
         />
         {filteredUsers.length > 0 && (
           <div className={styles.users}>
-            {filteredUsers.map((user) => (
+            {filteredUsers.map(user => (
               <User
                 key={user.id}
                 id={user.id}

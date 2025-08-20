@@ -25,15 +25,15 @@ const Item = React.memo(({ id, index }) => {
     []
   );
 
-  const board = useSelector((state) => selectBoardById(state, id));
-  const notificationsTotal = useSelector((state) =>
+  const board = useSelector(state => selectBoardById(state, id));
+  const notificationsTotal = useSelector(state =>
     selectNotificationsTotalByBoardId(state, id)
   );
   const isActive = useSelector(
-    (state) => id === selectors.selectPath(state).boardId
+    state => id === selectors.selectPath(state).boardId
   );
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
 
     if (!isEditModeEnabled) {

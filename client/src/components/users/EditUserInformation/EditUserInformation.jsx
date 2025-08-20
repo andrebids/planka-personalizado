@@ -20,7 +20,7 @@ import styles from './EditUserInformation.module.scss';
 const EditUserInformation = React.memo(({ id, onUpdate }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-  const user = useSelector((state) => selectUserById(state, id));
+  const user = useSelector(state => selectUserById(state, id));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();

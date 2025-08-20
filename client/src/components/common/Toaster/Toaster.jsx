@@ -18,7 +18,7 @@ const TOAST_BY_TYPE = {
 
 const Toaster = React.memo(() => (
   <HotToaster>
-    {(toast) => (
+    {toast => (
       <HotToastBar
         toast={toast}
         style={{

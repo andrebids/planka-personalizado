@@ -3,4 +3,4 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-export default (dndId) => dndId.split(':')[1];
+export default dndId => dndId.split(':')[1];

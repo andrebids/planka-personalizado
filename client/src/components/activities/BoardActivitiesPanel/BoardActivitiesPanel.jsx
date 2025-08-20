@@ -39,7 +39,7 @@ const BoardActivitiesPanel = React.memo(() => {
 
   const [inViewRef] = useInView({
     threshold: 1,
-    onChange: (inView) => {
+    onChange: inView => {
       if (inView) {
         dispatch(entryActions.fetchActivitiesInCurrentBoard());
       }
@@ -75,7 +75,7 @@ const BoardActivitiesPanel = React.memo(() => {
         <div className={styles.content}>
           <div className={styles.itemsWrapper}>
             <Comment.Group className={styles.items}>
-              {activityIds.map((activityId) => (
+              {activityIds.map(activityId => (
                 <Item key={activityId} id={activityId} />
               ))}
             </Comment.Group>

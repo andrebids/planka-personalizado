@@ -59,7 +59,7 @@ const AddCard = React.memo(
     const [selectTypeButtonRef, handleSelectTypeButtonRef] = useNestedRef();
 
     const submit = useCallback(
-      (autoOpen) => {
+      autoOpen => {
         const cleanData = {
           ...data,
           name: data.name.trim(),
@@ -100,8 +100,8 @@ const AddCard = React.memo(
     }, [submit]);
 
     const handleTypeSelect = useCallback(
-      (type) => {
-        setData((prevData) => ({
+      type => {
+        setData(prevData => ({
           ...prevData,
           type,
         }));
@@ -110,7 +110,7 @@ const AddCard = React.memo(
     );
 
     const handleFieldKeyDown = useCallback(
-      (event) => {
+      event => {
         switch (event.key) {
           case 'Enter':
             event.preventDefault();
@@ -151,18 +151,18 @@ const AddCard = React.memo(
     );
 
     // Handlers para drag & drop
-    const handleDragOver = useCallback((e) => {
+    const handleDragOver = useCallback(e => {
       e.preventDefault();
       setIsDragOver(true);
     }, []);
 
-    const handleDragLeave = useCallback((e) => {
+    const handleDragLeave = useCallback(e => {
       e.preventDefault();
       setIsDragOver(false);
     }, []);
 
     const handleDrop = useCallback(
-      async (e) => {
+      async e => {
         e.preventDefault();
         setIsDragOver(false);
 
@@ -230,7 +230,7 @@ const AddCard = React.memo(
 
     useEffect(() => {
       if (!isOpened && defaultType !== prevDefaultType) {
-        setData((prevData) => ({
+        setData(prevData => ({
           ...prevData,
           type: defaultType,
         }));

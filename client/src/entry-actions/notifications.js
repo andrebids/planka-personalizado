@@ -18,14 +18,14 @@ const handleNotificationCreate = (notification, users) => ({
   },
 });
 
-const deleteNotification = (id) => ({
+const deleteNotification = id => ({
   type: EntryActionTypes.NOTIFICATION_DELETE,
   payload: {
     id,
   },
 });
 
-const handleNotificationDelete = (notification) => ({
+const handleNotificationDelete = notification => ({
   type: EntryActionTypes.NOTIFICATION_DELETE_HANDLE,
   payload: {
     notification,

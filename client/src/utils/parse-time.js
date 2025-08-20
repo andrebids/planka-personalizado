@@ -39,7 +39,7 @@ const PATTERNS_GROUPS_BY_TIME_FORMAT = {
 
 const INVALID_DATE = new Date('invalid-date');
 
-const normalizeDelimeter = (delimeter) => (delimeter === '.' ? ':' : delimeter);
+const normalizeDelimeter = delimeter => (delimeter === '.' ? ':' : delimeter);
 
 const normalizeMeridiem = (meridiem, alternativeMeridiem) => {
   if (meridiem && alternativeMeridiem) {

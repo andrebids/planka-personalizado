@@ -8,7 +8,7 @@ import socket from './socket';
 
 /* Actions */
 
-const getUsers = (headers) => socket.get('/users', undefined, headers);
+const getUsers = headers => socket.get('/users', undefined, headers);
 
 const createUser = (data, headers) => socket.post('/users', data, headers);
 

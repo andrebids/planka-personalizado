@@ -30,9 +30,9 @@ const Task = React.memo(({ id, index }) => {
   const selectTaskById = useMemo(() => selectors.makeSelectTaskById(), []);
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const task = useSelector((state) => selectTaskById(state, id));
+  const task = useSelector(state => selectTaskById(state, id));
 
-  const { canEdit, canToggle } = useSelector((state) => {
+  const { canEdit, canToggle } = useSelector(state => {
     const { listId } = selectors.selectCurrentCard(state);
     const list = selectListById(state, listId);
 
@@ -67,7 +67,7 @@ const Task = React.memo(({ id, index }) => {
   }, [id, task.isCompleted, dispatch]);
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(
         entryActions.updateTask(id, {
           assigneeUserId: userId,

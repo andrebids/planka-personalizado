@@ -9,7 +9,7 @@ const toggleTimelinePanel = () => ({
   type: ActionTypes.TIMELINE_PANEL_TOGGLE,
 });
 
-const setTimelinePanelExpanded = (isExpanded) => ({
+const setTimelinePanelExpanded = isExpanded => ({
   type: ActionTypes.TIMELINE_PANEL_SET_EXPANDED,
   payload: {
     isExpanded,

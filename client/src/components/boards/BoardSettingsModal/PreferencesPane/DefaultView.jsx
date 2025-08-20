@@ -25,9 +25,9 @@ const DefaultView = React.memo(() => {
   const selectBoardById = useMemo(() => selectors.makeSelectBoardById(), []);
 
   const boardId = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.id
+    state => selectors.selectCurrentModal(state).params.id
   );
-  const board = useSelector((state) => selectBoardById(state, boardId));
+  const board = useSelector(state => selectBoardById(state, boardId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
@@ -45,7 +45,7 @@ const DefaultView = React.memo(() => {
 
   return (
     <Menu secondary vertical className={styles.menu}>
-      {[BoardViews.KANBAN, BoardViews.GRID, BoardViews.LIST].map((view) => (
+      {[BoardViews.KANBAN, BoardViews.GRID, BoardViews.LIST].map(view => (
         <Menu.Item
           key={view}
           value={view}

@@ -25,7 +25,7 @@ const SelectCardTypeStep = React.memo(
     const [value, setValue] = useState(defaultValue);
 
     const handleSelect = useCallback(
-      (nextValue) => {
+      nextValue => {
         if (withButton) {
           setValue(nextValue);
         } else {

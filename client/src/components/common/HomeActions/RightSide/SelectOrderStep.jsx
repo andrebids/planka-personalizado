@@ -41,7 +41,7 @@ const SelectOrderStep = React.memo(({ value, onSelect, onClose }) => {
             ProjectOrders.BY_DEFAULT,
             ProjectOrders.ALPHABETICALLY,
             ProjectOrders.BY_CREATION_TIME,
-          ].map((order) => (
+          ].map(order => (
             <Menu.Item
               key={order}
               value={order}

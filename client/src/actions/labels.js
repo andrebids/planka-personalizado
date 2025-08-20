@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createLabel = (label) => ({
+const createLabel = label => ({
   type: ActionTypes.LABEL_CREATE,
   payload: {
     label,
@@ -54,7 +54,7 @@ createLabelFromCard.failure = (cardId, localId, error) => ({
   },
 });
 
-const handleLabelCreate = (label) => ({
+const handleLabelCreate = label => ({
   type: ActionTypes.LABEL_CREATE_HANDLE,
   payload: {
     label,
@@ -69,7 +69,7 @@ const updateLabel = (id, data) => ({
   },
 });
 
-updateLabel.success = (label) => ({
+updateLabel.success = label => ({
   type: ActionTypes.LABEL_UPDATE__SUCCESS,
   payload: {
     label,
@@ -84,21 +84,21 @@ updateLabel.failure = (id, error) => ({
   },
 });
 
-const handleLabelUpdate = (label) => ({
+const handleLabelUpdate = label => ({
   type: ActionTypes.LABEL_UPDATE_HANDLE,
   payload: {
     label,
   },
 });
 
-const deleteLabel = (id) => ({
+const deleteLabel = id => ({
   type: ActionTypes.LABEL_DELETE,
   payload: {
     id,
   },
 });
 
-deleteLabel.success = (label) => ({
+deleteLabel.success = label => ({
   type: ActionTypes.LABEL_DELETE__SUCCESS,
   payload: {
     label,
@@ -113,7 +113,7 @@ deleteLabel.failure = (id, error) => ({
   },
 });
 
-const handleLabelDelete = (label) => ({
+const handleLabelDelete = label => ({
   type: ActionTypes.LABEL_DELETE_HANDLE,
   payload: {
     label,
@@ -128,7 +128,7 @@ const addLabelToCard = (id, cardId) => ({
   },
 });
 
-addLabelToCard.success = (cardLabel) => ({
+addLabelToCard.success = cardLabel => ({
   type: ActionTypes.LABEL_TO_CARD_ADD__SUCCESS,
   payload: {
     cardLabel,
@@ -144,7 +144,7 @@ addLabelToCard.failure = (id, cardId, error) => ({
   },
 });
 
-const handleLabelToCardAdd = (cardLabel) => ({
+const handleLabelToCardAdd = cardLabel => ({
   type: ActionTypes.LABEL_TO_CARD_ADD_HANDLE,
   payload: {
     cardLabel,
@@ -159,7 +159,7 @@ const removeLabelFromCard = (id, cardId) => ({
   },
 });
 
-removeLabelFromCard.success = (cardLabel) => ({
+removeLabelFromCard.success = cardLabel => ({
   type: ActionTypes.LABEL_FROM_CARD_REMOVE__SUCCESS,
   payload: {
     cardLabel,
@@ -175,7 +175,7 @@ removeLabelFromCard.failure = (id, cardId, error) => ({
   },
 });
 
-const handleLabelFromCardRemove = (cardLabel) => ({
+const handleLabelFromCardRemove = cardLabel => ({
   type: ActionTypes.LABEL_FROM_CARD_REMOVE_HANDLE,
   payload: {
     cardLabel,

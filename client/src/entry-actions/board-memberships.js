@@ -5,7 +5,7 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createMembershipInCurrentBoard = (data) => ({
+const createMembershipInCurrentBoard = data => ({
   type: EntryActionTypes.MEMBERSHIP_IN_CURRENT_BOARD_CREATE,
   payload: {
     data,
@@ -28,21 +28,21 @@ const updateBoardMembership = (id, data) => ({
   },
 });
 
-const handleBoardMembershipUpdate = (boardMembership) => ({
+const handleBoardMembershipUpdate = boardMembership => ({
   type: EntryActionTypes.BOARD_MEMBERSHIP_UPDATE_HANDLE,
   payload: {
     boardMembership,
   },
 });
 
-const deleteBoardMembership = (id) => ({
+const deleteBoardMembership = id => ({
   type: EntryActionTypes.BOARD_MEMBERSHIP_DELETE,
   payload: {
     id,
   },
 });
 
-const handleBoardMembershipDelete = (boardMembership) => ({
+const handleBoardMembershipDelete = boardMembership => ({
   type: EntryActionTypes.BOARD_MEMBERSHIP_DELETE_HANDLE,
   payload: {
     boardMembership,

@@ -25,7 +25,7 @@ const ProjectBackground = React.memo(() => {
     selectors.selectCurrentProject
   );
 
-  const backgroundImageUrl = useSelector((state) => {
+  const backgroundImageUrl = useSelector(state => {
     if (!backgroundType || backgroundType !== ProjectBackgroundTypes.IMAGE) {
       return null;
     }

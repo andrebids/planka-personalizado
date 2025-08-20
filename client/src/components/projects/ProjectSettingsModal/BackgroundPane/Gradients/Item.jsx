@@ -19,7 +19,7 @@ import styles from './Item.module.scss';
 import globalStyles from '../../../../../styles.module.scss';
 
 const Item = React.memo(({ name }) => {
-  const isActive = useSelector((state) => {
+  const isActive = useSelector(state => {
     const { backgroundType, backgroundGradient } =
       selectors.selectCurrentProject(state);
     return (

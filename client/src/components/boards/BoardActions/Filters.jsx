@@ -30,7 +30,7 @@ const Filters = React.memo(() => {
   const currentUserId = useSelector(selectors.selectCurrentUserId);
 
   const withCurrentUserSelector = useSelector(
-    (state) => !!selectors.selectCurrentUserMembershipForCurrentBoard(state)
+    state => !!selectors.selectCurrentUserMembershipForCurrentBoard(state)
   );
 
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Filters = React.memo(() => {
 
   const debouncedSearch = useMemo(
     () =>
-      debounce((nextSearch) => {
+      debounce(nextSearch => {
         dispatch(entryActions.searchInCurrentBoard(nextSearch));
       }, 400),
     [dispatch]
@@ -56,7 +56,7 @@ const Filters = React.memo(() => {
   }, [dispatch, debouncedSearch, searchFieldRef]);
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.addUserToFilterInCurrentBoard(userId));
     },
     [dispatch]
@@ -67,7 +67,7 @@ const Filters = React.memo(() => {
   }, [currentUserId, dispatch]);
 
   const handleUserDeselect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.removeUserFromFilterInCurrentBoard(userId));
     },
     [dispatch]
@@ -85,14 +85,14 @@ const Filters = React.memo(() => {
   );
 
   const handleLabelSelect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.addLabelToFilterInCurrentBoard(labelId));
     },
     [dispatch]
   );
 
   const handleLabelDeselect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.removeLabelFromFilterInCurrentBoard(labelId));
     },
     [dispatch]
@@ -122,7 +122,7 @@ const Filters = React.memo(() => {
   }, []);
 
   const handleSearchKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Escape') {
         cancelSearch();
       }
@@ -176,7 +176,7 @@ const Filters = React.memo(() => {
             </span>
           </button>
         )}
-        {userIds.map((userId) => (
+        {userIds.map(userId => (
           <span key={userId} className={styles.filterItem}>
             <UserAvatar id={userId} size="tiny" onClick={handleUserClick} />
           </span>
@@ -198,7 +198,7 @@ const Filters = React.memo(() => {
             )}
           </button>
         </LabelsPopup>
-        {labelIds.map((labelId) => (
+        {labelIds.map(labelId => (
           <span key={labelId} className={styles.filterItem}>
             <LabelChip id={labelId} size="small" onClick={handleLabelClick} />
           </span>

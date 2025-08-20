@@ -5,14 +5,14 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createBaseCustomFieldGroupInCurrentProject = (data) => ({
+const createBaseCustomFieldGroupInCurrentProject = data => ({
   type: EntryActionTypes.BASE_CUSTOM_FIELD_GROUP_IN_CURRENT_PROJECT_CREATE,
   payload: {
     data,
   },
 });
 
-const handleBaseCustomFieldGroupCreate = (baseCustomFieldGroup) => ({
+const handleBaseCustomFieldGroupCreate = baseCustomFieldGroup => ({
   type: EntryActionTypes.BASE_CUSTOM_FIELD_GROUP_CREATE_HANDLE,
   payload: {
     baseCustomFieldGroup,
@@ -27,21 +27,21 @@ const updateBaseCustomFieldGroup = (id, data) => ({
   },
 });
 
-const handleBaseCustomFieldGroupUpdate = (baseCustomFieldGroup) => ({
+const handleBaseCustomFieldGroupUpdate = baseCustomFieldGroup => ({
   type: EntryActionTypes.BASE_CUSTOM_FIELD_GROUP_UPDATE_HANDLE,
   payload: {
     baseCustomFieldGroup,
   },
 });
 
-const deleteBaseCustomFieldGroup = (id) => ({
+const deleteBaseCustomFieldGroup = id => ({
   type: EntryActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE,
   payload: {
     id,
   },
 });
 
-const handleBaseCustomFieldGroupDelete = (baseCustomFieldGroup) => ({
+const handleBaseCustomFieldGroupDelete = baseCustomFieldGroup => ({
   type: EntryActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE_HANDLE,
   payload: {
     baseCustomFieldGroup,

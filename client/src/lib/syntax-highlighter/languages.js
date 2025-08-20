@@ -11,7 +11,7 @@ const LANGUAGES_BY_EXTENSION = {};
 Object.entries(languagesMap).forEach(
   ([language, { f: filenames, e: extensions }]) => {
     if (filenames) {
-      filenames.forEach((filename) => {
+      filenames.forEach(filename => {
         if (!LANGUAGES_BY_FILENAME[filename]) {
           LANGUAGES_BY_FILENAME[filename] = [];
         }
@@ -21,7 +21,7 @@ Object.entries(languagesMap).forEach(
     }
 
     if (extensions) {
-      extensions.forEach((extension) => {
+      extensions.forEach(extension => {
         if (!LANGUAGES_BY_EXTENSION[extension]) {
           LANGUAGES_BY_EXTENSION[extension] = [];
         }
@@ -34,7 +34,7 @@ Object.entries(languagesMap).forEach(
 
 export { LANGUAGES_BY_FILENAME, LANGUAGES_BY_EXTENSION };
 
-export const detectLanguagesByFilename = (filename) => {
+export const detectLanguagesByFilename = filename => {
   let languages = LANGUAGES_BY_FILENAME[filename];
 
   if (languages) {
@@ -59,7 +59,7 @@ export const detectLanguagesByFilename = (filename) => {
   return LANGUAGES_BY_EXTENSION[extensions[extensions.length - 1]] || [];
 };
 
-const createLanguageLoader = (language, loader) => async (registerLanguage) => {
+const createLanguageLoader = (language, loader) => async registerLanguage => {
   const { default: definition } = await loader();
   registerLanguage(language, definition);
 };

@@ -20,17 +20,17 @@ const NotificationsPane = React.memo(() => {
   );
 
   const boardId = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.id
+    state => selectors.selectCurrentModal(state).params.id
   );
 
-  const notificationServiceIds = useSelector((state) =>
+  const notificationServiceIds = useSelector(state =>
     selectNotificationServiceIdsByBoardId(state, boardId)
   );
 
   const dispatch = useDispatch();
 
   const handleCreate = useCallback(
-    (data) => {
+    data => {
       dispatch(entryActions.createNotificationServiceInBoard(boardId, data));
     },
     [boardId, dispatch]

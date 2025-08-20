@@ -19,9 +19,7 @@ import styles from './EditName.module.scss';
 const EditName = React.memo(({ listId, onClose }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const defaultValue = useSelector(
-    (state) => selectListById(state, listId).name
-  );
+  const defaultValue = useSelector(state => selectListById(state, listId).name);
 
   const dispatch = useDispatch();
   const [value, handleFieldChange] = useField(defaultValue);
@@ -42,12 +40,12 @@ const EditName = React.memo(({ listId, onClose }) => {
     onClose();
   }, [listId, defaultValue, dispatch, value, onClose]);
 
-  const handleFieldClick = useCallback((event) => {
+  const handleFieldClick = useCallback(event => {
     event.stopPropagation();
   }, []);
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       switch (event.key) {
         case 'Enter':
           event.preventDefault();

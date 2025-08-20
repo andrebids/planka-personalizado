@@ -63,11 +63,11 @@ const ProjectContent = React.memo(({ onClose }) => {
 
   const isJoined = useSelector(selectors.selectIsCurrentUserInCurrentCard);
 
-  const list = useSelector((state) => selectListById(state, card.listId));
+  const list = useSelector(state => selectListById(state, card.listId));
 
   // TODO: check availability?
   const prevList = useSelector(
-    (state) => card.prevListId && selectPrevListById(state, card.prevListId)
+    state => card.prevListId && selectPrevListById(state, card.prevListId)
   );
 
   const isInArchiveList = list.type === ListTypes.ARCHIVE;
@@ -92,7 +92,7 @@ const ProjectContent = React.memo(({ onClose }) => {
     canAddTaskList,
     canAddAttachment,
     canAddCustomFieldGroup,
-  } = useSelector((state) => {
+  } = useSelector(state => {
     const boardMembership =
       selectors.selectCurrentUserMembershipForCurrentBoard(state);
 
@@ -156,14 +156,14 @@ const ProjectContent = React.memo(({ onClose }) => {
   const [, , setIsClosableActive] = useContext(ClosableContext);
 
   const handleListSelect = useCallback(
-    (listId) => {
+    listId => {
       dispatch(entryActions.moveCurrentCard(listId));
     },
     [dispatch]
   );
 
   const handleTypeSelect = useCallback(
-    (type) => {
+    type => {
       dispatch(
         entryActions.updateCurrentCard({
           type,
@@ -174,7 +174,7 @@ const ProjectContent = React.memo(({ onClose }) => {
   );
 
   const handleNameUpdate = useCallback(
-    (name) => {
+    name => {
       dispatch(
         entryActions.updateCurrentCard({
           name,
@@ -185,7 +185,7 @@ const ProjectContent = React.memo(({ onClose }) => {
   );
 
   const handleDescriptionUpdate = useCallback(
-    (description) => {
+    description => {
       dispatch(
         entryActions.updateCurrentCard({
           description,
@@ -234,35 +234,35 @@ const ProjectContent = React.memo(({ onClose }) => {
   }, [isInTrashList, dispatch]);
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.addUserToCurrentCard(userId));
     },
     [dispatch]
   );
 
   const handleUserDeselect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.removeUserFromCurrentCard(userId));
     },
     [dispatch]
   );
 
   const handleLabelSelect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.addLabelToCurrentCard(labelId));
     },
     [dispatch]
   );
 
   const handleLabelDeselect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.removeLabelFromCurrentCard(labelId));
     },
     [dispatch]
   );
 
   const handleCustomFieldGroupCreate = useCallback(
-    (data) => {
+    data => {
       dispatch(entryActions.createCustomFieldGroupInCurrentCard(data));
     },
     [dispatch]
@@ -284,7 +284,7 @@ const ProjectContent = React.memo(({ onClose }) => {
     );
   }, [card.isSubscribed, dispatch]);
 
-  const handleEditDescriptionClick = useCallback((event) => {
+  const handleEditDescriptionClick = useCallback(event => {
     if (
       window.getSelection().toString() ||
       isUsableMarkdownElement(event.target)
@@ -295,7 +295,7 @@ const ProjectContent = React.memo(({ onClose }) => {
     setIsEditDescriptionOpened(true);
   }, []);
 
-  const handleEditDescriptionClose = useCallback((nextDescriptionDraft) => {
+  const handleEditDescriptionClose = useCallback(nextDescriptionDraft => {
     setDescriptionDraft(nextDescriptionDraft);
     setIsEditDescriptionOpened(false);
   }, []);
@@ -379,7 +379,7 @@ const ProjectContent = React.memo(({ onClose }) => {
                       context: 'title',
                     })}
                   </div>
-                  {userIds.map((userId) => (
+                  {userIds.map(userId => (
                     <span key={userId} className={styles.attachment}>
                       {canUseMembers ? (
                         <BoardMembershipsPopup
@@ -424,7 +424,7 @@ const ProjectContent = React.memo(({ onClose }) => {
                       context: 'title',
                     })}
                   </div>
-                  {labelIds.map((labelId) => (
+                  {labelIds.map(labelId => (
                     <span key={labelId} className={styles.attachment}>
                       {canUseLabels ? (
                         <LabelsPopup

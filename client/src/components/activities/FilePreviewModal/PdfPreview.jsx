@@ -129,7 +129,7 @@ const PdfPreview = ({ file, onClose }) => {
  * @param {number} bytes - Tamanho em bytes
  * @returns {string} Tamanho formatado
  */
-const formatFileSize = (bytes) => {
+const formatFileSize = bytes => {
   if (bytes === 0) return '0 Bytes';
 
   const k = 1024;

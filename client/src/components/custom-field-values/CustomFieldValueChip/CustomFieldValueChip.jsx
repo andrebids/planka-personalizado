@@ -29,11 +29,11 @@ const CustomFieldValueChip = React.memo(({ id, size, onClick }) => {
     []
   );
 
-  const customFieldValue = useSelector((state) =>
+  const customFieldValue = useSelector(state =>
     selectCustomFieldValueById(state, id)
   );
 
-  const customField = useSelector((state) =>
+  const customField = useSelector(state =>
     selectCustomFieldById(state, customFieldValue.customFieldId)
   );
 

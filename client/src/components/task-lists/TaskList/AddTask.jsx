@@ -50,7 +50,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
       }
 
       if (isMultiple) {
-        cleanData.name.split(MULTIPLE_REGEX).forEach((name) => {
+        cleanData.name.split(MULTIPLE_REGEX).forEach(name => {
           dispatch(
             entryActions.createTask(taskListId, {
               ...cleanData,
@@ -73,7 +73,7 @@ const AddTask = React.memo(({ children, taskListId, isOpened, onClose }) => {
   }, [submit]);
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Enter') {
         event.preventDefault();
         submit(isModifierKeyPressed(event));

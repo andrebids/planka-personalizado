@@ -42,11 +42,10 @@ const Header = React.memo(() => {
 
   const withFavoritesToggler = useSelector(
     // TODO: use selector instead?
-    (state) =>
-      selectors.selectFavoriteProjectIdsForCurrentUser(state).length > 0
+    state => selectors.selectFavoriteProjectIdsForCurrentUser(state).length > 0
   );
 
-  const { withEditModeToggler, canEditProject } = useSelector((state) => {
+  const { withEditModeToggler, canEditProject } = useSelector(state => {
     if (!project) {
       return {
         withEditModeToggler: false,
@@ -132,7 +131,7 @@ const Header = React.memo(() => {
                 aria-label={isSidebarExpanded ? 'Fechar menu' : 'Abrir menu'}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     handleToggleSidebarClick();
@@ -167,7 +166,7 @@ const Header = React.memo(() => {
                 aria-label={isSidebarExpanded ? 'Fechar menu' : 'Abrir menu'}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => {
+                onKeyDown={e => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     handleToggleSidebarClick();

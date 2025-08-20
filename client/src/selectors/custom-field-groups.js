@@ -48,7 +48,7 @@ export const makeSelectCustomFieldIdsByGroupId = () =>
 
       return customFieldGroupModel
         .getCustomFieldsModelArray()
-        .map((customFieldModel) => customFieldModel.id);
+        .map(customFieldModel => customFieldModel.id);
     }
   );
 
@@ -72,7 +72,7 @@ export const makeSelectCustomFieldsByGroupId = () =>
 
       return customFieldGroupModel
         .getCustomFieldsModelArray()
-        .map((customFieldModel) => customFieldModel.ref);
+        .map(customFieldModel => customFieldModel.ref);
     }
   );
 

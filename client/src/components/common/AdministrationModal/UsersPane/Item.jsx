@@ -21,7 +21,7 @@ import styles from './Item.module.scss';
 const Item = React.memo(({ id }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-  const user = useSelector((state) => selectUserById(state, id));
+  const user = useSelector(state => selectUserById(state, id));
 
   const [t] = useTranslation();
 

@@ -31,7 +31,7 @@ const CardModal = React.memo(() => {
 
   const card = useSelector(selectors.selectCurrentCard);
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     const list = selectListById(state, card.listId);
 
     if (isListArchiveOrTrash(list)) {
@@ -54,7 +54,7 @@ const CardModal = React.memo(() => {
   const [ClosableModal, isClosableActiveRef] = useClosableModal();
 
   useEffect(() => {
-    const handleKeydown = (event) => {
+    const handleKeydown = event => {
       if (isClosableActiveRef.current) {
         return;
       }

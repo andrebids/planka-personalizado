@@ -27,23 +27,23 @@ const removedActionNamesSet = new Set([
   ActionName.tabs,
 ]);
 
-removedActionNamesSet.forEach((actionName) => {
+removedActionNamesSet.forEach(actionName => {
   delete toolbarsPreset.items[actionName];
 
   Object.entries(toolbarsPreset.orders).forEach(([orderName, order]) => {
     order.forEach((actions, actionsIndex) => {
       toolbarsPreset.orders[orderName][actionsIndex] = actions.filter(
-        (action) => action.id || action !== actionName
+        action => action.id || action !== actionName
       );
     });
   });
 });
 
 const commandMenuActions = wysiwygToolbarConfigs.wCommandMenuConfig.filter(
-  (action) => !removedActionNamesSet.has(action.id)
+  action => !removedActionNamesSet.has(action.id)
 );
 
-export const fileToBase64Data = (file) =>
+export const fileToBase64Data = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -51,7 +51,7 @@ export const fileToBase64Data = (file) =>
     reader.onerror = reject;
   });
 
-const fileUploadHandler = async (file) => {
+const fileUploadHandler = async file => {
   const base64Data = await fileToBase64Data(file);
   return { url: base64Data };
 };
@@ -73,7 +73,7 @@ const MarkdownEditor = React.forwardRef(
     const wrapperRef = useRef(null);
 
     const handleWrapperRef = useCallback(
-      (element) => {
+      element => {
         wrapperRef.current = element;
 
         if (typeof ref === 'function') {
@@ -141,7 +141,7 @@ const MarkdownEditor = React.forwardRef(
     useEffect(() => {
       const { current: wrapperElement } = wrapperRef;
 
-      const handlePaste = (event) => {
+      const handlePaste = event => {
         event.stopPropagation();
       };
 

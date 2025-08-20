@@ -63,7 +63,7 @@ const ProjectList = React.memo(() => {
 
   const hasMoreProjects = otherProjects.length > displayedProjects.length;
 
-  const handleDragEnd = (result) => {
+  const handleDragEnd = result => {
     if (!result.destination) {
       return;
     }
@@ -117,7 +117,7 @@ const ProjectList = React.memo(() => {
           <>
             <h3 className={styles.title}>FAVORITOS</h3>
             <Droppable droppableId="favorites" direction="vertical">
-              {(provided) => (
+              {provided => (
                 <div
                   className={styles.list}
                   ref={provided.innerRef}
@@ -151,7 +151,7 @@ const ProjectList = React.memo(() => {
         <h3 className={styles.title}>MEUS PROJETOS</h3>
 
         <Droppable droppableId="projects">
-          {(provided) => (
+          {provided => (
             <div
               className={styles.list}
               {...provided.droppableProps}

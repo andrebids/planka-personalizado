@@ -31,7 +31,7 @@ const Core = React.memo(() => {
   const currentUserId = useSelector(selectors.selectCurrentUserId);
 
   // TODO: move to selector?
-  const isNewVersionAvailable = useSelector((state) => {
+  const isNewVersionAvailable = useSelector(state => {
     const config = selectors.selectConfig(state);
     return !!config && config.version !== version;
   });

@@ -1,4 +1,4 @@
-import Config from '../Config.js';
+import Config from "../Config.js";
 
 export default class LoginPage {
   constructor() {
@@ -6,8 +6,8 @@ export default class LoginPage {
 
     this.emailOrUsernameInputSelector = 'input[name="emailOrUsername"]';
     this.passwordInputSelector = 'input[name="password"]';
-    this.logInButtonSelector = 'button.primary';
-    this.messageSelector = 'div.message > div.content > p';
+    this.logInButtonSelector = "button.primary";
+    this.messageSelector = "div.message > div.content > p";
   }
 
   async navigate() {

@@ -85,7 +85,7 @@ export function* fetchCore() {
   } = body;
 
   if (card) {
-    const notificationIds = notifications.flatMap((notification) =>
+    const notificationIds = notifications.flatMap(notification =>
       notification.cardId === card.id ? notification.id : []
     );
 
@@ -93,7 +93,7 @@ export function* fetchCore() {
       yield call(request, api.readCardNotifications, card.id);
 
       notifications = notifications.filter(
-        (notification) => !notificationIds.includes(notification.id)
+        notification => !notificationIds.includes(notification.id)
       );
     }
   }

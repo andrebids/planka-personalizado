@@ -21,7 +21,7 @@ import globalStyles from '../../../styles.module.scss';
 const Boards = React.memo(() => {
   const boardIds = useSelector(selectors.selectBoardIdsForCurrentProject);
 
-  const canAdd = useSelector((state) => {
+  const canAdd = useSelector(state => {
     const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
 
     if (!isEditModeEnabled) {

@@ -5,7 +5,7 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createBoardInCurrentProject = (data) => ({
+const createBoardInCurrentProject = data => ({
   type: EntryActionTypes.BOARD_IN_CURRENT_PROJECT_CREATE,
   payload: {
     data,
@@ -21,7 +21,7 @@ const handleBoardCreate = (board, boardMemberships, requestId) => ({
   },
 });
 
-const fetchBoard = (id) => ({
+const fetchBoard = id => ({
   type: EntryActionTypes.BOARD_FETCH,
   payload: {
     id,
@@ -36,14 +36,14 @@ const updateBoard = (id, data) => ({
   },
 });
 
-const updateCurrentBoard = (data) => ({
+const updateCurrentBoard = data => ({
   type: EntryActionTypes.CURRENT_BOARD_UPDATE,
   payload: {
     data,
   },
 });
 
-const handleBoardUpdate = (board) => ({
+const handleBoardUpdate = board => ({
   type: EntryActionTypes.BOARD_UPDATE_HANDLE,
   payload: {
     board,
@@ -58,35 +58,35 @@ const moveBoard = (id, index) => ({
   },
 });
 
-const updateContextInCurrentBoard = (value) => ({
+const updateContextInCurrentBoard = value => ({
   type: EntryActionTypes.CONTEXT_IN_CURRENT_BOARD_UPDATE,
   payload: {
     value,
   },
 });
 
-const updateViewInCurrentBoard = (value) => ({
+const updateViewInCurrentBoard = value => ({
   type: EntryActionTypes.VIEW_IN_CURRENT_BOARD_UPDATE,
   payload: {
     value,
   },
 });
 
-const searchInCurrentBoard = (value) => ({
+const searchInCurrentBoard = value => ({
   type: EntryActionTypes.IN_CURRENT_BOARD_SEARCH,
   payload: {
     value,
   },
 });
 
-const deleteBoard = (id) => ({
+const deleteBoard = id => ({
   type: EntryActionTypes.BOARD_DELETE,
   payload: {
     id,
   },
 });
 
-const handleBoardDelete = (board) => ({
+const handleBoardDelete = board => ({
   type: EntryActionTypes.BOARD_DELETE_HANDLE,
   payload: {
     board,

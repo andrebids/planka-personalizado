@@ -32,7 +32,7 @@ const RightSide = React.memo(() => {
   );
 
   const handleOrderSelect = useCallback(
-    (order) => {
+    order => {
       dispatch(entryActions.updateProjectsOrder(order));
     },
     [dispatch]
@@ -64,7 +64,7 @@ const RightSide = React.memo(() => {
       </div>
       <div className={styles.action}>
         <div className={styles.buttonGroup}>
-          {[HomeViews.GRID_PROJECTS, HomeViews.GROUPED_PROJECTS].map((view) => (
+          {[HomeViews.GRID_PROJECTS, HomeViews.GROUPED_PROJECTS].map(view => (
             <button
               key={view}
               type="button"

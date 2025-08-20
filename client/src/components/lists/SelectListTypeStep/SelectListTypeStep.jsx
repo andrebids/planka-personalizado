@@ -65,7 +65,7 @@ const SelectListTypeStep = React.memo(
         <Popup.Content>
           <Form onSubmit={handleSubmit}>
             <Menu secondary vertical className={styles.menu}>
-              {[ListTypes.ACTIVE, ListTypes.CLOSED].map((type) => (
+              {[ListTypes.ACTIVE, ListTypes.CLOSED].map(type => (
                 <Menu.Item
                   key={type}
                   value={type}

@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const fetchComments = (cardId) => ({
+const fetchComments = cardId => ({
   type: ActionTypes.COMMENTS_FETCH,
   payload: {
     cardId,
@@ -29,7 +29,7 @@ fetchComments.failure = (cardId, error) => ({
   },
 });
 
-const createComment = (comment) => ({
+const createComment = comment => ({
   type: ActionTypes.COMMENT_CREATE,
   payload: {
     comment,
@@ -68,7 +68,7 @@ const updateComment = (id, data) => ({
   },
 });
 
-updateComment.success = (comment) => ({
+updateComment.success = comment => ({
   type: ActionTypes.COMMENT_UPDATE__SUCCESS,
   payload: {
     comment,
@@ -83,21 +83,21 @@ updateComment.failure = (id, error) => ({
   },
 });
 
-const handleCommentUpdate = (comment) => ({
+const handleCommentUpdate = comment => ({
   type: ActionTypes.COMMENT_UPDATE_HANDLE,
   payload: {
     comment,
   },
 });
 
-const deleteComment = (id) => ({
+const deleteComment = id => ({
   type: ActionTypes.COMMENT_DELETE,
   payload: {
     id,
   },
 });
 
-deleteComment.success = (comment) => ({
+deleteComment.success = comment => ({
   type: ActionTypes.COMMENT_DELETE__SUCCESS,
   payload: {
     comment,
@@ -112,7 +112,7 @@ deleteComment.failure = (id, error) => ({
   },
 });
 
-const handleCommentDelete = (comment) => ({
+const handleCommentDelete = comment => ({
   type: ActionTypes.COMMENT_DELETE_HANDLE,
   payload: {
     comment,

@@ -27,7 +27,7 @@ const Edit = React.memo(({ commentId, onClose }) => {
     []
   );
 
-  const comment = useSelector((state) => selectCommentById(state, commentId));
+  const comment = useSelector(state => selectCommentById(state, commentId));
   const boardMemberships = useSelector(
     selectors.selectMembershipsForCurrentBoard
   );
@@ -80,7 +80,7 @@ const Edit = React.memo(({ commentId, onClose }) => {
   );
 
   const handleFieldKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Enter') {
         if (isModifierKeyPressed(event)) {
           submit();

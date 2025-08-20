@@ -39,7 +39,7 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
 
   const filteredCustomFieldGroups = useMemo(
     () =>
-      customFieldGroups.filter((customFieldGroup) =>
+      customFieldGroups.filter(customFieldGroup =>
         customFieldGroup.name.toLowerCase().includes(cleanSearch)
       ),
     [customFieldGroups, cleanSearch]
@@ -48,7 +48,7 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
   const [searchFieldRef, handleSearchFieldRef] = useNestedRef('inputRef');
 
   const handleCreate = useCallback(
-    (data) => {
+    data => {
       dispatch(entryActions.createCustomFieldGroupInCurrentBoard(data));
     },
     [dispatch]
@@ -72,7 +72,7 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
   }, [openStep]);
 
   const handleEdit = useCallback(
-    (id) => {
+    id => {
       openStep(StepTypes.EDIT, {
         id,
       });
@@ -98,7 +98,7 @@ const CustomFieldGroupsStep = React.memo(({ onBack }) => {
         );
       case StepTypes.EDIT: {
         const currentCustomFieldGroup = customFieldGroups.find(
-          (customFieldGroup) => customFieldGroup.id === step.params.id
+          customFieldGroup => customFieldGroup.id === step.params.id
         );
 
         if (currentCustomFieldGroup) {

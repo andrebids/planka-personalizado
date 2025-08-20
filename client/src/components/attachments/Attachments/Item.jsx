@@ -26,7 +26,7 @@ const Item = React.memo(({ id, isVisible }) => {
     []
   );
 
-  const attachment = useSelector((state) => selectAttachmentById(state, id));
+  const attachment = useSelector(state => selectAttachmentById(state, id));
 
   const [t] = useTranslation();
 

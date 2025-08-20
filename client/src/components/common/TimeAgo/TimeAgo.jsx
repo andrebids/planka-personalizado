@@ -41,7 +41,7 @@ const TimeAgoComponent = React.memo(({ date, withExpiration }) => {
   }, [i18n.resolvedLanguage]);
 
   const verboseDateFormatter = useCallback(
-    (value) =>
+    value =>
       t(`format:${getDateFormat(value)}`, {
         value,
         postProcess: 'formatDate',
@@ -56,7 +56,7 @@ const TimeAgoComponent = React.memo(({ date, withExpiration }) => {
       locale={i18n.resolvedLanguage}
       component={withExpiration ? ExpirableTime : undefined}
       formatVerboseDate={verboseDateFormatter}
-      onError={(error) => {
+      onError={error => {
         console.error('Erro no ReactTimeAgo:', error);
       }}
     />

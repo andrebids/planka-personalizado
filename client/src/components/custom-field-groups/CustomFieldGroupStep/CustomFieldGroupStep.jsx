@@ -17,7 +17,7 @@ const CustomFieldGroupStep = React.memo(({ id, onBack, onClose }) => {
     []
   );
 
-  const customFieldGroup = useSelector((state) =>
+  const customFieldGroup = useSelector(state =>
     selectCustomFielGroupdById(state, id)
   );
 

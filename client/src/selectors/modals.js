@@ -17,8 +17,8 @@ export const selectCurrentModal = ({ core: { modal } }) => modal;
 export const isCurrentModalAvailableForCurrentUser = createSelector(
   orm,
   selectCurrentModal,
-  (state) => selectCurrentUserId(state),
-  (state) => selectPath(state).projectId,
+  state => selectCurrentUserId(state),
+  state => selectPath(state).projectId,
   ({ User, Project, Board }, currentModal, currentUserId, currentProjectId) => {
     if (currentModal) {
       const currentUserModel = User.withId(currentUserId);

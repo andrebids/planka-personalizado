@@ -42,7 +42,7 @@ const NameField = React.memo(({ defaultValue, size, onUpdate }) => {
   }, [activateEscapeInterceptor]);
 
   const handleKeyDown = useCallback(
-    (event) => {
+    event => {
       if (event.key === 'Enter') {
         event.preventDefault();
         fiedRef.current.blur();

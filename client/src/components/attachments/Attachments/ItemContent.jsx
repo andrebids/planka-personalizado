@@ -31,13 +31,13 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
   );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const attachment = useSelector((state) => selectAttachmentById(state, id));
+  const attachment = useSelector(state => selectAttachmentById(state, id));
 
   const isCover = useSelector(
-    (state) => id === selectors.selectCurrentCard(state).coverAttachmentId
+    state => id === selectors.selectCurrentCard(state).coverAttachmentId
   );
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     const { listId } = selectors.selectCurrentCard(state);
     const list = selectListById(state, listId);
 
@@ -64,7 +64,7 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
   }, [onOpen, attachment.data]);
 
   const handleDownloadClick = useCallback(
-    (event) => {
+    event => {
       event.stopPropagation();
 
       const linkElement = document.createElement('a');
@@ -77,7 +77,7 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
   );
 
   const handleToggleCoverClick = useCallback(
-    (event) => {
+    event => {
       event.stopPropagation();
 
       dispatch(

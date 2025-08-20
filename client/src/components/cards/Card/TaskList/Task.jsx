@@ -16,7 +16,7 @@ import styles from './Task.module.scss';
 const Task = React.memo(({ id }) => {
   const selectTaskById = useMemo(() => selectors.makeSelectTaskById(), []);
 
-  const task = useSelector((state) => selectTaskById(state, id));
+  const task = useSelector(state => selectTaskById(state, id));
 
   return (
     <li

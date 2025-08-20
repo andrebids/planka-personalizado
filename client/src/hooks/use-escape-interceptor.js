@@ -6,9 +6,9 @@
 import { useCallback } from 'react';
 import { useEventCallback } from '../lib/hooks';
 
-export default (onEscape) => {
+export default onEscape => {
   const handleWindowKeydown = useEventCallback(
-    (event) => {
+    event => {
       if (event.key === 'Escape') {
         event.stopPropagation();
 

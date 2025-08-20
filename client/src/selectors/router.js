@@ -19,13 +19,13 @@ export const selectPathname = ({
 
 export const selectPathsMatch = createReselectSelector(
   selectPathname,
-  (pathname) => matchPaths(pathname, Object.values(Paths))
+  pathname => matchPaths(pathname, Object.values(Paths))
 );
 
 export const selectPath = createReduxOrmSelector(
   orm,
   selectPathsMatch,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User, Project, Board, Card }, pathsMatch, currentUserId) => {
     if (pathsMatch) {
       const currentUserModel = User.withId(currentUserId);

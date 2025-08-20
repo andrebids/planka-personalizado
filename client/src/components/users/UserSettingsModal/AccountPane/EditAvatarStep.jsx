@@ -17,7 +17,7 @@ import styles from './EditAvatarStep.module.scss';
 
 const EditAvatarStep = React.memo(({ onClose }) => {
   const defaultValue = useSelector(
-    (state) => selectors.selectCurrentUser(state).avatar
+    state => selectors.selectCurrentUser(state).avatar
   );
 
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const EditAvatarStep = React.memo(({ onClose }) => {
   const fieldRef = useRef(null);
 
   const handleFileSelect = useCallback(
-    (file) => {
+    file => {
       dispatch(
         entryActions.updateCurrentUserAvatar({
           file,

@@ -17,7 +17,7 @@ const exchangeForAccessTokenWithOidc = (data, headers) =>
     headers
   );
 
-const deleteCurrentAccessToken = (headers) =>
+const deleteCurrentAccessToken = headers =>
   http.delete('/access-tokens/me', undefined, headers);
 
 export default {

@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createList = (list) => ({
+const createList = list => ({
   type: ActionTypes.LIST_CREATE,
   payload: {
     list,
@@ -28,7 +28,7 @@ createList.failure = (localId, error) => ({
   },
 });
 
-const handleListCreate = (list) => ({
+const handleListCreate = list => ({
   type: ActionTypes.LIST_CREATE_HANDLE,
   payload: {
     list,
@@ -43,7 +43,7 @@ const updateList = (id, data) => ({
   },
 });
 
-updateList.success = (list) => ({
+updateList.success = list => ({
   type: ActionTypes.LIST_UPDATE__SUCCESS,
   payload: {
     list,
@@ -58,7 +58,7 @@ updateList.failure = (id, error) => ({
   },
 });
 
-const handleListUpdate = (list) => ({
+const handleListUpdate = list => ({
   type: ActionTypes.LIST_UPDATE_HANDLE,
   payload: {
     list,
@@ -115,14 +115,14 @@ moveListCards.failure = (id, error) => ({
   },
 });
 
-const clearList = (id) => ({
+const clearList = id => ({
   type: ActionTypes.LIST_CLEAR,
   payload: {
     id,
   },
 });
 
-clearList.success = (list) => ({
+clearList.success = list => ({
   type: ActionTypes.LIST_CLEAR__SUCCESS,
   payload: {
     list,
@@ -137,7 +137,7 @@ clearList.failure = (id, error) => ({
   },
 });
 
-const handleListClear = (list) => ({
+const handleListClear = list => ({
   type: ActionTypes.LIST_CLEAR_HANDLE,
   payload: {
     list,

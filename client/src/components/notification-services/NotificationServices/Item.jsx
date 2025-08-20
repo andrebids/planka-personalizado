@@ -28,7 +28,7 @@ const Item = React.memo(({ id }) => {
     []
   );
 
-  const notificationService = useSelector((state) =>
+  const notificationService = useSelector(state =>
     selectNotificationServiceById(state, id)
   );
 
@@ -56,7 +56,7 @@ const Item = React.memo(({ id }) => {
   const isUrlFocusedRef = useRef(false);
 
   const resetUrl = useCallback(() => {
-    setData((prevData) => ({
+    setData(prevData => ({
       ...prevData,
       url: defaultData.url,
     }));
@@ -105,7 +105,7 @@ const Item = React.memo(({ id }) => {
 
   const handleFormatChange = useCallback(
     (_, { value: format }) => {
-      setData((prevData) => ({
+      setData(prevData => ({
         ...prevData,
         format,
       }));
@@ -141,7 +141,7 @@ const Item = React.memo(({ id }) => {
     }
 
     if (Object.keys(nextData).length > 0) {
-      setData((prevData) => ({
+      setData(prevData => ({
         ...prevData,
         ...nextData,
       }));
@@ -171,7 +171,7 @@ const Item = React.memo(({ id }) => {
               NotificationServiceFormats.TEXT,
               NotificationServiceFormats.MARKDOWN,
               NotificationServiceFormats.HTML,
-            ].map((format) => ({
+            ].map(format => ({
               text: format,
               value: format,
             }))}

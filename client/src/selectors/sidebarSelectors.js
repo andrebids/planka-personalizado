@@ -9,19 +9,19 @@ import { createSelector as createReselectSelector } from 'reselect';
 import orm from '../orm';
 import { selectCurrentUserId } from './users';
 
-export const selectSidebarState = (state) => state.sidebar;
-export const selectIsSidebarExpanded = (state) =>
+export const selectSidebarState = state => state.sidebar;
+export const selectIsSidebarExpanded = state =>
   selectSidebarState(state).isExpanded;
-export const selectProjectsOrder = (state) =>
+export const selectProjectsOrder = state =>
   selectSidebarState(state).projectsOrder;
-export const selectFavoritesOrder = (state) =>
+export const selectFavoritesOrder = state =>
   selectSidebarState(state).favoritesOrder;
 
 // Selector para projetos do sidebar com informações de notificações (otimizado)
 export const selectSidebarProjects = createOrmSelector(
   orm,
-  (state) => selectCurrentUserId(state),
-  (state) => selectProjectsOrder(state),
+  state => selectCurrentUserId(state),
+  state => selectProjectsOrder(state),
   ({ User, Board }, userId, customOrder) => {
     if (!userId) {
       return [];
@@ -53,7 +53,7 @@ export const selectSidebarProjects = createOrmSelector(
     const notificationsByProject = {};
     const processedProjects = new Set();
 
-    unreadNotifications.forEach((notification) => {
+    unreadNotifications.forEach(notification => {
       let projectId = null;
 
       if (notification.projectId) {
@@ -67,9 +67,7 @@ export const selectSidebarProjects = createOrmSelector(
 
       if (projectId && !processedProjects.has(projectId)) {
         // Contar notificações apenas para projetos que o usuário tem acesso
-        const hasProjectAccess = projectModels.some(
-          (pm) => pm.id === projectId
-        );
+        const hasProjectAccess = projectModels.some(pm => pm.id === projectId);
         if (hasProjectAccess) {
           notificationsByProject[projectId] =
             (notificationsByProject[projectId] || 0) + 1;
@@ -79,7 +77,7 @@ export const selectSidebarProjects = createOrmSelector(
     });
 
     // Retornar projetos com informações de notificações e background (limitado a 50 projetos para performance)
-    const projectsWithData = projectModels.slice(0, 50).map((projectModel) => {
+    const projectsWithData = projectModels.slice(0, 50).map(projectModel => {
       const project = projectModel.ref;
       const notificationCount = notificationsByProject[project.id] || 0;
 
@@ -113,7 +111,7 @@ export const selectSidebarProjects = createOrmSelector(
 
     // Filtrar projetos ocultos e ordenar alfabeticamente por padrão
     return projectsWithData
-      .filter((p) => !p.isHidden)
+      .filter(p => !p.isHidden)
       .sort((a, b) => a.name.localeCompare(b.name));
   }
 );
@@ -121,19 +119,19 @@ export const selectSidebarProjects = createOrmSelector(
 // Lista apenas de favoritos (já filtrados e ordenados)
 export const selectSidebarFavoriteProjects = createReselectSelector(
   selectSidebarProjects,
-  (projects) => projects.filter((p) => p.isFavorite)
+  projects => projects.filter(p => p.isFavorite)
 );
 
 // Lista de não favoritos (já filtrados e ordenados)
 export const selectSidebarOtherProjects = createReselectSelector(
   selectSidebarProjects,
-  (projects) => projects.filter((p) => !p.isFavorite)
+  projects => projects.filter(p => !p.isFavorite)
 );
 
 // Ordenados conforme orders salvos
 export const selectSidebarFavoriteProjectsOrdered = createReselectSelector(
   selectSidebarFavoriteProjects,
-  (state) => selectFavoritesOrder(state),
+  state => selectFavoritesOrder(state),
   (favorites, order) => {
     if (!order || order.length === 0) {
       return favorites;
@@ -152,7 +150,7 @@ export const selectSidebarFavoriteProjectsOrdered = createReselectSelector(
 
 export const selectSidebarOtherProjectsOrdered = createReselectSelector(
   selectSidebarOtherProjects,
-  (state) => selectProjectsOrder(state),
+  state => selectProjectsOrder(state),
   (others, order) => {
     if (!order || order.length === 0) {
       return others;
@@ -172,7 +170,7 @@ export const selectSidebarOtherProjectsOrdered = createReselectSelector(
 // Selector para total de projetos (para mostrar indicador de "mais projetos")
 export const selectTotalProjectsCount = createOrmSelector(
   orm,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ User }, userId) => {
     if (!userId) {
       return 0;

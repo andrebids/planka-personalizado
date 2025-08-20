@@ -32,7 +32,7 @@ const LabelsStep = React.memo(
   ({ currentIds, cardId, title, onSelect, onDeselect, onBack }) => {
     const labels = useSelector(selectors.selectLabelsForCurrentBoard);
 
-    const canAdd = useSelector((state) => {
+    const canAdd = useSelector(state => {
       const boardMembership =
         selectors.selectCurrentUserMembershipForCurrentBoard(state);
       return (
@@ -50,7 +50,7 @@ const LabelsStep = React.memo(
     const filteredLabels = useMemo(
       () =>
         labels.filter(
-          (label) =>
+          label =>
             (label.name && label.name.toLowerCase().includes(cleanSearch)) ||
             label.color.includes(cleanSearch)
         ),
@@ -81,7 +81,7 @@ const LabelsStep = React.memo(
     }, [openStep]);
 
     const handleEdit = useCallback(
-      (id) => {
+      id => {
         openStep(StepTypes.EDIT, {
           id,
         });
@@ -110,7 +110,7 @@ const LabelsStep = React.memo(
           );
         case StepTypes.EDIT: {
           const currentLabel = labels.find(
-            (label) => label.id === step.params.id
+            label => label.id === step.params.id
           );
 
           if (currentLabel) {

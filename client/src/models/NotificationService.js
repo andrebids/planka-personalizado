@@ -35,14 +35,14 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         NotificationService.all().delete();
 
-        payload.notificationServices.forEach((notificationService) => {
+        payload.notificationServices.forEach(notificationService => {
           NotificationService.upsert(notificationService);
         });
 
         break;
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.PROJECT_CREATE_HANDLE:
-        payload.notificationServices.forEach((notificationService) => {
+        payload.notificationServices.forEach(notificationService => {
           NotificationService.upsert(notificationService);
         });
 
@@ -52,7 +52,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.notificationServices) {
-          payload.notificationServices.forEach((notificationService) => {
+          payload.notificationServices.forEach(notificationService => {
             NotificationService.upsert(notificationService);
           });
         }

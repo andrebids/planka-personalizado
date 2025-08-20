@@ -33,7 +33,7 @@ export const makeSelectNotificationIdsByCardId = () =>
         cardId: id,
       })
         .toRefArray()
-        .map((notification) => notification.id)
+        .map(notification => notification.id)
   );
 
 export const selectNotificationIdsByCardId =

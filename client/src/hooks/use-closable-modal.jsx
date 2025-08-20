@@ -10,7 +10,7 @@ import { Modal } from 'semantic-ui-react';
 import useClosable from './use-closable';
 import { ClosableContext } from '../contexts';
 
-export default (initialClosableValue) => {
+export default initialClosableValue => {
   const [
     isClosableActiveRef,
     activateClosable,
@@ -27,7 +27,7 @@ export default (initialClosableValue) => {
     // eslint-disable-next-line no-shadow
     const ClosableModal = React.memo(({ closeIcon, onClose, ...props }) => {
       const handleClose = useCallback(
-        (event) => {
+        event => {
           if (isClosableActiveRef.current) {
             if (closeIcon && event.type === 'click') {
               if (!event.currentTarget.classList.contains('close')) {

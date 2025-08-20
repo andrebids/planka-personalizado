@@ -33,7 +33,7 @@ const Favorites = React.memo(() => {
       onWheel={handleWheel}
     >
       <div ref={cardsRef} className={styles.cards}>
-        {projectIds.map((projectId) => (
+        {projectIds.map(projectId => (
           <div key={projectId} className={styles.cardWrapper}>
             <ProjectCard
               id={projectId}

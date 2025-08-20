@@ -18,7 +18,7 @@ import { isUsername } from '../../../utils/validator';
 
 import styles from './EditUserUsernameStep.module.scss';
 
-const createMessage = (error) => {
+const createMessage = error => {
   if (!error) {
     return error;
   }
@@ -49,7 +49,7 @@ const EditUserUsernameStep = React.memo(
     const {
       username,
       usernameUpdateForm: { data: defaultData, isSubmitting, error },
-    } = useSelector((state) => selectUserById(state, id));
+    } = useSelector(state => selectUserById(state, id));
 
     const dispatch = useDispatch();
     const [t] = useTranslation();
@@ -125,7 +125,7 @@ const EditUserUsernameStep = React.memo(
 
               break;
             case 'Invalid current password':
-              setData((prevData) => ({
+              setData(prevData => ({
                 ...prevData,
                 currentPassword: '',
               }));

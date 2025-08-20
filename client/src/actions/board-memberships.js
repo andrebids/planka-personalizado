@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createBoardMembership = (boardMembership) => ({
+const createBoardMembership = boardMembership => ({
   type: ActionTypes.BOARD_MEMBERSHIP_CREATE,
   payload: {
     boardMembership,
@@ -89,7 +89,7 @@ const updateBoardMembership = (id, data) => ({
   },
 });
 
-updateBoardMembership.success = (boardMembership) => ({
+updateBoardMembership.success = boardMembership => ({
   type: ActionTypes.BOARD_MEMBERSHIP_UPDATE__SUCCESS,
   payload: {
     boardMembership,
@@ -104,7 +104,7 @@ updateBoardMembership.failure = (id, error) => ({
   },
 });
 
-const handleBoardMembershipUpdate = (boardMembership) => ({
+const handleBoardMembershipUpdate = boardMembership => ({
   type: ActionTypes.BOARD_MEMBERSHIP_UPDATE_HANDLE,
   payload: {
     boardMembership,

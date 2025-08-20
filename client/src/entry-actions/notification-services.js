@@ -5,7 +5,7 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createNotificationServiceInCurrentUser = (data) => ({
+const createNotificationServiceInCurrentUser = data => ({
   type: EntryActionTypes.NOTIFICATION_SERVICE_IN_CURRENT_USER_CREATE,
   payload: {
     data,
@@ -20,7 +20,7 @@ const createNotificationServiceInBoard = (boardId, data) => ({
   },
 });
 
-const handleNotificationServiceCreate = (notificationService) => ({
+const handleNotificationServiceCreate = notificationService => ({
   type: EntryActionTypes.NOTIFICATION_SERVICE_CREATE_HANDLE,
   payload: {
     notificationService,
@@ -35,28 +35,28 @@ const updateNotificationService = (id, data) => ({
   },
 });
 
-const handleNotificationServiceUpdate = (notificationService) => ({
+const handleNotificationServiceUpdate = notificationService => ({
   type: EntryActionTypes.NOTIFICATION_SERVICE_UPDATE_HANDLE,
   payload: {
     notificationService,
   },
 });
 
-const testNotificationService = (id) => ({
+const testNotificationService = id => ({
   type: EntryActionTypes.NOTIFICATION_SERVICE_TEST,
   payload: {
     id,
   },
 });
 
-const deleteNotificationService = (id) => ({
+const deleteNotificationService = id => ({
   type: EntryActionTypes.NOTIFICATION_SERVICE_DELETE,
   payload: {
     id,
   },
 });
 
-const handleNotificationServiceDelete = (notificationService) => ({
+const handleNotificationServiceDelete = notificationService => ({
   type: EntryActionTypes.NOTIFICATION_SERVICE_DELETE_HANDLE,
   payload: {
     notificationService,

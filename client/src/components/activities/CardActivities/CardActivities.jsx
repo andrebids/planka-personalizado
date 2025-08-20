@@ -24,7 +24,7 @@ const CardActivities = React.memo(() => {
 
   const [inViewRef] = useInView({
     threshold: 1,
-    onChange: (inView) => {
+    onChange: inView => {
       if (inView) {
         dispatch(entryActions.fetchActivitiesInCurrentCard());
       }
@@ -35,7 +35,7 @@ const CardActivities = React.memo(() => {
     <>
       <div className={styles.itemsWrapper}>
         <Comment.Group className={styles.items}>
-          {activityIds.map((activityId) => (
+          {activityIds.map(activityId => (
             <Item key={activityId} id={activityId} />
           ))}
         </Comment.Group>

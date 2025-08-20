@@ -47,7 +47,7 @@ const RightSide = React.memo(() => {
     <>
       <div className={styles.action}>
         <div className={styles.buttonGroup}>
-          {views.map((view) => (
+          {views.map(view => (
             <button
               key={view}
               type="button"

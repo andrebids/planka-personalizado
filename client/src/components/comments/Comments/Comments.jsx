@@ -25,7 +25,7 @@ const Comments = React.memo(() => {
     selectors.selectCurrentCard
   );
 
-  const cadAdd = useSelector((state) => {
+  const cadAdd = useSelector(state => {
     const { listId } = selectors.selectCurrentCard(state);
     const list = selectListById(state, listId);
 
@@ -51,7 +51,7 @@ const Comments = React.memo(() => {
 
   const [inViewRef] = useInView({
     threshold: 1,
-    onChange: (inView) => {
+    onChange: inView => {
       if (inView) {
         dispatch(entryActions.fetchCommentsInCurrentCard());
       }
@@ -63,7 +63,7 @@ const Comments = React.memo(() => {
       {cadAdd && <Add />}
       <div className={styles.itemsWrapper}>
         <Comment.Group className={styles.items}>
-          {commentIds.map((commentId) => (
+          {commentIds.map(commentId => (
             <Item key={commentId} id={commentId} />
           ))}
         </Comment.Group>

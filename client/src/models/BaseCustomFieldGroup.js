@@ -26,14 +26,14 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         BaseCustomFieldGroup.all().delete();
 
-        payload.baseCustomFieldGroups.forEach((baseCustomFieldGroup) => {
+        payload.baseCustomFieldGroups.forEach(baseCustomFieldGroup => {
           BaseCustomFieldGroup.upsert(baseCustomFieldGroup);
         });
 
         break;
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.PROJECT_CREATE_HANDLE:
-        payload.baseCustomFieldGroups.forEach((baseCustomFieldGroup) => {
+        payload.baseCustomFieldGroups.forEach(baseCustomFieldGroup => {
           BaseCustomFieldGroup.upsert(baseCustomFieldGroup);
         });
 
@@ -43,7 +43,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.baseCustomFieldGroups) {
-          payload.baseCustomFieldGroups.forEach((baseCustomFieldGroup) => {
+          payload.baseCustomFieldGroups.forEach(baseCustomFieldGroup => {
             BaseCustomFieldGroup.upsert(baseCustomFieldGroup);
           });
         }
@@ -96,7 +96,7 @@ export default class extends BaseModel {
   deleteRelated() {
     this.customFields.delete();
 
-    this.customFieldGroups.toModelArray().forEach((customFieldGroupModel) => {
+    this.customFieldGroups.toModelArray().forEach(customFieldGroupModel => {
       customFieldGroupModel.deleteWithRelated();
     });
   }

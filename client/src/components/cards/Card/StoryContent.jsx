@@ -45,24 +45,22 @@ const StoryContent = React.memo(({ cardId }) => {
     []
   );
 
-  const card = useSelector((state) => selectCardById(state, cardId));
-  const list = useSelector((state) => selectListById(state, card.listId));
-  const labelIds = useSelector((state) =>
-    selectLabelIdsByCardId(state, cardId)
-  );
-  const attachmentsTotal = useSelector((state) =>
+  const card = useSelector(state => selectCardById(state, cardId));
+  const list = useSelector(state => selectListById(state, card.listId));
+  const labelIds = useSelector(state => selectLabelIdsByCardId(state, cardId));
+  const attachmentsTotal = useSelector(state =>
     selectAttachmentsTotalByCardId(state, cardId)
   );
 
-  const customFieldValueIds = useSelector((state) =>
+  const customFieldValueIds = useSelector(state =>
     selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId)
   );
 
-  const notificationsTotal = useSelector((state) =>
+  const notificationsTotal = useSelector(state =>
     selectNotificationsTotalByCardId(state, cardId)
   );
 
-  const listName = useSelector((state) => {
+  const listName = useSelector(state => {
     if (!list.name) {
       return null;
     }
@@ -76,7 +74,7 @@ const StoryContent = React.memo(({ cardId }) => {
     return list.name;
   });
 
-  const coverUrl = useSelector((state) => {
+  const coverUrl = useSelector(state => {
     const attachment = selectAttachmentById(state, card.coverAttachmentId);
     return attachment && attachment.data.thumbnailUrls.outside360;
   });
@@ -98,7 +96,7 @@ const StoryContent = React.memo(({ cardId }) => {
       <div className={styles.wrapper}>
         {labelIds.length > 0 && (
           <span className={styles.labels}>
-            {labelIds.map((labelId) => (
+            {labelIds.map(labelId => (
               <span
                 key={labelId}
                 className={classNames(styles.attachment, styles.attachmentLeft)}
@@ -110,7 +108,7 @@ const StoryContent = React.memo(({ cardId }) => {
         )}
         {customFieldValueIds.length > 0 && (
           <span className={classNames(styles.labels)}>
-            {customFieldValueIds.map((customFieldValueId) => (
+            {customFieldValueIds.map(customFieldValueId => (
               <span
                 key={customFieldValueId}
                 className={classNames(styles.attachment, styles.attachmentLeft)}

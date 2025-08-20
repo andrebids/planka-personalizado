@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createBaseCustomFieldGroup = (baseCustomFieldGroup) => ({
+const createBaseCustomFieldGroup = baseCustomFieldGroup => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_CREATE,
   payload: {
     baseCustomFieldGroup,
@@ -28,7 +28,7 @@ createBaseCustomFieldGroup.failure = (localId, error) => ({
   },
 });
 
-const handleBaseCustomFieldGroupCreate = (baseCustomFieldGroup) => ({
+const handleBaseCustomFieldGroupCreate = baseCustomFieldGroup => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_CREATE_HANDLE,
   payload: {
     baseCustomFieldGroup,
@@ -43,7 +43,7 @@ const updateBaseCustomFieldGroup = (id, data) => ({
   },
 });
 
-updateBaseCustomFieldGroup.success = (baseCustomFieldGroup) => ({
+updateBaseCustomFieldGroup.success = baseCustomFieldGroup => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_UPDATE__SUCCESS,
   payload: {
     baseCustomFieldGroup,
@@ -58,21 +58,21 @@ updateBaseCustomFieldGroup.failure = (id, error) => ({
   },
 });
 
-const handleBaseCustomFieldGroupUpdate = (baseCustomFieldGroup) => ({
+const handleBaseCustomFieldGroupUpdate = baseCustomFieldGroup => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_UPDATE_HANDLE,
   payload: {
     baseCustomFieldGroup,
   },
 });
 
-const deleteBaseCustomFieldGroup = (id) => ({
+const deleteBaseCustomFieldGroup = id => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE,
   payload: {
     id,
   },
 });
 
-deleteBaseCustomFieldGroup.success = (baseCustomFieldGroup) => ({
+deleteBaseCustomFieldGroup.success = baseCustomFieldGroup => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE__SUCCESS,
   payload: {
     baseCustomFieldGroup,
@@ -87,7 +87,7 @@ deleteBaseCustomFieldGroup.failure = (id, error) => ({
   },
 });
 
-const handleBaseCustomFieldGroupDelete = (baseCustomFieldGroup) => ({
+const handleBaseCustomFieldGroupDelete = baseCustomFieldGroup => ({
   type: ActionTypes.BASE_CUSTOM_FIELD_GROUP_DELETE_HANDLE,
   payload: {
     baseCustomFieldGroup,

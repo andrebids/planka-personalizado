@@ -33,14 +33,14 @@ const StepTypes = {
 const ActionsStep = React.memo(({ listId, onNameEdit, onCardAdd, onClose }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const list = useSelector((state) => selectListById(state, listId));
+  const list = useSelector(state => selectListById(state, listId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
   const [step, openStep, handleBack] = useSteps();
 
   const handleTypeSelect = useCallback(
-    (type) => {
+    type => {
       dispatch(
         entryActions.updateList(listId, {
           type,

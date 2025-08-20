@@ -25,7 +25,7 @@ const UsersPane = React.memo(() => {
   const users = useSelector(selectors.selectUsersExceptCurrent);
   const activeUsersTotal = useSelector(selectors.selectActiveUsersTotal);
 
-  const canAdd = useSelector((state) => {
+  const canAdd = useSelector(state => {
     const oidcConfig = selectors.selectOidcConfig(state);
     return !oidcConfig || !oidcConfig.isEnforced;
   });
@@ -40,7 +40,7 @@ const UsersPane = React.memo(() => {
 
   const filteredUsers = useMemo(
     () =>
-      users.filter((user) => {
+      users.filter(user => {
         if (isDeactivatedVisible) {
           if (!user.isDeactivated) {
             return false;
@@ -95,7 +95,7 @@ const UsersPane = React.memo(() => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {filteredUsers.map((user) => (
+            {filteredUsers.map(user => (
               <Item key={user.id} id={user.id} />
             ))}
           </Table.Body>

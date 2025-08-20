@@ -5,28 +5,28 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createUser = (data) => ({
+const createUser = data => ({
   type: ActionTypes.USER_CREATE,
   payload: {
     data,
   },
 });
 
-createUser.success = (user) => ({
+createUser.success = user => ({
   type: ActionTypes.USER_CREATE__SUCCESS,
   payload: {
     user,
   },
 });
 
-createUser.failure = (error) => ({
+createUser.failure = error => ({
   type: ActionTypes.USER_CREATE__FAILURE,
   payload: {
     error,
   },
 });
 
-const handleUserCreate = (user) => ({
+const handleUserCreate = user => ({
   type: ActionTypes.USER_CREATE_HANDLE,
   payload: {
     user,
@@ -46,7 +46,7 @@ const updateUser = (id, data) => ({
   },
 });
 
-updateUser.success = (user) => ({
+updateUser.success = user => ({
   type: ActionTypes.USER_UPDATE__SUCCESS,
   payload: {
     user,
@@ -126,7 +126,7 @@ const updateUserEmail = (id, data) => ({
   },
 });
 
-updateUserEmail.success = (user) => ({
+updateUserEmail.success = user => ({
   type: ActionTypes.USER_EMAIL_UPDATE__SUCCESS,
   payload: {
     user,
@@ -141,7 +141,7 @@ updateUserEmail.failure = (id, error) => ({
   },
 });
 
-const clearUserEmailUpdateError = (id) => ({
+const clearUserEmailUpdateError = id => ({
   type: ActionTypes.USER_EMAIL_UPDATE_ERROR_CLEAR,
   payload: {
     id,
@@ -172,7 +172,7 @@ updateUserPassword.failure = (id, error) => ({
   },
 });
 
-const clearUserPasswordUpdateError = (id) => ({
+const clearUserPasswordUpdateError = id => ({
   type: ActionTypes.USER_PASSWORD_UPDATE_ERROR_CLEAR,
   payload: {
     id,
@@ -187,7 +187,7 @@ const updateUserUsername = (id, data) => ({
   },
 });
 
-updateUserUsername.success = (user) => ({
+updateUserUsername.success = user => ({
   type: ActionTypes.USER_USERNAME_UPDATE__SUCCESS,
   payload: {
     user,
@@ -202,21 +202,21 @@ updateUserUsername.failure = (id, error) => ({
   },
 });
 
-const clearUserUsernameUpdateError = (id) => ({
+const clearUserUsernameUpdateError = id => ({
   type: ActionTypes.USER_USERNAME_UPDATE_ERROR_CLEAR,
   payload: {
     id,
   },
 });
 
-const updateUserAvatar = (id) => ({
+const updateUserAvatar = id => ({
   type: ActionTypes.USER_AVATAR_UPDATE,
   payload: {
     id,
   },
 });
 
-updateUserAvatar.success = (user) => ({
+updateUserAvatar.success = user => ({
   type: ActionTypes.USER_AVATAR_UPDATE__SUCCESS,
   payload: {
     user,
@@ -231,14 +231,14 @@ updateUserAvatar.failure = (id, error) => ({
   },
 });
 
-const deleteUser = (id) => ({
+const deleteUser = id => ({
   type: ActionTypes.USER_DELETE,
   payload: {
     id,
   },
 });
 
-deleteUser.success = (user) => ({
+deleteUser.success = user => ({
   type: ActionTypes.USER_DELETE__SUCCESS,
   payload: {
     user,
@@ -253,7 +253,7 @@ deleteUser.failure = (id, error) => ({
   },
 });
 
-const handleUserDelete = (user) => ({
+const handleUserDelete = user => ({
   type: ActionTypes.USER_DELETE_HANDLE,
   payload: {
     user,
@@ -269,7 +269,7 @@ const addUserToCard = (id, cardId, isCurrent) => ({
   },
 });
 
-addUserToCard.success = (cardMembership) => ({
+addUserToCard.success = cardMembership => ({
   type: ActionTypes.USER_TO_CARD_ADD__SUCCESS,
   payload: {
     cardMembership,
@@ -285,7 +285,7 @@ addUserToCard.failure = (id, cardId, error) => ({
   },
 });
 
-const handleUserToCardAdd = (cardMembership) => ({
+const handleUserToCardAdd = cardMembership => ({
   type: ActionTypes.USER_TO_CARD_ADD_HANDLE,
   payload: {
     cardMembership,
@@ -300,7 +300,7 @@ const removeUserFromCard = (id, cardId) => ({
   },
 });
 
-removeUserFromCard.success = (cardMembership) => ({
+removeUserFromCard.success = cardMembership => ({
   type: ActionTypes.USER_FROM_CARD_REMOVE__SUCCESS,
   payload: {
     cardMembership,
@@ -316,7 +316,7 @@ removeUserFromCard.failure = (id, cardId, error) => ({
   },
 });
 
-const handleUserFromCardRemove = (cardMembership) => ({
+const handleUserFromCardRemove = cardMembership => ({
   type: ActionTypes.USER_FROM_CARD_REMOVE_HANDLE,
   payload: {
     cardMembership,

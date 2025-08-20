@@ -62,7 +62,7 @@ const EditInformation = React.memo(() => {
   }, [submit]);
 
   const handleDescriptionKeyDown = useCallback(
-    (event) => {
+    event => {
       if (isModifierKeyPressed(event) && event.key === 'Enter') {
         submit();
       }

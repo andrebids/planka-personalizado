@@ -20,7 +20,7 @@ export const handleLocationChange = (
 
 export const HISTORY_METHOD_CALL = '@@router/HISTORY_METHOD_CALL';
 
-const createHistoryMethodCaller = (method) => {
+const createHistoryMethodCaller = method => {
   return (...args) => ({
     type: HISTORY_METHOD_CALL,
     payload: {

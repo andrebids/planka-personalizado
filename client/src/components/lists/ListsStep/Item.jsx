@@ -19,7 +19,7 @@ import styles from './Item.module.scss';
 const Item = React.memo(({ id, isActive, onSelect }) => {
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const list = useSelector((state) => selectListById(state, id));
+  const list = useSelector(state => selectListById(state, id));
 
   const [t] = useTranslation();
 

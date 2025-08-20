@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import Config from '../constants/Config';
 
-export const setAccessToken = (accessToken) => {
+export const setAccessToken = accessToken => {
   const { exp } = jwtDecode(accessToken);
   const expires = new Date(exp * 1000);
 

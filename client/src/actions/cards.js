@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const fetchCards = (listId) => ({
+const fetchCards = listId => ({
   type: ActionTypes.CARDS_FETCH,
   payload: {
     listId,
@@ -116,7 +116,7 @@ const updateCard = (id, data) => ({
   },
 });
 
-updateCard.success = (card) => ({
+updateCard.success = card => ({
   type: ActionTypes.CARD_UPDATE__SUCCESS,
   payload: {
     card,
@@ -204,14 +204,14 @@ duplicateCard.failure = (localId, error) => ({
   },
 });
 
-const deleteCard = (id) => ({
+const deleteCard = id => ({
   type: ActionTypes.CARD_DELETE,
   payload: {
     id,
   },
 });
 
-deleteCard.success = (card) => ({
+deleteCard.success = card => ({
   type: ActionTypes.CARD_DELETE__SUCCESS,
   payload: {
     card,
@@ -226,7 +226,7 @@ deleteCard.failure = (id, error) => ({
   },
 });
 
-const handleCardDelete = (card) => ({
+const handleCardDelete = card => ({
   type: ActionTypes.CARD_DELETE_HANDLE,
   payload: {
     card,

@@ -5,14 +5,14 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createTaskListInCurrentCard = (data) => ({
+const createTaskListInCurrentCard = data => ({
   type: EntryActionTypes.TASK_LIST_IN_CURRENT_CARD_CREATE,
   payload: {
     data,
   },
 });
 
-const handleTaskListCreate = (taskList) => ({
+const handleTaskListCreate = taskList => ({
   type: EntryActionTypes.TASK_LIST_CREATE_HANDLE,
   payload: {
     taskList,
@@ -27,7 +27,7 @@ const updateTaskList = (id, data) => ({
   },
 });
 
-const handleTaskListUpdate = (taskList) => ({
+const handleTaskListUpdate = taskList => ({
   type: EntryActionTypes.TASK_LIST_UPDATE_HANDLE,
   payload: {
     taskList,
@@ -42,14 +42,14 @@ const moveTaskList = (id, index) => ({
   },
 });
 
-const deleteTaskList = (id) => ({
+const deleteTaskList = id => ({
   type: EntryActionTypes.TASK_LIST_DELETE,
   payload: {
     id,
   },
 });
 
-const handleTaskListDelete = (taskList) => ({
+const handleTaskListDelete = taskList => ({
   type: EntryActionTypes.TASK_LIST_DELETE_HANDLE,
   payload: {
     taskList,

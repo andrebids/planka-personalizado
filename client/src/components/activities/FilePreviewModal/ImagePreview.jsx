@@ -32,11 +32,11 @@ const ImagePreview = ({ file, onClose }) => {
   }, []);
 
   const handleZoomIn = useCallback(() => {
-    setZoom((prev) => Math.min(prev + 0.25, 3));
+    setZoom(prev => Math.min(prev + 0.25, 3));
   }, []);
 
   const handleZoomOut = useCallback(() => {
-    setZoom((prev) => Math.max(prev - 0.25, 0.5));
+    setZoom(prev => Math.max(prev - 0.25, 0.5));
   }, []);
 
   const handleResetZoom = useCallback(() => {
@@ -45,7 +45,7 @@ const ImagePreview = ({ file, onClose }) => {
   }, []);
 
   const handleMouseDown = useCallback(
-    (e) => {
+    e => {
       if (zoom > 1) {
         setIsDragging(true);
         setDragStart({
@@ -58,7 +58,7 @@ const ImagePreview = ({ file, onClose }) => {
   );
 
   const handleMouseMove = useCallback(
-    (e) => {
+    e => {
       if (isDragging && zoom > 1) {
         setPosition({
           x: e.clientX - dragStart.x,

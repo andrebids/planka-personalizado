@@ -18,7 +18,7 @@ const Thumbnail = React.memo(({ attachmentId }) => {
     []
   );
 
-  const attachment = useSelector((state) =>
+  const attachment = useSelector(state =>
     selectAttachmentById(state, attachmentId)
   );
 

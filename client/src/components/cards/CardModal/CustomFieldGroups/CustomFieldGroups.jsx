@@ -49,7 +49,7 @@ const CustomFieldGroups = React.memo(() => {
 
   return (
     <>
-      {boardCustomFieldGroupIds.map((customFieldGroupId) => (
+      {boardCustomFieldGroupIds.map(customFieldGroupId => (
         <div key={customFieldGroupId} className={styles.item}>
           <Item id={customFieldGroupId} />
         </div>

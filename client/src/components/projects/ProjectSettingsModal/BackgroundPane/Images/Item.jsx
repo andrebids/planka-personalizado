@@ -21,11 +21,11 @@ const Item = React.memo(({ id }) => {
     []
   );
 
-  const backgroundImage = useSelector((state) =>
+  const backgroundImage = useSelector(state =>
     selectBackgroundImageById(state, id)
   );
 
-  const isActive = useSelector((state) => {
+  const isActive = useSelector(state => {
     const { backgroundType, backgroundImageId } =
       selectors.selectCurrentProject(state);
     return (

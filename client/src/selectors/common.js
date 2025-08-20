@@ -11,9 +11,9 @@ export const selectIsInitializing = ({ common: { isInitializing } }) =>
 
 export const selectConfig = ({ common: { config } }) => config;
 
-export const selectOidcConfig = (state) => selectConfig(state).oidc;
+export const selectOidcConfig = state => selectConfig(state).oidc;
 
-export const selectActiveUsersLimit = (state) =>
+export const selectActiveUsersLimit = state =>
   selectConfig(state).activeUsersLimit;
 
 export const selectAccessToken = ({ auth: { accessToken } }) => accessToken;

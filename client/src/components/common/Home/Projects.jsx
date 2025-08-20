@@ -19,7 +19,7 @@ import styles from './Projects.module.scss';
 
 const Projects = React.memo(
   ({ ids, title, titleIcon, withTypeIndicator, onAdd }) => {
-    const canAdd = useSelector((state) => {
+    const canAdd = useSelector(state => {
       const user = selectors.selectCurrentUser(state);
       return isUserAdminOrProjectOwner(user);
     });
@@ -44,7 +44,7 @@ const Projects = React.memo(
           </div>
         )}
         <Grid>
-          {ids.map((id) => (
+          {ids.map(id => (
             <Grid.Column key={id} className={styles.column}>
               <ProjectCard
                 withDescription

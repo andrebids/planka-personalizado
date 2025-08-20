@@ -27,7 +27,7 @@ const StepTypes = {
   SELECT_ROLE: 'SELECT_ROLE',
 };
 
-const createMessage = (error) => {
+const createMessage = error => {
   if (!error) {
     return error;
   }
@@ -118,8 +118,8 @@ const AddStep = React.memo(({ onClose }) => {
   ]);
 
   const handleRoleSelect = useCallback(
-    (role) => {
-      setData((prevData) => ({
+    role => {
+      setData(prevData => ({
         ...prevData,
         role,
       }));

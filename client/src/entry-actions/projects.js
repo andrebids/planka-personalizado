@@ -5,35 +5,35 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const searchProjects = (value) => ({
+const searchProjects = value => ({
   type: EntryActionTypes.PROJECTS_SEARCH,
   payload: {
     value,
   },
 });
 
-const updateProjectsOrder = (value) => ({
+const updateProjectsOrder = value => ({
   type: EntryActionTypes.PROJECTS_ORDER_UPDATE,
   payload: {
     value,
   },
 });
 
-const toggleHiddenProjects = (isVisible) => ({
+const toggleHiddenProjects = isVisible => ({
   type: EntryActionTypes.HIDDEN_PROJECTS_TOGGLE,
   payload: {
     isVisible,
   },
 });
 
-const createProject = (data) => ({
+const createProject = data => ({
   type: EntryActionTypes.PROJECT_CREATE,
   payload: {
     data,
   },
 });
 
-const handleProjectCreate = (project) => ({
+const handleProjectCreate = project => ({
   type: EntryActionTypes.PROJECT_CREATE_HANDLE,
   payload: {
     project,
@@ -48,14 +48,14 @@ const updateProject = (id, data) => ({
   },
 });
 
-const updateCurrentProject = (data) => ({
+const updateCurrentProject = data => ({
   type: EntryActionTypes.CURRENT_PROJECT_UPDATE,
   payload: {
     data,
   },
 });
 
-const handleProjectUpdate = (project) => ({
+const handleProjectUpdate = project => ({
   type: EntryActionTypes.PROJECT_UPDATE_HANDLE,
   payload: {
     project,
@@ -67,7 +67,7 @@ const deleteCurrentProject = () => ({
   payload: {},
 });
 
-const handleProjectDelete = (project) => ({
+const handleProjectDelete = project => ({
   type: EntryActionTypes.PROJECT_DELETE_HANDLE,
   payload: {
     project,

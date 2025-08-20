@@ -10,14 +10,14 @@ const deleteAllNotifications = () => ({
   payload: {},
 });
 
-deleteAllNotifications.success = (notifications) => ({
+deleteAllNotifications.success = notifications => ({
   type: ActionTypes.ALL_NOTIFICATIONS_DELETE__SUCCESS,
   payload: {
     notifications,
   },
 });
 
-deleteAllNotifications.failure = (error) => ({
+deleteAllNotifications.failure = error => ({
   type: ActionTypes.ALL_NOTIFICATIONS_DELETE__FAILURE,
   payload: {
     error,
@@ -32,14 +32,14 @@ const handleNotificationCreate = (notification, users) => ({
   },
 });
 
-const deleteNotification = (id) => ({
+const deleteNotification = id => ({
   type: ActionTypes.NOTIFICATION_DELETE,
   payload: {
     id,
   },
 });
 
-deleteNotification.success = (notification) => ({
+deleteNotification.success = notification => ({
   type: ActionTypes.NOTIFICATION_DELETE__SUCCESS,
   payload: {
     notification,
@@ -54,7 +54,7 @@ deleteNotification.failure = (id, error) => ({
   },
 });
 
-const handleNotificationDelete = (notification) => ({
+const handleNotificationDelete = notification => ({
   type: ActionTypes.NOTIFICATION_DELETE_HANDLE,
   payload: {
     notification,

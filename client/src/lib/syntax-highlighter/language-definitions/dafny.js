@@ -21,7 +21,7 @@ Website: https://github.com/dafny-lang/dafny
    limitations under the License.
  */
 
-export default (hljs) => {
+export default hljs => {
   const IDENT_WITH_BRACKETS = /[a-zA-Z][a-zA-Z_<>0-9]*/;
 
   const DAFNY_KEYWORDS = [

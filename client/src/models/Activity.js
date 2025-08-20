@@ -44,14 +44,14 @@ export default class extends BaseModel {
       case ActionTypes.LIST_CARDS_MOVE__SUCCESS:
       case ActionTypes.ACTIVITIES_IN_BOARD_FETCH__SUCCESS:
       case ActionTypes.ACTIVITIES_IN_CARD_FETCH__SUCCESS:
-        payload.activities.forEach((activity) => {
+        payload.activities.forEach(activity => {
           Activity.upsert(activity);
         });
 
         break;
       case ActionTypes.CARDS_UPDATE_HANDLE:
         if (payload.activities) {
-          payload.activities.forEach((activity) => {
+          payload.activities.forEach(activity => {
             Activity.upsert(activity);
           });
         }

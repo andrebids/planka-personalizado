@@ -15,7 +15,7 @@ const fetchActivitiesInCurrentCard = () => ({
   payload: {},
 });
 
-const handleActivityCreate = (activity) => ({
+const handleActivityCreate = activity => ({
   type: EntryActionTypes.ACTIVITY_CREATE_HANDLE,
   payload: {
     activity,

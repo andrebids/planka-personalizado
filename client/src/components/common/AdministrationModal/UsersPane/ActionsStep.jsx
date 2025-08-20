@@ -38,14 +38,14 @@ const ActionsStep = React.memo(({ userId, onClose }) => {
 
   const activeUsersLimit = useSelector(selectors.selectActiveUsersLimit);
   const activeUsersTotal = useSelector(selectors.selectActiveUsersTotal);
-  const user = useSelector((state) => selectUserById(state, userId));
+  const user = useSelector(state => selectUserById(state, userId));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();
   const [step, openStep, handleBack] = useSteps();
 
   const handleRoleSelect = useCallback(
-    (role) => {
+    role => {
       dispatch(
         entryActions.updateUser(userId, {
           role,

@@ -19,7 +19,7 @@ import styles from './ManagersPane.module.scss';
 const ManagersPane = React.memo(() => {
   // TODO: rename?
   const isShared = useSelector(
-    (state) => !selectors.selectCurrentProject(state).ownerProjectManagerId
+    state => !selectors.selectCurrentProject(state).ownerProjectManagerId
   );
 
   const dispatch = useDispatch();

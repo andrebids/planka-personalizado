@@ -23,7 +23,7 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
   const selectCardById = useMemo(() => selectors.makeSelectCardById(), []);
 
   const defaultValue = useSelector(
-    (state) => selectCardById(state, cardId).dueDate
+    state => selectCardById(state, cardId).dueDate
   );
 
   const dispatch = useDispatch();
@@ -116,8 +116,8 @@ const EditDueDateStep = React.memo(({ cardId, onBack, onClose }) => {
   }, [cardId, onClose, defaultValue, dispatch]);
 
   const handleDatePickerChange = useCallback(
-    (date) => {
-      setData((prevData) => ({
+    date => {
+      setData(prevData => ({
         ...prevData,
         date: t('format:date', {
           postProcess: 'formatDate',

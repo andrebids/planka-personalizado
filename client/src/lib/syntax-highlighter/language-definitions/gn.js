@@ -36,7 +36,7 @@
  * Category: common
  */
 
-export default (hljs) => {
+export default hljs => {
   const SUBST = {
     className: 'subst',
     relevance: 2,

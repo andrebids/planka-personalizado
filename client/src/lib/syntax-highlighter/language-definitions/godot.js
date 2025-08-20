@@ -37,7 +37,7 @@ Author: Khairul Hidayat <me@khairul.my.id>, Nelson Sylvest*r Fritsch <info@nelso
 Description: Programming language for Godot Engine
 */
 
-export default (hljs) => {
+export default hljs => {
   const KEYWORDS = {
     keyword:
       'and in not or self void as assert breakpoint class class_name ' +

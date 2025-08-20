@@ -27,7 +27,7 @@ const ProjectItem = React.memo(({ project }) => {
     []
   );
 
-  const backgroundImageUrl = useSelector((state) => {
+  const backgroundImageUrl = useSelector(state => {
     if (
       !project.backgroundType ||
       project.backgroundType !== ProjectBackgroundTypes.IMAGE
@@ -62,7 +62,7 @@ const ProjectItem = React.memo(({ project }) => {
   };
 
   const handleFavoriteClick = useCallback(
-    (e) => {
+    e => {
       e.preventDefault();
       e.stopPropagation();
 
@@ -76,7 +76,7 @@ const ProjectItem = React.memo(({ project }) => {
   );
 
   const handleFavoriteKeyDown = useCallback(
-    (e) => {
+    e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         e.stopPropagation();

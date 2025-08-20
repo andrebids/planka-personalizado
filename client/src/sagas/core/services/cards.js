@@ -24,8 +24,8 @@ import {
 } from '../../../constants/Enums';
 
 // eslint-disable-next-line no-underscore-dangle
-const _preloadImage = (url) =>
-  new Promise((resolve) => {
+const _preloadImage = url =>
+  new Promise(resolve => {
     const image = new Image();
 
     image.onload = resolve;
@@ -70,7 +70,7 @@ export function* fetchCards(listId) {
   const [response] = yield race([
     join(getCardsRequestTask),
     take(
-      (action) =>
+      action =>
         action.type === ActionTypes.CARDS_FETCH &&
         action.payload.listId === listId
     ),
@@ -165,7 +165,7 @@ export function* createCard(listId, data, autoOpen) {
     watchForCreateCardActionTask = yield fork(
       function* watchForCreateCardAction() {
         yield take(
-          (action) =>
+          action =>
             action.type === ActionTypes.CARD_CREATE && action.payload.autoOpen
         );
       }
@@ -612,7 +612,7 @@ export function* duplicateCard(id, data) {
 
   if (card.coverAttachmentId) {
     const coverAttachment = attachments.find(
-      (attachment) => attachment.id === card.coverAttachmentId
+      attachment => attachment.id === card.coverAttachmentId
     );
 
     if (coverAttachment) {

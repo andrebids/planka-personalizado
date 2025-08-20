@@ -17,7 +17,7 @@ const POSITION_BY_LIST_TYPE = {
   [ListTypes.TRASH]: Number.MAX_SAFE_INTEGER,
 };
 
-const prepareList = (list) => {
+const prepareList = list => {
   if (list.position === undefined) {
     return list;
   }
@@ -63,7 +63,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.lists) {
-          payload.lists.forEach((list) => {
+          payload.lists.forEach(list => {
             List.upsert(prepareList(list));
           });
         }
@@ -73,7 +73,7 @@ export default class extends BaseModel {
         List.all().delete();
 
         if (payload.lists) {
-          payload.lists.forEach((list) => {
+          payload.lists.forEach(list => {
             List.upsert(prepareList(list));
           });
         }
@@ -94,7 +94,7 @@ export default class extends BaseModel {
 
         break;
       case ActionTypes.BOARD_FETCH__SUCCESS:
-        payload.lists.forEach((list) => {
+        payload.lists.forEach(list => {
           List.upsert(prepareList(list));
         });
 
@@ -214,7 +214,7 @@ export default class extends BaseModel {
     const cardModels = this.getCardsQuerySet().toModelArray();
 
     if (!isFinite && this.lastCard && this.isAllCardsFetched === false) {
-      return cardModels.filter((cardModel) => {
+      return cardModels.filter(cardModel => {
         if (cardModel.listChangedAt > this.lastCard.listChangedAt) {
           return true;
         }
@@ -256,7 +256,7 @@ export default class extends BaseModel {
 
         if (searchRegex) {
           cardModels = cardModels.filter(
-            (cardModel) =>
+            cardModel =>
               searchRegex.test(cardModel.name) ||
               (cardModel.description && searchRegex.test(cardModel.description))
           );
@@ -264,13 +264,13 @@ export default class extends BaseModel {
       } else {
         const searchParts = buildSearchParts(this.board.search);
 
-        cardModels = cardModels.filter((cardModel) => {
+        cardModels = cardModels.filter(cardModel => {
           const name = cardModel.name.toLowerCase();
           const description =
             cardModel.description && cardModel.description.toLowerCase();
 
           return searchParts.every(
-            (searchPart) =>
+            searchPart =>
               name.includes(searchPart) ||
               (description && description.includes(searchPart))
           );
@@ -280,23 +280,23 @@ export default class extends BaseModel {
 
     const filterUserIds = this.board.filterUsers
       .toRefArray()
-      .map((user) => user.id);
+      .map(user => user.id);
 
     if (filterUserIds.length > 0) {
-      cardModels = cardModels.filter((cardModel) => {
+      cardModels = cardModels.filter(cardModel => {
         const users = cardModel.users.toRefArray();
-        return users.some((user) => filterUserIds.includes(user.id));
+        return users.some(user => filterUserIds.includes(user.id));
       });
     }
 
     const filterLabelIds = this.board.filterLabels
       .toRefArray()
-      .map((label) => label.id);
+      .map(label => label.id);
 
     if (filterLabelIds.length > 0) {
-      cardModels = cardModels.filter((cardModel) => {
+      cardModels = cardModels.filter(cardModel => {
         const labels = cardModel.labels.toRefArray();
-        return labels.some((label) => filterLabelIds.includes(label.id));
+        return labels.some(label => filterLabelIds.includes(label.id));
       });
     }
 
@@ -349,7 +349,7 @@ export default class extends BaseModel {
   }
 
   deleteRelated() {
-    this.cards.toModelArray().forEach((cardModel) => {
+    this.cards.toModelArray().forEach(cardModel => {
       cardModel.deleteWithRelated();
     });
   }

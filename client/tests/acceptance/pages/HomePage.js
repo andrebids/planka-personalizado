@@ -1,10 +1,10 @@
-import Config from '../Config.js';
+import Config from "../Config.js";
 
 export default class HomePage {
   constructor() {
     this.url = Config.BASE_URL;
 
-    this.userActionSelector = 'div.menu > a:last-child';
+    this.userActionSelector = "div.menu > a:last-child";
     this.logOutSelector = 'a:has-text("Log Out")';
   }
 

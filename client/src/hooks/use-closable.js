@@ -8,7 +8,7 @@ import { useCallback, useRef } from 'react';
 export default (initialValue = false) => {
   const isActiveRef = useRef(initialValue);
 
-  const setIsActive = useCallback((isActive) => {
+  const setIsActive = useCallback(isActive => {
     setTimeout(() => {
       isActiveRef.current = isActive;
     });

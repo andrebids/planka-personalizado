@@ -20,7 +20,7 @@ const Item = React.memo(({ id, index, onEdit }) => {
     []
   );
 
-  const customFieldGroup = useSelector((state) =>
+  const customFieldGroup = useSelector(state =>
     selectCustomFieldGroupById(state, id)
   );
 

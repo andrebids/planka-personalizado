@@ -22,7 +22,7 @@ const MAX_LENGTH = 1048576;
 const EditMarkdown = React.memo(
   ({ defaultValue, draftValue, onUpdate, onClose }) => {
     const defaultMode = useSelector(
-      (state) => selectors.selectCurrentUser(state).defaultEditorMode
+      state => selectors.selectCurrentUser(state).defaultEditorMode
     );
 
     const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const EditMarkdown = React.memo(
     const [cancelButtonRef, handleCancelButtonRef] = useNestedRef();
 
     const handleModeChange = useCallback(
-      (mode) => {
+      mode => {
         dispatch(
           entryActions.updateCurrentUser({
             defaultEditorMode: mode,
@@ -56,7 +56,7 @@ const EditMarkdown = React.memo(
       onClose(isExceeded ? cleanValue : null);
     }, [onUpdate, onClose, defaultValue, value, isExceeded]);
 
-    const handleChange = useCallback((nextValue) => {
+    const handleChange = useCallback(nextValue => {
       setValue(nextValue);
     }, []);
 

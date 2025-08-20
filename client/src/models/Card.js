@@ -88,7 +88,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.cards) {
-          payload.cards.forEach((card) => {
+          payload.cards.forEach(card => {
             Card.upsert(card);
           });
         }
@@ -109,12 +109,12 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         Card.all()
           .toModelArray()
-          .forEach((cardModel) => {
+          .forEach(cardModel => {
             cardModel.deleteWithClearable();
           });
 
         if (payload.cards) {
-          payload.cards.forEach((card) => {
+          payload.cards.forEach(card => {
             Card.upsert(card);
           });
         }
@@ -169,7 +169,7 @@ export default class extends BaseModel {
 
         break;
       case ActionTypes.BOARD_FETCH__SUCCESS:
-        payload.cards.forEach((card) => {
+        payload.cards.forEach(card => {
           Card.upsert(card);
         });
 
@@ -232,7 +232,7 @@ export default class extends BaseModel {
       case ActionTypes.LIST_CARDS_MOVE__SUCCESS:
       case ActionTypes.LIST_DELETE__SUCCESS:
       case ActionTypes.CARDS_UPDATE_HANDLE:
-        payload.cards.forEach((card) => {
+        payload.cards.forEach(card => {
           Card.upsert(card);
         });
 
@@ -240,7 +240,7 @@ export default class extends BaseModel {
       case ActionTypes.LIST_CARDS_MOVE: {
         const listChangedAt = new Date();
 
-        payload.cardIds.forEach((cardId) => {
+        payload.cardIds.forEach(cardId => {
           const cardModel = Card.withId(cardId);
 
           cardModel.update({
@@ -255,7 +255,7 @@ export default class extends BaseModel {
       case ActionTypes.LIST_DELETE: {
         const listChangedAt = new Date();
 
-        payload.cardIds.forEach((cardId) => {
+        payload.cardIds.forEach(cardId => {
           Card.withId(cardId).update({
             listChangedAt,
             listId: payload.trashId,
@@ -266,14 +266,14 @@ export default class extends BaseModel {
       }
       case ActionTypes.LIST_DELETE_HANDLE:
         if (payload.cards) {
-          payload.cards.forEach((card) => {
+          payload.cards.forEach(card => {
             Card.upsert(card);
           });
         }
 
         break;
       case ActionTypes.CARDS_FETCH__SUCCESS:
-        payload.cards.forEach((card) => {
+        payload.cards.forEach(card => {
           const cardModel = Card.withId(card.id);
 
           if (cardModel) {
@@ -486,7 +486,7 @@ export default class extends BaseModel {
   getShownOnFrontOfCardTaskListsModelArray() {
     return this.getTaskListsQuerySet()
       .toModelArray()
-      .filter((taskListModel) => taskListModel.showOnFrontOfCard);
+      .filter(taskListModel => taskListModel.showOnFrontOfCard);
   }
 
   getCommentsModelArray() {
@@ -497,7 +497,7 @@ export default class extends BaseModel {
     const commentModels = this.getCommentsQuerySet().toModelArray();
 
     if (this.lastCommentId && this.isAllCommentsFetched === false) {
-      return commentModels.filter((commentModel) => {
+      return commentModels.filter(commentModel => {
         if (commentModel.id.length > this.lastCommentId.length) {
           return true;
         }
@@ -521,7 +521,7 @@ export default class extends BaseModel {
     const activityModels = this.getActivitiesQuerySet().toModelArray();
 
     if (this.lastActivityId && this.isAllActivitiesFetched === false) {
-      return activityModels.filter((activityModel) => {
+      return activityModels.filter(activityModel => {
         if (activityModel.id.length > this.lastActivityId.length) {
           return true;
         }
@@ -571,21 +571,21 @@ export default class extends BaseModel {
       ...data,
     });
 
-    this.users.toRefArray().forEach((user) => {
+    this.users.toRefArray().forEach(user => {
       cardModel.users.add(user.id);
     });
 
-    this.labels.toRefArray().forEach((label) => {
+    this.labels.toRefArray().forEach(label => {
       cardModel.labels.add(label.id);
     });
 
-    this.taskLists.toModelArray().forEach((taskListModel) => {
+    this.taskLists.toModelArray().forEach(taskListModel => {
       taskListModel.duplicate(`${taskListModel.id}-${rootId}`, {
         cardId: cardModel.id,
       });
     });
 
-    this.attachments.toModelArray().forEach((attachmentModel) => {
+    this.attachments.toModelArray().forEach(attachmentModel => {
       attachmentModel.duplicate(`${attachmentModel.id}-${rootId}`, {
         cardId: cardModel.id,
         ...(data.creatorUserId && {
@@ -594,7 +594,7 @@ export default class extends BaseModel {
       });
     });
 
-    this.customFieldGroups.toModelArray().forEach((customFieldGroupModel) => {
+    this.customFieldGroups.toModelArray().forEach(customFieldGroupModel => {
       customFieldGroupModel.duplicate(
         `${customFieldGroupModel.id}-${rootId}`,
         {
@@ -604,7 +604,7 @@ export default class extends BaseModel {
       );
     });
 
-    this.customFieldValues.toModelArray().forEach((customFieldValueModel) => {
+    this.customFieldValues.toModelArray().forEach(customFieldValueModel => {
       const customFieldValueData = {
         cardId: cardModel.id,
       };
@@ -631,13 +631,13 @@ export default class extends BaseModel {
   deleteRelated() {
     this.deleteClearable();
 
-    this.taskLists.toModelArray().forEach((taskListModel) => {
+    this.taskLists.toModelArray().forEach(taskListModel => {
       taskListModel.deleteWithRelated();
     });
 
     this.attachments.delete();
 
-    this.customFieldGroups.toModelArray().forEach((customFieldGroupModel) => {
+    this.customFieldGroups.toModelArray().forEach(customFieldGroupModel => {
       customFieldGroupModel.deleteWithRelated();
     });
 

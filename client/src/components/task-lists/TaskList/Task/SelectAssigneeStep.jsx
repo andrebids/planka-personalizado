@@ -16,7 +16,7 @@ const SelectAssigneeStep = React.memo(
     }, [onUserDeselect, onClose]);
 
     const handleUserSelect = useCallback(
-      (userId) => {
+      userId => {
         onUserSelect(userId);
         onClose();
       },

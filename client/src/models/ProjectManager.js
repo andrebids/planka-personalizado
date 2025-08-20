@@ -30,7 +30,7 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         ProjectManager.all().delete();
 
-        payload.projectManagers.forEach((projectManager) => {
+        payload.projectManagers.forEach(projectManager => {
           ProjectManager.upsert(projectManager);
         });
 
@@ -38,7 +38,7 @@ export default class extends BaseModel {
       case ActionTypes.CORE_INITIALIZE:
       case ActionTypes.PROJECT_CREATE__SUCCESS:
       case ActionTypes.PROJECT_CREATE_HANDLE:
-        payload.projectManagers.forEach((projectManager) => {
+        payload.projectManagers.forEach(projectManager => {
           ProjectManager.upsert(projectManager);
         });
 
@@ -47,7 +47,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_UPDATE_HANDLE:
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
         if (payload.projectManagers) {
-          payload.projectManagers.forEach((projectManager) => {
+          payload.projectManagers.forEach(projectManager => {
             ProjectManager.upsert(projectManager);
           });
         }
@@ -70,7 +70,7 @@ export default class extends BaseModel {
         ProjectManager.upsert(payload.projectManager);
 
         if (payload.projectManagers) {
-          payload.projectManagers.forEach((projectManager) => {
+          payload.projectManagers.forEach(projectManager => {
             ProjectManager.upsert(projectManager);
           });
         }

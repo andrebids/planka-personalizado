@@ -20,7 +20,7 @@ const CreationDetailsStep = React.memo(({ userId }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
   const card = useSelector(selectors.selectCurrentCard);
-  const user = useSelector((state) => selectUserById(state, userId));
+  const user = useSelector(state => selectUserById(state, userId));
 
   const [t] = useTranslation();
 

@@ -5,14 +5,14 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createUser = (data) => ({
+const createUser = data => ({
   type: EntryActionTypes.USER_CREATE,
   payload: {
     data,
   },
 });
 
-const handleUserCreate = (user) => ({
+const handleUserCreate = user => ({
   type: EntryActionTypes.USER_CREATE_HANDLE,
   payload: {
     user,
@@ -32,21 +32,21 @@ const updateUser = (id, data) => ({
   },
 });
 
-const updateCurrentUser = (data) => ({
+const updateCurrentUser = data => ({
   type: EntryActionTypes.CURRENT_USER_UPDATE,
   payload: {
     data,
   },
 });
 
-const handleUserUpdate = (user) => ({
+const handleUserUpdate = user => ({
   type: EntryActionTypes.USER_UPDATE_HANDLE,
   payload: {
     user,
   },
 });
 
-const updateCurrentUserLanguage = (language) => ({
+const updateCurrentUserLanguage = language => ({
   type: EntryActionTypes.CURRENT_USER_LANGUAGE_UPDATE,
   payload: {
     language,
@@ -61,14 +61,14 @@ const updateUserEmail = (id, data) => ({
   },
 });
 
-const updateCurrentUserEmail = (data) => ({
+const updateCurrentUserEmail = data => ({
   type: EntryActionTypes.CURRENT_USER_EMAIL_UPDATE,
   payload: {
     data,
   },
 });
 
-const clearUserEmailUpdateError = (id) => ({
+const clearUserEmailUpdateError = id => ({
   type: EntryActionTypes.USER_EMAIL_UPDATE_ERROR_CLEAR,
   payload: {
     id,
@@ -88,14 +88,14 @@ const updateUserPassword = (id, data) => ({
   },
 });
 
-const updateCurrentUserPassword = (data) => ({
+const updateCurrentUserPassword = data => ({
   type: EntryActionTypes.CURRENT_USER_PASSWORD_UPDATE,
   payload: {
     data,
   },
 });
 
-const clearUserPasswordUpdateError = (id) => ({
+const clearUserPasswordUpdateError = id => ({
   type: EntryActionTypes.USER_PASSWORD_UPDATE_ERROR_CLEAR,
   payload: {
     id,
@@ -115,14 +115,14 @@ const updateUserUsername = (id, data) => ({
   },
 });
 
-const updateCurrentUserUsername = (data) => ({
+const updateCurrentUserUsername = data => ({
   type: EntryActionTypes.CURRENT_USER_USERNAME_UPDATE,
   payload: {
     data,
   },
 });
 
-const clearUserUsernameUpdateError = (id) => ({
+const clearUserUsernameUpdateError = id => ({
   type: EntryActionTypes.USER_USERNAME_UPDATE_ERROR_CLEAR,
   payload: {
     id,
@@ -134,21 +134,21 @@ const clearCurrentUserUsernameUpdateError = () => ({
   payload: {},
 });
 
-const updateCurrentUserAvatar = (data) => ({
+const updateCurrentUserAvatar = data => ({
   type: EntryActionTypes.CURRENT_USER_AVATAR_UPDATE,
   payload: {
     data,
   },
 });
 
-const deleteUser = (id) => ({
+const deleteUser = id => ({
   type: EntryActionTypes.USER_DELETE,
   payload: {
     id,
   },
 });
 
-const handleUserDelete = (user) => ({
+const handleUserDelete = user => ({
   type: EntryActionTypes.USER_DELETE_HANDLE,
   payload: {
     user,
@@ -163,7 +163,7 @@ const addUserToCard = (id, cardId) => ({
   },
 });
 
-const addUserToCurrentCard = (id) => ({
+const addUserToCurrentCard = id => ({
   type: EntryActionTypes.USER_TO_CURRENT_CARD_ADD,
   payload: {
     id,
@@ -175,7 +175,7 @@ const addCurrentUserToCurrentCard = () => ({
   payload: {},
 });
 
-const handleUserToCardAdd = (cardMembership) => ({
+const handleUserToCardAdd = cardMembership => ({
   type: EntryActionTypes.USER_TO_CARD_ADD_HANDLE,
   payload: {
     cardMembership,
@@ -190,7 +190,7 @@ const removeUserFromCard = (id, cardId) => ({
   },
 });
 
-const removeUserFromCurrentCard = (id) => ({
+const removeUserFromCurrentCard = id => ({
   type: EntryActionTypes.USER_FROM_CURRENT_CARD_REMOVE,
   payload: {
     id,
@@ -202,7 +202,7 @@ const removeCurrentUserFromCurrentCard = () => ({
   payload: {},
 });
 
-const handleUserFromCardRemove = (cardMembership) => ({
+const handleUserFromCardRemove = cardMembership => ({
   type: EntryActionTypes.USER_FROM_CARD_REMOVE_HANDLE,
   payload: {
     cardMembership,
@@ -217,7 +217,7 @@ const addUserToFilterInCurrentBoard = (id, replace = false) => ({
   },
 });
 
-const removeUserFromFilterInCurrentBoard = (id) => ({
+const removeUserFromFilterInCurrentBoard = id => ({
   type: EntryActionTypes.USER_FROM_FILTER_IN_CURRENT_BOARD_REMOVE,
   payload: {
     id,

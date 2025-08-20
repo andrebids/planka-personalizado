@@ -15,7 +15,7 @@ function ReduxRouter({ children, history, selector, basename }) {
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    const unlisten = history.listen((nextState) => {
+    const unlisten = history.listen(nextState => {
       dispatch(handleLocationChange(nextState.location, nextState.action));
     });
 

@@ -20,7 +20,7 @@ const CustomField = React.memo(({ id, index, onEdit }) => {
     []
   );
 
-  const customField = useSelector((state) => selectCustomFieldById(state, id));
+  const customField = useSelector(state => selectCustomFieldById(state, id));
 
   const handleEditClick = useCallback(() => {
     onEdit(id);

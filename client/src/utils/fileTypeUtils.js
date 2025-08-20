@@ -17,7 +17,7 @@ const SUPPORTED_ARCHIVE_TYPES = ['zip', 'rar', '7z'];
  * @param {string} filename - Nome do ficheiro
  * @returns {string} Extensão em minúsculas
  */
-export const getFileExtension = (filename) => {
+export const getFileExtension = filename => {
   if (!filename || typeof filename !== 'string') {
     return '';
   }
@@ -29,7 +29,7 @@ export const getFileExtension = (filename) => {
  * @param {string} filename - Nome do ficheiro
  * @returns {Object} Objeto com informações do tipo de ficheiro
  */
-export const getFileType = (filename) => {
+export const getFileType = filename => {
   const extension = getFileExtension(filename);
 
   return {
@@ -50,7 +50,7 @@ export const getFileType = (filename) => {
  * @param {string} extension - Extensão do ficheiro
  * @returns {string} MIME type
  */
-export const getMimeType = (extension) => {
+export const getMimeType = extension => {
   const mimeTypes = {
     // Imagens
     jpg: 'image/jpeg',
@@ -80,7 +80,7 @@ export const getMimeType = (extension) => {
  * @param {Object} attachment - Objeto de anexo
  * @returns {boolean} True se pode ser previewado
  */
-export const canPreviewFile = (attachment) => {
+export const canPreviewFile = attachment => {
   if (!attachment || !attachment.name) {
     return false;
   }
@@ -107,7 +107,7 @@ export const canPreviewFile = (attachment) => {
  * @param {Object} attachment - Objeto de anexo
  * @returns {string|null} URL de preview ou null se não disponível
  */
-export const getPreviewUrl = (attachment) => {
+export const getPreviewUrl = attachment => {
   if (!canPreviewFile(attachment)) {
     return null;
   }
@@ -136,7 +136,7 @@ export const getPreviewUrl = (attachment) => {
  * @param {string} filename - Nome do ficheiro
  * @returns {string} Nome do ícone
  */
-export const getFileIcon = (filename) => {
+export const getFileIcon = filename => {
   const fileType = getFileType(filename);
 
   if (fileType.isImage) {

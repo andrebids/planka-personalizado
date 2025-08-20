@@ -18,7 +18,7 @@ const GroupItemsStep = React.memo(({ items, title, onClose }) => {
   const [step, openStep, handleBack] = useSteps();
 
   const handleUserClick = useCallback(
-    (userId) => {
+    userId => {
       openStep(StepTypes.SELECT, {
         userId,
       });
@@ -27,9 +27,7 @@ const GroupItemsStep = React.memo(({ items, title, onClose }) => {
   );
 
   if (step && step.type === StepTypes.SELECT) {
-    const currentItem = items.find(
-      (item) => item.userId === step.params.userId
-    );
+    const currentItem = items.find(item => item.userId === step.params.userId);
 
     if (currentItem) {
       return (

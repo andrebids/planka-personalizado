@@ -20,8 +20,8 @@ const CsvViewer = React.memo(({ src, className }) => {
 
   const frameStyles = useMemo(
     () => [
-      ...Array.from(document.styleSheets).flatMap((styleSheet) =>
-        Array.from(styleSheet.cssRules).map((cssRule) => cssRule.cssText)
+      ...Array.from(document.styleSheets).flatMap(styleSheet =>
+        Array.from(styleSheet.cssRules).map(cssRule => cssRule.cssText)
       ),
       'body{background:rgb(248,248,248);min-width:fit-content;overflow-x:visible}',
       '.frame-content{padding:40px}',
@@ -78,15 +78,15 @@ const CsvViewer = React.memo(({ src, className }) => {
         <Table celled compact>
           <Table.Header>
             <Table.Row>
-              {rows[0].map((cell) => (
+              {rows[0].map(cell => (
                 <Table.HeaderCell key={cell}>{cell}</Table.HeaderCell>
               ))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {currentRows.slice(1).map((row) => (
+            {currentRows.slice(1).map(row => (
               <Table.Row key={row}>
-                {row.map((cell) => (
+                {row.map(cell => (
                   <Table.Cell key={cell}>{cell}</Table.Cell>
                 ))}
               </Table.Row>

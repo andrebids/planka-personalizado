@@ -27,7 +27,7 @@ const KanbanContent = React.memo(() => {
   const listIds = useSelector(selectors.selectFiniteListIdsForCurrentBoard);
   const isTimelinePanelExpanded = useSelector(selectIsTimelinePanelExpanded);
 
-  const canAddList = useSelector((state) => {
+  const canAddList = useSelector(state => {
     const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
 
     if (!isEditModeEnabled) {
@@ -99,7 +99,7 @@ const KanbanContent = React.memo(() => {
     setIsAddListOpened(false);
   }, []);
 
-  const handleMouseDown = useCallback((event) => {
+  const handleMouseDown = useCallback(event => {
     // If button is defined and not equal to 0 (left click)
     if (event.button) {
       return;
@@ -118,7 +118,7 @@ const KanbanContent = React.memo(() => {
     document.body.classList.add(globalStyles.dragScrolling);
   }, []);
 
-  const handleWindowMouseMove = useCallback((event) => {
+  const handleWindowMouseMove = useCallback(event => {
     if (prevPositionRef.current === null) {
       return;
     }

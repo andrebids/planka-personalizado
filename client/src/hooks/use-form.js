@@ -5,12 +5,12 @@
 
 import { useCallback, useState } from 'react';
 
-export default (initialData) => {
+export default initialData => {
   const [data, setData] = useState(initialData);
 
   const handleFieldChange = useCallback(
     (_, { type, name: fieldName, value, checked }) => {
-      setData((prevData) => ({
+      setData(prevData => ({
         ...prevData,
         [fieldName]: type === 'radio' ? checked : value,
       }));

@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createAttachment = (attachment) => ({
+const createAttachment = attachment => ({
   type: ActionTypes.ATTACHMENT_CREATE,
   payload: {
     attachment,
@@ -28,7 +28,7 @@ createAttachment.failure = (localId, error) => ({
   },
 });
 
-const handleAttachmentCreate = (attachment) => ({
+const handleAttachmentCreate = attachment => ({
   type: ActionTypes.ATTACHMENT_CREATE_HANDLE,
   payload: {
     attachment,
@@ -43,7 +43,7 @@ const updateAttachment = (id, data) => ({
   },
 });
 
-updateAttachment.success = (attachment) => ({
+updateAttachment.success = attachment => ({
   type: ActionTypes.ATTACHMENT_UPDATE__SUCCESS,
   payload: {
     attachment,
@@ -58,21 +58,21 @@ updateAttachment.failure = (id, error) => ({
   },
 });
 
-const handleAttachmentUpdate = (attachment) => ({
+const handleAttachmentUpdate = attachment => ({
   type: ActionTypes.ATTACHMENT_UPDATE_HANDLE,
   payload: {
     attachment,
   },
 });
 
-const deleteAttachment = (id) => ({
+const deleteAttachment = id => ({
   type: ActionTypes.ATTACHMENT_DELETE,
   payload: {
     id,
   },
 });
 
-deleteAttachment.success = (attachment) => ({
+deleteAttachment.success = attachment => ({
   type: ActionTypes.ATTACHMENT_DELETE__SUCCESS,
   payload: {
     attachment,
@@ -87,7 +87,7 @@ deleteAttachment.failure = (id, error) => ({
   },
 });
 
-const handleAttachmentDelete = (attachment) => ({
+const handleAttachmentDelete = attachment => ({
   type: ActionTypes.ATTACHMENT_DELETE_HANDLE,
   payload: {
     attachment,

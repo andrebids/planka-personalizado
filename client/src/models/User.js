@@ -40,14 +40,14 @@ const DEFAULT_USERNAME_UPDATE_FORM = {
 
 const filterProjectModels = (projectModels, search, isHidden) => {
   let filteredProjectModels = projectModels.filter(
-    (projectModel) => projectModel.isHidden === isHidden
+    projectModel => projectModel.isHidden === isHidden
   );
 
   if (filteredProjectModels.length > 0 && search) {
     const searchParts = buildSearchParts(search);
 
-    filteredProjectModels = filteredProjectModels.filter((projectModel) =>
-      searchParts.every((searchPart) =>
+    filteredProjectModels = filteredProjectModels.filter(projectModel =>
+      searchParts.every(searchPart =>
         projectModel.name.toLowerCase().includes(searchPart)
       )
     );
@@ -97,7 +97,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE_HANDLE:
         if (payload.users) {
-          payload.users.forEach((user) => {
+          payload.users.forEach(user => {
             User.upsert(user);
           });
         }
@@ -107,7 +107,7 @@ export default class extends BaseModel {
         User.all().delete();
         User.upsert(payload.user);
 
-        payload.users.forEach((user) => {
+        payload.users.forEach(user => {
           User.upsert(user);
         });
 
@@ -115,7 +115,7 @@ export default class extends BaseModel {
       case ActionTypes.CORE_INITIALIZE:
         User.upsert(payload.user);
 
-        payload.users.forEach((user) => {
+        payload.users.forEach(user => {
           User.upsert(user);
         });
 
@@ -134,7 +134,7 @@ export default class extends BaseModel {
         User.upsert(payload.user);
 
         if (payload.users) {
-          payload.users.forEach((user) => {
+          payload.users.forEach(user => {
             User.upsert(user);
           });
         }
@@ -300,7 +300,7 @@ export default class extends BaseModel {
       case ActionTypes.ACTIVITIES_IN_BOARD_FETCH__SUCCESS:
       case ActionTypes.ACTIVITIES_IN_CARD_FETCH__SUCCESS:
       case ActionTypes.NOTIFICATION_CREATE_HANDLE:
-        payload.users.forEach((user) => {
+        payload.users.forEach(user => {
           User.upsert(user);
         });
 
@@ -364,14 +364,14 @@ export default class extends BaseModel {
     const projectIds = [];
 
     const managerProjectModels = this.getManagerProjectsModelArray().map(
-      (projectModel) => {
+      projectModel => {
         projectIds.push(projectModel.id);
         return projectModel;
       }
     );
 
     const membershipProjectModels =
-      this.getMembershipProjectsModelArray().flatMap((projectModel) => {
+      this.getMembershipProjectsModelArray().flatMap(projectModel => {
         if (projectIds.includes(projectModel.id)) {
           return [];
         }
@@ -388,7 +388,7 @@ export default class extends BaseModel {
 
       adminProjectModels = Project.getSharedQuerySet()
         .toModelArray()
-        .flatMap((projectModel) => {
+        .flatMap(projectModel => {
           if (projectIds.includes(projectModel.id)) {
             return [];
           }
@@ -423,7 +423,7 @@ export default class extends BaseModel {
     let projectModels = this.getProjectsModelArray();
 
     projectModels = projectModels.filter(
-      (projectModel) => !projectModel.isHidden && projectModel.isFavorite
+      projectModel => !projectModel.isHidden && projectModel.isFavorite
     );
 
     if (orderByArgs) {
@@ -472,7 +472,7 @@ export default class extends BaseModel {
   }
 
   deleteRelated() {
-    this.projectManagers.toModelArray().forEach((projectManagerModel) => {
+    this.projectManagers.toModelArray().forEach(projectManagerModel => {
       if (projectManagerModel.ownedProject) {
         projectManagerModel.ownedProject.deleteWithRelated();
       } else {
@@ -480,41 +480,41 @@ export default class extends BaseModel {
       }
     });
 
-    this.boardMemberships.toModelArray().forEach((boardMembershipModel) => {
+    this.boardMemberships.toModelArray().forEach(boardMembershipModel => {
       boardMembershipModel.deleteWithRelated();
     });
 
-    this.createdCards.toModelArray().forEach((cardModel) => {
+    this.createdCards.toModelArray().forEach(cardModel => {
       cardModel.update({
         creatorUserId: null,
       });
     });
 
-    this.assignedTasks.toModelArray().forEach((taskModel) => {
+    this.assignedTasks.toModelArray().forEach(taskModel => {
       taskModel.update({
         assigneeUserId: null,
       });
     });
 
-    this.createdAttachments.toModelArray().forEach((attachmentModel) => {
+    this.createdAttachments.toModelArray().forEach(attachmentModel => {
       attachmentModel.update({
         creatorUserId: null,
       });
     });
 
-    this.comments.toModelArray().forEach((commentModel) => {
+    this.comments.toModelArray().forEach(commentModel => {
       commentModel.update({
         userId: null,
       });
     });
 
-    this.activities.toModelArray().forEach((activityModel) => {
+    this.activities.toModelArray().forEach(activityModel => {
       activityModel.update({
         userId: null,
       });
     });
 
-    this.createdNotifications.toModelArray().forEach((notificationModel) => {
+    this.createdNotifications.toModelArray().forEach(notificationModel => {
       notificationModel.update({
         creatorUserId: null,
       });

@@ -36,7 +36,7 @@ export default class extends BaseModel {
 
         break;
       case ActionTypes.COMMENTS_FETCH__SUCCESS:
-        payload.comments.forEach((comment) => {
+        payload.comments.forEach(comment => {
           Comment.upsert(comment);
         });
 

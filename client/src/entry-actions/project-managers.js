@@ -5,7 +5,7 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createManagerInCurrentProject = (data) => ({
+const createManagerInCurrentProject = data => ({
   type: EntryActionTypes.MANAGER_IN_CURRENT_PROJECT_CREATE,
   payload: {
     data,
@@ -20,14 +20,14 @@ const handleProjectManagerCreate = (projectManager, users) => ({
   },
 });
 
-const deleteProjectManager = (id) => ({
+const deleteProjectManager = id => ({
   type: EntryActionTypes.PROJECT_MANAGER_DELETE,
   payload: {
     id,
   },
 });
 
-const handleProjectManagerDelete = (projectManager) => ({
+const handleProjectManagerDelete = projectManager => ({
   type: EntryActionTypes.PROJECT_MANAGER_DELETE_HANDLE,
   payload: {
     projectManager,

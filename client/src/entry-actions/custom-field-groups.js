@@ -5,21 +5,21 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createCustomFieldGroupInCurrentBoard = (data) => ({
+const createCustomFieldGroupInCurrentBoard = data => ({
   type: EntryActionTypes.CUSTOM_FIELD_GROUP_IN_CURRENT_BOARD_CREATE,
   payload: {
     data,
   },
 });
 
-const createCustomFieldGroupInCurrentCard = (data) => ({
+const createCustomFieldGroupInCurrentCard = data => ({
   type: EntryActionTypes.CUSTOM_FIELD_GROUP_IN_CURRENT_CARD_CREATE,
   payload: {
     data,
   },
 });
 
-const handleCustomFieldGroupCreate = (customFieldGroup) => ({
+const handleCustomFieldGroupCreate = customFieldGroup => ({
   type: EntryActionTypes.CUSTOM_FIELD_GROUP_CREATE_HANDLE,
   payload: {
     customFieldGroup,
@@ -34,7 +34,7 @@ const updateCustomFieldGroup = (id, data) => ({
   },
 });
 
-const handleCustomFieldGroupUpdate = (customFieldGroup) => ({
+const handleCustomFieldGroupUpdate = customFieldGroup => ({
   type: EntryActionTypes.CUSTOM_FIELD_GROUP_UPDATE_HANDLE,
   payload: {
     customFieldGroup,
@@ -49,14 +49,14 @@ const moveCustomFieldGroup = (id, index) => ({
   },
 });
 
-const deleteCustomFieldGroup = (id) => ({
+const deleteCustomFieldGroup = id => ({
   type: EntryActionTypes.CUSTOM_FIELD_GROUP_DELETE,
   payload: {
     id,
   },
 });
 
-const handleCustomFieldGroupDelete = (customFieldGroup) => ({
+const handleCustomFieldGroupDelete = customFieldGroup => ({
   type: EntryActionTypes.CUSTOM_FIELD_GROUP_DELETE_HANDLE,
   payload: {
     customFieldGroup,

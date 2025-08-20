@@ -32,10 +32,10 @@ const TaskList = React.memo(({ id }) => {
     []
   );
 
-  const taskList = useSelector((state) => selectTaskListById(state, id));
-  const tasks = useSelector((state) => selectTasksByTaskListId(state, id));
+  const taskList = useSelector(state => selectTaskListById(state, id));
+  const tasks = useSelector(state => selectTasksByTaskListId(state, id));
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     const { listId } = selectors.selectCurrentCard(state);
     const list = selectListById(state, listId);
 

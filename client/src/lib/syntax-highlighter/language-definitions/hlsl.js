@@ -40,7 +40,7 @@ const HLSL_NUMBER_MODE = {
   relevance: 0,
 };
 
-export default (hljs) => {
+export default hljs => {
   const matrixBases =
     // eslint-disable-next-line no-useless-concat
     'bool double float half int uint ' +

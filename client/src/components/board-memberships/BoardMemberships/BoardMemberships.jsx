@@ -23,7 +23,7 @@ const BoardMemberships = React.memo(() => {
     selectors.selectMembershipsForCurrentBoard
   );
 
-  const canAdd = useSelector((state) => {
+  const canAdd = useSelector(state => {
     const user = selectors.selectCurrentUser(state);
 
     if (!isUserAdminOrProjectOwner(user)) {
@@ -45,7 +45,7 @@ const BoardMemberships = React.memo(() => {
       {boardMemberships.length > 0 && (
         <div className={classNames(styles.segment, styles.groups)}>
           {[BoardMembershipRoles.EDITOR, BoardMembershipRoles.VIEWER].map(
-            (role) =>
+            role =>
               boardMembershipsByRole[role] && (
                 <Group
                   key={role}

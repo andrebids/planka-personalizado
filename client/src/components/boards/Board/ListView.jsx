@@ -27,7 +27,7 @@ const ListView = React.memo(
     onCardsFetch,
     onCardCreate,
   }) => {
-    const canAddCard = useSelector((state) => {
+    const canAddCard = useSelector(state => {
       const boardMembership =
         selectors.selectCurrentUserMembershipForCurrentBoard(state);
       return (
@@ -41,7 +41,7 @@ const ListView = React.memo(
 
     const [inViewRef] = useInView({
       threshold: 1,
-      onChange: (inView) => {
+      onChange: inView => {
         if (inView && onCardsFetch) {
           onCardsFetch();
         }

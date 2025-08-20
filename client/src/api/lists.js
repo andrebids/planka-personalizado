@@ -16,7 +16,7 @@ const createList = (boardId, data, headers) =>
   socket.post(`/boards/${boardId}/lists`, data, headers);
 
 const getList = (id, headers) =>
-  socket.get(`/lists/${id}`, undefined, headers).then((body) => ({
+  socket.get(`/lists/${id}`, undefined, headers).then(body => ({
     ...body,
     included: {
       ...body.included,
@@ -29,7 +29,7 @@ const updateList = (id, data, headers) =>
   socket.patch(`/lists/${id}`, data, headers);
 
 const sortList = (id, data, headers) =>
-  socket.post(`/lists/${id}/sort`, data, headers).then((body) => ({
+  socket.post(`/lists/${id}/sort`, data, headers).then(body => ({
     ...body,
     included: {
       ...body.included,
@@ -38,7 +38,7 @@ const sortList = (id, data, headers) =>
   }));
 
 const moveListCards = (id, data, headers) =>
-  socket.post(`/lists/${id}/move-cards`, data, headers).then((body) => ({
+  socket.post(`/lists/${id}/move-cards`, data, headers).then(body => ({
     ...body,
     included: {
       ...omit(body.included, 'actions'),
@@ -51,7 +51,7 @@ const clearList = (id, headers) =>
   socket.post(`/lists/${id}/clear`, undefined, headers);
 
 const deleteList = (id, headers) =>
-  socket.delete(`/lists/${id}`, undefined, headers).then((body) => ({
+  socket.delete(`/lists/${id}`, undefined, headers).then(body => ({
     ...body,
     included: {
       ...body.included,
@@ -61,7 +61,7 @@ const deleteList = (id, headers) =>
 
 /* Event handlers */
 
-const makeHandleListDelete = (next) => (body) => {
+const makeHandleListDelete = next => body => {
   next({
     ...body,
     included: {

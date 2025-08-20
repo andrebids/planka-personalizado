@@ -48,11 +48,11 @@ export const SUPPORTED_FILE_TYPES = [
 export const MAX_IMAGES_PER_DROP = 10;
 export const MAX_FILES_PER_DROP = 10;
 
-export const isImageFile = (file) => {
+export const isImageFile = file => {
   return IMAGE_TYPES.includes(file.type);
 };
 
-export const isSupportedFile = (file) => {
+export const isSupportedFile = file => {
   console.log('🔍 Verificando arquivo:', file.name);
   console.log('🔍 MIME type:', file.type);
   console.log('🔍 Tamanho:', file.size);
@@ -99,24 +99,24 @@ export const isSupportedFile = (file) => {
   return isSupportedByMimeType;
 };
 
-export const getFileNameWithoutExtension = (filename) => {
+export const getFileNameWithoutExtension = filename => {
   return filename.replace(/\.[^/.]+$/, '');
 };
 
-export const validateImageFiles = (files) => {
-  const imageFiles = files.filter((file) => isImageFile(file));
+export const validateImageFiles = files => {
+  const imageFiles = files.filter(file => isImageFile(file));
   return imageFiles.slice(0, MAX_IMAGES_PER_DROP);
 };
 
-export const validateSupportedFiles = (files) => {
-  const supportedFiles = files.filter((file) => isSupportedFile(file));
+export const validateSupportedFiles = files => {
+  const supportedFiles = files.filter(file => isSupportedFile(file));
   return supportedFiles.slice(0, MAX_FILES_PER_DROP);
 };
 
-export const processImageFiles = (files) => {
+export const processImageFiles = files => {
   const validFiles = validateImageFiles(files);
 
-  return validFiles.map((file) => ({
+  return validFiles.map(file => ({
     file,
     name: getFileNameWithoutExtension(file.name),
     type: file.type,
@@ -124,10 +124,10 @@ export const processImageFiles = (files) => {
   }));
 };
 
-export const processSupportedFiles = (files) => {
+export const processSupportedFiles = files => {
   const validFiles = validateSupportedFiles(files);
 
-  return validFiles.map((file) => ({
+  return validFiles.map(file => ({
     file,
     name: getFileNameWithoutExtension(file.name),
     type: file.type,

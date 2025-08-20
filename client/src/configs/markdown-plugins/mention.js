@@ -5,9 +5,9 @@
 
 import { MENTION_REGEX } from '../../utils/mentions';
 
-export default (md) => {
+export default md => {
   md.core.ruler.push('mention', ({ tokens }) => {
-    tokens.forEach((token) => {
+    tokens.forEach(token => {
       if (token.type === 'inline' && token.content) {
         const matches = [...token.content.matchAll(MENTION_REGEX)];
 
@@ -15,7 +15,7 @@ export default (md) => {
           const newChildren = [];
           let lastIndex = 0;
 
-          matches.forEach((match) => {
+          matches.forEach(match => {
             // Add text before the mention
             if (match.index > lastIndex) {
               newChildren.push({

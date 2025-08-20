@@ -7,7 +7,7 @@ import hljs from 'highlight.js';
 
 import { detectLanguagesByFilename, languageLoaders } from './languages';
 
-const loadLanguages = async (languages) => {
+const loadLanguages = async languages => {
   for (let i = 0; i < languages.length; i += 1) {
     const language = languages[i];
 

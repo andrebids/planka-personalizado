@@ -40,7 +40,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE_HANDLE:
         if (payload.tasks) {
-          payload.tasks.forEach((task) => {
+          payload.tasks.forEach(task => {
             Task.upsert(task);
           });
         }
@@ -50,7 +50,7 @@ export default class extends BaseModel {
         Task.all().delete();
 
         if (payload.tasks) {
-          payload.tasks.forEach((task) => {
+          payload.tasks.forEach(task => {
             Task.upsert(task);
           });
         }
@@ -60,7 +60,7 @@ export default class extends BaseModel {
       case ActionTypes.CARDS_FETCH__SUCCESS:
       case ActionTypes.CARD_CREATE_HANDLE:
       case ActionTypes.CARD_DUPLICATE__SUCCESS:
-        payload.tasks.forEach((task) => {
+        payload.tasks.forEach(task => {
           Task.upsert(task);
         });
 

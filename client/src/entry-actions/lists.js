@@ -5,14 +5,14 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createListInCurrentBoard = (data) => ({
+const createListInCurrentBoard = data => ({
   type: EntryActionTypes.LIST_IN_CURRENT_BOARD_CREATE,
   payload: {
     data,
   },
 });
 
-const handleListCreate = (list) => ({
+const handleListCreate = list => ({
   type: EntryActionTypes.LIST_CREATE_HANDLE,
   payload: {
     list,
@@ -27,7 +27,7 @@ const updateList = (id, data) => ({
   },
 });
 
-const handleListUpdate = (list) => ({
+const handleListUpdate = list => ({
   type: EntryActionTypes.LIST_UPDATE_HANDLE,
   payload: {
     list,
@@ -52,7 +52,7 @@ const sortList = (id, data) => {
   };
 };
 
-const moveListCardsToArchiveList = (id) => ({
+const moveListCardsToArchiveList = id => ({
   type: EntryActionTypes.LIST_CARDS_TO_ARCHIVE_LIST_MOVE,
   payload: {
     id,
@@ -64,14 +64,14 @@ const clearTrashListInCurrentBoard = () => ({
   payload: {},
 });
 
-const handleListClear = (list) => ({
+const handleListClear = list => ({
   type: EntryActionTypes.LIST_CLEAR_HANDLE,
   payload: {
     list,
   },
 });
 
-const deleteList = (id) => ({
+const deleteList = id => ({
   type: EntryActionTypes.LIST_DELETE,
   payload: {
     id,

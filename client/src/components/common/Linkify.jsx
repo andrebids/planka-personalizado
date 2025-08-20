@@ -11,7 +11,7 @@ import history from '../../history';
 
 const Linkify = React.memo(({ children, linkStopPropagation, ...props }) => {
   const handleLinkClick = useCallback(
-    (event) => {
+    event => {
       if (linkStopPropagation) {
         event.stopPropagation();
       }

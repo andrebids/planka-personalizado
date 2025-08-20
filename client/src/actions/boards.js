@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createBoard = (board) => ({
+const createBoard = board => ({
   type: ActionTypes.BOARD_CREATE,
   payload: {
     board,
@@ -37,7 +37,7 @@ const handleBoardCreate = (board, boardMemberships) => ({
   },
 });
 
-const fetchBoard = (id) => ({
+const fetchBoard = id => ({
   type: ActionTypes.BOARD_FETCH,
   payload: {
     id,
@@ -97,7 +97,7 @@ const updateBoard = (id, data) => ({
   },
 });
 
-updateBoard.success = (board) => ({
+updateBoard.success = board => ({
   type: ActionTypes.BOARD_UPDATE__SUCCESS,
   payload: {
     board,
@@ -112,7 +112,7 @@ updateBoard.failure = (id, error) => ({
   },
 });
 
-const handleBoardUpdate = (board) => ({
+const handleBoardUpdate = board => ({
   type: ActionTypes.BOARD_UPDATE_HANDLE,
   payload: {
     board,
@@ -136,14 +136,14 @@ const searchInBoard = (id, value, currentListId) => ({
   },
 });
 
-const deleteBoard = (id) => ({
+const deleteBoard = id => ({
   type: ActionTypes.BOARD_DELETE,
   payload: {
     id,
   },
 });
 
-deleteBoard.success = (board) => ({
+deleteBoard.success = board => ({
   type: ActionTypes.BOARD_DELETE__SUCCESS,
   payload: {
     board,
@@ -158,7 +158,7 @@ deleteBoard.failure = (id, error) => ({
   },
 });
 
-const handleBoardDelete = (board) => ({
+const handleBoardDelete = board => ({
   type: ActionTypes.BOARD_DELETE_HANDLE,
   payload: {
     board,

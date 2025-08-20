@@ -36,7 +36,7 @@ const UnbasedContent = React.memo(({ id, onBack }) => {
     []
   );
 
-  const customFieldGroup = useSelector((state) =>
+  const customFieldGroup = useSelector(state =>
     selectCustomFielGroupdById(state, id)
   );
 
@@ -45,7 +45,7 @@ const UnbasedContent = React.memo(({ id, onBack }) => {
     []
   );
 
-  const customFields = useSelector((state) =>
+  const customFields = useSelector(state =>
     selectCustomFieldsByGroupId(state, id)
   );
 
@@ -57,7 +57,7 @@ const UnbasedContent = React.memo(({ id, onBack }) => {
 
   const filteredCustomFields = useMemo(
     () =>
-      customFields.filter((customField) =>
+      customFields.filter(customField =>
         customField.name.toLowerCase().includes(cleanSearch)
       ),
     [customFields, cleanSearch]
@@ -93,7 +93,7 @@ const UnbasedContent = React.memo(({ id, onBack }) => {
   }, [openStep]);
 
   const handleCustomFieldEdit = useCallback(
-    (customFieldId) => {
+    customFieldId => {
       openStep(StepTypes.EDIT_CUSTOM_FIELD, {
         id: customFieldId,
       });
@@ -146,7 +146,7 @@ const UnbasedContent = React.memo(({ id, onBack }) => {
         );
       case StepTypes.EDIT_CUSTOM_FIELD: {
         const currentCustomField = customFields.find(
-          (customField) => customField.id === step.params.id
+          customField => customField.id === step.params.id
         );
 
         if (currentCustomField) {

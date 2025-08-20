@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createTask = (task) => ({
+const createTask = task => ({
   type: ActionTypes.TASK_CREATE,
   payload: {
     task,
@@ -28,7 +28,7 @@ createTask.failure = (localId, error) => ({
   },
 });
 
-const handleTaskCreate = (task) => ({
+const handleTaskCreate = task => ({
   type: ActionTypes.TASK_CREATE_HANDLE,
   payload: {
     task,
@@ -43,7 +43,7 @@ const updateTask = (id, data) => ({
   },
 });
 
-updateTask.success = (task) => ({
+updateTask.success = task => ({
   type: ActionTypes.TASK_UPDATE__SUCCESS,
   payload: {
     task,
@@ -58,21 +58,21 @@ updateTask.failure = (id, error) => ({
   },
 });
 
-const handleTaskUpdate = (task) => ({
+const handleTaskUpdate = task => ({
   type: ActionTypes.TASK_UPDATE_HANDLE,
   payload: {
     task,
   },
 });
 
-const deleteTask = (id) => ({
+const deleteTask = id => ({
   type: ActionTypes.TASK_DELETE,
   payload: {
     id,
   },
 });
 
-deleteTask.success = (task) => ({
+deleteTask.success = task => ({
   type: ActionTypes.TASK_DELETE__SUCCESS,
   payload: {
     task,
@@ -87,7 +87,7 @@ deleteTask.failure = (id, error) => ({
   },
 });
 
-const handleTaskDelete = (task) => ({
+const handleTaskDelete = task => ({
   type: ActionTypes.TASK_DELETE_HANDLE,
   payload: {
     task,

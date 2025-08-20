@@ -11,7 +11,7 @@ import styles from './ExpirableTime.module.scss';
 
 const DAY = 1000 * 60 * 60 * 24;
 
-const isExpired = (value) => value <= Date.now() - DAY;
+const isExpired = value => value <= Date.now() - DAY;
 
 const ExpirableTime = React.memo(
   ({ children, date, verboseDate, tooltip, ...props }) => (

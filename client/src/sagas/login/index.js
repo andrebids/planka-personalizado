@@ -10,7 +10,7 @@ import services from './services';
 import ActionTypes from '../../constants/ActionTypes';
 
 export default function* loginSaga() {
-  const watcherTasks = yield all(watchers.map((watcher) => fork(watcher)));
+  const watcherTasks = yield all(watchers.map(watcher => fork(watcher)));
 
   yield fork(services.initializeLogin);
   yield take([

@@ -64,35 +64,33 @@ const ProjectContent = React.memo(({ cardId }) => {
     []
   );
 
-  const card = useSelector((state) => selectCardById(state, cardId));
-  const list = useSelector((state) => selectListById(state, card.listId));
-  const userIds = useSelector((state) => selectUserIdsByCardId(state, cardId));
-  const labelIds = useSelector((state) =>
-    selectLabelIdsByCardId(state, cardId)
-  );
+  const card = useSelector(state => selectCardById(state, cardId));
+  const list = useSelector(state => selectListById(state, card.listId));
+  const userIds = useSelector(state => selectUserIdsByCardId(state, cardId));
+  const labelIds = useSelector(state => selectLabelIdsByCardId(state, cardId));
 
-  const taskListIds = useSelector((state) =>
+  const taskListIds = useSelector(state =>
     selectShownOnFrontOfCardTaskListIdsByCardId(state, cardId)
   );
 
-  const attachmentsTotal = useSelector((state) =>
+  const attachmentsTotal = useSelector(state =>
     selectAttachmentsTotalByCardId(state, cardId)
   );
 
-  const customFieldValueIds = useSelector((state) =>
+  const customFieldValueIds = useSelector(state =>
     selectShownOnFrontOfCardCustomFieldValueIdsByCardId(state, cardId)
   );
 
-  const notificationsTotal = useSelector((state) =>
+  const notificationsTotal = useSelector(state =>
     selectNotificationsTotalByCardId(state, cardId)
   );
 
-  const coverUrl = useSelector((state) => {
+  const coverUrl = useSelector(state => {
     const attachment = selectAttachmentById(state, card.coverAttachmentId);
     return attachment && attachment.data.thumbnailUrls.outside360;
   });
 
-  const { listName, withCreator } = useSelector((state) => {
+  const { listName, withCreator } = useSelector(state => {
     const board = selectors.selectCurrentBoard(state);
 
     return {
@@ -102,7 +100,7 @@ const ProjectContent = React.memo(({ cardId }) => {
     };
   }, shallowEqual);
 
-  const canEditStopwatch = useSelector((state) => {
+  const canEditStopwatch = useSelector(state => {
     if (isListArchiveOrTrash(list)) {
       return false;
     }
@@ -117,7 +115,7 @@ const ProjectContent = React.memo(({ cardId }) => {
   const dispatch = useDispatch();
 
   const handleToggleStopwatchClick = useCallback(
-    (event) => {
+    event => {
       event.stopPropagation();
 
       dispatch(
@@ -164,7 +162,7 @@ const ProjectContent = React.memo(({ cardId }) => {
             {userIds.length > 0 && <span className={styles.creatorDivider} />}
           </>
         )}
-        {userIds.map((userId) => (
+        {userIds.map(userId => (
           <span
             key={userId}
             className={classNames(styles.attachment, styles.attachmentRight)}
@@ -191,7 +189,7 @@ const ProjectContent = React.memo(({ cardId }) => {
         <span
           className={classNames(styles.labels, !isCompact && styles.labelsFull)}
         >
-          {labelIds.map((labelId) => (
+          {labelIds.map(labelId => (
             <span
               key={labelId}
               className={classNames(styles.attachment, styles.attachmentLeft)}
@@ -205,7 +203,7 @@ const ProjectContent = React.memo(({ cardId }) => {
         <span
           className={classNames(styles.labels, !isCompact && styles.labelsFull)}
         >
-          {customFieldValueIds.map((customFieldValueId) => (
+          {customFieldValueIds.map(customFieldValueId => (
             <span
               key={customFieldValueId}
               className={classNames(styles.attachment, styles.attachmentLeft)}
@@ -216,7 +214,7 @@ const ProjectContent = React.memo(({ cardId }) => {
         </span>
       )}
       {isCompact && usersNode}
-      {taskListIds.map((taskListId) => (
+      {taskListIds.map(taskListId => (
         <TaskList key={taskListId} id={taskListId} />
       ))}
       {hasInformation && (

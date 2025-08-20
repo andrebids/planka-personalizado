@@ -43,7 +43,7 @@ const createCardInFirstFiniteList = (data, autoOpen) => ({
   },
 });
 
-const handleCardCreate = (card) => ({
+const handleCardCreate = card => ({
   type: EntryActionTypes.CARD_CREATE_HANDLE,
   payload: {
     card,
@@ -58,14 +58,14 @@ const updateCard = (id, data) => ({
   },
 });
 
-const updateCurrentCard = (data) => ({
+const updateCurrentCard = data => ({
   type: EntryActionTypes.CURRENT_CARD_UPDATE,
   payload: {
     data,
   },
 });
 
-const handleCardUpdate = (card) => ({
+const handleCardUpdate = card => ({
   type: EntryActionTypes.CARD_UPDATE_HANDLE,
   payload: {
     card,
@@ -90,7 +90,7 @@ const moveCurrentCard = (listId, index = 0, autoClose = false) => ({
   },
 });
 
-const moveCardToArchive = (id) => ({
+const moveCardToArchive = id => ({
   type: EntryActionTypes.CARD_TO_ARCHIVE_MOVE,
   payload: {
     id,
@@ -102,7 +102,7 @@ const moveCurrentCardToArchive = () => ({
   payload: {},
 });
 
-const moveCardToTrash = (id) => ({
+const moveCardToTrash = id => ({
   type: EntryActionTypes.CARD_TO_TRASH_MOVE,
   payload: {
     id,
@@ -141,21 +141,21 @@ const duplicateCard = (id, data) => ({
   },
 });
 
-const duplicateCurrentCard = (data) => ({
+const duplicateCurrentCard = data => ({
   type: EntryActionTypes.CURRENT_CARD_DUPLICATE,
   payload: {
     data,
   },
 });
 
-const goToAdjacentCard = (direction) => ({
+const goToAdjacentCard = direction => ({
   type: EntryActionTypes.TO_ADJACENT_CARD_GO,
   payload: {
     direction,
   },
 });
 
-const deleteCard = (id) => ({
+const deleteCard = id => ({
   type: EntryActionTypes.CARD_DELETE,
   payload: {
     id,
@@ -167,7 +167,7 @@ const deleteCurrentCard = () => ({
   payload: {},
 });
 
-const handleCardDelete = (card) => ({
+const handleCardDelete = card => ({
   type: EntryActionTypes.CARD_DELETE_HANDLE,
   payload: {
     card,

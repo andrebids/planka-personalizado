@@ -19,7 +19,7 @@ const Board = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const modal = useSelector(selectors.selectCurrentModal);
   const isCardModalOpened = useSelector(
-    (state) => !!selectors.selectPath(state).cardId
+    state => !!selectors.selectPath(state).cardId
   );
 
   let Content;

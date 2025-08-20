@@ -30,16 +30,16 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
         setIsOpened(false);
       }, []);
 
-      const handleMouseDown = useCallback((event) => {
+      const handleMouseDown = useCallback(event => {
         event.stopPropagation();
       }, []);
 
-      const handleClick = useCallback((event) => {
+      const handleClick = useCallback(event => {
         event.stopPropagation();
       }, []);
 
       const handleTriggerClick = useCallback(
-        (event) => {
+        event => {
           event.stopPropagation();
           const { onClick } = children;
 
@@ -50,7 +50,7 @@ export default (Step, { position, onOpen, onClose, variantClass } = {}) => {
         [children]
       );
 
-      const handleContentRef = useCallback((element) => {
+      const handleContentRef = useCallback(element => {
         if (resizeObserverRef.current) {
           resizeObserverRef.current.disconnect();
         }

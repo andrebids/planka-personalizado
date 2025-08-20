@@ -66,7 +66,7 @@ const PureBoardMembershipsStep = React.memo(
           />
           {filteredItems.length > 0 && (
             <Menu secondary vertical className={styles.menu}>
-              {filteredItems.map((boardMembership) => (
+              {filteredItems.map(boardMembership => (
                 <Item
                   key={boardMembership.id}
                   id={boardMembership.id}

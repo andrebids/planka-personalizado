@@ -16,7 +16,7 @@ const FiniteContent = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const cardIds = useSelector(selectors.selectFilteredCardIdsForCurrentBoard);
   const hasAnyFiniteList = useSelector(
-    (state) => !!selectors.selectFirstFiniteListId(state)
+    state => !!selectors.selectFirstFiniteListId(state)
   );
 
   const dispatch = useDispatch();

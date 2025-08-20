@@ -27,7 +27,7 @@ const Attachments = React.memo(({ hideImagesWhenNotAllVisible }) => {
   const [activateClosable, deactivateClosable] = useContext(ClosableContext);
 
   const handleBeforeGalleryOpen = useCallback(
-    (gallery) => {
+    gallery => {
       activateClosable();
 
       gallery.on('destroy', () => {
@@ -43,7 +43,7 @@ const Attachments = React.memo(({ hideImagesWhenNotAllVisible }) => {
 
   let visibleTotal = 0;
 
-  const itemsNode = attachments.map((attachment) => {
+  const itemsNode = attachments.map(attachment => {
     let isVisible = false;
     if (isAllVisible || visibleTotal < INITIALLY_VISIBLE) {
       if (
@@ -77,7 +77,7 @@ const Attachments = React.memo(({ hideImagesWhenNotAllVisible }) => {
           arrowPrevTitle: '',
           arrowNextTitle: '',
           errorMsg: '',
-          paddingFn: (viewportSize) => {
+          paddingFn: viewportSize => {
             const paddingX = viewportSize.x / 20;
             const paddingY = viewportSize.y / 20;
 

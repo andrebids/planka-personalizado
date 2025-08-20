@@ -16,7 +16,7 @@ import styles from './User.module.scss';
 const User = React.memo(({ id, isActive, onSelect }) => {
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-  const user = useSelector((state) => selectUserById(state, id));
+  const user = useSelector(state => selectUserById(state, id));
 
   const handleClick = useCallback(() => {
     onSelect(id);

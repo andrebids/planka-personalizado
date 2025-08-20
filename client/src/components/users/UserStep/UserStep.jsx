@@ -20,7 +20,7 @@ const UserStep = React.memo(({ onClose }) => {
   const isLogouting = useSelector(selectors.selectIsLogouting);
 
   const withAdministration = useSelector(
-    (state) => selectors.selectCurrentUser(state).role === UserRoles.ADMIN
+    state => selectors.selectCurrentUser(state).role === UserRoles.ADMIN
   );
 
   const dispatch = useDispatch();

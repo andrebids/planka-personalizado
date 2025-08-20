@@ -45,7 +45,7 @@ export const makeSelectCardIndexById = () =>
 
       return cardModel.list
         .getCardsModelArray()
-        .findIndex((cardModelItem) => cardModelItem.id === cardModel.id);
+        .findIndex(cardModelItem => cardModelItem.id === cardModel.id);
     }
   );
 
@@ -62,7 +62,7 @@ export const makeSelectUserIdsByCardId = () =>
         return cardModel;
       }
 
-      return cardModel.users.toRefArray().map((user) => user.id);
+      return cardModel.users.toRefArray().map(user => user.id);
     }
   );
 
@@ -79,7 +79,7 @@ export const makeSelectLabelIdsByCardId = () =>
         return cardModel;
       }
 
-      return cardModel.labels.toRefArray().map((label) => label.id);
+      return cardModel.labels.toRefArray().map(label => label.id);
     }
   );
 
@@ -98,7 +98,7 @@ export const makeSelectShownOnFrontOfCardTaskListIdsByCardId = () =>
 
       return cardModel
         .getShownOnFrontOfCardTaskListsModelArray()
-        .map((taskList) => taskList.id);
+        .map(taskList => taskList.id);
     }
   );
 
@@ -142,10 +142,10 @@ export const makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId = () =>
         ...cardModel.board
           .getCustomFieldGroupsQuerySet()
           .toModelArray()
-          .flatMap((customFieldGroupModel) =>
+          .flatMap(customFieldGroupModel =>
             customFieldGroupModel
               .getShownOnFrontOfCardCustomFieldsModelArray()
-              .flatMap((customFieldModel) => {
+              .flatMap(customFieldModel => {
                 const customFieldValue = CustomFieldValue.withId(
                   buildCustomFieldValueId({
                     cardId: id,
@@ -160,10 +160,10 @@ export const makeSelectShownOnFrontOfCardCustomFieldValueIdsByCardId = () =>
         ...cardModel
           .getCustomFieldGroupsQuerySet()
           .toModelArray()
-          .flatMap((customFieldGroupModel) =>
+          .flatMap(customFieldGroupModel =>
             customFieldGroupModel
               .getShownOnFrontOfCardCustomFieldsModelArray()
-              .flatMap((customFieldModel) => {
+              .flatMap(customFieldModel => {
                 const customFieldValue = CustomFieldValue.withId(
                   buildCustomFieldValueId({
                     cardId: id,
@@ -221,7 +221,7 @@ export const makeSelectIsCardWithIdRecent = () =>
   createSelector(
     orm,
     (_, id) => id,
-    (state) => selectRecentCardId(state),
+    state => selectRecentCardId(state),
     ({ Card }, id, recentCardId) => {
       const cardModel = Card.withId(id);
 
@@ -238,7 +238,7 @@ export const selectIsCardWithIdRecent = makeSelectIsCardWithIdRecent();
 export const selectIsCardWithIdAvailableForCurrentUser = createSelector(
   orm,
   (_, id) => id,
-  (state) => selectCurrentUserId(state),
+  state => selectCurrentUserId(state),
   ({ Card, User }, id, currentUserId) => {
     const cardModel = Card.withId(id);
 
@@ -253,7 +253,7 @@ export const selectIsCardWithIdAvailableForCurrentUser = createSelector(
 
 export const selectCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -271,7 +271,7 @@ export const selectCurrentCard = createSelector(
 
 export const selectUserIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -283,13 +283,13 @@ export const selectUserIdsForCurrentCard = createSelector(
       return cardModel;
     }
 
-    return cardModel.users.toRefArray().map((user) => user.id);
+    return cardModel.users.toRefArray().map(user => user.id);
   }
 );
 
 export const selectLabelIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -301,13 +301,13 @@ export const selectLabelIdsForCurrentCard = createSelector(
       return cardModel;
     }
 
-    return cardModel.labels.toRefArray().map((label) => label.id);
+    return cardModel.labels.toRefArray().map(label => label.id);
   }
 );
 
 export const selectTaskListIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -322,13 +322,13 @@ export const selectTaskListIdsForCurrentCard = createSelector(
     return cardModel
       .getTaskListsQuerySet()
       .toRefArray()
-      .map((taskList) => taskList.id);
+      .map(taskList => taskList.id);
   }
 );
 
 export const selectAttachmentIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -343,13 +343,13 @@ export const selectAttachmentIdsForCurrentCard = createSelector(
     return cardModel
       .getAttachmentsQuerySet()
       .toRefArray()
-      .map((attachment) => attachment.id);
+      .map(attachment => attachment.id);
   }
 );
 
 export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -364,7 +364,7 @@ export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
     return cardModel
       .getAttachmentsQuerySet()
       .toModelArray()
-      .filter((attachmentModel) => {
+      .filter(attachmentModel => {
         // Verificar se attachmentModel.data existe antes de acessar suas propriedades
         return (
           attachmentModel.data &&
@@ -372,7 +372,7 @@ export const selectImageAttachmentIdsExceptCoverForCurrentCard = createSelector(
           !attachmentModel.coveredCard
         );
       })
-      .map((attachmentModel) => attachmentModel.id);
+      .map(attachmentModel => attachmentModel.id);
   }
 );
 
@@ -397,7 +397,7 @@ export const makeSelectAttachmentsForCard = () =>
 
 export const selectAttachmentsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -415,7 +415,7 @@ export const selectAttachmentsForCurrentCard = createSelector(
 
 export const selectCustomFieldGroupIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -430,13 +430,13 @@ export const selectCustomFieldGroupIdsForCurrentCard = createSelector(
     return cardModel
       .getCustomFieldGroupsQuerySet()
       .toRefArray()
-      .map((customFieldGroup) => customFieldGroup.id);
+      .map(customFieldGroup => customFieldGroup.id);
   }
 );
 
 export const selectCommentIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -450,13 +450,13 @@ export const selectCommentIdsForCurrentCard = createSelector(
 
     return cardModel
       .getCommentsModelArray()
-      .map((commentModel) => commentModel.id);
+      .map(commentModel => commentModel.id);
   }
 );
 
 export const selectActivityIdsForCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
+  state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
       return id;
@@ -468,14 +468,14 @@ export const selectActivityIdsForCurrentCard = createSelector(
       return cardModel;
     }
 
-    return cardModel.getActivitiesModelArray().map((activity) => activity.id);
+    return cardModel.getActivitiesModelArray().map(activity => activity.id);
   }
 );
 
 export const selectIsCurrentUserInCurrentCard = createSelector(
   orm,
-  (state) => selectPath(state).cardId,
-  (state) => selectCurrentUserId(state),
+  state => selectPath(state).cardId,
+  state => selectCurrentUserId(state),
   ({ Card }, id, currentUserId) => {
     if (!id) {
       return false;

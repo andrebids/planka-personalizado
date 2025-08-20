@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Masonry.module.scss';
 
-const pixelsToNumber = (pixels) => {
+const pixelsToNumber = pixels => {
   return Number(pixels.replace('px', ''));
 };
 
@@ -23,7 +23,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
     const { current: wrapperElement } = wrapperRef;
     const columnHeights = new Array(columns).fill(0);
 
-    wrapperElement.childNodes.forEach((childElement) => {
+    wrapperElement.childNodes.forEach(childElement => {
       if (
         childElement.nodeType !== Node.ELEMENT_NODE ||
         childElement.dataset.lineBreak
@@ -50,7 +50,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
   }, [columns]);
 
   const handleWrapperRef = useCallback(
-    (element) => {
+    element => {
       wrapperRef.current = element;
 
       if (resizeObserverRef.current) {
@@ -64,7 +64,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
 
       resizeObserverRef.current = new ResizeObserver(handleChildResize);
 
-      element.childNodes.forEach((childElement) => {
+      element.childNodes.forEach(childElement => {
         if (!childElement.dataset.lineBreak) {
           resizeObserverRef.current.observe(childElement);
         }
@@ -75,7 +75,7 @@ const Masonry = React.memo(({ children, columns, spacing }) => {
 
   const styledChildren = React.Children.map(
     children,
-    (child) =>
+    child =>
       child &&
       React.cloneElement(child, {
         style: {

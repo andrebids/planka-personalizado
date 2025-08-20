@@ -5,21 +5,21 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const toggleFavorites = (isEnabled) => ({
+const toggleFavorites = isEnabled => ({
   type: EntryActionTypes.FAVORITES_TOGGLE,
   payload: {
     isEnabled,
   },
 });
 
-const toggleEditMode = (isEnabled) => ({
+const toggleEditMode = isEnabled => ({
   type: EntryActionTypes.EDIT_MODE_TOGGLE,
   payload: {
     isEnabled,
   },
 });
 
-const updateHomeView = (value) => ({
+const updateHomeView = value => ({
   type: EntryActionTypes.HOME_VIEW_UPDATE,
   payload: {
     value,

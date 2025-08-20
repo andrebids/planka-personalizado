@@ -24,9 +24,9 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
     selectors.selectProjectsToListsWithEditorRightsForCurrentUser
   );
 
-  const card = useSelector((state) => selectCardById(state, id));
+  const card = useSelector(state => selectCardById(state, id));
   const projectId = useSelector(
-    (state) => selectBoardById(state, card.boardId).projectId
+    state => selectBoardById(state, card.boardId).projectId
   );
 
   const dispatch = useDispatch();
@@ -50,14 +50,14 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
 
   const selectedProject = useMemo(
     () =>
-      projectsToLists.find((project) => project.id === path.projectId) || null,
+      projectsToLists.find(project => project.id === path.projectId) || null,
     [projectsToLists, path.projectId]
   );
 
   const selectedBoard = useMemo(
     () =>
       (selectedProject &&
-        selectedProject.boards.find((board) => board.id === path.boardId)) ||
+        selectedProject.boards.find(board => board.id === path.boardId)) ||
       null,
     [selectedProject, path.boardId]
   );
@@ -65,7 +65,7 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
   const selectedList = useMemo(
     () =>
       (selectedBoard &&
-        selectedBoard.lists.find((list) => list.id === path.listId)) ||
+        selectedBoard.lists.find(list => list.id === path.listId)) ||
       null,
     [selectedBoard, path.listId]
   );
@@ -85,7 +85,7 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
   const handleBoardIdChange = useCallback(
     (event, data) => {
       if (
-        selectedProject.boards.find((board) => board.id === data.value)
+        selectedProject.boards.find(board => board.id === data.value)
           .isFetching === null
       ) {
         dispatch(entryActions.fetchBoard(data.value));
@@ -110,7 +110,7 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
             fluid
             selection
             name="projectId"
-            options={projectsToLists.map((project) => ({
+            options={projectsToLists.map(project => ({
               text: project.name,
               value: project.id,
             }))}
@@ -131,7 +131,7 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
                 fluid
                 selection
                 name="boardId"
-                options={selectedProject.boards.map((board) => ({
+                options={selectedProject.boards.map(board => ({
                   text: board.name,
                   value: board.id,
                 }))}
@@ -154,7 +154,7 @@ const MoveCardStep = React.memo(({ id, onBack, onClose }) => {
                 fluid
                 selection
                 name="listId"
-                options={selectedBoard.lists.map((list) => ({
+                options={selectedBoard.lists.map(list => ({
                   text: list.name || t(`common.${list.type}`),
                   value: list.id,
                   disabled: !list.isPersisted,

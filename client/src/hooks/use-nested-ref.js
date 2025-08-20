@@ -9,7 +9,7 @@ export default (nestedRefName = 'ref') => {
   const ref = useRef(null);
 
   const handleRef = useCallback(
-    (element) => {
+    element => {
       ref.current = element?.[nestedRefName].current;
     },
     [nestedRefName]

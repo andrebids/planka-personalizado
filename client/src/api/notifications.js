@@ -9,7 +9,7 @@ import socket from './socket';
 
 /* Transformers */
 
-export const transformNotification = (notification) => ({
+export const transformNotification = notification => ({
   ...(notification.actionId
     ? {
         ...omit(notification, 'actionId'),
@@ -23,8 +23,8 @@ export const transformNotification = (notification) => ({
 
 /* Actions */
 
-const getNotifications = (headers) =>
-  socket.get('/notifications', undefined, headers).then((body) => ({
+const getNotifications = headers =>
+  socket.get('/notifications', undefined, headers).then(body => ({
     ...body,
     items: body.items.map(transformNotification),
   }));
@@ -39,20 +39,20 @@ const getNotifications = (headers) =>
   })); */
 
 const updateNotification = (id, data, headers) =>
-  socket.patch(`/notifications/${id}`, data, headers).then((body) => ({
+  socket.patch(`/notifications/${id}`, data, headers).then(body => ({
     ...body,
     item: transformNotification(body.item),
   }));
 
-const readAllNotifications = (headers) =>
-  socket.post('/notifications/read-all', undefined, headers).then((body) => ({
+const readAllNotifications = headers =>
+  socket.post('/notifications/read-all', undefined, headers).then(body => ({
     ...body,
     items: body.items.map(transformNotification),
   }));
 
 /* Event handlers */
 
-const makeHandleNotificationCreate = (next) => (body) => {
+const makeHandleNotificationCreate = next => body => {
   next({
     ...body,
     item: transformNotification(body.item),

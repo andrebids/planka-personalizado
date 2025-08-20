@@ -5,7 +5,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 
-const createProjectManager = (projectManager) => ({
+const createProjectManager = projectManager => ({
   type: ActionTypes.PROJECT_MANAGER_CREATE,
   payload: {
     projectManager,
@@ -85,14 +85,14 @@ const handleProjectManagerCreate = (
   },
 });
 
-const deleteProjectManager = (id) => ({
+const deleteProjectManager = id => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE,
   payload: {
     id,
   },
 });
 
-deleteProjectManager.success = (projectManager) => ({
+deleteProjectManager.success = projectManager => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE__SUCCESS,
   payload: {
     projectManager,
@@ -107,7 +107,7 @@ deleteProjectManager.failure = (id, error) => ({
   },
 });
 
-const handleProjectManagerDelete = (projectManager) => ({
+const handleProjectManagerDelete = projectManager => ({
   type: ActionTypes.PROJECT_MANAGER_DELETE_HANDLE,
   payload: {
     projectManager,

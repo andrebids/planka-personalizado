@@ -29,7 +29,7 @@ const CustomFieldEditStep = React.memo(({ id, onBack }) => {
     []
   );
 
-  const customField = useSelector((state) => selectCustomFieldById(state, id));
+  const customField = useSelector(state => selectCustomFieldById(state, id));
 
   const dispatch = useDispatch();
   const [t] = useTranslation();

@@ -57,7 +57,7 @@ handleLocationChange.fetchContent = () => ({
   payload: {},
 });
 
-handleLocationChange.fetchBoard = (id) => ({
+handleLocationChange.fetchBoard = id => ({
   type: ActionTypes.LOCATION_CHANGE_HANDLE__BOARD_FETCH,
   payload: {
     id,

@@ -42,13 +42,13 @@ const List = React.memo(({ id, index }) => {
   const isFavoritesActive = useSelector(
     selectors.selectIsFavoritesActiveForCurrentUser
   );
-  const list = useSelector((state) => selectListById(state, id));
-  const cardIds = useSelector((state) =>
+  const list = useSelector(state => selectListById(state, id));
+  const cardIds = useSelector(state =>
     selectFilteredCardIdsByListId(state, id)
   );
 
   const { canEdit, canArchiveCards, canAddCard, canDropCard } = useSelector(
-    (state) => {
+    state => {
       const isEditModeEnabled = selectors.selectIsEditModeEnabled(state); // TODO: move out?
 
       const boardMembership =
@@ -119,18 +119,18 @@ const List = React.memo(({ id, index }) => {
     setIsEditNameOpened(false);
   }, []);
 
-  const handleDragOver = useCallback((event) => {
+  const handleDragOver = useCallback(event => {
     event.preventDefault();
     setIsDragOver(true);
   }, []);
 
-  const handleDragLeave = useCallback((event) => {
+  const handleDragLeave = useCallback(event => {
     event.preventDefault();
     setIsDragOver(false);
   }, []);
 
   const handleDrop = useCallback(
-    (event) => {
+    event => {
       event.preventDefault();
       setIsDragOver(false);
 
@@ -146,7 +146,7 @@ const List = React.memo(({ id, index }) => {
 
       try {
         // Usar a nova saga para criar cards com anexos
-        processedFiles.forEach((fileData) => {
+        processedFiles.forEach(fileData => {
           const cardData = {
             name: fileData.name,
             type: 'story', // Adicionar tipo padrão

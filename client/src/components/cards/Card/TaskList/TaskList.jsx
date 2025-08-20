@@ -21,7 +21,7 @@ const TaskList = React.memo(({ id }) => {
     []
   );
 
-  const tasks = useSelector((state) => selectTasksByTaskListId(state, id));
+  const tasks = useSelector(state => selectTasksByTaskListId(state, id));
 
   const [isOpened, toggleOpened] = useToggle();
 
@@ -36,7 +36,7 @@ const TaskList = React.memo(({ id }) => {
   );
 
   const handleToggleClick = useCallback(
-    (event) => {
+    event => {
       event.stopPropagation();
       toggleOpened();
     },
@@ -73,7 +73,7 @@ const TaskList = React.memo(({ id }) => {
       </div>
       {isOpened && (
         <ul className={styles.tasks}>
-          {tasks.map((task) => (
+          {tasks.map(task => (
             <Task key={task.id} id={task.id} />
           ))}
         </ul>

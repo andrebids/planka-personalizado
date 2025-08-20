@@ -64,7 +64,7 @@ const SortStep = React.memo(({ listId, onBack, onClose }) => {
             Types.BY_DUE_DATE,
             Types.OLDEST_FIRST,
             Types.NEWEST_FIRST,
-          ].map((type) => (
+          ].map(type => (
             <Menu.Item
               key={type}
               value={type}

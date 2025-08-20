@@ -68,7 +68,9 @@ export function* authenticateWithOidcCallback() {
     yield put(
       actions.authenticateWithOidc.failure(
         new Error(
-          `OIDC Authorization error: ${params.get('error')}: ${params.get('error_description')}`
+          `OIDC Authorization error: ${params.get('error')}: ${params.get(
+            'error_description'
+          )}`
         )
       )
     );

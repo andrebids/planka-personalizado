@@ -30,7 +30,7 @@ const GridView = React.memo(
     onCardCreate,
   }) => {
     const isTimelinePanelExpanded = useSelector(selectIsTimelinePanelExpanded);
-    const canAddCard = useSelector((state) => {
+    const canAddCard = useSelector(state => {
       const boardMembership =
         selectors.selectCurrentUserMembershipForCurrentBoard(state);
       return (
@@ -45,7 +45,7 @@ const GridView = React.memo(
 
     const [inViewRef] = useInView({
       threshold: 1,
-      onChange: (inView) => {
+      onChange: inView => {
         if (inView && onCardsFetch) {
           onCardsFetch();
         }
@@ -91,7 +91,7 @@ const GridView = React.memo(
                 </span>
               </Button>
             ))}
-          {cardIds.map((cardId) => (
+          {cardIds.map(cardId => (
             <div key={cardId} className={styles.card}>
               <Card id={cardId} />
             </div>

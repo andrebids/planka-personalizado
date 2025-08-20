@@ -61,22 +61,22 @@ const ProjectCard = React.memo(
       []
     );
 
-    const project = useSelector((state) => selectProjectById(state, id));
-    const firstBoardId = useSelector((state) =>
+    const project = useSelector(state => selectProjectById(state, id));
+    const firstBoardId = useSelector(state =>
       selectFirstBoardIdByProjectId(state, id)
     );
 
-    const notificationsTotal = useSelector((state) =>
+    const notificationsTotal = useSelector(state =>
       selectNotificationsTotalByProjectId(state, id)
     );
 
     const ownerProjectManager = useSelector(
-      (state) =>
+      state =>
         project.ownerProjectManagerId &&
         selectProjectManagerById(state, project.ownerProjectManagerId)
     );
 
-    const backgroundImageUrl = useSelector((state) => {
+    const backgroundImageUrl = useSelector(state => {
       if (
         !project.backgroundType ||
         project.backgroundType !== ProjectBackgroundTypes.IMAGE

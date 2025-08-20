@@ -17,7 +17,7 @@ import NotificationsPane from './NotificationsPane';
 
 const BoardSettingsModal = React.memo(() => {
   const openPreferences = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.openPreferences
+    state => selectors.selectCurrentModal(state).params.openPreferences
   );
 
   const dispatch = useDispatch();

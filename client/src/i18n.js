@@ -208,7 +208,7 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
     // Carregar o locale pt-PT mesmo sendo o padrão
     const { default: locale } = await import(`./locales/${language}/core.js`);
 
-    Object.keys(locale).forEach((namespace) => {
+    Object.keys(locale).forEach(namespace => {
       switch (namespace) {
         case 'dateFns':
         case 'timeAgo':
@@ -238,7 +238,7 @@ i18n.loadCoreLocale = async (language = i18n.resolvedLanguage) => {
 
   const { default: locale } = await import(`./locales/${language}/core.js`);
 
-  Object.keys(locale).forEach((namespace) => {
+  Object.keys(locale).forEach(namespace => {
     switch (namespace) {
       case 'dateFns':
       case 'timeAgo':

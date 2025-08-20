@@ -24,11 +24,11 @@ const DraggableItem = React.memo(({ id, index, className, ...props }) => {
   );
   const selectListById = useMemo(() => selectors.makeSelectListById(), []);
 
-  const customFieldGroup = useSelector((state) =>
+  const customFieldGroup = useSelector(state =>
     selectCustomFieldGroupById(state, id)
   );
 
-  const canEdit = useSelector((state) => {
+  const canEdit = useSelector(state => {
     if (customFieldGroup.boardId) {
       return false;
     }

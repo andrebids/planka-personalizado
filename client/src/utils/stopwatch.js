@@ -21,17 +21,17 @@ export const updateStopwatch = ({ startedAt }, parts) => ({
   startedAt: startedAt && new Date(),
 });
 
-export const startStopwatch = (stopwatch) => ({
+export const startStopwatch = stopwatch => ({
   startedAt: new Date(),
   total: stopwatch ? stopwatch.total : 0,
 });
 
-export const stopStopwatch = (stopwatch) => ({
+export const stopStopwatch = stopwatch => ({
   startedAt: null,
   total: getFullSeconds(stopwatch),
 });
 
-export const getStopwatchParts = (stopwatch) => {
+export const getStopwatchParts = stopwatch => {
   const fullSeconds = getFullSeconds(stopwatch);
 
   const hours = Math.floor(fullSeconds / 3600);
@@ -45,10 +45,10 @@ export const getStopwatchParts = (stopwatch) => {
   };
 };
 
-export const formatStopwatch = (stopwatch) => {
+export const formatStopwatch = stopwatch => {
   const { hours, minutes, seconds } = getStopwatchParts(stopwatch);
   return [
     hours,
-    ...[minutes, seconds].map((part) => (part < 10 ? `0${part}` : part)),
+    ...[minutes, seconds].map(part => (part < 10 ? `0${part}` : part)),
   ].join(':');
 };

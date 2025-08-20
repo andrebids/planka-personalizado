@@ -1,7 +1,13 @@
-import { After, AfterAll, Before, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber';
-import { chromium } from 'playwright';
+import {
+  After,
+  AfterAll,
+  Before,
+  BeforeAll,
+  setDefaultTimeout
+} from "@cucumber/cucumber";
+import { chromium } from "playwright";
 
-import Config from './Config.js';
+import Config from "./Config.js";
 
 setDefaultTimeout(Config.TIMEOUT);
 

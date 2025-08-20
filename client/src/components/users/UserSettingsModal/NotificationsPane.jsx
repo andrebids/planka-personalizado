@@ -21,7 +21,7 @@ const NotificationsPane = React.memo(() => {
   const dispatch = useDispatch();
 
   const handleCreate = useCallback(
-    (data) => {
+    data => {
       dispatch(entryActions.createNotificationServiceInCurrentUser(data));
     },
     [dispatch]

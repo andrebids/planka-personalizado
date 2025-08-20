@@ -23,7 +23,7 @@ import styles from './AddProjectModal.module.scss';
 
 const AddProjectModal = React.memo(() => {
   const defaultType = useSelector(
-    (state) => selectors.selectCurrentModal(state).params.defaultType
+    state => selectors.selectCurrentModal(state).params.defaultType
   );
 
   const { data: defaultData, isSubmitting } = useSelector(
@@ -69,7 +69,7 @@ const AddProjectModal = React.memo(() => {
   }, [submit]);
 
   const handleDescriptionKeyDown = useCallback(
-    (event) => {
+    event => {
       if (isModifierKeyPressed(event) && event.key === 'Enter') {
         submit();
       }
@@ -78,8 +78,8 @@ const AddProjectModal = React.memo(() => {
   );
 
   const handleTypeSelect = useCallback(
-    (type) => {
-      setData((prevData) => ({
+    type => {
+      setData(prevData => ({
         ...prevData,
         type,
       }));

@@ -34,7 +34,7 @@ export default class extends BaseModel {
       case ActionTypes.PROJECT_UPDATE_HANDLE:
       case ActionTypes.PROJECT_MANAGER_CREATE_HANDLE:
         if (payload.boardMemberships) {
-          payload.boardMemberships.forEach((boardMembership) => {
+          payload.boardMemberships.forEach(boardMembership => {
             BoardMembership.upsert(boardMembership);
           });
         }
@@ -43,7 +43,7 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE:
         BoardMembership.all().delete();
 
-        payload.boardMemberships.forEach((boardMembership) => {
+        payload.boardMemberships.forEach(boardMembership => {
           BoardMembership.upsert(boardMembership);
         });
 
@@ -53,7 +53,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_CREATE__SUCCESS:
       case ActionTypes.BOARD_CREATE_HANDLE:
       case ActionTypes.BOARD_FETCH__SUCCESS:
-        payload.boardMemberships.forEach((boardMembership) => {
+        payload.boardMemberships.forEach(boardMembership => {
           BoardMembership.upsert(boardMembership);
         });
 
@@ -77,7 +77,7 @@ export default class extends BaseModel {
         BoardMembership.upsert(payload.boardMembership);
 
         if (payload.boardMemberships) {
-          payload.boardMemberships.forEach((boardMembership) => {
+          payload.boardMemberships.forEach(boardMembership => {
             BoardMembership.upsert(boardMembership);
           });
         }
@@ -114,7 +114,7 @@ export default class extends BaseModel {
       this.board.isSubscribed = false;
     }
 
-    this.board.cards.toModelArray().forEach((cardModel) => {
+    this.board.cards.toModelArray().forEach(cardModel => {
       if (isCurrentUser) {
         cardModel.update({
           isSubscribed: false,
@@ -127,8 +127,8 @@ export default class extends BaseModel {
         /* empty */
       }
 
-      cardModel.taskLists.toModelArray().forEach((taskListModel) => {
-        taskListModel.tasks.toModelArray().forEach((taskModel) => {
+      cardModel.taskLists.toModelArray().forEach(taskListModel => {
+        taskListModel.tasks.toModelArray().forEach(taskModel => {
           if (taskModel.assigneeUserId === this.userId) {
             taskModel.update({
               assigneeUserId: null,

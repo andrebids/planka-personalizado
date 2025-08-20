@@ -25,7 +25,7 @@ const BaseCustomFieldGroupChip = React.memo(({ id, size, onClick }) => {
     []
   );
 
-  const baseCustomFieldGroup = useSelector((state) =>
+  const baseCustomFieldGroup = useSelector(state =>
     selectBaseCustomFieldGroupById(state, id)
   );
 

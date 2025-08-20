@@ -26,7 +26,7 @@ const Images = React.memo(() => {
   const fieldRef = useRef(null);
 
   const handleFileSelect = useCallback(
-    (file) => {
+    file => {
       dispatch(
         entryActions.createBackgroundImageInCurrentProject({
           file,
@@ -43,7 +43,7 @@ const Images = React.memo(() => {
   return (
     <>
       <div className={styles.images}>
-        {backgroundImageIds.map((backgroundImageId) => (
+        {backgroundImageIds.map(backgroundImageId => (
           <Item key={backgroundImageId} id={backgroundImageId} />
         ))}
       </div>

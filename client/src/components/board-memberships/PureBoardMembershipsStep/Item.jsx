@@ -21,10 +21,10 @@ const Item = React.memo(({ id, isActive, onUserSelect, onUserDeselect }) => {
   );
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-  const boardMembership = useSelector((state) =>
+  const boardMembership = useSelector(state =>
     selectBoardMembershipById(state, id)
   );
-  const user = useSelector((state) =>
+  const user = useSelector(state =>
     selectUserById(state, boardMembership.userId)
   );
 

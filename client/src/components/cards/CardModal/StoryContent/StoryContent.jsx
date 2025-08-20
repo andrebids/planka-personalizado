@@ -66,14 +66,14 @@ const StoryContent = React.memo(({ onClose }) => {
 
   const isJoined = useSelector(selectors.selectIsCurrentUserInCurrentCard);
 
-  const list = useSelector((state) => selectListById(state, card.listId));
+  const list = useSelector(state => selectListById(state, card.listId));
 
   // TODO: check availability?
   const prevList = useSelector(
-    (state) => card.prevListId && selectPrevListById(state, card.prevListId)
+    state => card.prevListId && selectPrevListById(state, card.prevListId)
   );
 
-  const coverAttachment = useSelector((state) =>
+  const coverAttachment = useSelector(state =>
     selectAttachmentById(state, card.coverAttachmentId)
   );
 
@@ -96,7 +96,7 @@ const StoryContent = React.memo(({ onClose }) => {
     canUseLabels,
     canAddAttachment,
     canAddCustomFieldGroup,
-  } = useSelector((state) => {
+  } = useSelector(state => {
     const boardMembership =
       selectors.selectCurrentUserMembershipForCurrentBoard(state);
 
@@ -155,14 +155,14 @@ const StoryContent = React.memo(({ onClose }) => {
     useContext(ClosableContext);
 
   const handleListSelect = useCallback(
-    (listId) => {
+    listId => {
       dispatch(entryActions.moveCurrentCard(listId));
     },
     [dispatch]
   );
 
   const handleTypeSelect = useCallback(
-    (type) => {
+    type => {
       dispatch(
         entryActions.updateCurrentCard({
           type,
@@ -173,7 +173,7 @@ const StoryContent = React.memo(({ onClose }) => {
   );
 
   const handleNameUpdate = useCallback(
-    (name) => {
+    name => {
       dispatch(
         entryActions.updateCurrentCard({
           name,
@@ -184,7 +184,7 @@ const StoryContent = React.memo(({ onClose }) => {
   );
 
   const handleDescriptionUpdate = useCallback(
-    (description) => {
+    description => {
       dispatch(
         entryActions.updateCurrentCard({
           description,
@@ -223,35 +223,35 @@ const StoryContent = React.memo(({ onClose }) => {
   }, [isInTrashList, dispatch]);
 
   const handleUserSelect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.addUserToCurrentCard(userId));
     },
     [dispatch]
   );
 
   const handleUserDeselect = useCallback(
-    (userId) => {
+    userId => {
       dispatch(entryActions.removeUserFromCurrentCard(userId));
     },
     [dispatch]
   );
 
   const handleLabelSelect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.addLabelToCurrentCard(labelId));
     },
     [dispatch]
   );
 
   const handleLabelDeselect = useCallback(
-    (labelId) => {
+    labelId => {
       dispatch(entryActions.removeLabelFromCurrentCard(labelId));
     },
     [dispatch]
   );
 
   const handleCustomFieldGroupCreate = useCallback(
-    (data) => {
+    data => {
       dispatch(entryActions.createCustomFieldGroupInCurrentCard(data));
     },
     [dispatch]
@@ -273,7 +273,7 @@ const StoryContent = React.memo(({ onClose }) => {
     );
   }, [card.isSubscribed, dispatch]);
 
-  const handleEditDescriptionClick = useCallback((event) => {
+  const handleEditDescriptionClick = useCallback(event => {
     if (
       window.getSelection().toString() ||
       isUsableMarkdownElement(event.target)
@@ -284,13 +284,13 @@ const StoryContent = React.memo(({ onClose }) => {
     setIsEditDescriptionOpened(true);
   }, []);
 
-  const handleEditDescriptionClose = useCallback((nextDescriptionDraft) => {
+  const handleEditDescriptionClose = useCallback(nextDescriptionDraft => {
     setDescriptionDraft(nextDescriptionDraft);
     setIsEditDescriptionOpened(false);
   }, []);
 
   const handleBeforeGalleryOpen = useCallback(
-    (gallery) => {
+    gallery => {
       activateClosable();
 
       gallery.on('destroy', () => {
@@ -358,7 +358,7 @@ const StoryContent = React.memo(({ onClose }) => {
               arrowPrevTitle: '',
               arrowNextTitle: '',
               errorMsg: '',
-              paddingFn: (viewportSize) => {
+              paddingFn: viewportSize => {
                 const paddingX = viewportSize.x / 20;
                 const paddingY = viewportSize.y / 20;
 
@@ -417,7 +417,7 @@ const StoryContent = React.memo(({ onClose }) => {
                 )}
                 {labelIds.length > 0 && (
                   <div className={styles.attachments}>
-                    {labelIds.map((labelId) => (
+                    {labelIds.map(labelId => (
                       <span key={labelId} className={styles.attachment}>
                         {canUseLabels ? (
                           <LabelsPopup
@@ -518,7 +518,7 @@ const StoryContent = React.memo(({ onClose }) => {
                   )}
                   {imageAttachmentIdsExceptCover.length > 0 && (
                     <div className={styles.thumbnails}>
-                      {imageAttachmentIdsExceptCover.map((attachmentId) => (
+                      {imageAttachmentIdsExceptCover.map(attachmentId => (
                         <Thumbnail
                           key={attachmentId}
                           attachmentId={attachmentId}

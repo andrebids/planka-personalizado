@@ -24,7 +24,7 @@ const ListsStep = React.memo(({ currentId, onSelect }) => {
 
   const filteredLists = useMemo(
     () =>
-      lists.filter((list) =>
+      lists.filter(list =>
         (list.name ? list.name.toLowerCase() : list.type).includes(cleanSearch)
       ),
     [lists, cleanSearch]
@@ -57,7 +57,7 @@ const ListsStep = React.memo(({ currentId, onSelect }) => {
         />
         {filteredLists.length > 0 && (
           <div className={styles.items}>
-            {filteredLists.map((list) => (
+            {filteredLists.map(list => (
               <Item
                 key={list.id}
                 id={list.id}

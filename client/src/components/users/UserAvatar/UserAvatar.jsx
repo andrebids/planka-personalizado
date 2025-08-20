@@ -35,7 +35,7 @@ const COLORS = [
   'midnight-blue',
 ];
 
-const getColor = (name) => {
+const getColor = name => {
   let sum = 0;
   for (let i = 0; i < name.length; i += 1) {
     sum += name.charCodeAt(i);
@@ -48,7 +48,7 @@ const UserAvatar = React.memo(
   ({ id, size, isDisabled, withCreatorIndicator, className, onClick }) => {
     const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-    const user = useSelector((state) => selectUserById(state, id));
+    const user = useSelector(state => selectUserById(state, id));
 
     const [t] = useTranslation();
 

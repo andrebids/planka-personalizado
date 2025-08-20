@@ -5,9 +5,9 @@
 
 import { HISTORY_METHOD_CALL } from './actions';
 
-const createRouterMiddleware = (history) => {
+const createRouterMiddleware = history => {
   // eslint-disable-next-line consistent-return
-  return () => (next) => (action) => {
+  return () => next => action => {
     if (action.type !== HISTORY_METHOD_CALL) {
       return next(action);
     }

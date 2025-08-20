@@ -24,8 +24,8 @@ const ContentViewer = React.memo(({ src, filename, className }) => {
 
   const frameStyles = useMemo(
     () => [
-      ...Array.from(document.styleSheets).flatMap((styleSheet) =>
-        Array.from(styleSheet.cssRules).map((cssRule) => cssRule.cssText)
+      ...Array.from(document.styleSheets).flatMap(styleSheet =>
+        Array.from(styleSheet.cssRules).map(cssRule => cssRule.cssText)
       ),
       'body{background:rgb(248,248,248);min-width:fit-content;overflow-x:visible}',
       '.frame-content{padding:40px}',

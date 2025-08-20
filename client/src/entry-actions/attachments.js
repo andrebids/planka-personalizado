@@ -5,7 +5,7 @@
 
 import EntryActionTypes from '../constants/EntryActionTypes';
 
-const createAttachmentInCurrentCard = (data) => ({
+const createAttachmentInCurrentCard = data => ({
   type: EntryActionTypes.ATTACHMENT_IN_CURRENT_CARD_CREATE,
   payload: {
     data,
@@ -28,21 +28,21 @@ const updateAttachment = (id, data) => ({
   },
 });
 
-const handleAttachmentUpdate = (attachment) => ({
+const handleAttachmentUpdate = attachment => ({
   type: EntryActionTypes.ATTACHMENT_UPDATE_HANDLE,
   payload: {
     attachment,
   },
 });
 
-const deleteAttachment = (id) => ({
+const deleteAttachment = id => ({
   type: EntryActionTypes.ATTACHMENT_DELETE,
   payload: {
     id,
   },
 });
 
-const handleAttachmentDelete = (attachment) => ({
+const handleAttachmentDelete = attachment => ({
   type: EntryActionTypes.ATTACHMENT_DELETE_HANDLE,
   payload: {
     attachment,

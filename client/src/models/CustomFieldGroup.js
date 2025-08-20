@@ -42,7 +42,7 @@ export default class extends BaseModel {
       case ActionTypes.BOARD_MEMBERSHIP_CREATE_HANDLE:
       case ActionTypes.CARD_UPDATE_HANDLE:
         if (payload.customFieldGroups) {
-          payload.customFieldGroups.forEach((customFieldGroup) => {
+          payload.customFieldGroups.forEach(customFieldGroup => {
             CustomFieldGroup.upsert(customFieldGroup);
           });
         }
@@ -52,7 +52,7 @@ export default class extends BaseModel {
         CustomFieldGroup.all().delete();
 
         if (payload.customFieldGroups) {
-          payload.customFieldGroups.forEach((customFieldGroup) => {
+          payload.customFieldGroups.forEach(customFieldGroup => {
             CustomFieldGroup.upsert(customFieldGroup);
           });
         }
@@ -62,7 +62,7 @@ export default class extends BaseModel {
       case ActionTypes.CARDS_FETCH__SUCCESS:
       case ActionTypes.CARD_CREATE_HANDLE:
       case ActionTypes.CARD_DUPLICATE__SUCCESS:
-        payload.customFieldGroups.forEach((customFieldGroup) => {
+        payload.customFieldGroups.forEach(customFieldGroup => {
           CustomFieldGroup.upsert(customFieldGroup);
         });
 
@@ -121,7 +121,7 @@ export default class extends BaseModel {
 
   getShownOnFrontOfCardCustomFieldsModelArray() {
     return this.getCustomFieldsModelArray().filter(
-      (customFieldModel) => customFieldModel.showOnFrontOfCard
+      customFieldModel => customFieldModel.showOnFrontOfCard
     );
   }
 
@@ -140,7 +140,7 @@ export default class extends BaseModel {
       ...data,
     });
 
-    this.customFields.toModelArray().forEach((customFieldModel) => {
+    this.customFields.toModelArray().forEach(customFieldModel => {
       customFieldModel.duplicate(
         `${customFieldModel.id}-${rootId}`,
         {

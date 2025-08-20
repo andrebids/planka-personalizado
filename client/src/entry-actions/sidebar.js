@@ -9,7 +9,7 @@ const toggleSidebar = () => ({
   type: ActionTypes.SIDEBAR_TOGGLE,
 });
 
-const setSidebarExpanded = (isExpanded) => ({
+const setSidebarExpanded = isExpanded => ({
   type: ActionTypes.SIDEBAR_EXPANDED_SET,
   payload: {
     isExpanded,

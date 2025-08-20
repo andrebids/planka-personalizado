@@ -8,7 +8,7 @@ import socket from './socket';
 
 /* Transformers */
 
-export const transformAttachment = (attachment) => ({
+export const transformAttachment = attachment => ({
   ...attachment,
   ...(attachment.createdAt && {
     createdAt: new Date(attachment.createdAt),
@@ -18,7 +18,7 @@ export const transformAttachment = (attachment) => ({
 /* Actions */
 
 const createAttachment = (cardId, data, headers) =>
-  socket.post(`/cards/${cardId}/attachments`, data, headers).then((body) => ({
+  socket.post(`/cards/${cardId}/attachments`, data, headers).then(body => ({
     ...body,
     item: transformAttachment(body.item),
   }));
@@ -38,26 +38,26 @@ const createAttachmentWithFile = (
       },
       headers
     )
-    .then((body) => ({
+    .then(body => ({
       ...body,
       item: transformAttachment(body.item),
     }));
 
 const updateAttachment = (id, data, headers) =>
-  socket.patch(`/attachments/${id}`, data, headers).then((body) => ({
+  socket.patch(`/attachments/${id}`, data, headers).then(body => ({
     ...body,
     item: transformAttachment(body.item),
   }));
 
 const deleteAttachment = (id, headers) =>
-  socket.delete(`/attachments/${id}`, undefined, headers).then((body) => ({
+  socket.delete(`/attachments/${id}`, undefined, headers).then(body => ({
     ...body,
     item: transformAttachment(body.item),
   }));
 
 /* Event handlers */
 
-const makeHandleAttachmentCreate = (next) => (body) => {
+const makeHandleAttachmentCreate = next => body => {
   next({
     ...body,
     item: transformAttachment(body.item),

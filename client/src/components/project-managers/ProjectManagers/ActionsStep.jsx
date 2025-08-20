@@ -30,18 +30,18 @@ const ActionsStep = React.memo(({ projectManagerId, onClose }) => {
   );
   const selectUserById = useMemo(() => selectors.makeSelectUserById(), []);
 
-  const projectManager = useSelector((state) =>
+  const projectManager = useSelector(state =>
     selectProjectManagerById(state, projectManagerId)
   );
-  const user = useSelector((state) =>
+  const user = useSelector(state =>
     selectUserById(state, projectManager.userId)
   );
 
   const isCurrentUser = useSelector(
-    (state) => projectManager.userId === selectors.selectCurrentUserId(state)
+    state => projectManager.userId === selectors.selectCurrentUserId(state)
   );
 
-  const { canDelete, canAssignAsOwner } = useSelector((state) => {
+  const { canDelete, canAssignAsOwner } = useSelector(state => {
     const currentUser = selectors.selectCurrentUser(state);
 
     const isLastProjectManager =

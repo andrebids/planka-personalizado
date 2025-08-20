@@ -74,7 +74,7 @@ const AccountPane = React.memo(() => {
             value: 'auto',
             text: t('common.detectAutomatically'),
           },
-          ...locales.map((locale) => ({
+          ...locales.map(locale => ({
             value: locale.language,
             flag: locale.country,
             text: locale.name,

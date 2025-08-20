@@ -12,7 +12,7 @@ import ActionTypes from '../constants/ActionTypes';
 import Config from '../constants/Config';
 import { BoardContexts, BoardViews } from '../constants/Enums';
 
-const prepareFetchedBoard = (board) => ({
+const prepareFetchedBoard = board => ({
   ...board,
   isFetching: false,
   context: BoardContexts.BOARD,
@@ -83,7 +83,7 @@ export default class extends BaseModel {
 
         Board.all()
           .toModelArray()
-          .forEach((boardModel) => {
+          .forEach(boardModel => {
             if (
               boardModel.isFetching === null ||
               !boardIds.includes(boardModel.id)
@@ -102,7 +102,7 @@ export default class extends BaseModel {
           }
         }
 
-        payload.boards.forEach((board) => {
+        payload.boards.forEach(board => {
           Board.upsert(board);
         });
 
@@ -111,7 +111,7 @@ export default class extends BaseModel {
       case ActionTypes.SOCKET_RECONNECT_HANDLE__CORE_FETCH:
         Board.all()
           .toModelArray()
-          .forEach((boardModel) => {
+          .forEach(boardModel => {
             if (boardModel.id !== payload.currentBoardId) {
               boardModel.update({
                 isFetching: null,
@@ -127,7 +127,7 @@ export default class extends BaseModel {
           Board.upsert(prepareFetchedBoard(payload.board));
         }
 
-        payload.boards.forEach((board) => {
+        payload.boards.forEach(board => {
           Board.upsert(board);
         });
 
@@ -135,7 +135,7 @@ export default class extends BaseModel {
       case ActionTypes.USER_UPDATE_HANDLE:
         Board.all()
           .toModelArray()
-          .forEach((boardModel) => {
+          .forEach(boardModel => {
             if (!payload.boardIds.includes(boardModel.id)) {
               boardModel.deleteWithRelated();
             }
@@ -146,7 +146,7 @@ export default class extends BaseModel {
         }
 
         if (payload.boards) {
-          payload.boards.forEach((board) => {
+          payload.boards.forEach(board => {
             Board.upsert(board);
           });
         }
@@ -168,7 +168,7 @@ export default class extends BaseModel {
 
         break;
       case ActionTypes.PROJECT_CREATE_HANDLE:
-        payload.boards.forEach((board) => {
+        payload.boards.forEach(board => {
           Board.upsert(board);
         });
 
@@ -181,7 +181,7 @@ export default class extends BaseModel {
         }
 
         if (payload.boards) {
-          payload.boards.forEach((board) => {
+          payload.boards.forEach(board => {
             Board.upsert(board);
           });
         }
@@ -293,7 +293,7 @@ export default class extends BaseModel {
   }
 
   getFiniteListsQuerySet() {
-    return this.getListsQuerySet().filter((list) => isListFinite(list));
+    return this.getListsQuerySet().filter(list => isListFinite(list));
   }
 
   getCustomFieldGroupsQuerySet() {
@@ -325,7 +325,7 @@ export default class extends BaseModel {
   getCardsModelArray() {
     return this.getFiniteListsQuerySet()
       .toModelArray()
-      .flatMap((listModel) => listModel.getCardsModelArray());
+      .flatMap(listModel => listModel.getCardsModelArray());
   }
 
   getFilteredCardsModelArray() {
@@ -345,20 +345,20 @@ export default class extends BaseModel {
         }
 
         cardModels = cardModels.filter(
-          (cardModel) =>
+          cardModel =>
             searchRegex.test(cardModel.name) ||
             (cardModel.description && searchRegex.test(cardModel.description))
         );
       } else {
         const searchParts = buildSearchParts(this.search);
 
-        cardModels = cardModels.filter((cardModel) => {
+        cardModels = cardModels.filter(cardModel => {
           const name = cardModel.name.toLowerCase();
           const description =
             cardModel.description && cardModel.description.toLowerCase();
 
           return searchParts.every(
-            (searchPart) =>
+            searchPart =>
               name.includes(searchPart) ||
               (description && description.includes(searchPart))
           );
@@ -366,23 +366,23 @@ export default class extends BaseModel {
       }
     }
 
-    const filterUserIds = this.filterUsers.toRefArray().map((user) => user.id);
+    const filterUserIds = this.filterUsers.toRefArray().map(user => user.id);
 
     if (filterUserIds.length > 0) {
-      cardModels = cardModels.filter((cardModel) => {
+      cardModels = cardModels.filter(cardModel => {
         const users = cardModel.users.toRefArray();
-        return users.some((user) => filterUserIds.includes(user.id));
+        return users.some(user => filterUserIds.includes(user.id));
       });
     }
 
     const filterLabelIds = this.filterLabels
       .toRefArray()
-      .map((label) => label.id);
+      .map(label => label.id);
 
     if (filterLabelIds.length > 0) {
-      cardModels = cardModels.filter((cardModel) => {
+      cardModels = cardModels.filter(cardModel => {
         const labels = cardModel.labels.toRefArray();
-        return labels.some((label) => filterLabelIds.includes(label.id));
+        return labels.some(label => filterLabelIds.includes(label.id));
       });
     }
 
@@ -397,7 +397,7 @@ export default class extends BaseModel {
     const activityModels = this.getActivitiesQuerySet().toModelArray();
 
     if (this.lastActivityId && this.isAllActivitiesFetched === false) {
-      return activityModels.filter((activityModel) => {
+      return activityModels.filter(activityModel => {
         if (activityModel.id.length > this.lastActivityId.length) {
           return true;
         }
@@ -433,7 +433,7 @@ export default class extends BaseModel {
   }
 
   deleteListsWithRelated() {
-    this.lists.toModelArray().forEach((listModel) => {
+    this.lists.toModelArray().forEach(listModel => {
       listModel.deleteWithRelated();
     });
   }
@@ -446,13 +446,13 @@ export default class extends BaseModel {
   deleteRelated(exceptMemberUserId) {
     this.deleteClearable();
 
-    this.memberships.toModelArray().forEach((boardMembershipModel) => {
+    this.memberships.toModelArray().forEach(boardMembershipModel => {
       if (boardMembershipModel.userId !== exceptMemberUserId) {
         boardMembershipModel.deleteWithRelated();
       }
     });
 
-    this.labels.toModelArray().forEach((labelModel) => {
+    this.labels.toModelArray().forEach(labelModel => {
       labelModel.deleteWithRelated();
     });
 

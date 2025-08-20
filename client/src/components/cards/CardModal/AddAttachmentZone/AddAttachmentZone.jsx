@@ -25,7 +25,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
   const [modal, openModal, handleModalClose] = useModal();
 
   const submitFile = useCallback(
-    (file) => {
+    file => {
       dispatch(
         entryActions.createAttachmentInCurrentCard({
           file,
@@ -38,7 +38,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
   );
 
   const submitLink = useCallback(
-    (url) => {
+    url => {
       dispatch(
         entryActions.createAttachmentInCurrentCard({
           url,
@@ -51,8 +51,8 @@ const AddAttachmentZone = React.memo(({ children }) => {
   );
 
   const handleDropAccepted = useCallback(
-    (files) => {
-      files.forEach((file) => {
+    files => {
+      files.forEach(file => {
         submitFile(file);
       });
     },
@@ -66,14 +66,14 @@ const AddAttachmentZone = React.memo(({ children }) => {
   });
 
   const handleFileCreate = useCallback(
-    (file) => {
+    file => {
       submitFile(file);
     },
     [submitFile]
   );
 
   useEffect(() => {
-    const handlePaste = (event) => {
+    const handlePaste = event => {
       if (!event.clipboardData) {
         return;
       }
@@ -81,7 +81,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
       const { files, items } = event.clipboardData;
 
       if (files.length > 0) {
-        [...files].forEach((file) => {
+        [...files].forEach(file => {
           submitFile(file);
         });
 
@@ -97,7 +97,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
           return;
         }
 
-        items[0].getAsString((content) => {
+        items[0].getAsString(content => {
           if (isUrl(content)) {
             submitLink(content);
           } else {
@@ -112,7 +112,7 @@ const AddAttachmentZone = React.memo(({ children }) => {
         return;
       }
 
-      [...items].forEach((item) => {
+      [...items].forEach(item => {
         if (item.kind !== 'file') {
           return;
         }

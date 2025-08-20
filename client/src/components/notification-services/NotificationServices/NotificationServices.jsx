@@ -92,7 +92,7 @@ const NotificationServices = React.memo(({ ids, onCreate }) => {
           {' to send notifications to over 100 popular services.'}
         </Trans>
       </Message>
-      {ids.map((id) => (
+      {ids.map(id => (
         <div key={id} className={styles.item}>
           <Item id={id} />
         </div>
@@ -118,7 +118,7 @@ const NotificationServices = React.memo(({ ids, onCreate }) => {
                   NotificationServiceFormats.TEXT,
                   NotificationServiceFormats.MARKDOWN,
                   NotificationServiceFormats.HTML,
-                ].map((format) => ({
+                ].map(format => ({
                   text: format,
                   value: format,
                 }))}

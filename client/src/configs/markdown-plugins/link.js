@@ -7,7 +7,7 @@ import history from '../../history';
 
 const SAME_SITE_CLASS = 'same-site';
 
-document.addEventListener('click', (event) => {
+document.addEventListener('click', event => {
   const element = event.target.closest(`a.${SAME_SITE_CLASS}`);
 
   if (element) {
@@ -46,9 +46,9 @@ function process(token, nextToken) {
   }
 }
 
-export default (md) => {
+export default md => {
   const plugin = ({ tokens }) => {
-    tokens.forEach((token) => {
+    tokens.forEach(token => {
       if (!token.children) {
         return;
       }
