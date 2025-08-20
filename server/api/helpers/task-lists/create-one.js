@@ -37,7 +37,7 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
-    const taskLists = await TaskList.qm.getByCardId(values.card.id);
+    const taskLists = await sails.models.tasklist.qm.getByCardId(values.card.id);
 
     const { position, repositions } = sails.helpers.utils.insertToPositionables(
       values.position,
@@ -48,7 +48,7 @@ module.exports = {
       // eslint-disable-next-line no-restricted-syntax
       for (const reposition of repositions) {
         // eslint-disable-next-line no-await-in-loop
-        await TaskList.qm.updateOne(
+        await sails.models.tasklist.qm.updateOne(
           {
             id: reposition.record.id,
             cardId: reposition.record.cardId,
@@ -69,7 +69,7 @@ module.exports = {
       }
     }
 
-    const taskList = await TaskList.qm.createOne({
+    const taskList = await sails.models.tasklist.qm.createOne({
       ...values,
       position,
       cardId: values.card.id,

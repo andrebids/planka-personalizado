@@ -65,7 +65,10 @@ const Item = React.memo(({ id }) => {
   );
 
   // Mostrar apenas a primeira imagem (agora ocupa largura completa)
-  const thumbnailAttachments = imageAttachments.slice(0, 1);
+  // Não mostrar imagens quando se cria um cartão ou uma tarefa
+  const thumbnailAttachments = (activity.type === ActivityTypes.CREATE_CARD || activity.type === ActivityTypes.CREATE_TASK)
+    ? [] 
+    : imageAttachments.slice(0, 1);
 
   let contentNode;
   switch (activity.type) {

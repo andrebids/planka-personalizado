@@ -16,7 +16,7 @@ module.exports = {
   },
 
   async fn(inputs) {
-    const taskList = await TaskList.qm.getOneById(inputs.id);
+    const taskList = await sails.models.tasklist.qm.getOneById(inputs.id);
 
     if (!taskList) {
       throw 'pathNotFound';

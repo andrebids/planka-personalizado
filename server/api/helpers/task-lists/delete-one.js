@@ -41,7 +41,7 @@ module.exports = {
   async fn(inputs) {
     await sails.helpers.taskLists.deleteRelated(inputs.record);
 
-    const taskList = await TaskList.qm.deleteOne(inputs.record.id);
+    const taskList = await sails.models.tasklist.qm.deleteOne(inputs.record.id);
 
     if (taskList) {
       sails.sockets.broadcast(

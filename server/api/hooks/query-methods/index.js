@@ -55,8 +55,6 @@ module.exports = function defineQueryMethodsHook(sails) {
           Object.assign(Model, {
             qm: queryMethods,
           });
-        } else {
-          sails.log.error(`❌ No query methods found for ${Model.identity} (case-insensitive search also failed)`);
         }
       }
     });
