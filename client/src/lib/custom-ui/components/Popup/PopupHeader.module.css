@@ -37,7 +37,10 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   font-size: 16px;
   font-weight: 700;
-  color: #e6edf3;
+  color: #ffffff; /* ← COR BRANCA COMO BASE */
+  text-shadow: 
+    0 0 1px rgba(0, 0, 0, 0.6),    /* ← SOMBRA MAIS SUTIL */
+    0 0 2px rgba(0, 0, 0, 0.4);    /* ← SOMBRA DIFUSA LEVE */
   left: 0;
   line-height: 22px;
   margin: 0 12px;

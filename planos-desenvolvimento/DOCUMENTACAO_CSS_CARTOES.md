@@ -470,6 +470,29 @@ No arquivo `DEV/planka-personalizado/client/src/lib/custom-ui/styles.css`, adici
 }
 ```
 
+#### **🎯 CABEÇALHOS DOS POPUPS DOS CARTÕES (CONFIRMADO)**
+**Arquivo:** `PopupHeader.module.css`
+**Caminho:** `DEV/planka-personalizado/client/src/lib/custom-ui/components/Popup/PopupHeader.module.css`
+
+**Cores Principais:**
+```css
+.content {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a; /* ← COR ESCURA PARA CONTRASTAR COM FUNDO CLARO */
+  left: 0;
+  line-height: 22px;
+  margin: 0 12px;
+  padding: 12px 44px 8px 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+```
+
+**Nota:** Esta classe controla os cabeçalhos de todos os popups (ex: "Membros", "Etiquetas", "Editar Data", etc.) que aparecem quando clicas nos botões de ação dos cartões.
+
 #### **2. Cartão no Quadro - Conteúdo Inline**
 **Arquivo:** `InlineContent.module.scss`
 **Caminho:** `DEV/planka-personalizado/client/src/components/cards/Card/InlineContent.module.scss`
@@ -628,6 +651,13 @@ No arquivo `DEV/planka-personalizado/client/src/lib/custom-ui/styles.css`, adici
 2. **Localize:** A classe `.field` (linha 13)
 3. **Modifique:** A propriedade `color: #17394d;`
 
+#### **🎯 Para alterar a cor dos cabeçalhos dos popups dos cartões:**
+1. **Abra:** `DEV/planka-personalizado/client/src/lib/custom-ui/components/Popup/PopupHeader.module.css`
+2. **Localize:** A classe `.content` (linha 40)
+3. **Modifique:** A propriedade `color: #1a1a1a;`
+
+**Nota:** Esta alteração afeta todos os cabeçalhos de popups (ex: "Membros", "Etiquetas", "Editar Data", etc.) que aparecem quando clicas nos botões de ação dos cartões.
+
 ### **🎨 Paleta de Cores Atual:**
 
 - **Títulos Principais:** `#f3f4f6` (branco acinzentado)
@@ -638,6 +668,7 @@ No arquivo `DEV/planka-personalizado/client/src/lib/custom-ui/styles.css`, adici
 - **Notificações:** `#fff` (branco)
 - **Chips Padrão:** `#6a808b` (cinza azulado)
 - **Botão de Ações:** `#9ca3af` (cinza claro)
+- **Cabeçalhos dos Popups:** `#1a1a1a` (preto escuro para fundo claro)
 
 ### **📝 Notas Importantes:**
 
