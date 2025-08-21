@@ -23,6 +23,8 @@ const BoardActivitiesModal = React.memo(() => {
     selectors.selectCurrentBoard
   );
 
+
+
   const dispatch = useDispatch();
   const [t] = useTranslation();
 

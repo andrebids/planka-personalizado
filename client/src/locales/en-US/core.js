@@ -319,6 +319,14 @@ export default {
       userLeftCard: '<0>{{user}}</0> left <2>{{card}}</2>',
       userLeftNewCommentToCard:
         '<0>{{user}}</0> left a new comment «{{comment}}» to <2>{{card}}</2>',
+      userCommentedOnCard:
+        '<0>{{user}}</0> commented on <2>{{card}}</2>',
+      userRepliedToCommentOnCard:
+        '<0>{{user}}</0> replied to a comment on <2>{{card}}</2>',
+      userUpdatedCommentOnCard:
+        '<0>{{user}}</0> updated comment on <2>{{card}}</2>',
+      userDeletedCommentOnCard:
+        '<0>{{user}}</0> deleted comment on <2>{{card}}</2>',
       userLeftThisCard: '<0>{{user}}</0> left this card',
       userMarkedTaskIncompleteOnCard:
         '<0>{{user}}</0> marked {{task}} incomplete on <4>{{card}}</4>',

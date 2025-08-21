@@ -41,6 +41,8 @@ const Item = React.memo(({ id }) => {
     selectAttachmentsForCard(state, activity.cardId)
   );
 
+
+
   const [t] = useTranslation();
   const [activateClosable, deactivateClosable] = useContext(ClosableContext);
 
@@ -512,6 +514,71 @@ const Item = React.memo(({ id }) => {
 
       break;
     }
+    case ActivityTypes.COMMENT_CREATE:
+    case ActivityTypes.COMMENT_UPDATE:
+    case ActivityTypes.COMMENT_DELETE:
+    case ActivityTypes.COMMENT_REPLY: {
+      const { commentText, cardName: activityCardName, mentions, isReply, action } = activity.data;
+      
+
+
+      // Usar padrão direto como outros casos
+      const getActionText = (action) => {
+        switch (action) {
+          case 'create': return isReply ? ' respondeu a um comentário no ' : ' comentou no ';
+          case 'update': return ' editou comentário no ';
+          case 'delete': return ' removeu comentário no ';
+          case 'reply': return ' respondeu a um comentário no ';
+          default: return ' comentou no ';
+        }
+      };
+
+      contentNode = (
+        <>
+          <span className={styles.author}>{userName}</span>
+          {getActionText(action)}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {activityCardName || cardName}
+          </Link>
+        </>
+      );
+
+      // Adicionar texto do comentário ao contentNode
+      if (action !== 'delete' && commentText) {
+        contentNode = (
+          <>
+            {contentNode}
+            <div className={styles.commentText}>
+              <div className={styles.commentContent}>
+                {commentText}
+              </div>
+              {mentions && mentions.length > 0 && (
+                <div className={styles.mentions}>
+                  {mentions.map((mention, index) => (
+                    <span key={index} className={styles.mention}>
+                      @{mention}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        );
+      }
+      
+      if (action === 'delete') {
+        contentNode = (
+          <>
+            {contentNode}
+            <div className={styles.deletedComment}>
+              <em>[Comentário removido]</em>
+            </div>
+          </>
+        );
+      }
+
+      break;
+    }
     default:
       contentNode = (
         <Trans
@@ -528,7 +595,7 @@ const Item = React.memo(({ id }) => {
 
   return (
     <>
-      <Comment>
+      <Comment className={styles.commentActivity}>
         <span className={styles.user}>
           <UserAvatar id={activity.userId} />
         </span>

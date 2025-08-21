@@ -67,6 +67,50 @@ module.exports = {
       userId: values.user.id,
     });
 
+    // Criar atividade para o comentário
+    try {
+      // Extrair menções do texto do comentário
+      const extractMentions = (text) => {
+        const mentionRegex = /@(\w+)/g;
+        const matches = text.match(mentionRegex) || [];
+        return matches.map(match => match.substring(1));
+      };
+
+      // Determinar se é resposta a outro comentário
+      const isReplyToComment = (text) => {
+        return text.includes('@') && text.length > 0;
+      };
+
+      // Criar dados da atividade
+      const activityData = {
+        commentId: comment.id,
+        commentText: comment.text.substring(0, 150), // Limitar a 150 chars
+        cardName: values.card.name,
+        cardId: values.card.id,
+        mentions: extractMentions(comment.text),
+        isReply: isReplyToComment(comment.text),
+        action: 'create'
+      };
+
+      // Criar atividade diretamente
+      const activity = await Action.create({
+        type: 'commentCreate',
+        data: activityData,
+        boardId: inputs.board.id,
+        cardId: values.card.id,
+        userId: values.user.id,
+      }).fetch();
+
+      console.log('✅ Atividade de comentário criada no histórico:', {
+        activityId: activity.id,
+        type: activity.type,
+        commentId: comment.id
+      });
+    } catch (activityError) {
+      console.error('❌ Erro ao criar atividade de comentário:', activityError);
+      // Não falhar a criação do comentário se a atividade falhar
+    }
+
     sails.sockets.broadcast(
       `board:${inputs.board.id}`,
       'commentCreate',

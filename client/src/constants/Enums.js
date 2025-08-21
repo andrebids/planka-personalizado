@@ -102,6 +102,11 @@ export const ActivityTypes = {
   CREATE_ATTACHMENT: 'createAttachment',
   DELETE_ATTACHMENT: 'deleteAttachment',
   SET_DUE_DATE: 'setDueDate',
+  // NOVOS TIPOS DE ATIVIDADE PARA COMENTÁRIOS
+  COMMENT_CREATE: 'commentCreate',
+  COMMENT_UPDATE: 'commentUpdate',
+  COMMENT_DELETE: 'commentDelete',
+  COMMENT_REPLY: 'commentReply',
 };
 
 export const NotificationTypes = {

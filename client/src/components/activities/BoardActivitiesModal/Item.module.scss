@@ -98,3 +98,71 @@
     transform: scale(1.1);
   }
 }
+
+// Estilos para atividades de comentário
+.commentActivity {
+  // Integrar com sistema glass existente
+  background: rgba(var(--glass-bg-rgb), 0.05) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 8px !important;
+  margin-bottom: 8px !important;
+  padding: 12px !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    background: rgba(var(--glass-bg-rgb), 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  // Aplicar classes glass existentes
+  &.glass-panel {
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    -webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+  }
+}
+
+.commentText {
+  // Estilo glass para comentários
+  background: rgba(var(--glass-bg-rgb), 0.03) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  margin: 8px 0 !important;
+
+  .commentContent {
+    // Aplicar contraste glass (iOS 26 style)
+    color: var(--text-white-secondary) !important;
+    text-shadow: var(--text-shadow-ios) !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+}
+
+.mentions {
+  margin-top: 6px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+
+  .mention {
+    background: rgba(var(--accent-rgb), 0.2) !important;
+    color: var(--accent) !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    border: 1px solid rgba(var(--accent-rgb), 0.3) !important;
+  }
+}
+
+.deletedComment {
+  font-style: italic !important;
+  color: var(--text-tertiary) !important;
+  font-size: 13px !important;
+  padding: 8px 12px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 6px !important;
+  border-left: 3px solid #db2828 !important;
+}

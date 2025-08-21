@@ -43,6 +43,52 @@ module.exports = {
 
     const comment = await Comment.qm.updateOne(inputs.record.id, values);
 
+    // Criar atividade para atualização do comentário
+    if (comment) {
+      try {
+        // Extrair menções do texto do comentário
+        const extractMentions = (text) => {
+          const mentionRegex = /@(\w+)/g;
+          const matches = text.match(mentionRegex) || [];
+          return matches.map(match => match.substring(1));
+        };
+
+        // Determinar se é resposta a outro comentário
+        const isReplyToComment = (text) => {
+          return text.includes('@') && text.length > 0;
+        };
+
+        // Criar dados da atividade
+        const activityData = {
+          commentId: comment.id,
+          commentText: comment.text.substring(0, 150), // Limitar a 150 chars
+          cardName: inputs.card.name,
+          cardId: inputs.card.id,
+          mentions: extractMentions(comment.text),
+          isReply: isReplyToComment(comment.text),
+          action: 'update'
+        };
+
+        // Criar atividade diretamente
+        const activity = await Action.create({
+          type: 'commentUpdate',
+          data: activityData,
+          boardId: inputs.board.id,
+          cardId: inputs.card.id,
+          userId: inputs.actorUser.id,
+        }).fetch();
+
+        console.log('✅ Atividade de atualização de comentário criada no histórico:', {
+          activityId: activity.id,
+          type: activity.type,
+          commentId: comment.id
+        });
+      } catch (activityError) {
+        console.error('❌ Erro ao criar atividade de atualização de comentário:', activityError);
+        // Não falhar a atualização do comentário se a atividade falhar
+      }
+    }
+
     if (comment) {
       sails.sockets.broadcast(
         `board:${inputs.board.id}`,
