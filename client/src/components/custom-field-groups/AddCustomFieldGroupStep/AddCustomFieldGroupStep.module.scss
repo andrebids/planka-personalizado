@@ -52,14 +52,8 @@
     margin-bottom: 4px; /* Adicionar margem extra */
   }
   
-  /* Regra específica apenas para este popup - não afeta tasks */
-  ._text_1gvdm_28,
-  ._text_1tqk1_8 {
-    color: #e6edf3 !important; /* texto claro para fundo escuro */
-  }
-  
-  /* Regra mais abrangente para garantir que todos os textos neste popup sejam claros */
-  [class*="_text_"] {
+  /* Regra robusta para textos neste popup específico */
+  .field [class*="_text_"] {
     color: #e6edf3 !important; /* texto claro para fundo escuro */
   }
 }

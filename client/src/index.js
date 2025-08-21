@@ -13,6 +13,7 @@ import Root from './components/common/Root';
 import './i18n';
 import './styles/glass-theme.css';
 import './styles/glass-modal.css';
+import './styles/select-order-overrides.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(React.createElement(Root, { store, history }));
