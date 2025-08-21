@@ -858,6 +858,19 @@
   }
 }
 
+/* Regra específica para garantir que tasks mantenham cor escura */
+:global(#app) {
+  /* Tasks devem manter cor escura */
+  [class*="_task_"] {
+    color: #17394d !important; /* cor escura para tasks */
+  }
+  
+  /* Texto dentro de tasks deve ser escuro */
+  [class*="_task_"] [class*="_text_"] {
+    color: #17394d !important; /* cor escura para texto de tasks */
+  }
+}
+
 :global(body), :global(#app) {
   font-family: 'Plus Jakarta Sans', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }

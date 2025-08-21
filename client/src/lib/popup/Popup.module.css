@@ -75,10 +75,10 @@
 .notifications {
   width: 392px;
   border-radius: 16px !important;
-  background: rgba(14, 17, 23, 0.75) !important; /* liquid-glass */
+  background: rgba(14, 17, 23, 0.45) !important; /* fundo escuro mais transparente */
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55) !important; /* remove linha extra */
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35) !important; /* sombra mais suave */
   padding: 0 16px 16px !important;
   position: relative;
   isolation: isolate;
@@ -112,10 +112,10 @@
 .user {
   width: 320px;
   border-radius: 16px !important;
-  background: rgba(14, 17, 23, 0.75) !important;
+  background: rgba(14, 17, 23, 0.45) !important;
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55) !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35) !important;
   padding: 0 16px 12px !important;
   position: relative;
   isolation: isolate;

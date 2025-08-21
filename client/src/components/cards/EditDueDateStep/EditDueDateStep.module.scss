@@ -19,10 +19,22 @@
 
   .fieldWrapper {
     margin: 0 -4px;
+    
+    /* Garantir que os campos de input tenham texto claro */
+    input {
+      color: #e6edf3 !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    input:focus {
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
+    }
   }
 
   .text {
-    color: #444444;
+    color: #e6edf3 !important; /* texto claro para fundo escuro */
     font-size: 12px;
     font-weight: bold;
     padding-bottom: 4px;
