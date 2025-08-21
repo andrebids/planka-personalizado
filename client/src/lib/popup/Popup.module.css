@@ -49,10 +49,10 @@
 /* Variante genérica de vidro para popups em geral */
 .glass {
   border-radius: 16px !important;
-  background: rgba(14, 17, 23, 0.75) !important;
+  background: rgba(14, 17, 23, 0.45) !important;
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55) !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35) !important;
   padding: 0 16px 12px !important;
   position: relative;
   isolation: isolate;
