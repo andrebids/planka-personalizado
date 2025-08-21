@@ -41,7 +41,7 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
-    const attachment = await Attachment.qm.updateOne(inputs.record.id, values);
+    const attachment = await sails.models.attachment.qm.updateOne(inputs.record.id, values);
 
     if (attachment) {
       sails.sockets.broadcast(

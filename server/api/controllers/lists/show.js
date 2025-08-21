@@ -67,7 +67,7 @@ module.exports = {
     const taskListIds = sails.helpers.utils.mapRecords(taskLists);
 
     const tasks = await Task.qm.getByTaskListIds(taskListIds);
-    const attachments = await Attachment.qm.getByCardIds(cardIds);
+    const attachments = await sails.models.attachment.qm.getByCardIds(cardIds);
 
     const customFieldGroups = await CustomFieldGroup.qm.getByCardIds(cardIds);
     const customFieldGroupIds = sails.helpers.utils.mapRecords(customFieldGroups);

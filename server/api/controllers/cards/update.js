@@ -179,11 +179,11 @@ module.exports = {
 
     let nextCoverAttachment;
     if (inputs.coverAttachmentId) {
-      nextCoverAttachment = await Attachment.qm.getOneById(inputs.coverAttachmentId, {
+      nextCoverAttachment = await sails.models.attachment.qm.getOneById(inputs.coverAttachmentId, {
         cardId: card.id,
       });
 
-      if (!nextCoverAttachment || nextCoverAttachment.type !== Attachment.Types.FILE) {
+      if (!nextCoverAttachment || nextCoverAttachment.type !== sails.models.attachment.Types.FILE) {
         throw Errors.COVER_ATTACHMENT_NOT_FOUND;
       }
     }

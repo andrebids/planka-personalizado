@@ -36,30 +36,51 @@ module.exports = function defineQueryMethodsHook(sails) {
       {},
     );
 
-    _(sails.models).forEach((Model) => {
-      const queryMethods = queryMethodsByModelName[Model.identity];
+    sails.log.info('✓ Models available, processing query methods...');
+    sails.log.info('Available models:', Object.keys(sails.models));
+    sails.log.info('Available query methods:', Object.keys(queryMethodsByModelName));
+    sails.log.info('Looking for attachment model...');
+    sails.log.info('Attachment model exists:', !!sails.models.attachment);
+    sails.log.info('Attachment model identity:', sails.models.attachment ? sails.models.attachment.identity : 'undefined');
 
-      if (queryMethods) {
-        Object.assign(Model, {
-          qm: queryMethods,
-        });
-      } else {
-        // Tentar mapeamento case-insensitive
+    _(sails.models).forEach((Model) => {
+      sails.log.info(`Processing model: ${Model.globalId || Model.identity}, identity: ${Model.identity}, globalId: ${Model.globalId}`);
+      
+      // Primeiro, tentar match direto
+      let queryMethods = queryMethodsByModelName[Model.identity];
+
+      // Se não encontrar, tentar match case-insensitive
+      if (!queryMethods) {
         const lowerCaseKeys = Object.keys(queryMethodsByModelName).map(key => key.toLowerCase());
         const lowerCaseIdentity = Model.identity.toLowerCase();
         
         if (lowerCaseKeys.includes(lowerCaseIdentity)) {
           const originalKey = Object.keys(queryMethodsByModelName).find(key => key.toLowerCase() === lowerCaseIdentity);
-          const queryMethods = queryMethodsByModelName[originalKey];
-          
-          Object.assign(Model, {
-            qm: queryMethods,
-          });
+          queryMethods = queryMethodsByModelName[originalKey];
+          sails.log.info(`✓ Found query methods for ${Model.identity} via case-insensitive match: ${originalKey}`);
         }
+      }
+
+      if (queryMethods) {
+        Object.assign(Model, {
+          qm: queryMethods,
+        });
+        sails.log.info(`✓ Added query methods to ${Model.identity}`);
+      } else {
+        sails.log.warn(`⚠ No query methods found for ${Model.identity}`);
+        sails.log.warn(`Available keys: ${Object.keys(queryMethodsByModelName).join(', ')}`);
+        sails.log.error(`❌ No query methods found for ${Model.identity} (case-insensitive search also failed)`);
       }
     });
     
     sails.log.info('✓ Query methods hook completed successfully');
+    sails.log.info('Final check - Attachment.qm exists:', !!sails.models.attachment.qm);
+    sails.log.info('Final check - Attachment.qm methods:', sails.models.attachment.qm ? Object.keys(sails.models.attachment.qm) : 'undefined');
+    sails.log.info('Final check - sails.models.attachment exists:', !!sails.models.attachment);
+    sails.log.info('Final check - sails.models.attachment.identity:', sails.models.attachment ? sails.models.attachment.identity : 'undefined');
+    sails.log.info('Final check - sails.models keys:', Object.keys(sails.models));
+    sails.log.info('Final check - sails.models.attachment.qm.createOne exists:', sails.models.attachment && sails.models.attachment.qm ? !!sails.models.attachment.qm.createOne : 'undefined');
+    sails.log.info('Final check - sails.models.attachment.qm.createOne type:', sails.models.attachment && sails.models.attachment.qm && sails.models.attachment.qm.createOne ? typeof sails.models.attachment.qm.createOne : 'undefined');
   };
 
   return {
@@ -71,7 +92,10 @@ module.exports = function defineQueryMethodsHook(sails) {
 
       // Garantir que o ORM esteja carregado antes de adicionar query methods
       sails.after('hook:orm:loaded', () => {
-        addQueryMethods();
+        // Adicionar um pequeno delay para garantir que os modelos estejam disponíveis
+        setTimeout(() => {
+          addQueryMethods();
+        }, 1000);
       });
     },
   };

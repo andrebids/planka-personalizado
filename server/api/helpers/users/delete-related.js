@@ -75,7 +75,7 @@ module.exports = {
       },
     );
 
-    await Attachment.qm.update(
+    await sails.models.attachment.qm.update(
       {
         creatorUserId: userIdOrIds,
       },

@@ -4,7 +4,6 @@
  */
 
 const Action = require('../../models/Action');
-const Attachment = require('../../models/Attachment');
 const _ = require('lodash');
 
 module.exports = {
@@ -52,8 +51,8 @@ module.exports = {
       });
     }
 
-    const { attachment, fileReference } = await Attachment.qm.deleteOne(inputs.record.id, {
-      isFile: inputs.record.type === Attachment.Types.FILE,
+    const { attachment, fileReference } = await sails.models.attachment.qm.deleteOne(inputs.record.id, {
+      isFile: inputs.record.type === sails.models.attachment.Types.FILE,
     });
 
     if (attachment) {

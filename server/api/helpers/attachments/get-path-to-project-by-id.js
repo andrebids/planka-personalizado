@@ -16,7 +16,7 @@ module.exports = {
   },
 
   async fn(inputs) {
-    const attachment = await Attachment.qm.getOneById(inputs.id);
+    const attachment = await sails.models.attachment.qm.getOneById(inputs.id);
 
     if (!attachment) {
       throw 'pathNotFound';

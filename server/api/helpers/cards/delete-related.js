@@ -39,7 +39,7 @@ module.exports = {
 
     await sails.helpers.taskLists.deleteRelated(taskLists);
 
-    const { fileReferences } = await Attachment.qm.delete({
+    const { fileReferences } = await sails.models.attachment.qm.delete({
       cardId: cardIdOrIds,
     });
 

@@ -119,7 +119,7 @@ module.exports = {
     const taskListIds = sails.helpers.utils.mapRecords(taskLists);
 
     const tasks = await Task.qm.getByTaskListIds(taskListIds);
-    const attachments = await Attachment.qm.getByCardId(inputs.record.id);
+    const attachments = await sails.models.attachment.qm.getByCardId(inputs.record.id);
 
     const customFieldGroups = await CustomFieldGroup.qm.getByCardId(inputs.record.id);
     const customFieldGroupIds = sails.helpers.utils.mapRecords(customFieldGroups);
@@ -165,7 +165,7 @@ module.exports = {
       };
     });
 
-    const nextAttachments = await Attachment.qm.create(nextAttachmentsValues);
+    const nextAttachments = await sails.models.attachment.qm.create(nextAttachmentsValues);
 
     if (inputs.record.coverAttachmentId) {
       const nextCoverAttachmentId = nextAttachmentIdByAttachmentId[inputs.record.coverAttachmentId];

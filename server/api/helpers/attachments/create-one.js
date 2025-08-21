@@ -4,7 +4,6 @@
  */
 
 const Action = require('../../models/Action');
-const Attachment = require('../../models/Attachment');
 const _ = require('lodash');
 
 module.exports = {
@@ -36,7 +35,7 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
-    const attachment = await Attachment.qm.createOne({
+    const attachment = await sails.models.attachment.qm.createOne({
       ...values,
       cardId: values.card.id,
       creatorUserId: values.creatorUser.id,
@@ -83,7 +82,7 @@ module.exports = {
     });
 
     if (!values.card.coverAttachmentId) {
-      if (attachment.type === Attachment.Types.FILE && attachment.data.image) {
+      if (attachment.type === sails.models.attachment.Types.FILE && attachment.data.image) {
         await sails.helpers.cards.updateOne.with({
           record: values.card,
           values: {
