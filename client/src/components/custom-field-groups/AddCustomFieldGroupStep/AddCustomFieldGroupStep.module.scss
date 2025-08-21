@@ -57,4 +57,9 @@
   ._text_1tqk1_8 {
     color: #e6edf3 !important; /* texto claro para fundo escuro */
   }
+  
+  /* Regra mais abrangente para garantir que todos os textos neste popup sejam claros */
+  [class*="_text_"] {
+    color: #e6edf3 !important; /* texto claro para fundo escuro */
+  }
 }
