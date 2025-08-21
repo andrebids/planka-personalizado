@@ -355,7 +355,7 @@ export default {
       baseCustomFields_title: 'Campos Personalizados Base',
       baseGroup: 'Grupo base',
       board: 'Quadro',
-      boardActions_title: 'Ações do Quadro',
+      boardActions_title: 'Histórico do Projeto',
       boardNotFound_title: 'Quadro não encontrado',
       boardSubscribed: 'Quadro subscrito',
       boardUser: 'Utilizador do quadro',

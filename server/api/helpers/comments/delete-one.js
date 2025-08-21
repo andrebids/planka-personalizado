@@ -69,11 +69,7 @@ module.exports = {
         userId: inputs.actorUser.id,
       }).fetch();
 
-      console.log('✅ Atividade de remoção de comentário criada no histórico:', {
-        activityId: activity.id,
-        type: activity.type,
-        commentId: inputs.record.id
-      });
+
     } catch (activityError) {
       console.error('❌ Erro ao criar atividade de remoção de comentário:', activityError);
       // Não falhar a remoção do comentário se a atividade falhar

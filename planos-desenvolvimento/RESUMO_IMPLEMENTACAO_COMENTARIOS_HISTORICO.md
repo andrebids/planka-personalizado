@@ -216,4 +216,5 @@ O sistema agora permite que os utilizadores vejam todos os comentários no hist�
 - ✅ **Frontend renderizando** - Atividades aparecem na interface
 - ✅ **Português corrigido** - "comentou no cartão" em vez de "comentou em cartão"
 - ✅ **Link clicável funcionando** - Clique no nome do cartão leva ao cartão
-- ✅ **Debug removido** - Código limpo e otimizado
+- ✅ **Título atualizado** - "Histórico do Projeto" em vez de "Ações do Quadro"
+- ✅ **Logs de debug removidos** - Código limpo e otimizado para produção

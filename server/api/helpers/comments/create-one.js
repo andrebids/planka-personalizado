@@ -101,11 +101,7 @@ module.exports = {
         userId: values.user.id,
       }).fetch();
 
-      console.log('✅ Atividade de comentário criada no histórico:', {
-        activityId: activity.id,
-        type: activity.type,
-        commentId: comment.id
-      });
+
     } catch (activityError) {
       console.error('❌ Erro ao criar atividade de comentário:', activityError);
       // Não falhar a criação do comentário se a atividade falhar
