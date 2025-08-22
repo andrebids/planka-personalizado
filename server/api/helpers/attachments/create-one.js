@@ -65,20 +65,15 @@ module.exports = {
       user: values.creatorUser,
     });
 
-    // Criar ação para criação de anexo
-    await sails.helpers.actions.createOne.with({
-      values: {
-        type: Action.Types.CREATE_ATTACHMENT,
-        data: {
-          card: _.pick(values.card, ['name']),
-          attachment: _.pick(attachment, ['id', 'name']),
-        },
-        user: values.creatorUser,
-        card: values.card,
-      },
-      project: inputs.project,
-      board: inputs.board,
-      list: inputs.list,
+    // Chamar helper de atividade para criar log
+    await sails.helpers.activities.createAttachmentActivity.with({
+      attachmentId: attachment.id,
+      attachmentName: attachment.name,
+      cardId: inputs.record.cardId,
+      cardName: card.name,
+      userId: inputs.record.userId,
+      userName: user.name,
+      action: 'create'
     });
 
     if (!values.card.coverAttachmentId) {

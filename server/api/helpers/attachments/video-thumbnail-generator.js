@@ -116,11 +116,7 @@ module.exports = {
               })
               .on('error', function(err) {
                 sails.log.error('❌ Erro ao extrair frame:', err.message);
-                sails.log.error('❌ Detalhes do erro:', err);
                 reject(err);
-              })
-              .on('stderr', function(stderrLine) {
-                sails.log.debug('🔍 FFmpeg stderr:', stderrLine);
               });
           });
 
@@ -147,9 +143,6 @@ module.exports = {
                 .on('error', function(err) {
                   sails.log.error('❌ Erro mesmo com fallback:', err.message);
                   reject(err);
-                })
-                .on('stderr', function(stderrLine) {
-                  sails.log.debug('🔍 FFmpeg stderr (fallback):', stderrLine);
                 });
             });
           } else {

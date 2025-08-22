@@ -628,10 +628,18 @@ export default {
         '<0>{{user}}</0> criou anexo <2>{{attachment}}</2> no cartão <4>{{card}}</4>',
       userCreatedAttachmentOnThisCard:
         '<0>{{user}}</0> criou anexo <2>{{attachment}}</2> neste cartão',
+      userCreatedVideoOnCard:
+        '<0>{{user}}</0> adicionou vídeo <2>{{attachment}}</2> ao cartão <4>{{card}}</4>',
+      userCreatedVideoOnThisCard:
+        '<0>{{user}}</0> adicionou vídeo <2>{{attachment}}</2> a este cartão',
       userDeletedAttachmentOnCard:
         '<0>{{user}}</0> excluiu anexo <2>{{attachment}}</2> do cartão <4>{{card}}</4>',
       userDeletedAttachmentOnThisCard:
         '<0>{{user}}</0> excluiu anexo <2>{{attachment}}</2> deste cartão',
+      userDeletedVideoOnCard:
+        '<0>{{user}}</0> removeu vídeo <2>{{attachment}}</2> do cartão <4>{{card}}</4>',
+      userDeletedVideoOnThisCard:
+        '<0>{{user}}</0> removeu vídeo <2>{{attachment}}</2> deste cartão',
       userMentionedYouInCommentOnCard:
         '<0>{{user}}</0> mencionou-o num comentário «{{comment}}» no cartão <2>{{card}}</2>',
       userMovedCardFromListToList:

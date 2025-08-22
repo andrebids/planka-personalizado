@@ -83,21 +83,18 @@ module.exports = {
         user: inputs.actorUser,
       });
 
-      // Criar ação para exclusão de anexo
-      await sails.helpers.actions.createOne.with({
-        values: {
-          type: Action.Types.DELETE_ATTACHMENT,
-          data: {
-            card: _.pick(inputs.card, ['name']),
-            attachment: _.pick(attachment, ['id', 'name']),
-          },
-          user: inputs.actorUser,
-          card: inputs.card,
-        },
-        project: inputs.project,
-        board: inputs.board,
-        list: inputs.list,
+      // Chamar helper de atividade para criar log
+      await sails.helpers.activities.createAttachmentActivity.with({
+        attachmentId: attachment.id,
+        attachmentName: attachment.name,
+        cardId: attachment.cardId,
+        cardName: card.name,
+        userId: inputs.request.currentUser.id,
+        userName: inputs.request.currentUser.name,
+        action: 'delete'
       });
+
+      return attachment;
     }
 
     return attachment;

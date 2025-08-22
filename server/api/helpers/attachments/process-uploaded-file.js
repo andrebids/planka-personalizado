@@ -61,11 +61,7 @@ module.exports = {
       video: null,
     };
 
-    console.log('🔍 Verificando se é imagem:', mimeType, 'Excluído:', ['image/svg+xml', 'application/pdf'].includes(mimeType));
-
     if (!['image/svg+xml', 'application/pdf'].includes(mimeType)) {
-      console.log('🖼️ Iniciando processamento de imagem com Sharp');
-
       let image = sharp(buffer || filePath, {
         animated: true,
       });
@@ -73,9 +69,7 @@ module.exports = {
       let metadata;
       try {
         metadata = await image.metadata();
-        console.log('📊 Metadata obtida:', metadata);
       } catch (error) {
-        console.error('❌ Erro ao obter metadata:', error.message);
         /* empty */
       }
 
@@ -89,9 +83,6 @@ module.exports = {
         const thumbnailsExtension = metadata.format === 'jpeg' ? 'jpg' : metadata.format;
 
         try {
-          console.log('🖼️ Processando imagem:', filename, 'MIME:', mimeType, 'Tamanho:', sizeInBytes);
-          console.log('📏 Dimensões:', width, 'x', height);
-
           const outside360Buffer = await image
             .resize(360, 360, {
               fit: 'outside',
@@ -102,8 +93,6 @@ module.exports = {
               force: false,
             })
             .toBuffer();
-
-          console.log('✅ Thumbnail 360 gerado:', outside360Buffer.length, 'bytes');
 
           await fileManager.save(
             `${thumbnailsPathSegment}/outside-360.${thumbnailsExtension}`,
@@ -122,8 +111,6 @@ module.exports = {
             })
             .toBuffer();
 
-          console.log('✅ Thumbnail 720 gerado:', outside720Buffer.length, 'bytes');
-
           await fileManager.save(
             `${thumbnailsPathSegment}/outside-720.${thumbnailsExtension}`,
             outside720Buffer,
@@ -135,12 +122,7 @@ module.exports = {
             height,
             thumbnailsExtension,
           };
-
-          console.log('✅ Imagem processada com sucesso:', data.image);
         } catch (error) {
-          console.error('❌ Erro ao processar imagem:', error.message);
-          console.error('❌ Stack trace:', error.stack);
-          sails.log.warn(error.stack);
           await fileManager.deleteDir(thumbnailsPathSegment);
         }
       }
@@ -194,15 +176,14 @@ module.exports = {
       data.video = null;
     }
 
-    sails.log.info('📤 Retornando dados do anexo:', {
-      filename: data.filename,
-      mimeType: data.mimeType,
-      hasImage: !!data.image,
-      hasVideo: !!data.video,
+    // Retornar dados do anexo
+    return {
+      filename: filename,
+      mimeType: mimeType,
+      hasImage: data.image !== null,
+      hasVideo: data.video !== null,
       imageData: data.image,
       videoData: data.video
-    });
-
-    return data;
+    };
   },
 };

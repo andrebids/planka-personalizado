@@ -210,315 +210,73 @@ const Item = React.memo(({ id }) => {
       );
 
       break;
-    case ActivityTypes.CREATE_ATTACHMENT:
-      contentNode = (
-        <Trans
-          i18nKey="common.userAddedAttachmentToCard"
-          values={{
-            user: userName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' added attachment to '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    case ActivityTypes.SET_DUE_DATE: {
-      const { oldDueDate, newDueDate } = activity.data || {};
-
-      const formatDate = date => {
-        if (!date) return null;
-        return new Date(date).toLocaleDateString();
-      };
-
-      const oldDate = formatDate(oldDueDate);
-      const newDate = formatDate(newDueDate);
-
-      if (!oldDueDate && newDueDate) {
-        // Data de vencimento adicionada
-        contentNode = (
-          <Trans
-            i18nKey="common.userSetDueDateToCard"
-            values={{
-              user: userName,
-              card: cardName,
-              date: newDate,
-            }}
-          >
-            <span className={styles.author}>{userName}</span>
-            {' set due date to '}
-            <strong>{newDate}</strong>
-            {' for '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-              {cardName}
-            </Link>
-          </Trans>
-        );
-      } else if (oldDueDate && !newDueDate) {
-        // Data de vencimento removida
-        contentNode = (
-          <Trans
-            i18nKey="common.userRemovedDueDateFromCard"
-            values={{
-              user: userName,
-              card: cardName,
-            }}
-          >
-            <span className={styles.author}>{userName}</span>
-            {' removed due date from '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-              {cardName}
-            </Link>
-          </Trans>
-        );
-      } else {
-        // Data de vencimento alterada
-        contentNode = (
-          <Trans
-            i18nKey="common.userChangedDueDateOfCard"
-            values={{
-              user: userName,
-              card: cardName,
-              oldDate: oldDate,
-              newDate: newDate,
-            }}
-          >
-            <span className={styles.author}>{userName}</span>
-            {' changed due date from '}
-            <strong>{oldDate}</strong>
-            {' to '}
-            <strong>{newDate}</strong>
-            {' for '}
-            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-              {cardName}
-            </Link>
-          </Trans>
-        );
-      }
-
-      break;
-    }
-    case ActivityTypes.COMPLETE_TASK: {
-      const { task } = activity.data || {};
-      const taskName = task?.name || 'Tarefa desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userCompletedTaskOnCard"
-          values={{
-            user: userName,
-            task: taskName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' completou '}
-          <strong>{taskName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
-    case ActivityTypes.UNCOMPLETE_TASK: {
-      const { task } = activity.data || {};
-      const taskName = task?.name || 'Tarefa desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userMarkedTaskIncompleteOnCard"
-          values={{
-            user: userName,
-            task: taskName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' marcou '}
-          <strong>{taskName}</strong>
-          {' como incompleta em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
-    case ActivityTypes.CREATE_TASK: {
-      const { task } = activity.data || {};
-      const taskName = task?.name || 'Tarefa desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userCreatedTaskOnCard"
-          values={{
-            user: userName,
-            task: taskName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' criou '}
-          <strong>{taskName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
-    case ActivityTypes.DELETE_TASK: {
-      const { task } = activity.data || {};
-      const taskName = task?.name || 'Tarefa desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userDeletedTaskOnCard"
-          values={{
-            user: userName,
-            task: taskName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' excluiu '}
-          <strong>{taskName}</strong>
-          {' de '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
-    case ActivityTypes.UPDATE_TASK: {
-      const { task } = activity.data || {};
-      const taskName = task?.name || 'Tarefa desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userUpdatedTaskOnCard"
-          values={{
-            user: userName,
-            task: taskName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' atualizou '}
-          <strong>{taskName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
-    case ActivityTypes.CREATE_TASK_LIST: {
-      const { taskList } = activity.data || {};
-      const taskListName = taskList?.name || 'Lista de tarefas desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userCreatedTaskListOnCard"
-          values={{
-            user: userName,
-            taskList: taskListName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' criou lista de tarefas '}
-          <strong>{taskListName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
-    case ActivityTypes.DELETE_TASK_LIST: {
-      const { taskList } = activity.data || {};
-      const taskListName = taskList?.name || 'Lista de tarefas desconhecida';
-
-      contentNode = (
-        <Trans
-          i18nKey="common.userDeletedTaskListOnCard"
-          values={{
-            user: userName,
-            taskList: taskListName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' excluiu lista de tarefas '}
-          <strong>{taskListName}</strong>
-          {' de '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
-      );
-
-      break;
-    }
     case ActivityTypes.CREATE_ATTACHMENT: {
-      const { attachment } = activity.data || {};
-      const attachmentName = attachment?.name || 'Anexo desconhecido';
+      const { attachmentName, isVideo, thumbnailUrls, videoData } = activity.data || {};
+      const displayName = attachmentName || 'Anexo desconhecido';
+      const isVideoFile = isVideo === true;
+
+      // Determinar a chave de tradução baseada no tipo de arquivo
+      const translationKey = isVideoFile ? 'common.userCreatedVideoOnCard' : 'common.userCreatedAttachmentOnCard';
 
       contentNode = (
-        <Trans
-          i18nKey="common.userCreatedAttachmentOnCard"
-          values={{
-            user: userName,
-            attachment: attachmentName,
-            card: cardName,
-          }}
-        >
-          <span className={styles.author}>{userName}</span>
-          {' criou anexo '}
-          <strong>{attachmentName}</strong>
-          {' em '}
-          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
-            {cardName}
-          </Link>
-        </Trans>
+        <>
+          <Trans
+            i18nKey={translationKey}
+            values={{
+              user: userName,
+              attachment: displayName,
+              card: cardName,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {isVideoFile ? ' adicionou vídeo ' : ' criou anexo '}
+            <strong>{displayName}</strong>
+            {isVideoFile ? ' ao ' : ' em '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+              {cardName}
+            </Link>
+          </Trans>
+
+          {/* Mostrar thumbnail de vídeo se disponível */}
+          {isVideoFile && thumbnailUrls && thumbnailUrls.outside360 && (
+            <div className={styles.videoThumbnail}>
+              <img
+                src={thumbnailUrls.outside360}
+                alt={displayName}
+                className={styles.thumbnailImage}
+              />
+              {videoData && videoData.duration && (
+                <div className={styles.videoDuration}>
+                  {Math.round(videoData.duration)}s
+                </div>
+              )}
+            </div>
+          )}
+        </>
       );
 
       break;
     }
     case ActivityTypes.DELETE_ATTACHMENT: {
-      const { attachment } = activity.data || {};
-      const attachmentName = attachment?.name || 'Anexo desconhecido';
+      const { attachmentName, isVideo } = activity.data || {};
+      const displayName = attachmentName || 'Anexo desconhecido';
+      const isVideoFile = isVideo === true;
+
+      // Determinar a chave de tradução baseada no tipo de arquivo
+      const translationKey = isVideoFile ? 'common.userDeletedVideoOnCard' : 'common.userDeletedAttachmentOnCard';
 
       contentNode = (
         <Trans
-          i18nKey="common.userDeletedAttachmentOnCard"
+          i18nKey={translationKey}
           values={{
             user: userName,
-            attachment: attachmentName,
+            attachment: displayName,
             card: cardName,
           }}
         >
           <span className={styles.author}>{userName}</span>
-          {' excluiu anexo '}
-          <strong>{attachmentName}</strong>
+          {isVideoFile ? ' removeu vídeo ' : ' excluiu anexo '}
+          <strong>{displayName}</strong>
           {' de '}
           <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
             {cardName}

@@ -166,6 +166,8 @@ module.exports.routes = {
   'GET /api/boards/:boardId/actions': 'actions/index-in-board',
   'GET /api/cards/:cardId/actions': 'actions/index-in-card',
 
+
+
   'GET /api/notifications': 'notifications/index',
   'GET /api/notifications/:id': 'notifications/show',
   'PATCH /api/notifications/:id': 'notifications/update',
