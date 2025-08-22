@@ -169,6 +169,14 @@ export default {
         '<0>{{user}}</0> adicionou este cartão a {{list}}',
       userLeftNewCommentToCard:
         '<0>{{user}}</0> deixou um novo comentário «{{comment}}» em <2>{{card}}</2>',
+      userCommentedOnCard:
+        '<0>{{user}}</0> comentou no cartão <2>{{card}}</2>',
+      userRepliedToCommentOnCard:
+        '<0>{{user}}</0> respondeu a um comentário no cartão <2>{{card}}</2>',
+      userUpdatedCommentOnCard:
+        '<0>{{user}}</0> editou comentário no cartão <2>{{card}}</2>',
+      userDeletedCommentOnCard:
+        '<0>{{user}}</0> removeu comentário no cartão <2>{{card}}</2>',
       userMovedCardFromListToList:
         '<0>{{user}}</0> moveu <2>{{card}}</2> de {{fromList}} para {{toList}}',
       userMovedThisCardFromListToList:

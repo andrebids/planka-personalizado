@@ -173,6 +173,88 @@ const Item = React.memo(({ id }) => {
       );
 
       break;
+    case ActivityTypes.COMMENT_CREATE:
+    case ActivityTypes.COMMENT_UPDATE:
+    case ActivityTypes.COMMENT_DELETE:
+    case ActivityTypes.COMMENT_REPLY: {
+      // Extrair dados com verificações de segurança
+      const { commentText, cardName: activityCardName, mentions, isReply, action } = activity.data || {};
+
+      // Usar traduções existentes
+      let translationKey;
+      switch (action) {
+        case 'create':
+          translationKey = isReply ? 'common.userRepliedToCommentOnCard' : 'common.userCommentedOnCard';
+          break;
+        case 'update':
+          translationKey = 'common.userUpdatedCommentOnCard';
+          break;
+        case 'delete':
+          translationKey = 'common.userDeletedCommentOnCard';
+          break;
+        case 'reply':
+          translationKey = 'common.userRepliedToCommentOnCard';
+          break;
+        default:
+          translationKey = 'common.userCommentedOnCard';
+      }
+
+      contentNode = (
+        <Trans
+          i18nKey={translationKey}
+          values={{
+            user: userName,
+            card: activityCardName || 'este cartão',
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {action === 'create' && !isReply && ' comentou no cartão '}
+          {action === 'create' && isReply && ' respondeu a um comentário no cartão '}
+          {action === 'update' && ' editou comentário no cartão '}
+          {action === 'delete' && ' removeu comentário no cartão '}
+          {action === 'reply' && ' respondeu a um comentário no cartão '}
+          <span className={styles.cardName}>
+            {activityCardName || 'este cartão'}
+          </span>
+        </Trans>
+      );
+
+      // Adicionar texto do comentário ao contentNode
+      if (action !== 'delete' && commentText) {
+        contentNode = (
+          <>
+            {contentNode}
+            <div className={styles.commentText}>
+              <div className={styles.commentContent}>
+                {commentText}
+              </div>
+              {mentions && mentions.length > 0 && (
+                <div className={styles.mentions}>
+                  {mentions.map((mention, index) => (
+                    <span key={index} className={styles.mention}>
+                      @{mention}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        );
+      }
+
+      if (action === 'delete') {
+        contentNode = (
+          <>
+            {contentNode}
+            <div className={styles.deletedComment}>
+              <em>[Comentário removido]</em>
+            </div>
+          </>
+        );
+      }
+
+      break;
+    }
     default:
       contentNode = null;
   }
