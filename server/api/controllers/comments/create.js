@@ -39,9 +39,30 @@ module.exports = {
   async fn(inputs) {
     const { currentUser } = this.req;
 
+    console.log('🎯 [CONTROLLER-COMMENT] Recebendo requisição para criar comentário:', {
+      cardId: inputs.cardId,
+      text: inputs.text,
+      userId: currentUser.id,
+      userName: currentUser.name,
+      userAgent: this.req.headers['user-agent'],
+      ip: this.req.ip,
+      timestamp: new Date().toISOString()
+    });
+
     const { card, list, board, project } = await sails.helpers.cards
       .getPathToProjectById(inputs.cardId)
       .intercept('pathNotFound', () => Errors.CARD_NOT_FOUND);
+
+    console.log('🔍 [CONTROLLER-COMMENT] Contexto do cartão obtido:', {
+      cardId: card.id,
+      cardName: card.name,
+      listId: list.id,
+      listName: list.name,
+      boardId: board.id,
+      boardName: board.name,
+      projectId: project.id,
+      projectName: project.name
+    });
 
     const boardMembership = await BoardMembership.qm.getOneByBoardIdAndUserId(
       board.id,
@@ -60,6 +81,13 @@ module.exports = {
 
     const values = _.pick(inputs, ['text']);
 
+    console.log('🚀 [CONTROLLER-COMMENT] Iniciando criação do comentário via helper:', {
+      values: values,
+      cardId: card.id,
+      userId: currentUser.id,
+      boardId: board.id
+    });
+
     const comment = await sails.helpers.comments.createOne.with({
       project,
       board,
@@ -70,6 +98,15 @@ module.exports = {
         user: currentUser,
       },
       request: this.req,
+    });
+
+    console.log('✅ [CONTROLLER-COMMENT] Comentário criado com sucesso:', {
+      commentId: comment.id,
+      text: comment.text,
+      cardId: comment.cardId,
+      userId: comment.userId,
+      createdAt: comment.createdAt,
+      timestamp: new Date().toISOString()
     });
 
     return {

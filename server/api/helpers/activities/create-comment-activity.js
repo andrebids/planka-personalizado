@@ -31,11 +31,17 @@ module.exports = {
   async fn(inputs) {
     const { comment, card, user, board, action } = inputs;
 
-    console.log('🔄 Iniciando criação de atividade de comentário:', {
+    console.log('🔄 [ACTIVITY-CREATE] Iniciando criação de atividade de comentário:', {
       commentId: comment.id,
+      commentText: comment.text,
       cardId: card.id,
+      cardName: card.name,
       userId: user.id,
-      action: action
+      userName: user.name,
+      boardId: board.id,
+      boardName: board.name,
+      action: action,
+      timestamp: new Date().toISOString()
     });
 
     try {
@@ -73,6 +79,14 @@ module.exports = {
         action: action
       };
 
+      console.log('📝 [ACTIVITY-CREATE] Dados da atividade preparados:', {
+        activityType: getActivityType(action),
+        activityData: activityData,
+        boardId: board.id,
+        cardId: card.id,
+        userId: user.id
+      });
+
       // Criar atividade usando padrão existente
       const activity = await Action.create({
         type: getActivityType(action),
@@ -82,7 +96,17 @@ module.exports = {
         userId: user.id,
       }).fetch();
 
-      console.log('✅ Atividade de comentário criada:', {
+      console.log('💾 [ACTIVITY-CREATE] Atividade salva no banco de dados:', {
+        activityId: activity.id,
+        type: activity.type,
+        data: activity.data,
+        boardId: activity.boardId,
+        cardId: activity.cardId,
+        userId: activity.userId,
+        createdAt: activity.createdAt
+      });
+
+      console.log('✅ [ACTIVITY-CREATE] Atividade de comentário criada com sucesso:', {
         activityId: activity.id,
         type: activity.type,
         commentId: comment.id,
@@ -90,13 +114,33 @@ module.exports = {
         timestamp: new Date().toISOString()
       });
 
+      // Enviar atividade via socket para atualização instantânea no frontend
+      sails.sockets.broadcast(
+        `board:${board.id}`,
+        'actionCreate',
+        {
+          item: activity,
+        },
+        inputs.request || {}
+      );
+
+      console.log('📡 [ACTIVITY-CREATE] Atividade enviada via socket para atualização instantânea:', {
+        activityId: activity.id,
+        boardId: board.id,
+        timestamp: new Date().toISOString()
+      });
+
       return activity;
 
     } catch (error) {
-      console.error('❌ Erro ao criar atividade de comentário:', {
+      console.error('❌ [ACTIVITY-CREATE] Erro ao criar atividade de comentário:', {
         error: error.message,
         commentId: comment.id,
-        stack: error.stack
+        cardId: card.id,
+        boardId: board.id,
+        action: action,
+        stack: error.stack,
+        timestamp: new Date().toISOString()
       });
       throw error;
     }

@@ -61,49 +61,64 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
+    console.log('🚀 [COMMENT-CREATE] Iniciando criação de comentário:', {
+      cardId: values.card.id,
+      cardName: values.card.name,
+      userId: values.user.id,
+      userName: values.user.name,
+      boardId: inputs.board.id,
+      boardName: inputs.board.name,
+      commentText: values.text,
+      timestamp: new Date().toISOString()
+    });
+
     const comment = await Comment.qm.createOne({
       ...values,
       cardId: values.card.id,
       userId: values.user.id,
     });
 
+    console.log('✅ [COMMENT-CREATE] Comentário criado com sucesso:', {
+      commentId: comment.id,
+      text: comment.text,
+      cardId: comment.cardId,
+      userId: comment.userId,
+      createdAt: comment.createdAt
+    });
+
     // Criar atividade para o comentário
+    console.log('🔄 [COMMENT-CREATE] Iniciando criação de atividade para comentário:', {
+      commentId: comment.id,
+      boardId: inputs.board.id,
+      cardId: values.card.id,
+      userId: values.user.id
+    });
+
     try {
-      // Extrair menções do texto do comentário
-      const extractMentions = (text) => {
-        const mentionRegex = /@(\w+)/g;
-        const matches = text.match(mentionRegex) || [];
-        return matches.map(match => match.substring(1));
-      };
-
-      // Determinar se é resposta a outro comentário
-      const isReplyToComment = (text) => {
-        return text.includes('@') && text.length > 0;
-      };
-
-      // Criar dados da atividade
-      const activityData = {
-        commentId: comment.id,
-        commentText: comment.text.substring(0, 150), // Limitar a 150 chars
-        cardName: values.card.name,
-        cardId: values.card.id,
-        mentions: extractMentions(comment.text),
-        isReply: isReplyToComment(comment.text),
+      // Usar o helper de atividades de comentário
+      const activity = await sails.helpers.activities.createCommentActivity.with({
+        comment: comment,
+        card: values.card,
+        user: values.user,
+        board: inputs.board,
         action: 'create'
-      };
+      });
 
-      // Criar atividade diretamente
-      const activity = await Action.create({
-        type: 'commentCreate',
-        data: activityData,
-        boardId: inputs.board.id,
-        cardId: values.card.id,
-        userId: values.user.id,
-      }).fetch();
-
+      console.log('✅ [COMMENT-CREATE] Atividade criada com sucesso:', {
+        activityId: activity.id,
+        activityType: activity.type,
+        commentId: comment.id,
+        timestamp: new Date().toISOString()
+      });
 
     } catch (activityError) {
-      console.error('❌ Erro ao criar atividade de comentário:', activityError);
+      console.error('❌ [COMMENT-CREATE] Erro ao criar atividade de comentário:', {
+        error: activityError.message,
+        stack: activityError.stack,
+        commentId: comment.id,
+        cardId: values.card.id,
+        boardId: inputs.board.id
+      });
       // Não falhar a criação do comentário se a atividade falhar
     }
 

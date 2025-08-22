@@ -41,6 +41,20 @@ const Item = React.memo(({ id }) => {
     selectAttachmentsForCard(state, activity.cardId)
   );
 
+  // Log detalhado da atividade para debug
+  console.log('🎯 [FRONTEND-ACTIVITY] Renderizando atividade:', {
+    activityId: id,
+    activityType: activity?.type,
+    activityData: activity?.data,
+    userId: activity?.userId,
+    cardId: activity?.cardId,
+    boardId: activity?.boardId,
+    createdAt: activity?.createdAt,
+    userName: user?.name,
+    cardName: card?.name,
+    timestamp: new Date().toISOString()
+  });
+
 
 
   const [t] = useTranslation();
@@ -518,9 +532,25 @@ const Item = React.memo(({ id }) => {
     case ActivityTypes.COMMENT_UPDATE:
     case ActivityTypes.COMMENT_DELETE:
     case ActivityTypes.COMMENT_REPLY: {
-      const { commentText, cardName: activityCardName, mentions, isReply, action } = activity.data;
-      
+      // Log específico para atividades de comentário
+      console.log('💬 [FRONTEND-COMMENT] Processando atividade de comentário:', {
+        activityType: activity.type,
+        activityData: activity.data,
+        activityId: activity.id,
+        timestamp: new Date().toISOString()
+      });
 
+      // Extrair dados com verificações de segurança
+      const { commentText, cardName: activityCardName, mentions, isReply, action } = activity.data || {};
+
+      console.log('📋 [FRONTEND-COMMENT] Dados extraídos do comentário:', {
+        commentText: commentText,
+        activityCardName: activityCardName,
+        mentions: mentions,
+        isReply: isReply,
+        action: action,
+        cardName: cardName
+      });
 
       // Usar padrão direto como outros casos
       const getActionText = (action) => {
@@ -565,7 +595,7 @@ const Item = React.memo(({ id }) => {
           </>
         );
       }
-      
+
       if (action === 'delete') {
         contentNode = (
           <>
