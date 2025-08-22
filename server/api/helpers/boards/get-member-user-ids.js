@@ -12,7 +12,7 @@ module.exports = {
   },
 
   async fn(inputs) {
-    const boardMemberships = await BoardMembership.qm.getByBoardId(inputs.id);
+    const boardMemberships = await sails.models.boardmembership.qm.getByBoardId(inputs.id);
 
     return sails.helpers.utils.mapRecords(boardMemberships, 'userId');
   },

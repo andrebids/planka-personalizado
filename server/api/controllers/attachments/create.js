@@ -74,7 +74,7 @@ module.exports = {
       .getPathToProjectById(inputs.cardId)
       .intercept('pathNotFound', () => Errors.CARD_NOT_FOUND);
 
-    const boardMembership = await BoardMembership.qm.getOneByBoardIdAndUserId(
+            const boardMembership = await sails.models.boardmembership.qm.getOneByBoardIdAndUserId(
       board.id,
       currentUser.id,
     );

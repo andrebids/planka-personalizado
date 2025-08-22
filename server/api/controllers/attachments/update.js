@@ -46,7 +46,7 @@ module.exports = {
     let { attachment } = pathToProject;
     const { card, list, board, project } = pathToProject;
 
-    const boardMembership = await BoardMembership.qm.getOneByBoardIdAndUserId(
+            const boardMembership = await sails.models.boardmembership.qm.getOneByBoardIdAndUserId(
       board.id,
       currentUser.id,
     );

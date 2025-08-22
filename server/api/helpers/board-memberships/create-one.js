@@ -43,7 +43,7 @@ module.exports = {
 
     let boardMembership;
     try {
-      boardMembership = await BoardMembership.qm.createOne({
+      boardMembership = await sails.models.boardmembership.qm.createOne({
         ...normalizedValues,
         projectId: values.board.projectId,
         boardId: values.board.id,

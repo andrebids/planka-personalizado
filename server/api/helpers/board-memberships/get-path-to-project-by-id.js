@@ -16,7 +16,7 @@ module.exports = {
   },
 
   async fn(inputs) {
-    const boardMembership = await BoardMembership.qm.getOneById(inputs.id);
+    const boardMembership = await sails.models.boardmembership.qm.getOneById(inputs.id);
 
     if (!boardMembership) {
       throw 'pathNotFound';

@@ -61,39 +61,13 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
-    console.log('🚀 [COMMENT-CREATE] Iniciando criação de comentário:', {
-      cardId: values.card.id,
-      cardName: values.card.name,
-      userId: values.user.id,
-      userName: values.user.name,
-      boardId: inputs.board.id,
-      boardName: inputs.board.name,
-      commentText: values.text,
-      timestamp: new Date().toISOString()
-    });
-
     const comment = await Comment.qm.createOne({
       ...values,
       cardId: values.card.id,
       userId: values.user.id,
     });
 
-    console.log('✅ [COMMENT-CREATE] Comentário criado com sucesso:', {
-      commentId: comment.id,
-      text: comment.text,
-      cardId: comment.cardId,
-      userId: comment.userId,
-      createdAt: comment.createdAt
-    });
-
     // Criar atividade para o comentário
-    console.log('🔄 [COMMENT-CREATE] Iniciando criação de atividade para comentário:', {
-      commentId: comment.id,
-      boardId: inputs.board.id,
-      cardId: values.card.id,
-      userId: values.user.id
-    });
-
     try {
       // Usar o helper de atividades de comentário
       const activity = await sails.helpers.activities.createCommentActivity.with({
@@ -103,22 +77,7 @@ module.exports = {
         board: inputs.board,
         action: 'create'
       });
-
-      console.log('✅ [COMMENT-CREATE] Atividade criada com sucesso:', {
-        activityId: activity.id,
-        activityType: activity.type,
-        commentId: comment.id,
-        timestamp: new Date().toISOString()
-      });
-
     } catch (activityError) {
-      console.error('❌ [COMMENT-CREATE] Erro ao criar atividade de comentário:', {
-        error: activityError.message,
-        stack: activityError.stack,
-        commentId: comment.id,
-        cardId: values.card.id,
-        boardId: inputs.board.id
-      });
       // Não falhar a criação do comentário se a atividade falhar
     }
 

@@ -16,7 +16,7 @@ module.exports = {
   },
 
   async fn(inputs) {
-    const boardMembership = await BoardMembership.qm.getOneByBoardIdAndUserId(
+    const boardMembership = await sails.models.boardmembership.qm.getOneByBoardIdAndUserId(
       inputs.boardId,
       inputs.id,
     );

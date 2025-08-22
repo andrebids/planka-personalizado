@@ -5,4 +5,11 @@
 
 import { createContext } from 'react';
 
-export default createContext([null, null, null]);
+// Valores padrão do contexto com funções no-op para evitar erros
+const defaultContextValue = [
+  () => {}, // activateClosable - função no-op
+  () => {}, // deactivateClosable - função no-op
+  () => {}  // setIsClosableActive - função no-op
+];
+
+export default createContext(defaultContextValue);

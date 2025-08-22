@@ -63,7 +63,7 @@ module.exports = {
       },
     );
 
-    const boardMembership = await BoardMembership.qm.deleteOne(inputs.record.id);
+          const boardMembership = await sails.models.boardmembership.qm.deleteOne(inputs.record.id);
 
     if (boardMembership) {
       if (inputs.user.role !== User.Roles.ADMIN || inputs.project.ownerProjectManagerId) {

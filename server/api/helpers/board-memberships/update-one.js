@@ -46,7 +46,7 @@ module.exports = {
       inputs.record,
     );
 
-    const boardMembership = await BoardMembership.qm.updateOne(inputs.record.id, normalizedValues);
+          const boardMembership = await sails.models.boardmembership.qm.updateOne(inputs.record.id, normalizedValues);
 
     if (boardMembership) {
       sails.sockets.broadcast(

@@ -23,14 +23,7 @@ const BoardActivitiesModal = React.memo(() => {
     selectors.selectCurrentBoard
   );
 
-  // Log das atividades carregadas
-  console.log('📊 [FRONTEND-ACTIVITIES] Modal de atividades renderizado:', {
-    activityCount: activityIds.length,
-    activityIds: activityIds,
-    isActivitiesFetching: isActivitiesFetching,
-    isAllActivitiesFetched: isAllActivitiesFetched,
-    timestamp: new Date().toISOString()
-  });
+
 
 
 
