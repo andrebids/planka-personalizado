@@ -65,39 +65,39 @@
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* ===== OVERRIDES ESPECÍFICOS PARA ABAS DOS CARDS ===== */
-/* Corrigir visibilidade das abas dentro dos cards */
-#app .ui.modal .ui.secondary.menu .active.item {
+/* ===== REGRAS ESSENCIAIS PARA ABAS DOS CARDS ===== */
+/* Regras específicas para abas com _menuItem_1mevl_5 dentro de modais - cores escuras */
+#app.ui.modal .ui.pointing.secondary.menu .item._menuItem_1mevl_5 {
+  color: #6b7c93 !important;
+}
+
+#app.ui.modal .ui.pointing.secondary.menu .active.item._menuItem_1mevl_5 {
   color: #17394d !important;
   font-weight: 600 !important;
 }
 
-#app .ui.modal .ui.secondary.menu .active.item:hover {
-  color: #0f2a3a !important;
-}
-
-#app .ui.modal .ui.secondary.menu .item {
-  color: #6b7c93 !important;
-}
-
-#app .ui.modal .ui.secondary.menu .item:hover {
+#app.ui.modal .ui.pointing.secondary.menu .item._menuItem_1mevl_5:hover {
   color: #17394d !important;
 }
 
-/* Regras ainda mais específicas para garantir que funcionem */
-#app .ui.modal .ui.pointing.secondary.menu .active.item {
+#app.ui.modal .ui.pointing.secondary.menu .active.item._menuItem_1mevl_5:hover {
+  color: #0f2a3a !important;
+}
+
+/* Regras específicas para abas com _menuItem_1mevl_5 dentro de modais glass - cores escuras */
+#app.ui.modal.glass .ui.pointing.secondary.menu .item._menuItem_1mevl_5 {
+  color: #6b7c93 !important;
+}
+
+#app.ui.modal.glass .ui.pointing.secondary.menu .active.item._menuItem_1mevl_5 {
   color: #17394d !important;
   font-weight: 600 !important;
 }
 
-#app .ui.modal .ui.pointing.secondary.menu .active.item:hover {
-  color: #0f2a3a !important;
-}
-
-#app .ui.modal .ui.pointing.secondary.menu .item {
-  color: #6b7c93 !important;
-}
-
-#app .ui.modal .ui.pointing.secondary.menu .item:hover {
+#app.ui.modal.glass .ui.pointing.secondary.menu .item._menuItem_1mevl_5:hover {
   color: #17394d !important;
+}
+
+#app.ui.modal.glass .ui.pointing.secondary.menu .active.item._menuItem_1mevl_5:hover {
+  color: #0f2a3a !important;
 }
