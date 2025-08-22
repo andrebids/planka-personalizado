@@ -36,8 +36,12 @@ const Item = React.memo(({ id, isVisible }) => {
 
   let galleryItemProps;
   if (attachment.type === AttachmentTypes.FILE) {
-    if (attachment.data.image) {
-      galleryItemProps = attachment.data.image;
+    if (attachment.data.image && attachment.data.image.width && attachment.data.image.height) {
+      galleryItemProps = {
+        src: attachment.data.url,
+        width: attachment.data.image.width,
+        height: attachment.data.image.height,
+      };
     } else {
       let content;
       switch (attachment.data.mimeType) {
@@ -75,8 +79,10 @@ const Item = React.memo(({ id, isVisible }) => {
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <video
               controls
+              preload="metadata"
+              controlsList="nodownload"
               src={attachment.data.url}
-              className={styles.content}
+              className={classNames(styles.content, styles.videoContent)}
             />
           );
 

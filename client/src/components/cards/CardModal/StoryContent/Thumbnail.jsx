@@ -24,7 +24,9 @@ const Thumbnail = React.memo(({ attachmentId }) => {
 
   return (
     <GalleryItem
-      {...attachment.data.image} // eslint-disable-line react/jsx-props-no-spreading
+      src={attachment.data.url}
+      width={attachment.data.image ? attachment.data.image.width : undefined}
+      height={attachment.data.image ? attachment.data.image.height : undefined}
       original={attachment.data.url}
       caption={attachment.name}
     >

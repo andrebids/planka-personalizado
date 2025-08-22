@@ -78,6 +78,7 @@ const Item = React.memo(({ id }) => {
   const imageAttachments = (attachments || []).filter(
     attachment =>
       attachment.type === AttachmentTypes.FILE &&
+      attachment.data &&
       attachment.data.image &&
       attachment.data.thumbnailUrls &&
       canPreviewFile(attachment)
@@ -632,7 +633,9 @@ const Item = React.memo(({ id }) => {
                 {thumbnailAttachments.map(attachment => (
                   <GalleryItem
                     key={attachment.id}
-                    {...attachment.data.image} // eslint-disable-line react/jsx-props-no-spreading
+                    src={attachment.data.url}
+                    width={attachment.data.image ? attachment.data.image.width : undefined}
+                    height={attachment.data.image ? attachment.data.image.height : undefined}
                     original={attachment.data.url}
                     caption={attachment.name}
                   >

@@ -58,13 +58,14 @@ module.exports = {
       sizeInBytes,
       encoding,
       image: null,
+      video: null,
     };
 
     console.log('🔍 Verificando se é imagem:', mimeType, 'Excluído:', ['image/svg+xml', 'application/pdf'].includes(mimeType));
-    
+
     if (!['image/svg+xml', 'application/pdf'].includes(mimeType)) {
       console.log('🖼️ Iniciando processamento de imagem com Sharp');
-      
+
       let image = sharp(buffer || filePath, {
         animated: true,
       });
@@ -90,7 +91,7 @@ module.exports = {
         try {
           console.log('🖼️ Processando imagem:', filename, 'MIME:', mimeType, 'Tamanho:', sizeInBytes);
           console.log('📏 Dimensões:', width, 'x', height);
-          
+
           const outside360Buffer = await image
             .resize(360, 360, {
               fit: 'outside',
@@ -134,7 +135,7 @@ module.exports = {
             height,
             thumbnailsExtension,
           };
-          
+
           console.log('✅ Imagem processada com sucesso:', data.image);
         } catch (error) {
           console.error('❌ Erro ao processar imagem:', error.message);
@@ -154,11 +155,52 @@ module.exports = {
       data.image = null;
     }
 
-    console.log('📤 Retornando dados do anexo:', {
+    // Verificar se é vídeo e processar thumbnails
+    const videoMimeTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/flv', 'video/webm'];
+    if (videoMimeTypes.includes(mimeType)) {
+          // Processamento de vídeo iniciado
+
+      try {
+        const videoHelper = require('./video-thumbnail-generator');
+        const outputDir = `${dirPathSegment}/video-thumbnails`;
+
+        // Iniciando processamento de vídeo com helper
+        const videoResult = await videoHelper.fn({
+          videoPath: filePath,
+          outputDir: outputDir,
+          filename: filename
+        });
+
+        data.video = {
+          duration: videoResult.metadata.duration,
+          width: videoResult.metadata.width,
+          height: videoResult.metadata.height,
+          format: videoResult.metadata.format,
+          thumbnails: videoResult.thumbnails
+        };
+
+        // Vídeo processado com sucesso
+      } catch (error) {
+        sails.log.error('❌ Erro ao processar vídeo:', error.message);
+        sails.log.error('❌ Stack trace:', error.stack);
+        sails.log.warn('Erro ao processar vídeo:', error);
+        // Não falhar o upload se o processamento de vídeo falhar
+        data.video = null;
+      }
+    }
+
+    // Garantir que data.video seja sempre inicializado
+    if (!data.video) {
+      data.video = null;
+    }
+
+    sails.log.info('📤 Retornando dados do anexo:', {
       filename: data.filename,
       mimeType: data.mimeType,
       hasImage: !!data.image,
-      imageData: data.image
+      hasVideo: !!data.video,
+      imageData: data.image,
+      videoData: data.video
     });
 
     return data;

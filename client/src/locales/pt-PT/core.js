@@ -657,6 +657,10 @@ export default {
       visualTaskManagementWithLists: 'Gestão visual de tarefas com listas.',
       withoutBaseGroup: 'Sem grupo base',
       writeComment: 'Escreva um comentário...',
+      video: 'Vídeo',
+      loadingVideoPreview: 'A carregar pré-visualização do vídeo...',
+      noVideoPreviewAvailable: 'Nenhuma pré-visualização disponível',
+      errorLoadingVideoPreview: 'Erro ao carregar pré-visualização',
     },
 
     action: {

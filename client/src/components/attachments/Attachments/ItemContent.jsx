@@ -21,6 +21,7 @@ import {
 import EditStep from './EditStep';
 import Favicon from './Favicon';
 import TimeAgo from '../../common/TimeAgo';
+import VideoThumbnail from './video/VideoThumbnail';
 
 import styles from './ItemContent.module.scss';
 
@@ -109,11 +110,12 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
           background:
             attachment.type === AttachmentTypes.FILE &&
             attachment.data.image &&
+            !attachment.data.video &&
             `url("${attachment.data.thumbnailUrls.outside360}") center / cover`,
         }}
       >
         {attachment.type === AttachmentTypes.FILE &&
-          (attachment.data.image ? (
+          (attachment.data.image && !attachment.data.video ? (
             isCover && (
               <Label
                 corner="left"
@@ -126,6 +128,8 @@ const ItemContent = React.forwardRef(({ id, onOpen }, ref) => {
                 className={styles.thumbnailLabel}
               />
             )
+          ) : attachment.data.video ? (
+            React.createElement(VideoThumbnail, { attachment: attachment, size: "360" })
           ) : (
             <span className={styles.thumbnailExtension}>
               {attachment.data.extension || '-'}

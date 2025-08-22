@@ -227,6 +227,11 @@ module.exports.routes = {
     skipAssets: false,
   },
 
+  'GET r|^/attachments/(\\w+)/download/video-thumbnails/([\\w-]+).(\\w+)$|id,fileName,fileExtension': {
+    action: 'file-attachments/download-video-thumbnail',
+    skipAssets: false,
+  },
+
   'GET /*': {
     view: 'index',
     skipAssets: true,

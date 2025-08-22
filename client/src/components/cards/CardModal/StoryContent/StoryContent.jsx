@@ -384,7 +384,9 @@ const StoryContent = React.memo(({ onClose }) => {
                 {coverAttachment && (
                   <div className={styles.coverWrapper}>
                     <GalleryItem
-                      {...coverAttachment.data.image} // eslint-disable-line react/jsx-props-no-spreading
+                      src={coverAttachment.data.url}
+                      width={coverAttachment.data.image ? coverAttachment.data.image.width : undefined}
+                      height={coverAttachment.data.image ? coverAttachment.data.image.height : undefined}
                       original={coverAttachment.data.url}
                       caption={coverAttachment.name}
                     >

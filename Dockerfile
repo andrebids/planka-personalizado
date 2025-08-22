@@ -1,7 +1,7 @@
 FROM node:18-alpine AS server-dependencies
 
 RUN apk -U upgrade \
-  && apk add build-base python3 --no-cache
+  && apk add build-base python3 ffmpeg --no-cache
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ RUN DISABLE_ESLINT_PLUGIN=true npm run build
 FROM node:18-alpine
 
 RUN apk -U upgrade \
-  && apk add bash python3 --no-cache \
+  && apk add bash python3 ffmpeg --no-cache \
   && npm install npm --global
 
 USER node

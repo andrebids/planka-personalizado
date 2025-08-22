@@ -3,9 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    image: planka-dev
+    image: planka-dev-video-test
     pull_policy: never
-    command: ["bash", "-c", "npm install && npm run db:init && npm start"]
+    command: [ "bash", "-c", "npm install && npm run db:init && npm start" ]
     restart: on-failure
     volumes:
       - ./server:/app
@@ -16,7 +16,7 @@ services:
       - DATABASE_URL=postgresql://postgres@postgres/planka
       - SECRET_KEY=notsecretkey
 
-      # - LOG_LEVEL=warn
+      - LOG_LEVEL=info
 
       # - TRUST_PROXY=true
       # - TOKEN_EXPIRES_IN=365 # In days
@@ -37,7 +37,6 @@ services:
       - DEFAULT_ADMIN_PASSWORD=admin123
       - DEFAULT_ADMIN_NAME=Admin User
       - DEFAULT_ADMIN_USERNAME=admin
-
       # - ACTIVE_USERS_LIMIT=
 
       # Set to true to show more detailed authentication error messages.
@@ -92,9 +91,9 @@ services:
         condition: service_healthy
 
   planka-client:
-    image: planka-dev
+    image: planka-dev-video-test
     pull_policy: never
-    command: ["bash", "-c", "npm install && npx vite --host"]
+    command: [ "bash", "-c", "npm install && npx vite --host" ]
     restart: on-failure
     volumes:
       - ./client:/app
@@ -102,23 +101,19 @@ services:
       - 3000:3000
 
   postgres:
-    image: postgres:16-alpine
+    image: postgres:15-alpine
     restart: on-failure
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=planka
+      - POSTGRES_USER=postgres
       - POSTGRES_HOST_AUTH_METHOD=trust
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-planka} && psql -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-planka} -c 'SELECT 1'",
-        ]
-      interval: 3s
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
       timeout: 5s
-      retries: 15
-      start_period: 10s
+      retries: 5
 
 volumes:
-  db-data:
+  postgres:

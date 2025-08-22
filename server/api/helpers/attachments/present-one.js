@@ -28,6 +28,10 @@ module.exports = {
           thumbnailUrls: inputs.record.data && inputs.record.data.image && inputs.record.data.image.thumbnailsExtension ? {
             outside360: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/thumbnails/outside-360.${inputs.record.data.image.thumbnailsExtension}`,
             outside720: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/thumbnails/outside-720.${inputs.record.data.image.thumbnailsExtension}`,
+          } : inputs.record.data && inputs.record.data.video && inputs.record.data.video.thumbnails && inputs.record.data.video.thumbnails.length > 0 ? {
+            // Para vídeos, usar o primeiro (e único) frame gerado
+            outside360: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/video-thumbnails/frame-0-360.png`,
+            outside720: `${sails.config.custom.baseUrl}/attachments/${inputs.record.id}/download/video-thumbnails/frame-0-720.png`,
           } : null,
         },
       };
