@@ -10,7 +10,7 @@
 
   .addCardButton {
     background: #dfe3e6;
-    border: none;
+    border: 2px dashed transparent;
     color: #6b808c;
     cursor: pointer;
     display: block;
@@ -19,16 +19,37 @@
     font-weight: normal;
     height: 36px;
     outline: none;
-    padding: 8px;
+    padding: 6px 8px;
     text-align: left;
     width: 100%;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px;
 
     &:hover {
       background: #c3cbd0;
       color: #17394d;
       fill: #17394d;
+      border-color: rgba(0, 121, 191, 0.3);
+      box-shadow: 0 2px 8px rgba(0, 121, 191, 0.1);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(0, 121, 191, 0.02) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      border-radius: 4px;
+    }
+
+    &:hover::before {
+      opacity: 1;
     }
   }
 
@@ -275,11 +296,29 @@
   }
 
   .addCardButtonDragOver {
-    background: #f0f8ff;
-    border: 2px dashed #0079bf;
-    box-shadow: 0 2px 8px rgba(0, 121, 191, 0.3);
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border: 3px dashed #0079bf;
+    box-shadow: 0 6px 24px rgba(0, 121, 191, 0.4);
     color: #0079bf;
     fill: #0079bf;
+    transform: scale(1.02);
+    animation: pulse 1.5s ease-in-out infinite;
+
+    &::before {
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      box-shadow: 0 6px 24px rgba(0, 121, 191, 0.4);
+    }
+
+    50% {
+      box-shadow: 0 6px 24px rgba(0, 121, 191, 0.6);
+    }
   }
 
   .addCardButtonProcessing {
@@ -294,17 +333,50 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 121, 191, 0.1);
+    background: rgba(0, 121, 191, 0.15);
+    backdrop-filter: blur(2px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 3px;
+    border-radius: 4px;
     z-index: 10;
+    animation: fadeIn 0.2s ease-in-out;
 
     span {
       margin-top: 8px;
-      color: #0079bf;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 12px;
+      text-align: center;
+      background: rgba(0, 121, 191, 0.9);
+      padding: 4px 8px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    i {
+      color: #ffffff;
+      font-size: 24px;
+      margin-bottom: 4px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      background: rgba(0, 121, 191, 0.9);
+      padding: 8px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
@@ -593,7 +665,7 @@
   .outerWrapperDarkWizard .headerButton,
   .outerWrapperPhoenixOrange .headerButton {
     color: #ffffff !important;
-    
+
     &:hover {
       background: rgba(255, 255, 255, 0.2) !important;
       color: #ffffff !important;

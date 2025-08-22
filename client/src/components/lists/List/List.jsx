@@ -121,12 +121,22 @@ const List = React.memo(({ id, index }) => {
 
   const handleDragOver = useCallback(event => {
     event.preventDefault();
-    setIsDragOver(true);
+    event.stopPropagation();
+
+    // Verificar se há arquivos sendo arrastados
+    if (event.dataTransfer && event.dataTransfer.types && event.dataTransfer.types.includes('Files')) {
+      setIsDragOver(true);
+    }
   }, []);
 
   const handleDragLeave = useCallback(event => {
     event.preventDefault();
-    setIsDragOver(false);
+    event.stopPropagation();
+
+    // Só remove o estado de drag se realmente sair da área
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setIsDragOver(false);
+    }
   }, []);
 
   const handleDrop = useCallback(
@@ -313,6 +323,7 @@ const List = React.memo(({ id, index }) => {
                   isProcessing && styles.addCardButtonProcessing
                 )}
                 onClick={handleAddCardClick}
+                onDragEnter={handleDragOver}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
