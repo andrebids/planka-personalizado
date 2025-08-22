@@ -73,6 +73,8 @@ const List = React.memo(({ id, index }) => {
   const [isAddCardOpened, setIsAddCardOpened] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [processingProgress, setProcessingProgress] = useState({ current: 0, total: 0 });
+  const [dragFileCount, setDragFileCount] = useState(0);
 
   const wrapperRef = useRef(null);
   const cardsWrapperRef = useRef(null);
@@ -119,12 +121,15 @@ const List = React.memo(({ id, index }) => {
     setIsEditNameOpened(false);
   }, []);
 
-  const handleDragOver = useCallback(event => {
+    const handleDragOver = useCallback(event => {
     event.preventDefault();
     event.stopPropagation();
 
     // Verificar se há arquivos sendo arrastados
     if (event.dataTransfer && event.dataTransfer.types && event.dataTransfer.types.includes('Files')) {
+      const fileCount = event.dataTransfer.files.length;
+      console.log(`📁 Arrastando ${fileCount} arquivo(s)`);
+      setDragFileCount(fileCount);
       setIsDragOver(true);
     }
   }, []);
@@ -136,11 +141,12 @@ const List = React.memo(({ id, index }) => {
     // Só remove o estado de drag se realmente sair da área
     if (!event.currentTarget.contains(event.relatedTarget)) {
       setIsDragOver(false);
+      setDragFileCount(0);
     }
   }, []);
 
   const handleDrop = useCallback(
-    event => {
+    async event => {
       event.preventDefault();
       setIsDragOver(false);
 
@@ -153,15 +159,18 @@ const List = React.memo(({ id, index }) => {
       console.log('Processando arquivos:', processedFiles);
 
       setIsProcessing(true);
+      setProcessingProgress({ current: 0, total: processedFiles.length });
 
       try {
-        // Usar a nova saga para criar cards com anexos
-        processedFiles.forEach(fileData => {
+        // Processar arquivos sequencialmente para melhor controle
+        for (let i = 0; i < processedFiles.length; i++) {
+          const fileData = processedFiles[i];
           const cardData = {
             name: fileData.name,
             type: 'story', // Adicionar tipo padrão
           };
-          console.log('Criando card com anexo:', cardData);
+
+          console.log(`🎴 Criando card ${i + 1}/${processedFiles.length}:`, cardData);
           console.log(
             '📄 Tipo de arquivo:',
             fileData.isImage ? 'Imagem (capa)' : 'Anexo'
@@ -175,14 +184,24 @@ const List = React.memo(({ id, index }) => {
             '📄 Tamanho do arquivo:',
             fileData.file ? fileData.file.size : 'undefined'
           );
+
+          // Atualizar progresso
+          setProcessingProgress({ current: i + 1, total: processedFiles.length });
+
           dispatch(
             entryActions.createCardWithAttachment(id, cardData, fileData.file)
           );
-        });
+
+          // Pequena pausa entre criações para evitar sobrecarga
+          if (i < processedFiles.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+        }
       } catch (error) {
         console.error('Erro ao processar arquivos:', error);
       } finally {
         setIsProcessing(false);
+        setProcessingProgress({ current: 0, total: 0 });
         console.log('✅ Processamento finalizado');
       }
     },
@@ -338,18 +357,28 @@ const List = React.memo(({ id, index }) => {
                         ? t('action.addAnotherCard')
                         : t('action.addCard')}
                 </span>
-                {isDragOver && (
-                  <div className={styles.dragOverlay}>
-                    <Icon name="upload" size="large" />
-                    <span>{t('common.dropFilesHere')}</span>
-                  </div>
-                )}
-                {isProcessing && (
-                  <div className={styles.processingOverlay}>
-                    <Icon name="spinner" loading size="large" />
-                    <span>{t('common.processingFiles')}</span>
-                  </div>
-                )}
+                                 {isDragOver && (
+                   <div className={styles.dragOverlay}>
+                     <Icon name="upload" size="large" />
+                     <span>
+                       {dragFileCount > 1
+                         ? `${t('common.dropFilesHere')} (${dragFileCount} arquivos)`
+                         : t('common.dropFilesHere')
+                       }
+                     </span>
+                   </div>
+                 )}
+                                 {isProcessing && (
+                   <div className={styles.processingOverlay}>
+                     <Icon name="spinner" loading size="large" />
+                     <span>
+                       {processingProgress.total > 1
+                         ? `${t('common.processingFiles')} (${processingProgress.current}/${processingProgress.total})`
+                         : t('common.processingFiles')
+                       }
+                     </span>
+                   </div>
+                 )}
               </button>
             )}
           </div>

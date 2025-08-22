@@ -163,6 +163,8 @@ export default {
       time: 'Tempo',
       title: 'Título',
       userActions_title: 'Ações do Usuário',
+      userAddedCardToList:
+        '<0>{{user}}</0> adicionou um cartão <2>{{card}}</2> à {{list}}',
       userAddedThisCardToList:
         '<0>{{user}}</0> adicionou este cartão a {{list}}',
       userLeftNewCommentToCard:

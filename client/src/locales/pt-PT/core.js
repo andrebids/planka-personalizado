@@ -355,7 +355,7 @@ export default {
       baseCustomFields_title: 'Campos Personalizados Base',
       baseGroup: 'Grupo base',
       board: 'Quadro',
-      boardActions_title: 'Histórico do Projeto',
+      boardActions_title: 'Histórico do Quadro',
       boardNotFound_title: 'Quadro não encontrado',
       boardSubscribed: 'Quadro subscrito',
       boardUser: 'Utilizador do quadro',
@@ -571,85 +571,85 @@ export default {
       uploadedImages: 'Imagens enviadas',
       userActions_title: 'Ações do Utilizador',
       userAddedCardToList:
-        '<0>{{user}}</0> adicionou <2>{{card}}</2> a {{list}}',
-      userCreatedCard: '<0>{{user}}</0> criou <2>{{card}}</2> em {{list}}',
+        '<0>{{user}}</0> adicionou um cartão <2>{{card}}</2> à {{list}}',
+      userCreatedCard: '<0>{{user}}</0> criou um cartão <2>{{card}}</2> em {{list}}',
       userAddedThisCardToList:
-        '<0>{{user}}</0> adicionou este cartão a {{list}}',
+        '<0>{{user}}</0> adicionou este cartão à {{list}}',
       userAddedUserToCard:
-        '<0>{{actorUser}}</0> adicionou {{addedUser}} a <4>{{card}}</4>',
+        '<0>{{actorUser}}</0> adicionou {{addedUser}} ao cartão <4>{{card}}</4>',
       userAddedUserToThisCard:
         '<0>{{actorUser}}</0> adicionou {{addedUser}} a este cartão',
-      userAddedYouToCard: '<0>{{user}}</0> adicionou-o a <2>{{card}}</2>',
+      userAddedYouToCard: '<0>{{user}}</0> adicionou-o ao cartão <2>{{card}}</2>',
       userAddedAttachmentToCard:
-        '<0>{{user}}</0> adicionou anexo a <2>{{card}}</2>',
+        '<0>{{user}}</0> adicionou um anexo ao cartão <2>{{card}}</2>',
       userCompletedTaskOnCard:
-        '<0>{{user}}</0> completou a tarefa <2>{{task}}</2> em <4>{{card}}</4>',
+        '<0>{{user}}</0> completou a tarefa <2>{{task}}</2> no cartão <4>{{card}}</4>',
       userCompletedTaskOnThisCard:
         '<0>{{user}}</0> completou a tarefa <2>{{task}}</2> neste cartão',
-      userJoinedCard: '<0>{{user}}</0> juntou-se a <2>{{card}}</2>',
+      userJoinedCard: '<0>{{user}}</0> juntou-se ao cartão <2>{{card}}</2>',
       userJoinedThisCard: '<0>{{user}}</0> juntou-se a este cartão',
-      userLeftCard: '<0>{{user}}</0> saiu de <2>{{card}}</2>',
+      userLeftCard: '<0>{{user}}</0> saiu do cartão <2>{{card}}</2>',
       userLeftNewCommentToCard:
-        '<0>{{user}}</0> deixou um novo comentário «{{comment}}» em <2>{{card}}</2>',
+        '<0>{{user}}</0> deixou um novo comentário «{{comment}}» no cartão <2>{{card}}</2>',
       userCommentedOnCard:
-        '<0>{{user}}</0> comentou no <2>{{card}}</2>',
+        '<0>{{user}}</0> comentou no cartão <2>{{card}}</2>',
       userRepliedToCommentOnCard:
-        '<0>{{user}}</0> respondeu a um comentário no <2>{{card}}</2>',
+        '<0>{{user}}</0> respondeu a um comentário no cartão <2>{{card}}</2>',
       userUpdatedCommentOnCard:
-        '<0>{{user}}</0> editou comentário no <2>{{card}}</2>',
+        '<0>{{user}}</0> editou comentário no cartão <2>{{card}}</2>',
       userDeletedCommentOnCard:
-        '<0>{{user}}</0> removeu comentário no <2>{{card}}</2>',
+        '<0>{{user}}</0> removeu comentário no cartão <2>{{card}}</2>',
       userLeftThisCard: '<0>{{user}}</0> saiu deste cartão',
       userMarkedTaskIncompleteOnCard:
-        '<0>{{user}}</0> marcou a tarefa <2>{{task}}</2> como incompleta em <4>{{card}}</4>',
+        '<0>{{user}}</0> marcou a tarefa <2>{{task}}</2> como incompleta no cartão <4>{{card}}</4>',
       userMarkedTaskIncompleteOnThisCard:
         '<0>{{user}}</0> marcou a tarefa <2>{{task}}</2> como incompleta neste cartão',
       userCreatedTaskOnCard:
-        '<0>{{user}}</0> criou a tarefa <2>{{task}}</2> em <4>{{card}}</4>',
+        '<0>{{user}}</0> criou a tarefa <2>{{task}}</2> no cartão <4>{{card}}</4>',
       userCreatedTaskOnThisCard:
         '<0>{{user}}</0> criou a tarefa <2>{{task}}</2> neste cartão',
       userDeletedTaskOnCard:
-        '<0>{{user}}</0> excluiu a tarefa <2>{{task}}</2> de <4>{{card}}</4>',
+        '<0>{{user}}</0> excluiu a tarefa <2>{{task}}</2> do cartão <4>{{card}}</4>',
       userDeletedTaskOnThisCard:
         '<0>{{user}}</0> excluiu a tarefa <2>{{task}}</2> deste cartão',
       userUpdatedTaskOnCard:
-        '<0>{{user}}</0> atualizou a tarefa <2>{{task}}</2> em <4>{{card}}</4>',
+        '<0>{{user}}</0> atualizou a tarefa <2>{{task}}</2> no cartão <4>{{card}}</4>',
       userUpdatedTaskOnThisCard:
         '<0>{{user}}</0> atualizou a tarefa <2>{{task}}</2> neste cartão',
       userCreatedTaskListOnCard:
-        '<0>{{user}}</0> criou lista de tarefas <2>{{taskList}}</2> em <4>{{card}}</4>',
+        '<0>{{user}}</0> criou lista de tarefas <2>{{taskList}}</2> no cartão <4>{{card}}</4>',
       userCreatedTaskListOnThisCard:
         '<0>{{user}}</0> criou lista de tarefas <2>{{taskList}}</2> neste cartão',
       userDeletedTaskListOnCard:
-        '<0>{{user}}</0> excluiu lista de tarefas <2>{{taskList}}</2> de <4>{{card}}</4>',
+        '<0>{{user}}</0> excluiu lista de tarefas <2>{{taskList}}</2> do cartão <4>{{card}}</4>',
       userDeletedTaskListOnThisCard:
         '<0>{{user}}</0> excluiu lista de tarefas <2>{{taskList}}</2> deste cartão',
       userCreatedAttachmentOnCard:
-        '<0>{{user}}</0> criou anexo <2>{{attachment}}</2> em <4>{{card}}</4>',
+        '<0>{{user}}</0> criou anexo <2>{{attachment}}</2> no cartão <4>{{card}}</4>',
       userCreatedAttachmentOnThisCard:
         '<0>{{user}}</0> criou anexo <2>{{attachment}}</2> neste cartão',
       userDeletedAttachmentOnCard:
-        '<0>{{user}}</0> excluiu anexo <2>{{attachment}}</2> de <4>{{card}}</4>',
+        '<0>{{user}}</0> excluiu anexo <2>{{attachment}}</2> do cartão <4>{{card}}</4>',
       userDeletedAttachmentOnThisCard:
         '<0>{{user}}</0> excluiu anexo <2>{{attachment}}</2> deste cartão',
       userMentionedYouInCommentOnCard:
-        '<0>{{user}}</0> mencionou-o num comentário «{{comment}}» em <2>{{card}}</2>',
+        '<0>{{user}}</0> mencionou-o num comentário «{{comment}}» no cartão <2>{{card}}</2>',
       userMovedCardFromListToList:
-        '<0>{{user}}</0> moveu <2>{{card}}</2> de {{fromList}} para {{toList}}',
+        '<0>{{user}}</0> moveu um cartão <2>{{card}}</2> de {{fromList}} para {{toList}}',
       userMovedThisCardFromListToList:
         '<0>{{user}}</0> moveu este cartão de {{fromList}} para {{toList}}',
       userRemovedUserFromCard:
-        '<0>{{actorUser}}</0> removeu {{removedUser}} de <4>{{card}}</4>',
+        '<0>{{actorUser}}</0> removeu {{removedUser}} do cartão <4>{{card}}</4>',
       userRemovedUserFromThisCard:
         '<0>{{actorUser}}</0> removeu {{removedUser}} deste cartão',
       userSetDueDateToCard:
-        '<0>{{user}}</0> definiu data limite para <2>{{date}}</2> em <4>{{card}}</4>',
+        '<0>{{user}}</0> definiu data limite para <2>{{date}}</2> no cartão <4>{{card}}</4>',
       userRemovedDueDateFromCard:
-        '<0>{{user}}</0> removeu data limite de <2>{{card}}</2>',
+        '<0>{{user}}</0> removeu data limite do cartão <2>{{card}}</2>',
       userChangedDueDateOfCard:
-        '<0>{{user}}</0> alterou data limite de <2>{{oldDate}}</2> para <4>{{newDate}}</4> em <6>{{card}}</6>',
+        '<0>{{user}}</0> alterou data limite de <2>{{oldDate}}</2> para <4>{{newDate}}</4> no cartão <6>{{card}}</6>',
       activityLogMessage:
-        '<0>{{user}}</0> realizou uma ação em <2>{{card}}</2>',
+        '<0>{{user}}</0> realizou uma ação no cartão <2>{{card}}</2>',
       username: 'Nome de utilizador',
       users: 'Utilizadores',
       viewer: 'Visualizador',
@@ -663,14 +663,14 @@ export default {
       activateUser: 'Ativar utilizador',
       activateUser_title: 'Ativar Utilizador',
       addAnotherCard: 'Adicionar outro cartão',
-      addAnotherList: 'Adicionar outra coluna',
+      addAnotherList: 'Adicionar outra lista',
       addAnotherTask: 'Adicionar outra tarefa',
       addCard: 'Adicionar cartão',
       addCard_title: 'Adicionar Cartão',
       addComment: 'Adicionar comentário',
       addCustomField: 'Adicionar campo personalizado',
       addCustomFieldGroup: 'Adicionar grupo de campos personalizados',
-      addList: 'Adicionar coluna',
+      addList: 'Adicionar lista',
       addMember: 'Adicionar membro',
       addMoreDetailedDescription: 'Adicionar descrição mais detalhada',
       addTask: 'Adicionar tarefa',
@@ -709,8 +709,8 @@ export default {
       deleteForever_title: 'Excluir Permanentemente',
       deleteGroup: 'Excluir grupo',
       deleteLabel: 'Excluir rótulo',
-      deleteList: 'Excluir coluna',
-      deleteList_title: 'Excluir coluna',
+      deleteList: 'Excluir lista',
+      deleteList_title: 'Excluir lista',
       deleteNotificationService: 'Excluir serviço de notificação',
       deleteProject: 'Excluir projeto',
       deleteProject_title: 'Excluir Projeto',
@@ -772,7 +772,7 @@ export default {
       showFewerAttachments: 'Mostrar menos anexos',
       showLess: 'Mostrar menos',
       showMore: 'Mostrar mais',
-      sortList_title: 'Ordenar Coluna',
+      sortList_title: 'Ordenar Lista',
       start: 'Iniciar',
       stop: 'Parar',
       subscribe: 'Entrar',
