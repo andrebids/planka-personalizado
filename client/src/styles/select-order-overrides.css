@@ -64,3 +64,40 @@
 #app .ui.form div[class*="_text_"] {
   color: rgba(255, 255, 255, 0.9) !important;
 }
+
+/* ===== OVERRIDES ESPECÍFICOS PARA ABAS DOS CARDS ===== */
+/* Corrigir visibilidade das abas dentro dos cards */
+#app .ui.modal .ui.secondary.menu .active.item {
+  color: #17394d !important;
+  font-weight: 600 !important;
+}
+
+#app .ui.modal .ui.secondary.menu .active.item:hover {
+  color: #0f2a3a !important;
+}
+
+#app .ui.modal .ui.secondary.menu .item {
+  color: #6b7c93 !important;
+}
+
+#app .ui.modal .ui.secondary.menu .item:hover {
+  color: #17394d !important;
+}
+
+/* Regras ainda mais específicas para garantir que funcionem */
+#app .ui.modal .ui.pointing.secondary.menu .active.item {
+  color: #17394d !important;
+  font-weight: 600 !important;
+}
+
+#app .ui.modal .ui.pointing.secondary.menu .active.item:hover {
+  color: #0f2a3a !important;
+}
+
+#app .ui.modal .ui.pointing.secondary.menu .item {
+  color: #6b7c93 !important;
+}
+
+#app .ui.modal .ui.pointing.secondary.menu .item:hover {
+  color: #17394d !important;
+}
