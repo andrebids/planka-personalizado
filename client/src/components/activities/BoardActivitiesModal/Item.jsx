@@ -35,15 +35,22 @@ const Item = React.memo(({ id }) => {
   );
 
   const activity = useSelector(state => selectActivityById(state, id));
-  const user = useSelector(state => selectUserById(state, activity.userId));
-  const card = useSelector(state => selectCardById(state, activity.cardId));
+  const user = useSelector(state => selectUserById(state, activity?.userId));
+  const card = useSelector(state => selectCardById(state, activity?.cardId));
   const attachments = useSelector(state =>
-    selectAttachmentsForCard(state, activity.cardId)
+    selectAttachmentsForCard(state, activity?.cardId)
   );
 
+  // Verificação de segurança para evitar erros quando activity ou user estão undefined
+  if (!activity) {
+    console.warn('Activity não encontrada para ID:', id);
+    return null;
+  }
 
-
-
+  if (!user) {
+    console.warn('User não encontrado para activity:', activity.id, 'userId:', activity.userId);
+    return null;
+  }
 
   const [t] = useTranslation();
   const [activateClosable, deactivateClosable] = useContext(ClosableContext);
@@ -65,7 +72,7 @@ const Item = React.memo(({ id }) => {
         })
       : user.name;
 
-  const cardName = card ? card.name : activity.data.card.name;
+  const cardName = card ? card.name : activity.data?.card?.name || 'Cartão desconhecido';
 
   // Filtrar anexos de imagem para mostrar thumbnails
   const imageAttachments = (attachments || []).filter(
@@ -77,18 +84,22 @@ const Item = React.memo(({ id }) => {
   );
 
   // Mostrar apenas a primeira imagem (agora ocupa largura completa)
-  // Não mostrar imagens quando se cria um cartão ou uma tarefa
+  // Não mostrar imagens quando se cria um cartão, uma tarefa ou atividades de comentário
   const thumbnailAttachments =
     activity.type === ActivityTypes.CREATE_CARD ||
-    activity.type === ActivityTypes.CREATE_TASK
+    activity.type === ActivityTypes.CREATE_TASK ||
+    activity.type === ActivityTypes.COMMENT_CREATE ||
+    activity.type === ActivityTypes.COMMENT_UPDATE ||
+    activity.type === ActivityTypes.COMMENT_DELETE ||
+    activity.type === ActivityTypes.COMMENT_REPLY
       ? []
       : imageAttachments.slice(0, 1);
 
   let contentNode;
   switch (activity.type) {
     case ActivityTypes.CREATE_CARD: {
-      const { list } = activity.data;
-      const listName = list.name || t(`common.${list.type}`);
+      const { list } = activity.data || {};
+      const listName = list?.name || t(`common.${list?.type}`) || 'Lista desconhecida';
 
       contentNode = (
         <Trans
@@ -112,10 +123,10 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.MOVE_CARD: {
-      const { fromList, toList } = activity.data;
+      const { fromList, toList } = activity.data || {};
 
-      const fromListName = fromList.name || t(`common.${fromList.type}`);
-      const toListName = toList.name || t(`common.${toList.type}`);
+      const fromListName = fromList?.name || t(`common.${fromList?.type}`) || 'Lista origem desconhecida';
+      const toListName = toList?.name || t(`common.${toList?.type}`) || 'Lista destino desconhecida';
 
       contentNode = (
         <Trans
@@ -143,7 +154,7 @@ const Item = React.memo(({ id }) => {
     }
     case ActivityTypes.ADD_MEMBER_TO_CARD:
       contentNode =
-        user.id === activity.data.user.id ? (
+        user.id === activity.data?.user?.id ? (
           <Trans
             i18nKey="common.userJoinedCard"
             values={{
@@ -162,13 +173,13 @@ const Item = React.memo(({ id }) => {
             i18nKey="common.userAddedUserToCard"
             values={{
               actorUser: userName,
-              addedUser: activity.data.user.name,
+              addedUser: activity.data?.user?.name || 'Utilizador desconhecido',
               card: cardName,
             }}
           >
             <span className={styles.author}>{userName}</span>
             {' added '}
-            {activity.data.user.name}
+            {activity.data?.user?.name || 'Utilizador desconhecido'}
             {' to '}
             <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
               {cardName}
@@ -183,13 +194,13 @@ const Item = React.memo(({ id }) => {
           i18nKey="common.userRemovedUserFromCard"
           values={{
             actorUser: userName,
-            removedUser: activity.data.user.name,
+            removedUser: activity.data?.user?.name || 'Utilizador desconhecido',
             card: cardName,
           }}
         >
           <span className={styles.author}>{userName}</span>
           {' removed '}
-          {activity.data.user.name}
+          {activity.data?.user?.name || 'Utilizador desconhecido'}
           {' from '}
           <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
             {cardName}
@@ -217,7 +228,7 @@ const Item = React.memo(({ id }) => {
 
       break;
     case ActivityTypes.SET_DUE_DATE: {
-      const { oldDueDate, newDueDate } = activity.data;
+      const { oldDueDate, newDueDate } = activity.data || {};
 
       const formatDate = date => {
         if (!date) return null;
@@ -292,8 +303,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.COMPLETE_TASK: {
-      const { task } = activity.data;
-      const taskName = task.name;
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
 
       contentNode = (
         <Trans
@@ -317,8 +328,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.UNCOMPLETE_TASK: {
-      const { task } = activity.data;
-      const taskName = task.name;
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
 
       contentNode = (
         <Trans
@@ -342,8 +353,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.CREATE_TASK: {
-      const { task } = activity.data;
-      const taskName = task.name;
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
 
       contentNode = (
         <Trans
@@ -367,8 +378,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.DELETE_TASK: {
-      const { task } = activity.data;
-      const taskName = task.name;
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
 
       contentNode = (
         <Trans
@@ -392,8 +403,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.UPDATE_TASK: {
-      const { task } = activity.data;
-      const taskName = task.name;
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
 
       contentNode = (
         <Trans
@@ -417,8 +428,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.CREATE_TASK_LIST: {
-      const { taskList } = activity.data;
-      const taskListName = taskList.name;
+      const { taskList } = activity.data || {};
+      const taskListName = taskList?.name || 'Lista de tarefas desconhecida';
 
       contentNode = (
         <Trans
@@ -442,8 +453,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.DELETE_TASK_LIST: {
-      const { taskList } = activity.data;
-      const taskListName = taskList.name;
+      const { taskList } = activity.data || {};
+      const taskListName = taskList?.name || 'Lista de tarefas desconhecida';
 
       contentNode = (
         <Trans
@@ -467,8 +478,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.CREATE_ATTACHMENT: {
-      const { attachment } = activity.data;
-      const attachmentName = attachment.name;
+      const { attachment } = activity.data || {};
+      const attachmentName = attachment?.name || 'Anexo desconhecido';
 
       contentNode = (
         <Trans
@@ -492,8 +503,8 @@ const Item = React.memo(({ id }) => {
       break;
     }
     case ActivityTypes.DELETE_ATTACHMENT: {
-      const { attachment } = activity.data;
-      const attachmentName = attachment.name;
+      const { attachment } = activity.data || {};
+      const attachmentName = attachment?.name || 'Anexo desconhecido';
 
       contentNode = (
         <Trans

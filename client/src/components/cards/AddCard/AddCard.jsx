@@ -153,12 +153,22 @@ const AddCard = React.memo(
     // Handlers para drag & drop
     const handleDragOver = useCallback(e => {
       e.preventDefault();
-      setIsDragOver(true);
+      e.stopPropagation();
+
+      // Verificar se há arquivos sendo arrastados
+      if (e.dataTransfer && e.dataTransfer.types && e.dataTransfer.types.includes('Files')) {
+        setIsDragOver(true);
+      }
     }, []);
 
     const handleDragLeave = useCallback(e => {
       e.preventDefault();
-      setIsDragOver(false);
+      e.stopPropagation();
+
+      // Só remove o estado de drag se realmente sair da área
+      if (!e.currentTarget.contains(e.relatedTarget)) {
+        setIsDragOver(false);
+      }
     }, []);
 
     const handleDrop = useCallback(
@@ -251,12 +261,13 @@ const AddCard = React.memo(
         className={classNames(className, !isOpened && styles.wrapperClosed)}
         onSubmit={handleSubmit}
       >
-        <div
+                <div
           className={classNames(
             styles.fieldWrapper,
             isDragOver && styles.fieldWrapperDragOver,
             isProcessing && styles.fieldWrapperProcessing
           )}
+          onDragEnter={handleDragOver}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}

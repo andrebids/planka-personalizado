@@ -35,41 +35,18 @@ module.exports = {
   },
 
   async fn(inputs) {
-    // Criar atividade para remoção do comentário (antes de remover)
+    // Criar atividade para remoção do comentário (antes de remover) usando o helper padronizado
     try {
-      // Extrair menções do texto do comentário
-      const extractMentions = (text) => {
-        const mentionRegex = /@(\w+)/g;
-        const matches = text.match(mentionRegex) || [];
-        return matches.map(match => match.substring(1));
-      };
-
-      // Determinar se é resposta a outro comentário
-      const isReplyToComment = (text) => {
-        return text.includes('@') && text.length > 0;
-      };
-
-      // Criar dados da atividade
-      const activityData = {
-        commentId: inputs.record.id,
-        commentText: inputs.record.text.substring(0, 150), // Limitar a 150 chars
-        cardName: inputs.card.name,
-        cardId: inputs.card.id,
-        mentions: extractMentions(inputs.record.text),
-        isReply: isReplyToComment(inputs.record.text),
+      // Usar o helper de atividades de comentário (mesmo padrão da criação)
+      const activity = await sails.helpers.activities.createCommentActivity.with({
+        comment: inputs.record, // Usar o comentário antes de ser deletado
+        card: inputs.card,
+        user: inputs.actorUser,
+        board: inputs.board,
         action: 'delete'
-      };
+      });
 
-      // Criar atividade diretamente
-      const activity = await Action.create({
-        type: 'commentDelete',
-        data: activityData,
-        boardId: inputs.board.id,
-        cardId: inputs.card.id,
-        userId: inputs.actorUser.id,
-      }).fetch();
-
-
+      console.log('✅ Atividade de remoção de comentário criada:', activity.id);
     } catch (activityError) {
       console.error('❌ Erro ao criar atividade de remoção de comentário:', activityError);
       // Não falhar a remoção do comentário se a atividade falhar

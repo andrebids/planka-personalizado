@@ -43,42 +43,19 @@ module.exports = {
 
     const comment = await Comment.qm.updateOne(inputs.record.id, values);
 
-    // Criar atividade para atualização do comentário
+    // Criar atividade para atualização do comentário usando o helper padronizado
     if (comment) {
       try {
-        // Extrair menções do texto do comentário
-        const extractMentions = (text) => {
-          const mentionRegex = /@(\w+)/g;
-          const matches = text.match(mentionRegex) || [];
-          return matches.map(match => match.substring(1));
-        };
-
-        // Determinar se é resposta a outro comentário
-        const isReplyToComment = (text) => {
-          return text.includes('@') && text.length > 0;
-        };
-
-        // Criar dados da atividade
-        const activityData = {
-          commentId: comment.id,
-          commentText: comment.text.substring(0, 150), // Limitar a 150 chars
-          cardName: inputs.card.name,
-          cardId: inputs.card.id,
-          mentions: extractMentions(comment.text),
-          isReply: isReplyToComment(comment.text),
+        // Usar o helper de atividades de comentário (mesmo padrão da criação)
+        const activity = await sails.helpers.activities.createCommentActivity.with({
+          comment: comment,
+          card: inputs.card,
+          user: inputs.actorUser,
+          board: inputs.board,
           action: 'update'
-        };
+        });
 
-        // Criar atividade diretamente
-        const activity = await Action.create({
-          type: 'commentUpdate',
-          data: activityData,
-          boardId: inputs.board.id,
-          cardId: inputs.card.id,
-          userId: inputs.actorUser.id,
-        }).fetch();
-
-
+        console.log('✅ Atividade de atualização de comentário criada:', activity.id);
       } catch (activityError) {
         console.error('❌ Erro ao criar atividade de atualização de comentário:', activityError);
         // Não falhar a atualização do comentário se a atividade falhar
