@@ -132,6 +132,49 @@
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.22);
 }
+
+/* Tabs específicas para cartões - Estilo glass elegante */
+.ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .item {
+  color: #374151 !important; /* Cor escura */
+  background: rgba(255, 255, 255, 0.05) !important; /* Fundo glass muito sutil */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Borda glass transparente */
+  border-radius: 8px 8px 0 0 !important; /* Bordas arredondadas no topo */
+  transition: all 0.2s ease !important; /* Transição suave */
+  margin-right: 4px !important; /* Espaçamento entre abas */
+  padding: 8px 16px !important; /* Padding interno */
+}
+
+.ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .active.item {
+  color: #1f2937 !important; /* Cinza muito escuro no ativo */
+  background: rgba(255, 255, 255, 0.12) !important; /* Fundo glass mais claro */
+  border-color: rgba(255, 255, 255, 0.2) !important; /* Borda mais clara */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Sombra sutil */
+}
+
+/* Forçar cor escura para aba ativa - maior especificidade */
+.ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .item.active,
+.ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .active.item {
+  color: #1f2937 !important; /* Cinza muito escuro no ativo */
+  background: rgba(255, 255, 255, 0.12) !important; /* Fundo glass mais claro */
+  border-color: rgba(255, 255, 255, 0.2) !important; /* Borda mais clara */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Sombra sutil */
+}
+
+/* Sobrescrever regras #app com especificidade máxima */
+#app .ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .item.active,
+#app .ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .active.item,
+#app .ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .active.item:hover {
+  color: #1f2937 !important; /* Cinza muito escuro no ativo */
+  background: rgba(255, 255, 255, 0.12) !important; /* Fundo glass mais claro */
+  border-color: rgba(255, 255, 255, 0.2) !important; /* Borda mais clara */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Sombra sutil */
+}
+
+.ui.modal.glass[class*="_wrapper_"] .ui.pointing.secondary.menu .item:hover {
+  color: #4b5563 !important; /* Cinza médio no hover */
+  background: rgba(255, 255, 255, 0.08) !important; /* Fundo glass no hover */
+  border-color: rgba(255, 255, 255, 0.15) !important; /* Borda mais clara no hover */
+}
 .ui.modal.glass .ui.segment,
 .ui.modal.glass .ui.segment.active,
 .ui.modal.glass .ui.segment.active.tab {
