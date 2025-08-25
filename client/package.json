@@ -85,6 +85,7 @@
     "@gravity-ui/markdown-editor": "^15.13.2",
     "@gravity-ui/uikit": "^7.13.0",
     "@juggle/resize-observer": "^3.4.0",
+    "@sentry/react": "^10.5.0",
     "@vitejs/plugin-react": "^4.5.1",
     "browserslist-to-esbuild": "^2.1.1",
     "classnames": "^2.5.1",

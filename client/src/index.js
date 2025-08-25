@@ -3,6 +3,9 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
+// Importar e inicializar Sentry primeiro
+import './sentry';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
