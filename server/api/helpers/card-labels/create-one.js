@@ -76,6 +76,30 @@ module.exports = {
       user: inputs.actorUser,
     });
 
+    // Criar atividade para adição de label
+    try {
+      await sails.helpers.actions.createOne.with({
+        values: {
+          type: 'addLabelToCard',
+          data: {
+            labelId: values.label.id,
+            labelName: values.label.name,
+            labelColor: values.label.color,
+            cardId: values.card.id,
+            cardName: values.card.name,
+          },
+          user: inputs.actorUser,
+          card: values.card,
+        },
+        project: inputs.project,
+        board: inputs.board,
+        list: inputs.list,
+      });
+    } catch (activityError) {
+      console.error('❌ [HELPER-CARD-LABELS] Erro ao criar atividade:', activityError.message);
+      // Não deixar o erro parar o processo
+    }
+
     return cardLabel;
   },
 };

@@ -85,13 +85,12 @@ module.exports = {
 
       // Chamar helper de atividade para criar log
       await sails.helpers.activities.createAttachmentActivity.with({
-        attachmentId: attachment.id,
-        attachmentName: attachment.name,
-        cardId: attachment.cardId,
-        cardName: card.name,
-        userId: inputs.request.currentUser.id,
-        userName: inputs.request.currentUser.name,
-        action: 'delete'
+        attachment: attachment,
+        card: inputs.card,
+        user: inputs.actorUser,
+        board: inputs.board,
+        action: 'delete',
+        request: inputs.request
       });
 
       return attachment;

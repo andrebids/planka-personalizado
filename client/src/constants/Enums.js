@@ -107,6 +107,9 @@ export const ActivityTypes = {
   COMMENT_UPDATE: 'commentUpdate',
   COMMENT_DELETE: 'commentDelete',
   COMMENT_REPLY: 'commentReply',
+  // NOVOS TIPOS DE ATIVIDADE PARA LABELS
+  ADD_LABEL_TO_CARD: 'addLabelToCard',
+  REMOVE_LABEL_FROM_CARD: 'removeLabelFromCard',
 };
 
 export const NotificationTypes = {

@@ -74,27 +74,30 @@ const Item = React.memo(({ id }) => {
 
   const cardName = card ? card.name : activity.data?.card?.name || 'Cartão desconhecido';
 
-  // Filtrar anexos de imagem para mostrar thumbnails
-  const imageAttachments = (attachments || []).filter(
-    attachment =>
-      attachment.type === AttachmentTypes.FILE &&
-      attachment.data &&
-      attachment.data.image &&
-      attachment.data.thumbnailUrls &&
-      canPreviewFile(attachment)
-  );
+  // Mostrar thumbnail apenas para atividades de anexos específicos
+  let thumbnailAttachment = null;
+  
+  if (activity.type === ActivityTypes.CREATE_ATTACHMENT || activity.type === ActivityTypes.DELETE_ATTACHMENT) {
+    // Para atividades de anexos, procurar o anexo específico da atividade
+    const activityAttachmentId = activity.data?.attachmentId;
+    if (activityAttachmentId) {
+      const activityAttachment = (attachments || []).find(
+        attachment => attachment.id === activityAttachmentId
+      );
+      
+      if (activityAttachment && 
+          activityAttachment.type === AttachmentTypes.FILE &&
+          activityAttachment.data &&
+          (activityAttachment.data.image || activityAttachment.data.video) &&
+          activityAttachment.data.thumbnailUrls &&
+          canPreviewFile(activityAttachment)) {
+        thumbnailAttachment = activityAttachment;
+      }
+    }
+  }
 
-  // Mostrar apenas a primeira imagem (agora ocupa largura completa)
-  // Não mostrar imagens quando se cria um cartão, uma tarefa ou atividades de comentário
-  const thumbnailAttachments =
-    activity.type === ActivityTypes.CREATE_CARD ||
-    activity.type === ActivityTypes.CREATE_TASK ||
-    activity.type === ActivityTypes.COMMENT_CREATE ||
-    activity.type === ActivityTypes.COMMENT_UPDATE ||
-    activity.type === ActivityTypes.COMMENT_DELETE ||
-    activity.type === ActivityTypes.COMMENT_REPLY
-      ? []
-      : imageAttachments.slice(0, 1);
+  // Não mostrar thumbnails para outros tipos de atividade
+  const thumbnailAttachments = thumbnailAttachment ? [thumbnailAttachment] : [];
 
   let contentNode;
   switch (activity.type) {
@@ -345,6 +348,311 @@ const Item = React.memo(({ id }) => {
               <em>[Comentário removido]</em>
             </div>
           </>
+        );
+      }
+
+      break;
+    }
+    case ActivityTypes.ADD_LABEL_TO_CARD: {
+      const { labelName, labelColor } = activity.data || {};
+      const displayName = labelName || 'Label desconhecido';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userAddedLabelToCard"
+          values={{
+            user: userName,
+            label: displayName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' adicionou label '}
+          <strong style={{ color: labelColor ? `var(--${labelColor})` : 'inherit' }}>
+            {displayName}
+          </strong>
+          {' ao cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.REMOVE_LABEL_FROM_CARD: {
+      const { labelName, labelColor } = activity.data || {};
+      const displayName = labelName || 'Label desconhecido';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userRemovedLabelFromCard"
+          values={{
+            user: userName,
+            label: displayName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' removeu label '}
+          <strong style={{ color: labelColor ? `var(--${labelColor})` : 'inherit' }}>
+            {displayName}
+          </strong>
+          {' do cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.CREATE_TASK: {
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCreatedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' criou tarefa '}
+          <strong>{taskName}</strong>
+          {' no cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.DELETE_TASK: {
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userDeletedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' excluiu tarefa '}
+          <strong>{taskName}</strong>
+          {' do cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.COMPLETE_TASK: {
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCompletedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' concluiu tarefa '}
+          <strong>{taskName}</strong>
+          {' no cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.UNCOMPLETE_TASK: {
+      const { task } = activity.data || {};
+      const taskName = task?.name || 'Tarefa desconhecida';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userUncompletedTaskOnCard"
+          values={{
+            user: userName,
+            task: taskName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' marcou como não concluída a tarefa '}
+          <strong>{taskName}</strong>
+          {' no cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.CREATE_TASK_LIST: {
+      const { taskList } = activity.data || {};
+      const taskListName = taskList?.name || 'Lista de tarefas desconhecida';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userCreatedTaskListOnCard"
+          values={{
+            user: userName,
+            taskList: taskListName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' criou lista de tarefas '}
+          <strong>{taskListName}</strong>
+          {' no cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.DELETE_TASK_LIST: {
+      const { taskList } = activity.data || {};
+      const taskListName = taskList?.name || 'Lista de tarefas desconhecida';
+
+      contentNode = (
+        <Trans
+          i18nKey="common.userDeletedTaskListOnCard"
+          values={{
+            user: userName,
+            taskList: taskListName,
+            card: cardName,
+          }}
+        >
+          <span className={styles.author}>{userName}</span>
+          {' excluiu lista de tarefas '}
+          <strong>{taskListName}</strong>
+          {' do cartão '}
+          <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+            {cardName}
+          </Link>
+        </Trans>
+      );
+
+      break;
+    }
+    case ActivityTypes.SET_DUE_DATE: {
+      const { oldDueDate, newDueDate } = activity.data || {};
+      
+      // Formatar datas
+      const formatDate = (date) => {
+        if (!date) return null;
+        try {
+          return new Date(date).toLocaleDateString('pt-PT');
+        } catch (error) {
+          return 'Data inválida';
+        }
+      };
+
+      const oldDateFormatted = formatDate(oldDueDate);
+      const newDateFormatted = formatDate(newDueDate);
+
+      // Determinar o tipo de ação baseado nas datas
+      if (!oldDueDate && newDueDate) {
+        // Data de vencimento adicionada
+        contentNode = (
+          <Trans
+            i18nKey="common.userSetDueDateOnCard"
+            values={{
+              user: userName,
+              date: newDateFormatted,
+              card: cardName,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' definiu data limite '}
+            <strong>{newDateFormatted}</strong>
+            {' para o cartão '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+              {cardName}
+            </Link>
+          </Trans>
+        );
+      } else if (oldDueDate && !newDueDate) {
+        // Data de vencimento removida
+        contentNode = (
+          <Trans
+            i18nKey="common.userRemovedDueDateFromCard"
+            values={{
+              user: userName,
+              card: cardName,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' removeu data limite do cartão '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+              {cardName}
+            </Link>
+          </Trans>
+        );
+      } else if (oldDueDate && newDueDate) {
+        // Data de vencimento alterada
+        contentNode = (
+          <Trans
+            i18nKey="common.userChangedDueDateOfCard"
+            values={{
+              user: userName,
+              oldDate: oldDateFormatted,
+              newDate: newDateFormatted,
+              card: cardName,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' alterou data limite de '}
+            <strong>{oldDateFormatted}</strong>
+            {' para '}
+            <strong>{newDateFormatted}</strong>
+            {' no cartão '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+              {cardName}
+            </Link>
+          </Trans>
+        );
+      } else {
+        // Fallback para caso inesperado
+        contentNode = (
+          <Trans
+            i18nKey="common.userSetDueDateOnCard"
+            values={{
+              user: userName,
+              date: 'Data desconhecida',
+              card: cardName,
+            }}
+          >
+            <span className={styles.author}>{userName}</span>
+            {' definiu data limite '}
+            <strong>Data desconhecida</strong>
+            {' para o cartão '}
+            <Link to={Paths.CARDS.replace(':id', activity.cardId)}>
+              {cardName}
+            </Link>
+          </Trans>
         );
       }
 

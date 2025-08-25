@@ -656,6 +656,24 @@ export default {
         '<0>{{user}}</0> removeu data limite do cartão <2>{{card}}</2>',
       userChangedDueDateOfCard:
         '<0>{{user}}</0> alterou data limite de <2>{{oldDate}}</2> para <4>{{newDate}}</4> no cartão <6>{{card}}</6>',
+      userAddedLabelToCard:
+        '<0>{{user}}</0> adicionou label <2>{{label}}</2> ao cartão <4>{{card}}</4>',
+      userRemovedLabelFromCard:
+        '<0>{{user}}</0> removeu label <2>{{label}}</2> do cartão <4>{{card}}</4>',
+      userCreatedTaskOnCard:
+        '<0>{{user}}</0> criou tarefa <2>{{task}}</2> no cartão <4>{{card}}</4>',
+      userDeletedTaskOnCard:
+        '<0>{{user}}</0> excluiu tarefa <2>{{task}}</2> do cartão <4>{{card}}</4>',
+      userCompletedTaskOnCard:
+        '<0>{{user}}</0> concluiu tarefa <2>{{task}}</2> no cartão <4>{{card}}</4>',
+      userUncompletedTaskOnCard:
+        '<0>{{user}}</0> marcou como não concluída a tarefa <2>{{task}}</2> no cartão <4>{{card}}</4>',
+      userCreatedTaskListOnCard:
+        '<0>{{user}}</0> criou lista de tarefas <2>{{taskList}}</2> no cartão <4>{{card}}</4>',
+      userDeletedTaskListOnCard:
+        '<0>{{user}}</0> excluiu lista de tarefas <2>{{taskList}}</2> do cartão <4>{{card}}</4>',
+      userSetDueDateOnCard:
+        '<0>{{user}}</0> definiu data limite <2>{{date}}</2> para o cartão <4>{{card}}</4>',
       activityLogMessage:
         '<0>{{user}}</0> realizou uma ação no cartão <2>{{card}}</2>',
       username: 'Nome de utilizador',
