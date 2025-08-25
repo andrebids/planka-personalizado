@@ -3,10 +3,9 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useInView } from 'react-intersection-observer';
 import { Comment, Icon, Loader } from 'semantic-ui-react';
 
 import selectors from '../../../selectors';
@@ -28,32 +27,38 @@ const BoardActivitiesPanel = React.memo(() => {
     ? currentBoard.isAllActivitiesFetched
     : true;
 
-  const panelRef = useRef(null);
   const [t] = useTranslation();
-
   const dispatch = useDispatch();
+  const [hasTriggeredFetch, setHasTriggeredFetch] = useState(false);
+
+  // Reset hasTriggeredFetch quando mudamos de board
+  useEffect(() => {
+    setHasTriggeredFetch(false);
+  }, [currentBoard?.id]);
+
+  // Carregar atividades quando painel é expandido pela primeira vez
+  useEffect(() => {
+    if (isExpanded && !hasTriggeredFetch) {
+      dispatch(entryActions.fetchActivitiesInCurrentBoard());
+      setHasTriggeredFetch(true);
+    }
+  }, [isExpanded, hasTriggeredFetch, dispatch, currentBoard?.id]);
 
   const handleToggle = useCallback(() => {
     dispatch(entryActions.toggleTimelinePanel());
   }, [dispatch]);
 
-  const [inViewRef] = useInView({
-    threshold: 1,
-    onChange: inView => {
-      if (inView) {
-        dispatch(entryActions.fetchActivitiesInCurrentBoard());
-      }
-    },
-  });
+  const handleLoadMore = useCallback(() => {
+    dispatch(entryActions.fetchActivitiesInCurrentBoard());
+  }, [dispatch]);
 
   return (
     <div
-      ref={panelRef}
       className={`${styles.panel} ${isExpanded ? styles.expanded : styles.collapsed} glass-panel`}
       role="complementary"
       aria-label={t('common.boardActions_title')}
     >
-      {/* Header */}
+      {/* Header sempre carregado */}
       <div className={styles.header}>
         <h3 className={styles.title}>
           {isExpanded ? t('common.boardActions_title') : ''}
@@ -70,7 +75,7 @@ const BoardActivitiesPanel = React.memo(() => {
         </button>
       </div>
 
-      {/* Content */}
+      {/* Conteúdo carregado apenas quando expandido */}
       {isExpanded && (
         <div className={styles.content}>
           <div className={styles.itemsWrapper}>
@@ -80,14 +85,24 @@ const BoardActivitiesPanel = React.memo(() => {
               ))}
             </Comment.Group>
           </div>
+          
+          {/* Loading state usando sistema existente */}
           {isActivitiesFetching && (
             <div className={styles.loaderWrapper}>
               <Loader active inverted inline="centered" size="small" />
             </div>
           )}
+          
+          {/* Botão "Carregar Mais" usando sistema beforeId existente */}
           {!isActivitiesFetching && !isAllActivitiesFetched && (
-            <div className={styles.loaderWrapper}>
-              <div ref={inViewRef} />
+            <div className={styles.loadMoreWrapper}>
+              <button 
+                onClick={handleLoadMore}
+                className={styles.loadMoreButton}
+                type="button"
+              >
+                Carregar Mais Atividades ({activityIds.length} carregadas)
+              </button>
             </div>
           )}
         </div>

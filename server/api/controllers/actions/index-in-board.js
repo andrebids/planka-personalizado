@@ -56,13 +56,16 @@ module.exports = {
     });
 
     const userIds = sails.helpers.utils.mapRecords(actions, 'userId', true, true);
+
     const users = await User.qm.getByIds(userIds);
 
-    return {
+    const response = {
       items: actions,
       included: {
         users: sails.helpers.users.presentMany(users, currentUser),
       },
     };
+
+    return response;
   },
 };

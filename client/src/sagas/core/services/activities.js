@@ -26,6 +26,7 @@ export function* fetchActivitiesInBoard(boardId) {
       beforeId: lastActivityId || undefined,
     }));
   } catch (error) {
+    console.error('❌ [SAGA-ACTIVITIES] Erro ao carregar atividades:', error.message);
     yield put(actions.fetchActivitiesInBoard.failure(boardId, error));
     return;
   }
@@ -35,7 +36,6 @@ export function* fetchActivitiesInBoard(boardId) {
 
 export function* fetchActivitiesInCurrentBoard() {
   const { boardId } = yield select(selectors.selectPath);
-
   yield call(fetchActivitiesInBoard, boardId);
 }
 
@@ -63,9 +63,9 @@ export function* fetchActivitiesInCard(cardId) {
 }
 
 export function* fetchActivitiesInCurrentCard() {
-  const { cardId } = yield select(selectors.selectPath);
+  const { boardId } = yield select(selectors.selectPath);
 
-  yield call(fetchActivitiesInCard, cardId);
+  yield call(fetchActivitiesInCard, boardId);
 }
 
 export function* handleActivityCreate(activity) {

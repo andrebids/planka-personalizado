@@ -3,7 +3,7 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
-const LIMIT = 50;
+const LIMIT = 10; // Alterado de 50 para 10
 
 /* Query methods */
 
