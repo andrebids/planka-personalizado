@@ -73,6 +73,30 @@
   color: #ffffff;
 }
 
+/* Botão fechar específico para cartões - Estilo glass sobrio */
+.ui.modal.glass[class*="_wrapper_"] > i.close.icon {
+  color: rgba(230, 237, 243, 0.9) !important; /* Cor clara mais visível */
+  background: rgba(55, 65, 81, 0.4) !important; /* Fundo cinza mais transparente */
+  border: 1px solid rgba(75, 85, 99, 0.3) !important; /* Borda cinza */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important; /* Sombra mais forte */
+  transition: all 0.2s ease !important; /* Transição suave */
+  display: flex !important; /* Para centralizar o ícone */
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ui.modal.glass[class*="_wrapper_"] > i.close.icon:hover {
+  color: #374151 !important; /* Cinza escuro no hover */
+  background: rgba(55, 65, 81, 0.4) !important; /* Fundo cinza mais transparente */
+  border-color: rgba(75, 85, 99, 0.5) !important; /* Borda cinza mais transparente */
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 3px rgba(255, 255, 255, 0.1) !important; /* Sombra externa + interna */
+  display: flex !important; /* Manter flexbox no hover */
+  align-items: center !important; /* Manter centralização vertical */
+  justify-content: center !important; /* Manter centralização horizontal */
+}
+
 /* Texto interno (labels/checks) com contraste melhor */
 .ui.modal.glass label,
 .ui.modal.glass .ui.checkbox label,
