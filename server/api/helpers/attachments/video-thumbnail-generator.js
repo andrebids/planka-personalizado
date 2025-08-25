@@ -29,8 +29,6 @@ module.exports = {
     var outputDir = inputs.outputDir;
     var filename = inputs.filename;
 
-    // Iniciando geração de thumbnails para vídeo
-
     // Verificar se FFmpeg está disponível
     try {
       await new Promise(function(resolve, reject) {
@@ -43,7 +41,6 @@ module.exports = {
         });
       });
     } catch (error) {
-      sails.log.error('❌ FFmpeg não disponível:', error.message);
       throw new Error('FFmpeg não está instalado ou não está no PATH do sistema');
     }
 
@@ -51,19 +48,19 @@ module.exports = {
     try {
       await fs.mkdir(outputDir, { recursive: true });
     } catch (error) {
-      sails.log.error('❌ Erro ao criar diretório:', error.message);
       throw error;
     }
 
     // Obter metadados do vídeo primeiro para calcular timestamp inteligente
     var metadata = await new Promise(function(resolve, reject) {
       ffmpeg.ffprobe(videoPath, function(err, metadata) {
-        if (err) reject(err);
-        else resolve(metadata);
+        if (err) {
+          reject(err);
+        } else {
+          resolve(metadata);
+        }
       });
     });
-
-    // Metadados do vídeo obtidos
 
     // Calcular timestamp inteligente baseado na duração
     var duration = metadata.format.duration;
@@ -86,8 +83,6 @@ module.exports = {
       timestamp = '00:00:05';
     }
 
-    // Timestamp calculado para extração do frame
-
     // Fallback: Se algo der errado, usar 1 segundo
     var timestamps = [timestamp];
     var fallbackTimestamp = '00:00:01';
@@ -100,8 +95,6 @@ module.exports = {
         var tempFramePath = path.join(outputDir, 'temp-frame-' + i + '.png');
 
         try {
-          // Extraindo frame no timestamp calculado
-
           // Extrair frame com FFmpeg
           await new Promise(function(resolve, reject) {
             ffmpeg(videoPath)
@@ -115,17 +108,13 @@ module.exports = {
                 resolve();
               })
               .on('error', function(err) {
-                sails.log.error('❌ Erro ao extrair frame:', err.message);
                 reject(err);
               });
           });
 
         } catch (error) {
-          sails.log.error('❌ Erro com timestamp', currentTimestamp, ':', error.message);
-
           // Fallback: Tentar com 1 segundo se não for já o fallback
           if (currentTimestamp !== fallbackTimestamp) {
-            sails.log.info('🔄 Tentando fallback com', fallbackTimestamp);
             currentTimestamp = fallbackTimestamp;
 
             // Tentar novamente com fallback
@@ -141,7 +130,6 @@ module.exports = {
                   resolve();
                 })
                 .on('error', function(err) {
-                  sails.log.error('❌ Erro mesmo com fallback:', err.message);
                   reject(err);
                 });
             });
@@ -154,14 +142,10 @@ module.exports = {
         try {
           await fs.access(tempFramePath);
         } catch (error) {
-          sails.log.error('❌ Arquivo de frame não encontrado:', tempFramePath);
-          sails.log.error('❌ Erro ao processar frame');
           throw error;
         }
 
         // Processar com Sharp (igual ao sistema de imagens)
-        // Processando frame com Sharp
-
         var frameBuffer = await fs.readFile(tempFramePath);
 
         // Usar Sharp para criar thumbnails (igual ao sistema de imagens)
@@ -193,27 +177,17 @@ module.exports = {
         var thumbnail360Path = `${outputDir}/frame-${i}-360.png`;
         var thumbnail720Path = `${outputDir}/frame-${i}-720.png`;
 
-        // Salvando thumbnail 360
-        // Tamanho do buffer 360
-
         await fileManager.save(
           thumbnail360Path,
           outside360Buffer,
           'image/png'
         );
 
-        // Thumbnail 360 salvo com sucesso
-
-        // Salvando thumbnail 720
-        // Tamanho do buffer 720
-
         await fileManager.save(
           thumbnail720Path,
           outside720Buffer,
           'image/png'
         );
-
-        // Thumbnail 720 salvo com sucesso
 
         // Limpar frame temporário
         await fs.unlink(tempFramePath);
@@ -222,14 +196,7 @@ module.exports = {
           frame360: thumbnail360Path,
           frame720: thumbnail720Path
         });
-
-        // Thumbnails processados com Sharp
-        // Caminhos dos thumbnails gerados
       }
-
-      // Geração de thumbnail concluída
-      // Resumo final do processamento
-      // URLs que serão geradas para o frontend
 
       return {
         thumbnails: thumbnails,
@@ -242,7 +209,7 @@ module.exports = {
       };
 
     } catch (error) {
-      sails.log.error('❌ Erro durante processamento de vídeo:', error.message);
+      console.error('❌ [video-thumbnail-generator] Erro durante processamento de vídeo:', error.message);
       throw error;
     }
   },

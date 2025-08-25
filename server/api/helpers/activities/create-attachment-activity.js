@@ -35,6 +35,15 @@ module.exports = {
   async fn(inputs) {
     const { attachment, card, user, board, action } = inputs;
 
+    // Mapear ação para tipo de atividade (seguindo padrão do projeto)
+const getActivityType = (action) => {
+  switch (action) {
+    case 'create': return 'createAttachment';
+    case 'delete': return 'deleteAttachment';
+    default: return 'createAttachment';
+  }
+};
+
     try {
       // Verificar se é um arquivo de vídeo
       var isVideoFile = attachment.data && attachment.data.mimeType && attachment.data.mimeType.startsWith('video/');

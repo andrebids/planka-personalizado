@@ -24,6 +24,7 @@ module.exports = {
     const fileManager = sails.hooks['file-manager'].getInstance();
 
     const { id: fileReferenceId } = await FileReference.create().fetch();
+
     const dirPathSegment = `${sails.config.custom.attachmentsPathSegment}/${fileReferenceId}`;
     const filename = filenamify(inputs.file.filename);
 
@@ -140,13 +141,10 @@ module.exports = {
     // Verificar se é vídeo e processar thumbnails
     const videoMimeTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/flv', 'video/webm'];
     if (videoMimeTypes.includes(mimeType)) {
-          // Processamento de vídeo iniciado
-
       try {
         const videoHelper = require('./video-thumbnail-generator');
         const outputDir = `${dirPathSegment}/video-thumbnails`;
 
-        // Iniciando processamento de vídeo com helper
         const videoResult = await videoHelper.fn({
           videoPath: filePath,
           outputDir: outputDir,
@@ -160,13 +158,8 @@ module.exports = {
           format: videoResult.metadata.format,
           thumbnails: videoResult.thumbnails
         };
-
-        // Vídeo processado com sucesso
       } catch (error) {
-        sails.log.error('❌ Erro ao processar vídeo:', error.message);
-        sails.log.error('❌ Stack trace:', error.stack);
-        sails.log.warn('Erro ao processar vídeo:', error);
-        // Não falhar o upload se o processamento de vídeo falhar
+        console.error('❌ [process-uploaded-file] Erro ao processar vídeo:', error.message);
         data.video = null;
       }
     }
@@ -177,13 +170,20 @@ module.exports = {
     }
 
     // Retornar dados do anexo
-    return {
+    const result = {
+      fileReferenceId: data.fileReferenceId,
       filename: filename,
       mimeType: mimeType,
+      sizeInBytes: data.sizeInBytes,
+      encoding: data.encoding,
+      image: data.image,
+      video: data.video,
       hasImage: data.image !== null,
       hasVideo: data.video !== null,
       imageData: data.image,
       videoData: data.video
     };
+
+    return result;
   },
 };

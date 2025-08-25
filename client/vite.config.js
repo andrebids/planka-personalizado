@@ -6,31 +6,11 @@ import svgr from "vite-plugin-svgr";
 // eslint-disable-next-line import/no-unresolved
 import browserslistToEsbuild from "browserslist-to-esbuild";
 
-// Função para obter o target do servidor de forma dinâmica
-function getServerTarget() {
-  // 1. Primeiro tenta usar variável de ambiente
-  if (process.env.PLANKA_SERVER_HOST) {
-    return process.env.PLANKA_SERVER_HOST;
-  }
+// Configuração simples com nome fixo do servidor
+const serverTarget = process.env.PLANKA_SERVER_HOST || "http://boards-server:1337";
 
-  // 2. Tenta detectar automaticamente o nome do container
-  const containerName = process.env.HOSTNAME || 'localhost';
-  // Melhor detecção do Docker: verificar se HOSTNAME é um hash (ID do container) ou se contém nomes específicos
-  const isDocker = /^[a-f0-9]{12}$/.test(containerName) ||
-                   containerName.includes('planka-client') ||
-                   containerName.includes('boards-planka-client') ||
-                   containerName !== 'localhost';
-
-  if (isDocker) {
-    // Se estamos no Docker, usa o nome padrão do container do servidor
-    return "http://boards-planka-server-1:1337";
-  }
-
-  // 3. Fallback para desenvolvimento local
-  return "http://localhost:1337";
-}
-
-const serverTarget = getServerTarget();
+// Log para debug
+console.log(`🔧 [Vite Config] Server target: ${serverTarget}`);
 
 // https://vitejs.dev/config/
 export default defineConfig({

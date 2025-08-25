@@ -16,6 +16,9 @@ module.exports = {
   fn(inputs) {
     let data;
     if (inputs.record.type === Attachment.Types.FILE) {
+      // Verificar se é vídeo
+      const isVideo = inputs.record.data && inputs.record.data.video;
+
       data = {
         ...inputs.record,
         data: {
@@ -35,6 +38,7 @@ module.exports = {
           } : null,
         },
       };
+
     } else if (inputs.record.type === Attachment.Types.LINK) {
       const faviconFilename = `${inputs.record.data.hostname}.png`;
 

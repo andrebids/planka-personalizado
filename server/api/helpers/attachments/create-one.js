@@ -66,15 +66,19 @@ module.exports = {
     });
 
     // Chamar helper de atividade para criar log
-    await sails.helpers.activities.createAttachmentActivity.with({
-      attachmentId: attachment.id,
-      attachmentName: attachment.name,
-      cardId: inputs.record.cardId,
-      cardName: card.name,
-      userId: inputs.record.userId,
-      userName: user.name,
-      action: 'create'
-    });
+    try {
+      await sails.helpers.activities.createAttachmentActivity.with({
+        attachment: attachment,
+        card: values.card,
+        user: values.creatorUser,
+        board: inputs.board,
+        action: 'create',
+        request: inputs.request
+      });
+    } catch (error) {
+      console.error('❌ [create-one] Erro no helper de atividade:', error.message);
+      // Não deixar o erro parar o processo
+    }
 
     if (!values.card.coverAttachmentId) {
       if (attachment.type === sails.models.attachment.Types.FILE && attachment.data.image) {

@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile.dev
     image: planka-dev-video-test
     pull_policy: never
+    container_name: boards-server
     command: [ "bash", "-c", "npm install && npm run db:init && npm start" ]
     restart: on-failure
     volumes:
@@ -15,7 +16,6 @@ services:
       - BASE_URL=http://localhost:3000
       - DATABASE_URL=postgresql://postgres@postgres/planka
       - SECRET_KEY=notsecretkey
-
       - LOG_LEVEL=info
 
       # - TRUST_PROXY=true
@@ -93,6 +93,7 @@ services:
   planka-client:
     image: planka-dev-video-test
     pull_policy: never
+    container_name: boards-client
     command: [ "bash", "-c", "npm install && npx vite --host" ]
     restart: on-failure
     volumes:
@@ -102,6 +103,7 @@ services:
 
   postgres:
     image: postgres:15-alpine
+    container_name: boards-postgres
     restart: on-failure
     volumes:
       - postgres:/var/lib/postgresql/data

@@ -102,6 +102,7 @@ module.exports = {
 
       const file = _.last(files);
       data = await sails.helpers.attachments.processUploadedFile(file);
+      
     } else if (inputs.type === Attachment.Types.LINK) {
       if (!inputs.url) {
         throw Errors.URL_MUST_BE_PRESENT;

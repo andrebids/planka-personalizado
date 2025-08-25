@@ -85,6 +85,7 @@ const createOne = (values) => {
         .usingConnection(db);
 
       if (queryResult.rowCount === 0) {
+        console.error('❌ [Attachment.createOne] fileReferenceNotFound para fileReferenceId:', fileReferenceId);
         throw 'fileReferenceNotFound';
       }
 
