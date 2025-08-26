@@ -357,6 +357,60 @@ const Item = React.memo(({ id }) => {
       const { labelName, labelColor } = activity.data || {};
       const displayName = labelName || 'Label desconhecido';
 
+      // Converter nome da cor para classe CSS
+      const getColorClass = (colorName) => {
+        if (!colorName) return '';
+        
+        // Mapear nomes das cores para classes CSS
+        const colorMap = {
+          'silver-glint': 'colorSilverGlint',
+          'autumn-leafs': 'colorAutumnLeafs',
+          'morning-sky': 'colorMorningSky',
+          'antique-blue': 'colorAntiqueBlue',
+          'egg-yellow': 'colorEggYellow',
+          'desert-sand': 'colorDesertSand',
+          'dark-granite': 'colorDarkGranite',
+          'fresh-salad': 'colorFreshSalad',
+          'lagoon-blue': 'colorLagoonBlue',
+          'midnight-blue': 'colorMidnightBlue',
+          'light-orange': 'colorLightOrange',
+          'pumpkin-orange': 'colorPumpkinOrange',
+          'light-concrete': 'colorLightConcrete',
+          'sunny-grass': 'colorSunnyGrass',
+          'navy-blue': 'colorNavyBlue',
+          'lilac-eyes': 'colorLilacEyes',
+          'apricot-red': 'colorApricotRed',
+          'orange-peel': 'colorOrangePeel',
+          'bright-moss': 'colorBrightMoss',
+          'deep-ocean': 'colorDeepOcean',
+          'summer-sky': 'colorSummerSky',
+          'berry-red': 'colorBerryRed',
+          'light-cocoa': 'colorLightCocoa',
+          'grey-stone': 'colorGreyStone',
+          'tank-green': 'colorTankGreen',
+          'coral-green': 'colorCoralGreen',
+          'sugar-plum': 'colorSugarPlum',
+          'pink-tulip': 'colorPinkTulip',
+          'shady-rust': 'colorShadyRust',
+          'wet-rock': 'colorWetRock',
+          'wet-moss': 'colorWetMoss',
+          'turquoise-sea': 'colorTurquoiseSea',
+          'lavender-fields': 'colorLavenderFields',
+          'piggy-red': 'colorPiggyRed',
+          'light-mud': 'colorLightMud',
+          'gun-metal': 'colorGunMetal',
+          'modern-green': 'colorModernGreen',
+          'french-coast': 'colorFrenchCoast',
+          'sweet-lilac': 'colorSweetLilac',
+          'red-burgundy': 'colorRedBurgundy',
+          'pirate-gold': 'colorPirateGold'
+        };
+        
+        return colorMap[colorName] || '';
+      };
+
+      const colorClass = getColorClass(labelColor);
+
       contentNode = (
         <Trans
           i18nKey="common.userAddedLabelToCard"
@@ -368,7 +422,7 @@ const Item = React.memo(({ id }) => {
         >
           <span className={styles.author}>{userName}</span>
           {' adicionou label '}
-          <strong style={{ color: labelColor ? `var(--${labelColor})` : 'inherit' }}>
+          <strong className={colorClass ? styles[colorClass] : ''}>
             {displayName}
           </strong>
           {' ao cartão '}
@@ -384,6 +438,60 @@ const Item = React.memo(({ id }) => {
       const { labelName, labelColor } = activity.data || {};
       const displayName = labelName || 'Label desconhecido';
 
+      // Converter nome da cor para classe CSS
+      const getColorClass = (colorName) => {
+        if (!colorName) return '';
+        
+        // Mapear nomes das cores para classes CSS
+        const colorMap = {
+          'silver-glint': 'colorSilverGlint',
+          'autumn-leafs': 'colorAutumnLeafs',
+          'morning-sky': 'colorMorningSky',
+          'antique-blue': 'colorAntiqueBlue',
+          'egg-yellow': 'colorEggYellow',
+          'desert-sand': 'colorDesertSand',
+          'dark-granite': 'colorDarkGranite',
+          'fresh-salad': 'colorFreshSalad',
+          'lagoon-blue': 'colorLagoonBlue',
+          'midnight-blue': 'colorMidnightBlue',
+          'light-orange': 'colorLightOrange',
+          'pumpkin-orange': 'colorPumpkinOrange',
+          'light-concrete': 'colorLightConcrete',
+          'sunny-grass': 'colorSunnyGrass',
+          'navy-blue': 'colorNavyBlue',
+          'lilac-eyes': 'colorLilacEyes',
+          'apricot-red': 'colorApricotRed',
+          'orange-peel': 'colorOrangePeel',
+          'bright-moss': 'colorBrightMoss',
+          'deep-ocean': 'colorDeepOcean',
+          'summer-sky': 'colorSummerSky',
+          'berry-red': 'colorBerryRed',
+          'light-cocoa': 'colorLightCocoa',
+          'grey-stone': 'colorGreyStone',
+          'tank-green': 'colorTankGreen',
+          'coral-green': 'colorCoralGreen',
+          'sugar-plum': 'colorSugarPlum',
+          'pink-tulip': 'colorPinkTulip',
+          'shady-rust': 'colorShadyRust',
+          'wet-rock': 'colorWetRock',
+          'wet-moss': 'colorWetMoss',
+          'turquoise-sea': 'colorTurquoiseSea',
+          'lavender-fields': 'colorLavenderFields',
+          'piggy-red': 'colorPiggyRed',
+          'light-mud': 'colorLightMud',
+          'gun-metal': 'colorGunMetal',
+          'modern-green': 'colorModernGreen',
+          'french-coast': 'colorFrenchCoast',
+          'sweet-lilac': 'colorSweetLilac',
+          'red-burgundy': 'colorRedBurgundy',
+          'pirate-gold': 'colorPirateGold'
+        };
+        
+        return colorMap[colorName] || '';
+      };
+
+      const colorClass = getColorClass(labelColor);
+
       contentNode = (
         <Trans
           i18nKey="common.userRemovedLabelFromCard"
@@ -395,7 +503,7 @@ const Item = React.memo(({ id }) => {
         >
           <span className={styles.author}>{userName}</span>
           {' removeu label '}
-          <strong style={{ color: labelColor ? `var(--${labelColor})` : 'inherit' }}>
+          <strong className={colorClass ? styles[colorClass] : ''}>
             {displayName}
           </strong>
           {' do cartão '}
