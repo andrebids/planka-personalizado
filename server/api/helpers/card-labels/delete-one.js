@@ -63,6 +63,15 @@ module.exports = {
 
       // Criar atividade para remoção de label
       try {
+        // Verificar se o card tem todas as propriedades necessárias
+        if (!inputs.card.boardId) {
+          // Buscar o card completo se não tiver boardId
+          const fullCard = await Card.qm.getOneById(inputs.card.id);
+          if (fullCard) {
+            inputs.card = fullCard;
+          }
+        }
+
         await sails.helpers.actions.createOne.with({
           values: {
             type: 'removeLabelFromCard',

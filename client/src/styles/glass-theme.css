@@ -207,3 +207,34 @@
   background: rgba(59, 130, 246, 0.14) !important;
   border-color: rgba(255, 255, 255, 0.24) !important;
 }
+
+/* Glass Theme Overrides */
+
+/* Toggle Checkbox - Texto claro para fundos escuros */
+.ui.toggle.checkbox input:checked ~ label,
+.ui.toggle.checkbox input:focus:checked ~ label {
+  color: #e6edf3 !important; /* texto claro */
+}
+
+/* Regra mais específica para garantir prioridade */
+.ui.toggle.checkbox input:checked ~ label {
+  color: #e6edf3 !important; /* texto claro */
+}
+
+/* Regra para estado focus */
+.ui.toggle.checkbox input:focus:checked ~ label {
+  color: #e6edf3 !important; /* texto claro */
+}
+
+/* Regra para estado hover também */
+.ui.toggle.checkbox input:checked ~ label:hover {
+  color: #e6edf3 !important; /* texto claro */
+}
+
+/* Regra com máxima especificidade */
+.ui.toggle.checkbox input:checked ~ label,
+.ui.toggle.checkbox input:focus:checked ~ label,
+.ui.toggle.checkbox input:checked ~ label:hover,
+.ui.toggle.checkbox input:checked ~ label:focus {
+  color: #e6edf3 !important; /* texto claro */
+}
