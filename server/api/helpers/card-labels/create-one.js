@@ -87,6 +87,22 @@ module.exports = {
         }
       }
 
+      // Verificar se todos os dados necessários estão presentes
+      if (!values.card || !values.card.id) {
+        console.error('❌ [HELPER-CARD-LABELS] Card inválido:', values.card);
+        return cardLabel;
+      }
+
+      if (!values.label || !values.label.id) {
+        console.error('❌ [HELPER-CARD-LABELS] Label inválido:', values.label);
+        return cardLabel;
+      }
+
+      if (!inputs.actorUser || !inputs.actorUser.id) {
+        console.error('❌ [HELPER-CARD-LABELS] Usuário inválido:', inputs.actorUser);
+        return cardLabel;
+      }
+
       await sails.helpers.actions.createOne.with({
         values: {
           type: 'addLabelToCard',
@@ -104,8 +120,11 @@ module.exports = {
         board: inputs.board,
         list: inputs.list,
       });
+      
+      console.log('✅ [HELPER-CARD-LABELS] Atividade criada com sucesso para label:', values.label.name);
     } catch (activityError) {
       console.error('❌ [HELPER-CARD-LABELS] Erro ao criar atividade:', activityError.message);
+      console.error('❌ [HELPER-CARD-LABELS] Stack trace:', activityError.stack);
       // Não deixar o erro parar o processo
     }
 

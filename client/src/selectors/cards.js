@@ -439,13 +439,13 @@ export const selectCommentIdsForCurrentCard = createSelector(
   state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
-      return id;
+      return [];
     }
 
     const cardModel = Card.withId(id);
 
     if (!cardModel) {
-      return cardModel;
+      return [];
     }
 
     return cardModel
@@ -459,13 +459,13 @@ export const selectActivityIdsForCurrentCard = createSelector(
   state => selectPath(state).cardId,
   ({ Card }, id) => {
     if (!id) {
-      return id;
+      return [];
     }
 
     const cardModel = Card.withId(id);
 
     if (!cardModel) {
-      return cardModel;
+      return [];
     }
 
     return cardModel.getActivitiesModelArray().map(activity => activity.id);

@@ -16,20 +16,25 @@ import styles from './CardActivities.module.scss';
 
 const CardActivities = React.memo(() => {
   const activityIds = useSelector(selectors.selectActivityIdsForCurrentCard);
-  const { isActivitiesFetching, isAllActivitiesFetched } = useSelector(
-    selectors.selectCurrentCard
-  );
+  const currentCard = useSelector(selectors.selectCurrentCard);
 
   const dispatch = useDispatch();
 
   const [inViewRef] = useInView({
     threshold: 1,
     onChange: inView => {
-      if (inView) {
+      if (inView && currentCard) {
         dispatch(entryActions.fetchActivitiesInCurrentCard());
       }
     },
   });
+
+  // Verificar se há um card válido antes de renderizar
+  if (!currentCard) {
+    return null;
+  }
+
+  const { isActivitiesFetching, isAllActivitiesFetched } = currentCard;
 
   return (
     <>

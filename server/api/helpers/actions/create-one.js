@@ -3,35 +3,48 @@
  * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
  */
 
+const _ = require('lodash');
 const escapeMarkdown = require('escape-markdown');
 const escapeHtml = require('escape-html');
 
 const buildTitle = (action, t) => {
   switch (action.type) {
-    case Action.Types.CREATE_CARD:
+    case sails.models.action.Types.CREATE_CARD:
       return t('Card Created');
-    case Action.Types.MOVE_CARD:
+    case sails.models.action.Types.MOVE_CARD:
       return t('Card Moved');
-    case Action.Types.CREATE_TASK:
+    case sails.models.action.Types.CREATE_TASK:
       return t('Task Created');
-    case Action.Types.DELETE_TASK:
+    case sails.models.action.Types.DELETE_TASK:
       return t('Task Deleted');
-    case Action.Types.UPDATE_TASK:
+    case sails.models.action.Types.UPDATE_TASK:
       return t('Task Updated');
-    case Action.Types.COMPLETE_TASK:
+    case sails.models.action.Types.COMPLETE_TASK:
       return t('Task Completed');
-    case Action.Types.UNCOMPLETE_TASK:
+    case sails.models.action.Types.UNCOMPLETE_TASK:
       return t('Task Marked Incomplete');
-    case Action.Types.CREATE_TASK_LIST:
+    case sails.models.action.Types.CREATE_TASK_LIST:
       return t('Task List Created');
-    case Action.Types.DELETE_TASK_LIST:
+    case sails.models.action.Types.DELETE_TASK_LIST:
       return t('Task List Deleted');
-    case Action.Types.CREATE_ATTACHMENT:
+    case sails.models.action.Types.CREATE_ATTACHMENT:
       return t('Attachment Created');
-    case Action.Types.DELETE_ATTACHMENT:
+    case sails.models.action.Types.DELETE_ATTACHMENT:
       return t('Attachment Deleted');
-    case Action.Types.SET_DUE_DATE:
+    case sails.models.action.Types.SET_DUE_DATE:
       return t('Due Date Set');
+    case sails.models.action.Types.ADD_LABEL_TO_CARD:
+      return t('Label Added');
+    case sails.models.action.Types.REMOVE_LABEL_FROM_CARD:
+      return t('Label Removed');
+    case sails.models.action.Types.COMMENT_CREATE:
+      return t('Comment Created');
+    case sails.models.action.Types.COMMENT_UPDATE:
+      return t('Comment Updated');
+    case sails.models.action.Types.COMMENT_DELETE:
+      return t('Comment Deleted');
+    case sails.models.action.Types.COMMENT_REPLY:
+      return t('Comment Reply');
     default:
       return null;
   }
@@ -42,7 +55,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
   const htmlCardLink = `<a href="${sails.config.custom.baseUrl}/cards/${card.id}">${escapeHtml(card.name)}</a>`;
 
   switch (action.type) {
-    case Action.Types.CREATE_CARD: {
+    case sails.models.action.Types.CREATE_CARD: {
       const listName = sails.helpers.lists.makeName(action.data.list);
 
       return {
@@ -63,7 +76,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.MOVE_CARD: {
+    case sails.models.action.Types.MOVE_CARD: {
       const fromListName = sails.helpers.lists.makeName(action.data.fromList);
       const toListName = sails.helpers.lists.makeName(action.data.toList);
 
@@ -94,7 +107,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.SET_DUE_DATE: {
+    case sails.models.action.Types.SET_DUE_DATE: {
       const formatDate = (date) => {
         if (!date) return t('No date');
         return new Date(date).toLocaleDateString();
@@ -162,7 +175,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         };
       }
     }
-    case Action.Types.CREATE_TASK: {
+    case sails.models.action.Types.CREATE_TASK: {
       const taskName = action.data.task.name;
 
       return {
@@ -183,7 +196,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.DELETE_TASK: {
+    case sails.models.action.Types.DELETE_TASK: {
       const taskName = action.data.task.name;
 
       return {
@@ -204,7 +217,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.UPDATE_TASK: {
+    case sails.models.action.Types.UPDATE_TASK: {
       const taskName = action.data.task.name;
 
       return {
@@ -225,7 +238,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.COMPLETE_TASK: {
+    case sails.models.action.Types.COMPLETE_TASK: {
       const taskName = action.data.task.name;
 
       return {
@@ -246,7 +259,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.UNCOMPLETE_TASK: {
+    case sails.models.action.Types.UNCOMPLETE_TASK: {
       const taskName = action.data.task.name;
 
       return {
@@ -267,7 +280,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.CREATE_TASK_LIST: {
+    case sails.models.action.Types.CREATE_TASK_LIST: {
       const taskListName = action.data.taskList.name;
 
       return {
@@ -288,7 +301,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.DELETE_TASK_LIST: {
+    case sails.models.action.Types.DELETE_TASK_LIST: {
       const taskListName = action.data.taskList.name;
 
       return {
@@ -309,7 +322,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.CREATE_ATTACHMENT: {
+    case sails.models.action.Types.CREATE_ATTACHMENT: {
       const attachmentName = action.data.attachment.name;
 
       return {
@@ -330,7 +343,7 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
         ),
       };
     }
-    case Action.Types.DELETE_ATTACHMENT: {
+    case sails.models.action.Types.DELETE_ATTACHMENT: {
       const attachmentName = action.data.attachment.name;
 
       return {
@@ -346,6 +359,118 @@ const buildBodyByFormat = (board, card, action, actorUser, t) => {
           '%s deleted attachment %s from %s on %s',
           escapeHtml(actorUser.name),
           `<b>${escapeHtml(attachmentName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case sails.models.action.Types.ADD_LABEL_TO_CARD: {
+      const labelName = action.data.labelName || 'Label';
+
+      return {
+        text: t('%s added label %s to %s on %s', actorUser.name, labelName, card.name, board.name),
+        markdown: t(
+          '%s added label %s to %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(labelName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s added label %s to %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(labelName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case sails.models.action.Types.REMOVE_LABEL_FROM_CARD: {
+      const labelName = action.data.labelName || 'Label';
+
+      return {
+        text: t('%s removed label %s from %s on %s', actorUser.name, labelName, card.name, board.name),
+        markdown: t(
+          '%s removed label %s from %s on %s',
+          escapeMarkdown(actorUser.name),
+          `**${escapeMarkdown(labelName)}**`,
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s removed label %s from %s on %s',
+          escapeHtml(actorUser.name),
+          `<b>${escapeHtml(labelName)}</b>`,
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case sails.models.action.Types.COMMENT_CREATE: {
+      const commentText = action.data.commentText || '';
+
+      return {
+        text: t('%s commented on %s on %s', actorUser.name, card.name, board.name),
+        markdown: t(
+          '%s commented on %s on %s',
+          escapeMarkdown(actorUser.name),
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s commented on %s on %s',
+          escapeHtml(actorUser.name),
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case sails.models.action.Types.COMMENT_UPDATE: {
+      return {
+        text: t('%s updated comment on %s on %s', actorUser.name, card.name, board.name),
+        markdown: t(
+          '%s updated comment on %s on %s',
+          escapeMarkdown(actorUser.name),
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s updated comment on %s on %s',
+          escapeHtml(actorUser.name),
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case sails.models.action.Types.COMMENT_DELETE: {
+      return {
+        text: t('%s deleted comment on %s on %s', actorUser.name, card.name, board.name),
+        markdown: t(
+          '%s deleted comment on %s on %s',
+          escapeMarkdown(actorUser.name),
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s deleted comment on %s on %s',
+          escapeHtml(actorUser.name),
+          htmlCardLink,
+          escapeHtml(board.name),
+        ),
+      };
+    }
+    case sails.models.action.Types.COMMENT_REPLY: {
+      return {
+        text: t('%s replied to comment on %s on %s', actorUser.name, card.name, board.name),
+        markdown: t(
+          '%s replied to comment on %s on %s',
+          escapeMarkdown(actorUser.name),
+          markdownCardLink,
+          escapeMarkdown(board.name),
+        ),
+        html: t(
+          '%s replied to comment on %s on %s',
+          escapeHtml(actorUser.name),
           htmlCardLink,
           escapeHtml(board.name),
         ),
@@ -390,7 +515,15 @@ module.exports = {
   async fn(inputs) {
     const { values } = inputs;
 
-    const action = await Action.qm.createOne({
+    // Log para debug
+    console.log('🔍 [ACTIONS] Criando ação:', {
+      type: values.type,
+      data: values.data,
+      userId: values.user?.id,
+      cardId: values.card?.id
+    });
+
+    const action = await sails.models.action.qm.createOne({
       ...values,
       boardId: values.card.boardId,
       cardId: values.card.id,
@@ -420,9 +553,10 @@ module.exports = {
       user: values.user,
     });
 
-    if (Action.INTERNAL_NOTIFIABLE_TYPES.includes(action.type)) {
-      if (Action.PERSONAL_NOTIFIABLE_TYPES.includes(action.type)) {
-        if (values.user.id !== action.data.user.id) {
+    if (sails.models.action.INTERNAL_NOTIFIABLE_TYPES.includes(action.type)) {
+      if (sails.models.action.PERSONAL_NOTIFIABLE_TYPES.includes(action.type)) {
+        // Verificar se action.data.user existe antes de acessar
+        if (action.data && action.data.user && values.user.id !== action.data.user.id) {
           await sails.helpers.notifications.createOne.with({
             values: {
               action,
@@ -436,6 +570,8 @@ module.exports = {
             board: inputs.board,
             list: inputs.list,
           });
+        } else if (!action.data || !action.data.user) {
+          console.log('⚠️ [ACTIONS] Notificação pessoal ignorada - action.data.user não encontrado para tipo:', action.type);
         }
       } else {
         const cardSubscriptionUserIds = await sails.helpers.cards.getSubscriptionUserIds(
@@ -470,7 +606,7 @@ module.exports = {
       }
     }
 
-    if (Action.EXTERNAL_NOTIFIABLE_TYPES.includes(action.type)) {
+    if (sails.models.action.EXTERNAL_NOTIFIABLE_TYPES.includes(action.type)) {
       const notificationServices = await NotificationService.qm.getByBoardId(inputs.board.id);
 
       if (notificationServices.length > 0) {

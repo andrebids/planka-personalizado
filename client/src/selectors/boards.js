@@ -395,13 +395,13 @@ export const selectActivityIdsForCurrentBoard = createSelector(
   state => selectPath(state).boardId,
   ({ Board }, id) => {
     if (!id) {
-      return id;
+      return [];
     }
 
     const boardModel = Board.withId(id);
 
     if (!boardModel) {
-      return boardModel;
+      return [];
     }
 
     return boardModel.getActivitiesModelArray().map(activity => activity.id);

@@ -40,7 +40,15 @@ export function* fetchActivitiesInCurrentBoard() {
 }
 
 export function* fetchActivitiesInCard(cardId) {
-  const { lastActivityId } = yield select(selectors.selectCardById, cardId);
+  const card = yield select(selectors.selectCardById, cardId);
+  
+  // Verificar se o card existe antes de prosseguir
+  if (!card) {
+    console.warn(`❌ [SAGA-ACTIVITIES] Card não encontrado: ${cardId}`);
+    return;
+  }
+
+  const { lastActivityId } = card;
 
   yield put(actions.fetchActivitiesInCard(cardId));
 
@@ -55,6 +63,7 @@ export function* fetchActivitiesInCard(cardId) {
       beforeId: lastActivityId || undefined,
     }));
   } catch (error) {
+    console.error('❌ [SAGA-ACTIVITIES] Erro ao carregar atividades do card:', error.message);
     yield put(actions.fetchActivitiesInCard.failure(cardId, error));
     return;
   }
@@ -63,9 +72,15 @@ export function* fetchActivitiesInCard(cardId) {
 }
 
 export function* fetchActivitiesInCurrentCard() {
-  const { boardId } = yield select(selectors.selectPath);
+  const { cardId } = yield select(selectors.selectPath);
 
-  yield call(fetchActivitiesInCard, boardId);
+  // Verificar se há um cardId válido antes de prosseguir
+  if (!cardId) {
+    console.warn('❌ [SAGA-ACTIVITIES] Nenhum card selecionado para buscar atividades');
+    return;
+  }
+
+  yield call(fetchActivitiesInCard, cardId);
 }
 
 export function* handleActivityCreate(activity) {
